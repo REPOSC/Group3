@@ -9,4 +9,4 @@ sudo npm set registry https://registry.npm.taobao.org/
 sudo npm install -g eslint
 sudo npm install -y -g vue-cli@2.9
 cd /vagrant/eng_project/frontend
-npm install
+npm install --no-bin-links
