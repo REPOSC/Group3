@@ -1,6 +1,6 @@
 # frontend
 
-> A Mpvue project
+> english
 
 ## Build Setup
 

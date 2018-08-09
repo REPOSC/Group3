@@ -9,7 +9,7 @@
 	},
 	"miniprogramRoot": "./dist/",
 	"compileType": "miniprogram",
-	"appid": "touristappid",
+	"appid": "wx76fe502b7e06ab0e",
 	"projectname": "frontend",
 	"condition": {
 		"search": {
