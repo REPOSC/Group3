@@ -8,24 +8,24 @@ echo "\nValidating Javascript:\n"
 # Check for eslint
 # which eslint &> /dev/null
 if [[ "$?" == 1 ]]; then
-  echo "\t\033[41mPlease install ESlint\033[0m"
+  echo "Please install ESlint"
   exit 1
 fi
 for FILE in $STAGED_FILES
 do
   eslint "$FILE"
   if [[ "$?" == 0 ]]; then
-    echo "\t\033[32mESLint Passed: $FILE\033[0m"
+    echo "ESLint Passed: $FILE"
   else
-    echo "\t\033[41mESLint Failed: $FILE\033[0m"
+    echo "ESLint Failed: $FILE"
     PASS=false
   fi
 done
 echo "\nJavascript validation completed!\n"
 if ! $PASS; then
-  echo "\033[41mCOMMIT FAILED:\033[0m Your commit contains files that should pass ESLint but do not. Please fix the ESLint errors and try again.\n"
+  echo "COMMIT FAILED: Your commit contains files that should pass ESLint but do not. Please fix the ESLint errors and try again.\n"
   exit 1
 else
-  echo "\033[42mCOMMIT SUCCEEDED\033[0m\n"
+  echo "COMMIT SUCCEEDED\n"
 fi
 exit $?
