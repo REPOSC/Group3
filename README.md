@@ -30,7 +30,7 @@
 
 ---
 
-> 在项目文件夹中双击执行pre_boot.bat，用于安装Fedora系统和及eslint，stylelint等检查工具，等待安装结束并进入Fedora虚拟机环境。
+> 在项目文件夹中双击执行pre_boot.bat，用于安装Fedora系统和及eslint，stylelint等检查工具，等待安装结束后进入Fedora虚拟机环境。（如果脚本闪退，可能是因为网络问题，请在编辑器里打开后用cmd或其他shell单句执行）
 >
 > 在虚拟机环境中输入cd /vagrant，然后以管理员身份执行共享目录中的boot.sh，即输入sudo ./boot.sh。
 >
