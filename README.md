@@ -16,7 +16,7 @@
 >
 > 选择需要的项目文件夹在Git命令行中执行 git clone https://se.jisuanke.com/english-reading/Group3， 输入用户名和密码完成克隆。
 
-#### 3. 创建并安装虚拟机
+#### 3. 下载安装虚拟机所需软件
 
 ----
 
@@ -24,15 +24,21 @@
 >
 > 从[官网](https://www.virtualbox.org/wiki/Downloads)上下载最新版本的VirtualBox for Windows安装包，安装中始终单击“下一步”，直到完成安装。
 >
-> 在项目文件夹中双击执行pre_boot.bat，用于安装Fedora系统和配置Eslint代码检查工具，等待安装结束并进入Fedora虚拟机环境。
+> 从[官网](https://nodejs.org/en/)上下载最新版本的Node.js安装包，安装中始终单击“下一步”，直到完成安装。
 
-#### 4. 配置虚拟机环境
+#### 4. 安装虚拟机及配置虚拟机环境
 
 ---
 
-> 在虚拟机环境中输入cd /vagrant，然后以管理员身份执行共享目录中的boot.sh，即输入sudo ./boot.sh，保持联网状态完成基本的环境配置。（如果中间出现了下载失败或者停滞的状况，可能是网络不好或者被墙了，尝试多次即可）
+> 在项目文件夹中双击执行pre_boot.bat，用于安装Fedora系统和及eslint，stylelint等检查工具，等待安装结束并进入Fedora虚拟机环境。
 >
-> 进入vagrant下的eng_project/frontend目录下，输入npm run dev可以暂时将网站搭建在本机服务器上。
+> 在虚拟机环境中输入cd /vagrant，然后以管理员身份执行共享目录中的boot.sh，即输入sudo ./boot.sh。
+>
+> 在命令行内输入如下命令来初始化git账户：
+>
+> ​        初始化姓名：git config global user.name  + “自己的名字”
+>
+> ​        初始化邮箱：git config global user.email + “自己的邮箱”
 
 #### 5. 安装微信小程序官方开发端用于预览
 
