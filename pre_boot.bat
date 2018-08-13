@@ -1,13 +1,15 @@
-vagrant plugin install vagrant-vbguest
-npm install --save-dev mocha
-cd frontend
-npm install
-npm install --save-dev eslint eslint-plugin-vue@next
-npm install --save-dev stylelint stylelint-order
-cd ../frontend2
-npm install
-npm install --save-dev eslint eslint-plugin-vue@next
-npm install --save-dev stylelint stylelint-order
-vagrant up
-vagrant ssh
+call vagrant plugin install vagrant-vbguest
+call npm install --save-dev mocha
+call cd frontend
+call npm install
+call npm install --save-dev axios
+call npm install --save-dev eslint eslint-plugin-vue@next
+call npm install --save-dev stylelint stylelint-order
+call cd ../frontend2
+call npm install
+call npm install flyio
+call npm install --save-dev eslint eslint-plugin-vue@next
+call npm install --save-dev stylelint stylelint-order
+call vagrant up
+call vagrant ssh
 pause
