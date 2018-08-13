@@ -30,15 +30,15 @@
 
 ---
 
-> 在项目文件夹中双击执行pre_boot.bat，用于安装Fedora系统和及eslint，stylelint等检查工具，等待安装结束后进入Fedora虚拟机环境。（如果脚本闪退，可能是因为网络问题，请在编辑器里打开后用cmd或其他shell单句执行）
+> 在项目文件夹中双击执行pre_boot.bat，用于安装Fedora系统、用于解决跨域问题的axios以及用于代码风格检查的eslint，stylelint等工具，等待安装结束后进入Fedora虚拟机环境。
 >
-> 在虚拟机环境中输入cd /vagrant，然后以管理员身份执行共享目录中的boot.sh，即输入sudo ./boot.sh。
+> 在虚拟机环境中输入cd /vagrant，然后执行共享目录中的boot.sh，即输入 ./boot.sh 。
 >
 > 在命令行内输入如下命令来初始化git账户：
 >
-> ​        初始化姓名：git config global user.name  + “自己的名字”
+> ​        初始化姓名：git config --global user.name  +  “自己的名字”
 >
-> ​        初始化邮箱：git config global user.email + “自己的邮箱”
+> ​        初始化邮箱：git config --global user.email  +  “自己的邮箱”
 
 #### 5. 安装微信小程序官方开发端用于预览
 
@@ -46,7 +46,7 @@
 
 > 在[官网](https://developers.weixin.qq.com/miniprogram/dev/devtools/download.html?t=18080816)上下载最新版本的小程序开发客户端，安装中始终单击“下一步”，直到完成安装。
 >
-> 在Windows环境下，官方的开发客户端中点击“新建”并选择共享文件夹下的前端目录frontend，可以进行预览操作。
+> 在Windows环境下，官方的开发客户端中点击“新建”并选择共享文件夹下的前端目录frontend2，可以进行预览操作。
 
 #### 6. 安装编辑器
 
