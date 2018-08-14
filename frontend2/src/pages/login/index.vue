@@ -11,7 +11,7 @@
       <input type='password' class="input"/>
       <p>{{ password }}</p>
       </div>
-      <a href="/pages/level/main">登录</a>
+      <button @click="tobookshelf">登录</button>
     </form>
   </div>
 </template>
@@ -22,15 +22,6 @@ export default {
   data:{
     username:'',
     password:''
-  },
-  computed: {
-
-  },
-  methods: {
-    login() {
-      console.log(this.username)
-      console.log(this.password)
-    }
   }
 }
 </script>
