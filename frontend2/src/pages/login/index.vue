@@ -19,9 +19,11 @@
 <script>
 
 export default {
-  data:{
-    username:'',
-    password:''
+  data() {
+    return {
+      username: '',
+      password: ''
+    }
   }
 }
 </script>
