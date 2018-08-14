@@ -1,14 +1,15 @@
 {
   "pages": [
-    "pages/index/main",
     "pages/login/main",
+    "pages/level/main",
+    "pages/index/main",
     "pages/logs/main",
     "pages/counter/main"
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
+    "navigationBarBackgroundColor": "#6A8372",
+    "navigationBarTitleText": "弗恩阅读英语",
     "navigationBarTextStyle": "black"
   }
 }

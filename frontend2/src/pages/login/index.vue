@@ -1,13 +1,18 @@
 <template>
-  <div class="input">
-    <p>欢迎登录</p>
-    <p>用户名</p>
-    <input type='text' v-model="username" placeholder="请输入您的用户名"/>
-    <p>{{ username }}</p>
-    <p>密码</p>
-    <input type='password' v-model="password" placeholder="请输入您的密码"/>
-    <p>{{ password }}</p>
-    <a href="/pages/index/main" class="login">登录</a>
+  <div class="login">
+    <form class="form-control">
+      <div class="card">
+      <p>用户名:</p>
+      <input type='text' class="input"/>
+      <p>{{ username }}</p>
+      </div>
+      <div class="card">
+      <p>密码:</p>
+      <input type='password' class="input"/>
+      <p>{{ password }}</p>
+      </div>
+      <a href="/pages/level/main">登录</a>
+    </form>
   </div>
 </template>
 
@@ -31,15 +36,34 @@ export default {
 </script>
 
 <style>
-.input {
+a {
+  padding: 10px 28px;
+  margin-bottom: 30px，40px;
+  background-color: #e7e7e7;
+  color: black;
+  border: none;
   text-align: center;
-  margin-top: 100px;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+.card {
+  display:inline;
+}
+.input {
+  display: block;
+  padding: 0 12px;
+  margin-bottom: 5px;
+  border: 1px solid #ccc;
+}
+.form-control {
+  display: block;
+  padding: 150px 12px;
+  margin-bottom: 5px;
 }
 .login {
-  display: inline-block;
-  margin: 100px auto;
-  padding: 5px 10px;
-  color: blue;
-  border: 1px solid blue;
+  display: block;
+  padding: 0px 20px;
+  margin-bottom: 5px;
 }
 </style>
