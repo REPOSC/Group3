@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
+import Home from '@/components/Home'
+import createAccount from '@/components/stuManage/createAccount'
 
 Vue.use(Router)
 
@@ -8,8 +9,19 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
+      name: 'Home',
+      component: Home,
+      meta: {
+        title: '主页'
+      }
+    },
+    {
+      path: '/stuManage/createAccount',
+      name: 'createAccount',
+      component: createAccount,
+      meta: {
+        title: '创建用户'
+      }
     }
   ]
 })
