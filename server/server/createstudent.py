@@ -4,13 +4,24 @@ from backend import models
 from . import tools
 
 def create_student(request):
-  student_num = models.User_info.objects.filter(is_teacher=False).count()
-  student_num += 1
-  student_num += 1000000
-  student_name = str(student_num)
-  student_pwd = tools.random_string(15)
-  student = models.User_info.objects.create_user(user_id=student_num,
-                                                 password=student_pwd,
-                                                 username=student_name)
-  student.save()
-  return JsonResponse({"user_id": student_name, "password": student_pwd})
+  student_num = models.User_info.objects.filter(is_manager=False).count()  
+  student_num += 10000000
+  count = int(request.POST.get('number'))
+
+  student_names = []
+  student_pwds = []
+  for i in range(count):
+    student_num += 1
+    student_names.append(str(student_num))
+    student_pwds.append(tools.random_string(15))
+    student = models.User_info.objects.create_user(number=student_num,
+                                                  password=student_pwds[i],
+                                                  username=student_names[i])
+    student.save()
+    student_levels = request.POST.getlist('values')
+    for j in student_levels:
+      
+      student_level = models.User_level.objects.create(number=student,
+                                                      level=j)
+      student_level.save()
+  return JsonResponse({"number": student_names, "password": student_pwds})

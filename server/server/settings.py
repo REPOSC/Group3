@@ -25,9 +25,7 @@ SECRET_KEY = 'f_mr#m15#30t=z9035y&s@d&03jc^a5asv5591p*7#m)&l%@)4'
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-
 # Application definition
-
 INSTALLED_APPS = [
   'backend',
   'django.contrib.admin',
@@ -44,7 +42,7 @@ MIDDLEWARE = [
   'django.contrib.sessions.middleware.SessionMiddleware',
   'corsheaders.middleware.CorsMiddleware',
   'django.middleware.common.CommonMiddleware',
-  'django.middleware.csrf.CsrfViewMiddleware',
+  #'django.middleware.csrf.CsrfViewMiddleware',
   'django.contrib.auth.middleware.AuthenticationMiddleware',
   'django.contrib.messages.middleware.MessageMiddleware',
   'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -102,7 +100,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 # Internationalization
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'zh-hans'
 
 TIME_ZONE = 'UTC'
 
@@ -123,3 +121,4 @@ STATICFILES_DIRS = [
 AUTH_USER_MODEL = 'backend.User_Info'
 CORS_ORIGIN_ALLOW_ALL = True
 AUTHENTICATION_BACKENDS = ('django.contrib.auth.backends.ModelBackend',)
+LOGIN_URL = '/#/login/'

@@ -1,85 +1,268 @@
 <template>
-  <div class="layout">
-    <Layout>
-      <Sider>
-        <Menu>
-          <a class="info">弗恩英语管理平台</a>
-          <Submenu name="1">
-            <template slot="title">
-              <Icon type="md-person" />
-              学生管理
-            </template>
-            <MenuItem name="1-1">创建账号</MenuItem>
-            <MenuItem name="1-2">设置等级</MenuItem>
-            <MenuItem name="1-3">找回密码</MenuItem>
-          </Submenu>
+  <el-row class="container">
+    <!--头部,用element-ui提供的组件card展示-->
+    <el-col :span="24" class="topbar-wrap">
+      <div class="topbar-logo topbar-btn">
+        <a href="/"><img src="../assets/logo.png" style="padding-left:8px;"></a>
+      </div>
+      <div class="topbar-logos" v-show="!collapsed">
+        <a href="/"><img src="../assets/logotxt.png"></a>
+      </div>
+      <div class="topbar-title">
+        <span style="font-size: 18px;color: #fff;">后台管理系统</span>
+      </div>
+      <div class="topbar-account topbar-btn">
+        <el-dropdown trigger="click">
+          <span class="el-dropdown-link userinfo-inner"><i class="iconfont icon-user"></i> {{nickname}}  <i
+            class="iconfont icon-down"></i></span>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item>
+              <!--<div @click="jumpTo('/user/profile')"><span style="color: #555;font-size: 14px;">个人信息</span></div>-->
+            </el-dropdown-item>
+            <el-dropdown-item>
+              <div @click="jumpTo('/user/changepwd')"><span style="color: #555;font-size: 14px;">修改密码</span></div>
+            </el-dropdown-item>
+            <el-dropdown-item divided @click.native="logout">退出登录</el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
+      </div>
+    </el-col>
 
-          <Submenu name="2">
-            <template slot="title">
-              <Icon type="md-analytics" />
-              数据统计
-            </template>
-            <MenuItem name="2-1">书本数据统计</MenuItem>
-            <MenuItem name="2-2">学生数据统计</MenuItem>
-          </Submenu>
+    <!--中间-->
+    <el-col :span="24" class="main" >
+      <!--左侧导航-->
+      <aside :class="{showSidebar:!collapsed}" >
+        <!--展开折叠开关-->
+        <div class="menu-toggle" @click.prevent="collapse">
+          <i class="iconfont icon-menufold" v-show="!collapsed"></i>
+          <i class="iconfont icon-menuunfold" v-show="collapsed"></i>
+        </div>
+        <!--导航菜单-->
+        <el-menu :default-active="defaultActiveIndex" router :collapse="collapsed" @select="handleSelect" >
+          <template v-for="(item,index) in $router.options.routes" v-if="item.menuShow">
+            <el-submenu v-if="!item.leaf" :index="index+''">
+              <template slot="title"><i :class="item.iconCls"></i><span slot="title">{{item.name}}</span></template>
+              <el-menu-item v-for="term in item.children" :key="term.path" :index="term.path" v-if="term.menuShow"
+                            :class="$route.path===term.path?'is-active':''">
+                <i :class="term.iconCls"></i><span slot="title">{{term.name}}</span>
+              </el-menu-item>
+            </el-submenu>
+            <el-menu-item v-else-if="item.leaf&&item.children&&item.children.length" :index="item.children[0].path"
+                          :class="$route.path===item.children[0].path?'is-active':''">
+              <i :class="item.iconCls"></i><span slot="title">{{item.children[0].name}}</span>
+            </el-menu-item>
+          </template>
+        </el-menu>
+      </aside>
 
-          <Submenu name="3">
-            <template slot="title">
-              <Icon type="md-desktop" />
-              后台账户管理
-            </template>
-            <MenuItem name="3-1">添加账户</MenuItem>
-            <MenuItem name="3-2">修改密码</MenuItem>
-            <MenuItem name="3-3">删除账户</MenuItem>
-          </Submenu>
+      <!--右侧内容区-->
+      <section class="content-container">
+        <div class="grid-content bg-purple-light">
+          <el-col :span="24" class="content-wrapper">
+            <transition name="fade" mode="out-in">
+              <router-view></router-view>
+            </transition>
+          </el-col>
+        </div>
+      </section>
+    </el-col>
 
-          <Submenu name="4">
-            <template slot="title">
-              <Icon type="md-settings" />
-              教学内容设置
-            </template>
-            <MenuItem name="4-1">添加书籍</MenuItem>
-            <MenuItem name="4-2">管理书籍</MenuItem>
-            <MenuItem name="4-3">添加功能介绍视频</MenuItem>
-          </Submenu>
-
-          <Submenu name="5">
-            <template slot="title">
-              <Icon type="md-notifications" />
-              消息公告
-            </template>
-            <MenuItem name="5-1">群发消息</MenuItem>
-            <MenuItem name="5-2">私发消息</MenuItem>
-            <MenuItem name="5-3">历史消息</MenuItem>
-          </Submenu>
-
-          <Submenu name="6">
-            <template slot="title">
-              <Icon type="md-contacts" />
-              查看社群
-            </template>
-            <MenuItem name="6-1">级别1</MenuItem>
-            <MenuItem name="6-2">级别2</MenuItem>
-            <MenuItem name="6-3">级别3</MenuItem>
-            <MenuItem name="6-4">级别4</MenuItem>
-          </Submenu>
-
-        </Menu>
-      </Sider>
-    </Layout>
-  </div>
+  </el-row>
 </template>
 
 <script>
+import {bus} from '../bus.js'
+
 export default {
-  meta: {
-    title: '弗恩英语'
+  name: 'home',
+  created() {
+    bus.$on('setNickName', (text) => {
+      this.nickname = text
+    })
+
+    bus.$on('goto', (url) => {
+      if (url === '/login') {
+        localStorage.removeItem('access-user')
+      }
+      this.$router.push(url)
+    })
+  },
+  data () {
+    return {
+      defaultActiveIndex: '0',
+      nickname: '',
+      collapsed: false
+    }
+  },
+  methods: {
+    handleSelect(index) {
+      this.defaultActiveIndex = index
+    },
+    // 折叠导航栏
+    collapse: function () {
+      this.collapsed = !this.collapsed
+    },
+    jumpTo(url) {
+      this.defaultActiveIndex = url
+      this.$router.push(url) // 用go刷新
+    },
+    logout() {
+      let that = this
+      this.$confirm('确认退出吗?', '提示', {
+        confirmButtonClass: 'el-button--warning'
+      }).then(() => {
+        // 确认
+        that.loading = true
+        API.logout().then(function (result) {
+          that.loading = false
+          localStorage.removeItem('access-user')
+          that.$router.go('/login') // 用go刷新
+        }, function (err) {
+          that.loading = false
+          that.$message.error({showClose: true, message: err.toString(), duration: 2000})
+        }).catch(function (error) {
+          that.loading = false
+          console.log(error)
+          that.$message.error({showClose: true, message: '请求出现异常', duration: 2000})
+        })
+      }).catch(() => {})
+    }
+  },
+  mounted() {
+    let user = localStorage.getItem('access-user')
+    if (user) {
+      user = JSON.parse(user)
+      this.nickname = user.nickname || ''
+    }
   }
 }
 </script>
-<style>
-.info {
-  font-size: 25px;
-  color: black;
-}
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped lang="scss">  //作为唯一的属性
+  .container {    //容器包括头部的各种样式
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+
+    .topbar-wrap {
+      height: 50px;
+      line-height: 50px;
+      background: #373d41;
+      padding: 0;
+
+      .topbar-btn {
+        color: #ffffff;
+      }//个人用户按钮
+
+      .topbar-btn:hover {
+      }//点击后改变样式
+
+      .topbar-logo {
+        float: left;
+        width: 59px;
+        line-height: 26px;
+      }//logo样式
+
+      .topbar-logos {
+        float: left;
+        width: 120px;
+        line-height: 26px;
+      }//logo（logo,logotxt）界面的样式
+
+      .topbar-logo img, .topbar-logos img {
+        height: 40px;
+        margin-top: 5px;
+        margin-left: 2px;
+      }
+      .topbar-title {
+        float: left;
+        text-align: left;
+        width: 200px;
+        padding-left: 10px;
+        border-left: 1px solid #000;
+      }
+      .topbar-account {
+        float: right;
+        padding-right: 12px;
+      }
+      .userinfo-inner {
+        cursor: pointer;
+        color: #fff;
+        padding-left: 10px;
+      }
+    }
+    .main {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      position: absolute;
+      top: 50px;
+      bottom: 0;
+      overflow: hidden;
+    }
+
+    aside {
+      min-width: 50px;
+      background: #333744;
+      &::-webkit-scrollbar {
+        display: none;
+      }
+
+      &.showSidebar {
+        overflow-x: hidden;
+        overflow-y: auto;
+      }
+
+      .el-menu {
+        height: 100%; /*写给不支持calc()的浏览器*/
+        height: -moz-calc(100% - 80px);
+        height: -webkit-calc(100% - 80px);
+        height: calc(100% - 80px);
+        border-radius: 0;
+        background-color: #333744;
+        border-right: 0;
+      }
+
+      .el-submenu .el-menu-item {
+        min-width: 60px;
+      }
+      .el-menu {
+        width: 180px;
+      }
+      .el-menu--collapse {
+        width: 60px;
+      }
+
+      .el-menu .el-menu-item, .el-submenu .el-submenu__title {
+        height: 46px;
+        line-height: 46px;
+      }
+
+      .el-menu-item:hover, .el-submenu .el-menu-item:hover, .el-submenu__title:hover {
+        background-color: #7ed2df;
+      }
+    } //侧栏样式
+
+    .menu-toggle {
+      background: #4A5064;
+      text-align: center;
+      color: white;
+      height: 26px;
+      line-height: 30px;
+    }
+
+    .content-container {
+      background: #fff;
+      flex: 1;
+      overflow-y: auto;
+      padding: 10px 10px 1px;
+
+      .content-wrapper {
+        background-color: #fff;
+        box-sizing: border-box;
+      }
+    }
+  }
 </style>
