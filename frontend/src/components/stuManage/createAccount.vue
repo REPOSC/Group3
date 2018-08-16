@@ -1,44 +1,42 @@
 <template>
   <div>
-    <div label-width = "150px" class = "login-container" >
+    <div class="card">
 
       <div class="title">随机生成账户</div>
-
-      <br><br>
-      <div class="text">产生个数</div>
-      <br><br>
-      <el-input v-model="number" placeholder="请输入内容"></el-input>
-
       <br><br>
 
-      <div class="text">等级选择</div>
+      <div class="input-title">产生个数</div>
+      <br><br>
 
+      <el-input v-model="number" placeholder="请输入个数"></el-input>
+      <br><br>
+
+      <div class="input-title">等级选择</div>
       <br><br>
 
       <span v-for="option in options">
-        <el-checkbox v-model="option.value" class="selection">{{"等级"+option.number}}</el-checkbox>
+        <el-checkbox class="checkbox" v-model="option.value">{{"等级"+option.number}}</el-checkbox>
       </span>
       <br><br>
 
-      <el-button @click="submit">立即生成</el-button>
-
-      <br>
+      <el-button type = "primary"@click="submit">立即生成</el-button>
+      <br><br>
 
     </div>
 
-    <div class = "login-container" >
+    <div class="card">
       <el-table :data="tableData" height="400">
         <el-table-column prop="user_number" width="100px" align="center" label="账户" ></el-table-column>
         <el-table-column prop="user_pwd" align="center" label="密码" ></el-table-column>
       </el-table>
     </div>
+    <br><br>
   </div>
-
 </template>
 
 <script>
 /* eslint-disable camelcase */
-
+import * as Tools from '../Tools/Tools'
 import qs from 'qs'
 import axios from 'axios'
 export default {
@@ -58,25 +56,9 @@ export default {
   },
 
   methods: {
-    checknum: function (number) {
-      for (let i = 0; i < number.length; ++i) {
-        if (number[i] > '9' || number[i] < '0') {
-          alert('输入的个数非法，请检查')
-          return false
-        }
-      }
-      if (parseInt(number) > 10000) {
-        alert('输入的个数过大，请检查')
-        return false
-      } else if (parseInt(number) === 0) {
-        alert('个数不能为0！')
-        return false
-      }
-      return true
-    },
     submit: function () {
       this.tableData = []
-      if (!this.checknum(this.number)) {
+      if (!Tools.checkcount(this.number)) {
         return
       }
 
@@ -89,7 +71,7 @@ export default {
       }
 
       let saved = this
-      axios.post('http://192.168.55.33:8000/create_student', my_values)
+      axios.post(Tools.get_url() + 'create_student', my_values)
         .then(function(response) {
           let user_numbers = eval(response.data.number)
           let user_passwords = eval(response.data.password)
@@ -102,37 +84,3 @@ export default {
   }
 }
 </script>
-
-<style >
-
-  .login-container {
-    -webkit-border-radius: 5px;
-    border-radius: 5px;
-    -moz-border-radius: 5px;
-    background-clip: padding-box;
-    margin: 50px auto;
-    width: 400px;
-    padding: 35px 35px 15px 35px;
-    background: #fff;
-    border: 1px solid #eaeaea;
-    box-shadow: 0 0 25px #cac6c6;
-  }
-
-  .text {
-    height:30px ;
-    float: left ;
-    color:brown;
-  }
-
-  .selection {
-    width: 33%;
-    border:2px;
-    text-align: left;
-    color:grey;
-  }
-
-  .title {
-    height:30px;
-    font-size: 24px;
-  }
-  </style>
