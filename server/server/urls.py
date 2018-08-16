@@ -23,9 +23,11 @@ from django.contrib import admin
 urlpatterns = [
   path('admin/', admin.site.urls),
   #path('', views.login_manager),
-  path('auth_manager', views.auth_manager), 
-  path('create_student', createstudent.create_student), 
+  path('auth_manager', views.auth_manager),
+  path('create_student', createstudent.create_student),
   path('user_level', userlevel.show_level),
   path('get_books', showbooks.get_books),
-  path('',views.main)
+  path('',views.main),
+  path('auth_student', views.auth_student),
+  path('find_books', showbooks.find_books),
 ]

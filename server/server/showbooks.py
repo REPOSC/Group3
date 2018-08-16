@@ -16,3 +16,21 @@ def get_books(require):
     return JsonResponse({'answer':user_book_info})
   except:
     return JsonResponse({'answer':'error'})
+
+def find_books(require):
+  try:
+    user_number = require.POST.get('id','')
+    book_level = require.POST.get('level','')
+    search = require.POST.get('search','')
+    books_get = []
+    books_info = models.Book_info.object.filter(level=book_level)
+    for book in books_info:
+      if book.name.find(search) != -1:
+        newbook = models.User_process.object.filter(user_number=user_number,book_number=book.number)
+        books_get.append([book.name, book.id, newbook.process])
+    if len(books_get) == 0:
+      return JsonResponse({'answer':'no_match'})
+    else:
+      return JsonResponse({'answer':books_get})
+  except:
+    return JsonResponse({'answer':'error'})
