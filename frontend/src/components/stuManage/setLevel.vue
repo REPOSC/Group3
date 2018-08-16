@@ -2,30 +2,6 @@
   <!--背景图-->
 
   <div >
-    <!--login框，表单+tab标签页的组合-->
-    <div class = "loginFrame">
-      <form ref = "AccountForm"  rules = "rules" label-position = "left" label-width = "0px" class = "demo-ruleForm login-container">
-
-        <div style="height:30px ; float: left">会员账号</div>
-        <input type = "text"  style="width:100px ;height:25px" auto-complete = "off" placeholder = "请输入您的账号">{{username}}
-        <br/><br/>
-
-        <div id = 'app' style="height:30px ; float: left" >等级选择</div>&nbsp;
-        <select v-model="value" placeholder="请选择">
-          <option
-            v-for="item in options"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value">
-          </option>
-        </select>
-
-        <br/><br/><br/><br/>
-        <form-item style = "width:100%;">
-          <button type = "primary" style = "width:100%;"  @click="submit" >确认修改</button>
-        </form-item>
-      </form>
-    </div>
   </div>
 
 </template>

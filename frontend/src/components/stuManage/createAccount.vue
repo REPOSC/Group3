@@ -2,25 +2,25 @@
   <div>
     <div label-width = "150px" class = "login-container" >
 
-      <div style="height:30px; font-size: 24px" class="label">随机生成账户</div>
+      <div class="title">随机生成账户</div>
 
       <br><br>
-      <div style="height:30px ; float: left ; color:brown" >产生个数</div>
+      <div class="text">产生个数</div>
       <br><br>
       <el-input v-model="number" placeholder="请输入内容"></el-input>
 
       <br><br>
 
-      <div style="height:30px ; float: left ; color:brown" >等级选择</div>
+      <div class="text">等级选择</div>
 
       <br><br>
 
       <span v-for="option in options">
-        <el-checkbox v-model="option.value" style="width: 33%; border:2px; text-align: left; color:grey">{{"等级"+option.number}}</el-checkbox>
+        <el-checkbox v-model="option.value" class="selection">{{"等级"+option.number}}</el-checkbox>
       </span>
       <br><br>
 
-      <el-button style="color:deeppink" @click="submit">立即生成</el-button>
+      <el-button @click="submit">立即生成</el-button>
 
       <br>
 
@@ -116,4 +116,23 @@ export default {
     background: #fff;
     border: 1px solid #eaeaea;
     box-shadow: 0 0 25px #cac6c6;
-  }</style>
+  }
+
+  .text {
+    height:30px ;
+    float: left ;
+    color:brown;
+  }
+
+  .selection {
+    width: 33%;
+    border:2px;
+    text-align: left;
+    color:grey;
+  }
+
+  .title {
+    height:30px;
+    font-size: 24px;
+  }
+  </style>

@@ -9,9 +9,7 @@
     <el-input type="password" v-model="account.pwd" auto-complete="off" placeholder="密码"></el-input>
     </el-form-item>
     <el-checkbox v-model="checked" checked class="remember">记住密码</el-checkbox>
-    <el-form-item style="width:100%;">
-      <el-button type="primary" style="width:100%;" @click.native.prevent="handleLogin" :loading="loading">登录</el-button>
-    </el-form-item>
+    <el-button type="primary" @click.native.prevent="handleLogin" :loading="loading">登录</el-button>
   </el-form>
 </template>
 
@@ -55,11 +53,6 @@ export default {
   }
 }
 </script>
-<style>
-  body {
-    background: #DFE9FB;
-  }
-</style>
 <style lang="scss" scoped>
   .login-container {
     /*box-shadow: 0 0px 8px 0 rgba(0, 0, 0, 0.06), 0 1px 0px 0 rgba(0, 0, 0, 0.02);*/
