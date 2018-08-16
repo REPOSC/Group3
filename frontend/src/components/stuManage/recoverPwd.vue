@@ -1,28 +1,28 @@
 <template>
   <div class="card">
-      <div class="title">修改账户密码</div>
-      <br><br>
+    <div class="title">修改账户密码</div>
+    <br><br>
 
-      <div style="height:30px ; float: left ; color:brown" >会员账号</div>
-      <br><br>
+    <div class="input-title">会员账号</div>
+    <br><br>
 
-      <el-input type = "text"  v-model = "username" auto-complete = "off" placeholder = "请输入您的账号">{{username}}</el-input>
-      <br><br>
+    <el-input type = "text"  v-model = "username" auto-complete = "off" placeholder = "请输入您的账号">{{username}}</el-input>
+    <br><br>
 
-      <div style="height:30px ; float: left ; color:brown" >新密码</div>
-      <br><br>
+    <div class="input-title">新密码</div>
+    <br><br>
 
-      <el-input type = "password"  v-model = "password"  auto-complete = "off" placeholder = "请输入密码">{{password}}</el-input>
-      <br><br>
+    <el-input type = "password"  v-model = "password"  auto-complete = "off" placeholder = "请输入密码">{{password}}</el-input>
+    <br><br>
 
-      <div style="height:30px ; float: left ; color:brown" >确认密码</div>
-      <br><br>
+    <div class="input-title">确认密码</div>
+    <br><br>
 
-      <el-input type = "password"  v-model = "confirm_pwd" auto-complete = "off" placeholder = "请输入密码">{{password}}</el-input>
-      <br><br>
+    <el-input type = "password" v-model = "confirm_pwd" auto-complete = "off" placeholder = "请输入密码">{{password}}</el-input>
+    <br><br>
 
-      <el-button type = "primary" style = "color:white"  @click="submit" >确认修改</el-button>
-      <br><br>
+    <el-button type = "primary" @click="submit" >确认修改</el-button>
+    <br><br>
   </div>
 </template>
 
