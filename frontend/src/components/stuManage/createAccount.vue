@@ -1,7 +1,6 @@
 <template>
   <div>
     <div class="card">
-
       <div class="title">随机生成账户</div>
       <br><br>
 
@@ -19,9 +18,8 @@
       </span>
       <br><br>
 
-      <el-button type = "primary"@click="submit">立即生成</el-button>
+      <el-button type = "primary" @click="submit">立即生成</el-button>
       <br><br>
-
     </div>
 
     <div class="card">
@@ -37,8 +35,8 @@
 <script>
 /* eslint-disable camelcase */
 import * as Tools from '../Tools/Tools'
-import qs from 'qs'
 import axios from 'axios'
+
 export default {
   data: function() {
     return {

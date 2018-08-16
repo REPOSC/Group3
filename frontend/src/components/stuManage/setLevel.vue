@@ -3,21 +3,21 @@
     <div class="title">修改账户等级</div>
     <br><br>
 
-    <div style="height:30px ; float: left ; color:brown" >会员账号</div>
+    <div class="input-title">会员账号</div>
     <br><br>
 
     <el-input type = "text"  v-model = "username" auto-complete = "off" placeholder = "请输入您的账号">{{username}}</el-input>
     <br><br>
 
-    <div style="height:30px ; float: left ; color:brown" >等级选择</div>
+    <div class="input-title">等级选择</div>
     <br><br>
 
     <span v-for="option in options">
-        <el-checkbox v-model="option.value" class="checkbox">{{"等级"+option.number}}</el-checkbox>
+      <el-checkbox v-model="option.value" class="checkbox">{{"等级"+option.number}}</el-checkbox>
     </span>
     <br><br>
 
-    <el-button type = "primary" style = "color:white"  @click="submit">确认修改</el-button>
+    <el-button type = "primary" @click="submit">确认修改</el-button>
     <br><br>
   </div>
 </template>
