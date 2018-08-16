@@ -1,35 +1,65 @@
 <template>
-  <!--背景图-->
+  <div class="card">
+      <div class="title">修改账户密码</div>
+      <br><br>
 
-  <div >
+      <div style="height:30px ; float: left ; color:brown" >会员账号</div>
+      <br><br>
+
+      <el-input type = "text"  v-model = "username" auto-complete = "off" placeholder = "请输入您的账号">{{username}}</el-input>
+      <br><br>
+
+      <div style="height:30px ; float: left ; color:brown" >新密码</div>
+      <br><br>
+
+      <el-input type = "password"  v-model = "password"  auto-complete = "off" placeholder = "请输入密码">{{password}}</el-input>
+      <br><br>
+
+      <div style="height:30px ; float: left ; color:brown" >确认密码</div>
+      <br><br>
+
+      <el-input type = "password"  v-model = "confirm_pwd" auto-complete = "off" placeholder = "请输入密码">{{password}}</el-input>
+      <br><br>
+
+      <el-button type = "primary" style = "color:white"  @click="submit" >确认修改</el-button>
+      <br><br>
   </div>
-
 </template>
 
 <script>
-  export default {
-    data:{
-      username:'',
-      password:'',
-    },
-    methods:{
+import * as Tools from '../Tools/Tools.js'
+import qs from 'qs'
+import axios from 'axios'
+export default {
+  data: function() {
+    return {
+      username: '',
+      password: '',
+      confirm_pwd: ''
+    }
+  },
+  methods: {
+    submit: function () {
+      if (this.username === '' || this.password === '' || this.confirm_pwd === '') {
+        alert('请填写所有的字段！')
+        return
+      } else if (this.password !== this.confirm_pwd) {
+        alert('两次密码不匹配！')
+        return
+      }
+      let saved = this
+      axios.post(Tools.get_url() + 'change_password', qs.stringify({
+        username: saved.username,
+        password: saved.password
+      }))
+        .then(function(response) {
+          if (response.data.success) {
+            alert('密码修改成功！')
+          } else {
+            alert('修改失败，用户不存在！')
+          }
+        })
     }
   }
-
+}
 </script>
-
-<style >
-
-  .login-container {
-    -webkit-border-radius: 5px;
-    border-radius: 5px;
-    -moz-border-radius: 5px;
-    background-clip: padding-box;
-    margin: 180px auto;
-    width: 400px;
-    padding: 35px 35px 15px 35px;
-    background: #fff;
-    border: 1px solid #eaeaea;
-    box-shadow: 0 0 25px #cac6c6;
-
-  }</style>
