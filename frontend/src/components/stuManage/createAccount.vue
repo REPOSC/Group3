@@ -1,84 +1,106 @@
 <template>
-  <!--背景图-->
+  <div>
+    <div label-width = "150px" class = "login-container" >
 
-  <div >
-    <!--login框，表单+tab标签页的组合-->
-    <div class = "loginFrame">
-      <form ref = "AccountForm"  rules = "rules" label-position = "left" label-width = "0px" class = "demo-ruleForm login-container">
+      <div style="height:30px; font-size: 24px" class="label">随机生成账户</div>
 
-        <div style="height:30px ; float: left">新会员用户名</div>
-        <input type = "text"  style="width:100px ;height:25px" auto-complete = "off" placeholder = "请输入您的账号">{{username}}
-        <br/><br/>
-        <div style="height:30px ; float: left">登陆密码</div>
-        <input type = "password" style="width:100px ;height:25px" auto-complete = "off" placeholder = "请输入密码">{{password}}
-        <br/><br/>
+      <br><br>
+      <div style="height:30px ; float: left ; color:brown" >产生个数</div>
+      <br><br>
+      <el-input v-model="number" placeholder="请输入内容"></el-input>
 
-        <div id = 'app' style="height:30px ; float: left" >等级选择</div>&nbsp
-          <select v-model="value" placeholder="请选择">
-    <option
-      v-for="item in options"
-      :key="item.value"
-      :label="item.label"
-      :value="item.value">
-    </option>
-  </select>
+      <br><br>
 
-        <br/><br/><br/><br/>
-        <form-item style = "width:100%;">
-          <el-button type = "primary" style = "width:100%;"  @click="submit" >确认注册</el-button>
-        </form-item>
-      </form>
+      <div style="height:30px ; float: left ; color:brown" >等级选择</div>
+
+      <br><br>
+
+      <span v-for="option in options">
+        <el-checkbox v-model="option.value" style="width: 33%; border:2px; text-align: left; color:grey">{{"等级"+option.number}}</el-checkbox>
+      </span>
+      <br><br>
+
+      <el-button style="color:deeppink" @click="submit">立即生成</el-button>
+
+      <br>
+
+    </div>
+
+    <div class = "login-container" >
+      <el-table :data="tableData" height="400">
+        <el-table-column prop="user_number" width="100px" align="center" label="账户" ></el-table-column>
+        <el-table-column prop="user_pwd" align="center" label="密码" ></el-table-column>
+      </el-table>
     </div>
   </div>
 
 </template>
 
 <script>
-  export default {
-    data() {
-      return {
-        options: [{
-          value: '选项1',
-          label: '等级1'
-        }, {
-          value: '选项2',
-          label: '等级2'
-        }, {
-          value: '选项3',
-          label: '等级3'
-        }, {
-          value: '选项4',
-          label: '等级4'
-        }, {
-          value: '选项5',
-          label: '等级5'
-        },{
-          value: '选项6',
-          label: '等级6'
-        },{
-          value: '选项7',
-          label: '等级7'
-        },{
-          value: '选项8',
-          label: '等级8'
-        },{
-          value: '选项9',
-          label: '等级9'
-        },{
-          value: '选项10',
-          label: '等级10'
-        },{
-          value: '选项11',
-          label: '等级11'
-        },{
-          value: '选项12',
-          label: '等级12'
+/* eslint-disable camelcase */
+
+import qs from 'qs'
+import axios from 'axios'
+export default {
+  data: function() {
+    return {
+      max_value: 12,
+      options: [],
+      tableData: [],
+      number: 1
+    }
+  },
+
+  created: function () {
+    for (let i = 0; i < this.max_value; ++i) {
+      this.options.push({value: false, number: String(i + 1)})
+    }
+  },
+
+  methods: {
+    checknum: function (number) {
+      for (let i = 0; i < number.length; ++i) {
+        if (number[i] > '9' || number[i] < '0') {
+          alert('输入的个数非法，请检查')
+          return false
         }
-    ],
-        value: ''
       }
+      if (parseInt(number) > 10000) {
+        alert('输入的个数过大，请检查')
+        return false
+      } else if (parseInt(number) === 0) {
+        alert('个数不能为0！')
+        return false
+      }
+      return true
+    },
+    submit: function () {
+      this.tableData = []
+      if (!this.checknum(this.number)) {
+        return
+      }
+
+      let my_values = new URLSearchParams()
+      my_values.append('number', this.number)
+      for (let i = 0; i < this.max_value; ++i) {
+        if (this.options[i].value) {
+          my_values.append('values', i)
+        }
+      }
+
+      let saved = this
+      axios.post('http://192.168.55.33:8000/create_student', my_values)
+        .then(function(response) {
+          let user_numbers = eval(response.data.number)
+          let user_passwords = eval(response.data.password)
+          for (let i = 0; i < user_numbers.length; ++i) {
+            saved.tableData.push({user_number: user_numbers[i], user_pwd: user_passwords[i]})
+          }
+          alert('生成成功！请注意保存表格中的数据！')
+        })
     }
   }
+}
 </script>
 
 <style >
@@ -88,11 +110,10 @@
     border-radius: 5px;
     -moz-border-radius: 5px;
     background-clip: padding-box;
-    margin: 180px auto;
+    margin: 50px auto;
     width: 400px;
     padding: 35px 35px 15px 35px;
     background: #fff;
     border: 1px solid #eaeaea;
     box-shadow: 0 0 25px #cac6c6;
-
   }</style>

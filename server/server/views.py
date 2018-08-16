@@ -2,27 +2,23 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
-
+from django.contrib.auth.decorators import login_required
 
 def login_manager(request):
   return render(request, "login_manager.html")
 
 
 def auth_manager(request):
-  user_id = request.POST.get('id', '')
+  number = request.POST.get('id', '')
   user_pwd = request.POST.get('password', '')
-
-  f = open('poem.txt', 'w')
-  print(request.POST, file=f)
-  f.close()
-
-  user = authenticate(username=user_id, password=user_pwd)
+  user = authenticate(username=number, password=user_pwd, is_manager=True)
   if user is None:
-    return JsonResponse({"status": "error", "user_id": user_id, "user_pwd": user_pwd})
+    return JsonResponse({"status": "error"})
   else:
     login(request, user)
     return JsonResponse({"status": "right"})
 
 
-
-
+@login_required
+def main(request):
+  return render(request,"index.html")
