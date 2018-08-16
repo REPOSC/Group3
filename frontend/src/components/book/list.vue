@@ -10,7 +10,7 @@
 
     <el-col :span="24" class="warp-main" v-loading="loading" element-loading-text="拼命加载中">
       <!--工具条-->
-      <el-col :span="24" class="toolbar" style="padding-bottom: 0;">
+      <el-col :span="24" class="toolbar">
         <el-form :inline="true" :model="filters">
           <el-form-item>
             <el-input v-model="filters.name" placeholder="书名" @keyup.enter.native="handleSearch"></el-input>
@@ -25,8 +25,7 @@
       </el-col>
 
       <!--列表-->
-      <el-table :data="books" highlight-current-row @selection-change="selsChange"
-                style="width: 100%;">
+      <el-table :data="books" highlight-current-row @selection-change="selsChange">
         <el-table-column type="selection" width="55"></el-table-column>
         <el-table-column type="index" width="60"></el-table-column>
         <el-table-column type="expand">
@@ -52,8 +51,7 @@
       <!--工具条-->
       <el-col :span="24" class="toolbar">
         <el-button type="danger" @click="batchDeleteBook" :disabled="this.sels.length===0">批量删除</el-button>
-        <el-pagination layout="prev, pager, next" @current-change="handleCurrentChange" :page-size="10" :total="total"
-                       style="float:right;">
+        <el-pagination layout="prev, pager, next" @current-change="handleCurrentChange" :page-size="10" :total="total">
         </el-pagination>
       </el-col>
 

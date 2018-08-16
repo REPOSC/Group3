@@ -1,19 +1,14 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/Home'
-
 import stuManagecreateAccount from '@/components/stuManage/createAccount'
 import stuManagerecoverPwd from '@/components/stuManage/recoverPwd'
 import stuManagesetLevel from '@/components/stuManage/setLevel'
-
 import memberadd from '@/components/memberManager/addMember'
 import memberchangePwd from '@/components/memberManager/changePwd'
 import memberremove from '@/components/memberManager/removeMember'
-
-import Dashboard from '@/components/Dashboard'
 import BookList from '@/components/book/list'
 import BookCategoryList from '@/components/bookcategory/list'
-import UserList from '@/components/user/list'
 import UserChangePwd from '@/components/user/changepwd'
 import UserProfile from '@/components/user/profile'
 
@@ -119,7 +114,7 @@ let router = new Router({
       iconCls: 'iconfont icon-setting1',
       children: [
         {path: '/user/profile', component: UserProfile, name: '群发消息', menuShow: true},
-        {path: '/user/changepwd', component: UserChangePwd, name: '私发消息', menuShow: true},
+        {path: '/user/changepwd', component: UserChangePwd, name: '私发消息', menuShow: true}
       ]
     },
 

@@ -38,9 +38,6 @@ export default{
     }
   },
   methods: {
-    handleChangepwd() {
-      this.$message({message: '此功能只是让你看看，不会开发！', duration: 2000})
-    }
   }
 }
 </script>

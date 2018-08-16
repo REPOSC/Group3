@@ -3,13 +3,13 @@
     <!--头部,用element-ui提供的组件card展示-->
     <el-col :span="24" class="topbar-wrap">
       <div class="topbar-logo topbar-btn">
-        <a href="/"><img src="../assets/logo.png" style="padding-left:8px;"></a>
+        <a href="/"><img src="../assets/logo.png"></a>
       </div>
       <div class="topbar-logos" v-show="!collapsed">
         <a href="/"><img src="../assets/logotxt.png"></a>
       </div>
       <div class="topbar-title">
-        <span style="font-size: 18px;color: #fff;">后台管理系统</span>
+        <span>后台管理系统</span>
       </div>
       <div class="topbar-account topbar-btn">
         <el-dropdown trigger="click">
@@ -17,10 +17,10 @@
             class="iconfont icon-down"></i></span>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item>
-              <!--<div @click="jumpTo('/user/profile')"><span style="color: #555;font-size: 14px;">个人信息</span></div>-->
+              <div @click="jumpTo('/user/profile')"><span>个人信息</span></div>
             </el-dropdown-item>
             <el-dropdown-item>
-              <div @click="jumpTo('/user/changepwd')"><span style="color: #555;font-size: 14px;">修改密码</span></div>
+              <div @click="jumpTo('/user/changepwd')"><span>修改密码</span></div>
             </el-dropdown-item>
             <el-dropdown-item divided @click.native="logout">退出登录</el-dropdown-item>
           </el-dropdown-menu>
