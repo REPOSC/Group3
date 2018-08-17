@@ -7,7 +7,6 @@
         <el-breadcrumb-item>修改密码</el-breadcrumb-item>
       </el-breadcrumb>
     </el-col>
-
     <el-col :span="24" class="warp-main">
       <el-form ref="form" :model="form" label-width="120px">
         <el-form-item label="原密码">
@@ -26,18 +25,18 @@
     </el-col>
   </el-row>
 </template>
+
 <script>
-export default{
+export default {
   data() {
     return {
       form: {
-        oldPwd: '',
-        newPwd: '',
-        confirmPwd: ''
+        oldPwd: "",
+        newPwd: "",
+        confirmPwd: ""
       }
-    }
+    };
   },
-  methods: {
-  }
-}
+  methods: {}
+};
 </script>

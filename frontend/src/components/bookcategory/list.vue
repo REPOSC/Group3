@@ -7,18 +7,17 @@
         <el-breadcrumb-item>图书分类</el-breadcrumb-item>
       </el-breadcrumb>
     </el-col>
-
     <el-col :span="24" class="warp-main">
       <h2>神马也没有！</h2>
     </el-col>
   </el-row>
 </template>
 <script>
-export default{
+export default {
   data() {
     return {
-      msg: 'hello vue'
-    }
+      msg: "hello vue"
+    };
   }
-}
+};
 </script>

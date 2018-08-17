@@ -5,14 +5,14 @@ from . import tools
 from . import debug
 
 
-def change_password(request):
-    username = request.POST.get('username')
+def change_manager(request):
+    manager_name = request.POST.get('username')
     password = request.POST.get('password')
     try:
-        student = models.User_info.objects.get(
-            username=username, is_manager=False)
-        student.set_password(password)
-        student.save()
+        manager = models.User_info.objects.get(
+            username=manager_name, is_manager=True)
+        manager.set_password(password)
+        manager.save()
     except:
         return JsonResponse({"success": False})
     return JsonResponse({"success": True})
