@@ -30,7 +30,7 @@ export default {
 </script>
 
 <style>
-.detail,.extensive {
+.detail, .extensive {
   width: 50px;
   height: 60px;
   font-weight: bolder;
@@ -40,7 +40,7 @@ export default {
   font-size: 18px;
   text-align: center;
 }
-.previous,.next {
+.previous, .next {
   width: 50px;
   height: 60px;
   font-weight: bolder;

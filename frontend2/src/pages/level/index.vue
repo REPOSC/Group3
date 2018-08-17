@@ -39,7 +39,7 @@ div h1 {
 button {
   width: 21%;
   height: 50%;
-  padding:20px;
+  padding: 20px;
   margin: 30px 20px;
   border-radius: 100%;
 }
