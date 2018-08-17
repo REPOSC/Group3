@@ -12,7 +12,7 @@
   <i-row class="body">
     <i-col span="18" offset="1">
     <div class="bookshelf">
-      <book :key='book.id' v-for="book in books" :book='book' @click="choosebook"></book>
+      <book :key="book.id" v-for="book in books" :book="book" @click="choosebook"></book>
     </div>
     </i-col>
     <i-col span="3" offset="1">
@@ -34,8 +34,6 @@
           </div>
         </i-col>
       </i-row>
-    </div>
-    <div>
     </div>
   </div>
 </template>
@@ -146,9 +144,9 @@ h1 {
   justify-content: center;
   background-image: url("https://thumbnail0.baidupcs.com/thumbnail/275db52d93a970233afb4fea857c139c?fid=3911358295-250528-262347411912026&time=1534410000&rt=sh&sign=FDTAER-DCb740ccc5511e5e8fedcff06b081203-w2xas%2BOoBk%2F%2BXqN7eP6ofInMNNg%3D&expires=8h&chkv=0&chkbd=0&chkpc=&dp-logid=5282056197767209282&dp-callid=0&size=c710_u400&quality=100&vuk=-&ft=video");
   background-size: 100% 100%;
-  padding-left:5px;
-  padding-right:5px;
-  padding-top:4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 4px;
   padding-bottom: 11px;
   height: 360px;
 }

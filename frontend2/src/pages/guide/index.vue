@@ -1,27 +1,17 @@
 <template>
   <div>
-    <i-collapse simple>
-      <i-collapse-item title="教学指导">
-        <i-panel class="info" slot="content">
-          <p style="font-size: 14px">{{ content1 }}</p>
-        </i-panel>
-      </i-collapse-item>
-      <i-collapse-item title="重点知识">
-        <i-panel class="info" slot="content">
-          <li v-for="item in items1" :key="item">{{ item.text }}</li>
-        </i-panel>
-      </i-collapse-item>
-      <i-collapse-item class="title" title="今日导读">
-        <i-panel class="info" slot="content">
-          <p style="font-size: 14px">{{ content2 }}</p>
-        </i-panel>
-      </i-collapse-item>
-      <i-collapse-item class="title" title="词汇表">
-        <i-panel class="info" slot="content">
-          <li v-for="item in items2" :key="item">{{ item.text }}</li>
-        </i-panel>
-      </i-collapse-item>
-    </i-collapse>
+    <div class="firstpart">
+      <p>本课重点知识</p>
+      <p :key="one.index" v-for="one in ones">{{ one.index }}、{{ one.text }}</p>
+    </div>
+    <div class="secpart">
+      <p>今日导读</p>
+      <p :key="two.index" v-for="two in twos">{{ two.index }}、{{ two.text }}</p>
+    </div>
+    <div class="threepart">
+      <p>词汇表与配音讲解</p>
+      <p :key="three.index" v-for="three in threes">{{ three.index }}、{{ three.text }}</p>
+    </div>
   </div>
 </template>
 
@@ -29,17 +19,36 @@
 export default {
   data () {
     return {
-      content1: '首先 接着 最后',
-      content2: '小红帽与狼外婆',
-      items1: [
-        { text: '学会日常用语' },
-        { text: '学会背诵小鸭子' },
-        { text: '预习下一课' }
+      ones: [
+        {
+          index: 1,
+          text: '拼读'
+        },
+        {
+          index: 2,
+          text: '背诵'
+        },
+        {
+          index: 3,
+          text: '抄写'
+        }
       ],
-      items2: [
-        { text: '学会日常用语' },
-        { text: '学会背诵小鸭子' },
-        { text: '预习下一课' }
+      twos: [
+        {
+          index: 1,
+          text: '拼读'
+        },
+        {
+          index: 2,
+          text: '背诵'
+        },
+        {
+          index: 3,
+          text: '抄写'
+        }
+      ],
+      three: [
+
       ]
     }
   }
@@ -47,20 +56,8 @@ export default {
 </script>
 
 <style>
-
-div {
-  margin: 50px auto;
-}
-.info {
-  font-size: 18px;
-}
-li {
-  font-size: 18px;
-  border: solid 1px white;
-}
-i-collapse-item {
-  font-size: 24px;
-  padding: 20px 20px;
-  border: solid 1px white;
+page {
+  background-size: 100% 100%;
+  background-image: url('https://thumbnail0.baidupcs.com/thumbnail/208d7bfe35c662f32a88a1fe206d44e9?fid=3911358295-250528-398515735348763&time=1534424400&rt=sh&sign=FDTAER-DCb740ccc5511e5e8fedcff06b081203-mj%2BYVt%2Fbo9W%2BSqMC7ImwhtUDIcs%3D&expires=8h&chkv=0&chkbd=0&chkpc=&dp-logid=5285426163203658882&dp-callid=0&size=c710_u400&quality=100&vuk=-&ft=video');
 }
 </style>
