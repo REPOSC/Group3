@@ -1,33 +1,17 @@
 {
   "pages": [
+    "pages/bookshelf/main",
     "pages/level/main",
     "pages/login/main",
     "pages/Me/main",
-    "pages/bookshelf/main",
     "pages/community/main"
 
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#6A8372",
+    "navigationBarBackgroundColor": "#ffb001",
     "navigationBarTitleText": "弗恩阅读英语",
-    "navigationBarTextStyle": "black"
-  },
-  "tabBar": {
-    "selectedColor": "#EA5149",
-    "list": [
-      {
-        "pagePath": "pages/Me/main",
-        "text": "我的"
-      },
-      {
-        "pagePath": "pages/bookshelf/main",
-        "text": "书架"
-      },
-      {
-        "pagePath": "pages/community/main",
-        "text": "社群"
-      }
-    ]
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#53cce9"
   }
 }

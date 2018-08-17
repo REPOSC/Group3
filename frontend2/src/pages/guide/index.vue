@@ -29,17 +29,17 @@
 export default {
   data () {
     return {
-      content1: "首先 接着 最后",
-      content2: "小红帽与狼外婆",
+      content1: '首先 接着 最后',
+      content2: '小红帽与狼外婆',
       items1: [
-        { text: "学会日常用语" },
-        { text: "学会背诵小鸭子" },
-        { text: "预习下一课" }
+        { text: '学会日常用语' },
+        { text: '学会背诵小鸭子' },
+        { text: '预习下一课' }
       ],
       items2: [
-        { text: "学会日常用语" },
-        { text: "学会背诵小鸭子" },
-        { text: "预习下一课" }
+        { text: '学会日常用语' },
+        { text: '学会背诵小鸭子' },
+        { text: '预习下一课' }
       ]
     }
   }
