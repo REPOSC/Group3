@@ -1,12 +1,13 @@
 {
   "pages": [
+    "pages/practice/main",
+    "pages/show/main",
     "pages/guide/main",
     "pages/bookshelf/main",
     "pages/level/main",
     "pages/login/main",
     "pages/Me/main",
     "pages/community/main"
-
   ],
   "window": {
     "backgroundTextStyle": "light",
