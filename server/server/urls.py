@@ -15,18 +15,22 @@ Including another URLconf
 """
 from django.urls import path, include
 from . import views,createstudent,userlevel,showbooks,showbooks,\
-              changepassword,setlevel,authmanager,authstudent
+              changepassword,setlevel,authmanager,authstudent,\
+              addmanager,changemanager,delmanager
 from django.contrib import admin
 
 urlpatterns = [
-  path('admin/', admin.site.urls),
-  path('create_student', createstudent.create_student),
-  path('user_level', userlevel.show_level),
-  path('get_books', showbooks.get_books),
-  path('',views.main),
-  path('auth_student', authstudent.auth_student),
-  path('auth_manager', authmanager.auth_manager),
-  path('find_books', showbooks.find_books),
-  path('change_password',changepassword.change_password),
-  path('set_level',setlevel.set_level),
+    path('admin/', admin.site.urls),
+    path('create_student', createstudent.create_student),
+    path('user_level', userlevel.show_level),
+    path('get_books', showbooks.get_books),
+    path('', views.main),
+    path('auth_student', authstudent.auth_student),
+    path('auth_manager', authmanager.auth_manager),
+    path('find_books', showbooks.find_books),
+    path('change_password', changepassword.change_password),
+    path('set_level', setlevel.set_level),
+    path('add_manager', addmanager.add_manager),
+    path('change_manager', changemanager.change_manager),
+    path('del_manager', delmanager.del_manager),
 ]

@@ -1,34 +1,66 @@
 <template>
-  <!--背景图-->
-
-  <div >
-    <!--login框，表单+tab标签页的组合-->
-    <div class = "loginFrame">
-
-    </div>
+  <div class="card">
+    <div class="title">修改管理员密码</div>
+    <br><br>
+    <div class="input-title">管理员账号</div>
+    <br><br>
+    <el-input type = "text" v-model="username" auto-complete = "off" placeholder = "请输入管理员账号">{{username}}</el-input>
+    <br><br>
+    <div class="input-title">新密码</div>
+    <br><br>
+    <el-input type = "password" v-model="password" auto-complete = "off" placeholder = "请输入密码">{{password}}</el-input>
+    <br><br>
+    <div class="input-title">确认登陆密码</div>
+    <br><br>
+    <el-input type = "password" v-model="confirm_pwd" auto-complete = "off" placeholder = "请输入密码">{{confirm_pwd}}</el-input>
+    <br><br>
+    <el-button type = "primary" @click="submit" >确认修改</el-button>
+    <br><br>
   </div>
-
 </template>
 
 <script>
+import * as Tools from "../Tools/Tools";
+import axios from "axios";
+import qs from "qs";
 export default {
   data() {
+    return {
+      username: "",
+      password: "",
+      confirm_pwd: ""
+    };
+  },
+  methods: {
+    submit: function() {
+      if (
+        this.username === "" ||
+        this.password === "" ||
+        this.confirm_pwd === ""
+      ) {
+        alert("请填写所有的字段！");
+        return;
+      } else if (this.password !== this.confirm_pwd) {
+        alert("两次密码不匹配！");
+        return;
+      }
+      let saved = this;
+      axios
+        .post(
+          Tools.get_url() + "change_manager",
+          qs.stringify({
+            username: saved.username,
+            password: saved.password
+          })
+        )
+        .then(function(response) {
+          if (response.data.success) {
+            alert("修改管理员密码成功！");
+          } else {
+            alert("修改密码失败，管理员不存在！");
+          }
+        });
+    }
   }
-}
+};
 </script>
-
-<style >
-
-  .login-container {
-    -webkit-border-radius: 5px;
-    border-radius: 5px;
-    -moz-border-radius: 5px;
-    background-clip: padding-box;
-    margin: 180px auto;
-    width: 400px;
-    padding: 35px 35px 15px 35px;
-    background: #fff;
-    border: 1px solid #eaeaea;
-    box-shadow: 0 0 25px #cac6c6;
-
-  }</style>

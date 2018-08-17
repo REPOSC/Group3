@@ -1,46 +1,65 @@
 <template>
-  <el-row class="warp">
-    <el-col :span="24" class="warp-breadcrum">
-      <el-breadcrumb separator="/">
-        <el-breadcrumb-item :to="{ path: '/' }"><b>首页</b></el-breadcrumb-item>
-        <el-breadcrumb-item>设置</el-breadcrumb-item>
-        <el-breadcrumb-item>修改密码</el-breadcrumb-item>
-      </el-breadcrumb>
-    </el-col>
-
-    <el-col :span="24" class="warp-main">
-      <el-form ref="form" :model="form" label-width="120px">
-        <el-form-item label="原密码">
-          <el-input v-model="form.oldPwd"></el-input>
-        </el-form-item>
-        <el-form-item label="新密码">
-          <el-input v-model="form.newPwd"></el-input>
-        </el-form-item>
-        <el-form-item label="确认新密码">
-          <el-input v-model="form.confirmPwd"></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-button type="default" @click="handleChangepwd">提交</el-button>
-        </el-form-item>
-      </el-form>
-    </el-col>
-  </el-row>
+  <div class="card">
+    <div class="title">修改密码</div>
+    <br><br>
+    <div class="input-title">旧密码</div>
+    <br><br>
+    <el-input type = "password" v-model="old_pwd" auto-complete = "off" placeholder = "请输入旧密码">{{old_pwd}}</el-input>
+    <br><br>
+    <div class="input-title">新密码</div>
+    <br><br>
+    <el-input type = "password" v-model="password" auto-complete = "off" placeholder = "请输入密码">{{password}}</el-input>
+    <br><br>
+    <div class="input-title">确认登陆密码</div>
+    <br><br>
+    <el-input type = "password" v-model="confirm_pwd" auto-complete = "off" placeholder = "请输入密码">{{confirm_pwd}}</el-input>
+    <br><br>
+    <el-button type = "primary" @click="submit" >确认修改</el-button>
+    <br><br>
+  </div>
 </template>
 <script>
-export default{
+import * as Tools from "../Tools/Tools";
+import axios from "axios";
+import qs from "qs";
+export default {
   data() {
     return {
-      form: {
-        oldPwd: '',
-        newPwd: '',
-        confirmPwd: ''
-      }
-    }
+      old_pwd: "",
+      password: "",
+      confirm_pwd: ""
+    };
   },
   methods: {
-    handleChangepwd() {
-      this.$message({message: '此功能只是让你看看，不会开发！', duration: 2000})
+    submit: function() {
+      if (
+        this.old_pwd === "" ||
+        this.password === "" ||
+        this.confirm_pwd === ""
+      ) {
+        alert("请填写所有的字段！");
+        return;
+      } else if (this.password !== this.confirm_pwd) {
+        alert("两次密码不匹配！");
+        return;
+      }
+      let saved = this;
+      axios
+        .post(
+          Tools.get_url() + "change_manager",
+          qs.stringify({
+            username: saved.username,
+            password: saved.password
+          })
+        )
+        .then(function(response) {
+          if (response.data.success) {
+            alert("修改管理员密码成功！");
+          } else {
+            alert("修改密码失败，管理员不存在！");
+          }
+        });
     }
   }
-}
+};
 </script>
