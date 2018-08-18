@@ -2,6 +2,8 @@
   "usingComponents": {
     "i-collapse": "../../iview/collapse/index",
     "i-collapse-item": "../../iview/collapse-item/index",
-    "i-panel": "../../iview/panel/index"
+    "i-panel": "../../iview/panel/index",
+    "i-row": "../../iview/row/index",
+    "i-col": "../../iview/col/index"
   }
 }

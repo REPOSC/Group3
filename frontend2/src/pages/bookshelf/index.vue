@@ -2,40 +2,38 @@
 <div class="bookinterface">
   <i-row class="title">
     <i-col span="8" offset="1">
-    <img src="/static/img/rainbow.png">
+      <img src="/static/img/rainbow.png">
     </i-col>
     <i-col span="4" offset="1">
-    <h1>{{ level }}</h1>
+      <h1>{{ level }}</h1>
     </i-col>
   </i-row>
-
   <i-row class="body">
     <i-col span="18" offset="1">
-    <div class="bookshelf">
-      <book :key="book.id" v-for="book in books" :book="book" @click="choosebook"></book>
-    </div>
+      <div class="bookshelf">
+        <book :key="book.id" v-for="book in books" :book="book" @click="choosebook"></book>
+      </div>
     </i-col>
     <i-col span="3" offset="1">
       <iconbtn ref="childMethod"></iconbtn>
     </i-col>
   </i-row>
-
-    <div class="bottom">
-      <i-row>
-        <i-col span="17" offset="1">
-          <div class="search">
-            <input type="text" v-model="search" placeholder='搜索' clearable/>
-          </div>
-        </i-col>
-        <i-col span="5">
-          <div class="toMeBtn" @click="toMe">
-            <img src="/static/img/man.png">
-            <p>我的</p>
-          </div>
-        </i-col>
-      </i-row>
-    </div>
+  <div class="bottom">
+    <i-row>
+      <i-col span="17" offset="1">
+        <div class="search">
+          <input type="text" v-model="search" placeholder='搜索' clearable/>
+        </div>
+      </i-col>
+      <i-col span="5">
+        <div class="toMeBtn" @click="toMe">
+          <img src="/static/img/man.png">
+          <p>我的</p>
+        </div>
+      </i-col>
+    </i-row>
   </div>
+</div>
 </template>
 
 <script>
@@ -112,7 +110,6 @@ export default {
       console.log('click tome')
     },
     choosebook () {
-
     }
   }
 }
@@ -128,7 +125,7 @@ page {
 }
 h1 {
   margin-top: 30px;
-  padding:2px;
+  padding: 2px;
   color: #ffb001;
   font-size: 43px;
   font-family: fantasy;
