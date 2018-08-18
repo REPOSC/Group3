@@ -1,7 +1,7 @@
 <template>
-  <div class="choose">
-    <div class="levelbtn">
-      <button>K1</button>
+  <div class='choose'>
+    <div class='levelbtn'>
+      <button @click="onetest">K1</button>
       <button>K2</button>
       <button>K3</button>
       <button>K4</button>
@@ -18,11 +18,62 @@
 </template>
 
 <script>
+import qs from 'qs';
 export default {
   data() {
-
+    return {
+      username: '',
+      levels: []
+    };
+  },
+  onLoad: function() {
+    let Fly2 = require('../../../node_modules/flyio/dist/npm/wx.js');
+    let fly2 = new Fly2();
+    let save = this;
+    fly2
+      .post(
+        'http://139.199.106.168:8000/user_level',
+        qs.stringify({
+          id: '10000245'
+        })
+      )
+      .then(function(response) {
+        save.levels = [];
+        let temp = response.data.levels;
+        let i;
+        for (i in temp) {
+          save.levels.push(temp[i]);
+        }
+      });
+  },
+  methods: {
+    onetest: function() {
+      console.log(this.levels);
+      let Fly2 = require('../../../node_modules/flyio/dist/npm/wx.js');
+      let fly2 = new Fly2();
+      let save = this;
+      fly2
+        .post(
+          'http://139.199.106.168:8000/user_level',
+          qs.stringify({
+            id: '10000245',
+            password: 'cXmjsy7P6acoWEj'
+          })
+        )
+        .then(function(response) {
+          if (response.data.status === 'error') {
+            wx.showModal({
+              content: '账号或密码错误，请重新登录'
+            });
+          } else {
+            wx.redirectTo({
+              url: '../level/main'
+            });
+          }
+        });
+    }
   }
-}
+};
 </script>
 
 <style>
