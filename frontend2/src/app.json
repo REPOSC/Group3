@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/game2/main",
     "pages/practice/main",
     "pages/show/main",
     "pages/guide/main",
@@ -13,7 +14,7 @@
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#ffb001",
     "navigationBarTitleText": "弗恩阅读英语",
-    "navigationBarTextStyle": "black",
+    "navigationBarTextStyle": "white",
     "backgroundColor": "#53cce9"
   }
 }

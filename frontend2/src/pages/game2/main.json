@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "单词识别游戏",
+  "usingComponents": {
+    "i-row": "../../iview/row/index",
+    "i-col": "../../iview/col/index"
+  }
+}
