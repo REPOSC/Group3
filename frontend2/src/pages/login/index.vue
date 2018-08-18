@@ -1,56 +1,55 @@
 <template>
-  <div class="login">
-    <form class="form-control">
-      <div class="card">
-      <p>用户名:</p>
-      <input type='text' class="input"/>
-      <p>{{ username }}</p>
+  <div class='login'>
+    <form class='form-control'>
+      <div class='card'>
+        <p>账号:</p>
+        <input type='text' class='input' v-model='username' focus=true />
       </div>
-      <div class="card">
-      <p>密码:</p>
-      <input type='password' class="input"/>
-      <p>{{ password }}</p>
+      <div class='card'>
+        <p>密码:</p>
+        <input type='password' class='input' v-model='password'/>
       </div>
-      <button @click="tobookshelf">登录</button>
+      <button @click='handlelogin'>登录</button>
     </form>
   </div>
 </template>
 
 <script>
-
+import qs from 'qs';
 export default {
   data() {
     return {
-      username: '10000017',
-      password: 'bwCHikKhC5BjPit'
-    }
+      username: '10000245',
+      password: 'cXmjsy7P6acoWEj'
+    };
   },
   methods: {
-    test: function() {
-      console.log(this.username)
-      console.log(this.password)
-    },
     handlelogin: function() {
-      let Fly = require('../../../node_modules/flyio/dist/npm/wx.js')
-      let fly = new Fly()
-      let save = this
-      fly.post('http://192.168.55.33:8082/auth_student', qs.stringify({
-        id: save.username,
-        password: save.password
-      })).then(function(response) {
-        if (response.data.status === 'error') {
-          wx.showModal({
-            content: '账号或密码错误，请重新登录'
+      let Fly = require('../../../node_modules/flyio/dist/npm/wx.js');
+      let fly = new Fly();
+      let save = this;
+      fly
+        .post(
+          'http://139.199.106.168:8000/auth_student',
+          qs.stringify({
+            id: save.username,
+            password: save.password
           })
-        } else {
-          wx.redirectTo({
-            url: '../level/main'
-          })
-        }
-      })
+        )
+        .then(function(response) {
+          if (response.data.status === 'error') {
+            wx.showModal({
+              content: '账号或密码错误，请重新登录'
+            });
+          } else {
+            wx.redirectTo({
+              url: '../level/main'
+            });
+          }
+        });
     }
   }
-}
+};
 </script>
 
 <style>
@@ -66,7 +65,7 @@ a {
   font-size: 16px;
 }
 .card {
-  display:inline;
+  display: inline;
 }
 .input {
   display: block;

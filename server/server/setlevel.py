@@ -1,5 +1,3 @@
-# 更改学生等级
-
 from django.http import JsonResponse
 from django.contrib.auth.models import User
 from backend import models
