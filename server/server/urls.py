@@ -16,9 +16,9 @@ Including another URLconf
 from django.urls import path, include
 from . import views, createstudent, userlevel, showbooks, showbooks,\
     changepassword, setlevel, authmanager, authstudent,\
-    getbookcontent
+    getbookcontent, addmanager, changemanager, delmanager,\
+    putmessage
 from django.contrib import admin
-
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -39,4 +39,5 @@ urlpatterns = [
     path('get_third_function', getbookcontent.get_third_function),
     path('get_fourth_function', getbookcontent.get_fourth_function),
     path('get_fifth_function', getbookcontent.get_fifth_function),
+    path('put_message', putmessage.put_message),
 ]
