@@ -1,5 +1,5 @@
 function get_url() {
-  return 'http://192.168.55.33:8000/'
+  return 'http://139.199.106.168:8000/'
 }
 
 function checkcount(number) {

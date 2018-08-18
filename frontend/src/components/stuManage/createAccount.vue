@@ -18,7 +18,7 @@
     </div>
     <div class="card">
       <el-table :data="tableData" height="400">
-        <el-table-column prop="user_number" width="100px" align="center" label="账户" ></el-table-column>
+        <el-table-column prop="user_name" width="100px" align="center" label="账户" ></el-table-column>
         <el-table-column prop="user_pwd" align="center" label="密码" ></el-table-column>
       </el-table>
     </div>
@@ -28,8 +28,8 @@
 
 <script>
 /* eslint-disable camelcase */
-import * as Tools from "../Tools/Tools";
-import axios from "axios";
+import * as Tools from '../Tools/Tools'
+import axios from 'axios'
 export default {
   data: function() {
     return {
@@ -37,45 +37,45 @@ export default {
       options: [],
       tableData: [],
       number: 1
-    };
+    }
   },
   created: function() {
     for (let i = 0; i < this.max_value; ++i) {
-      this.options.push({ value: false, number: String(i + 1) });
+      this.options.push({ value: false, number: String(i + 1) })
     }
   },
   methods: {
     submit: function() {
-      this.tableData = [];
+      this.tableData = []
       if (!Tools.checkcount(this.number)) {
-        return;
+        return
       }
-      let my_values = new URLSearchParams();
-      my_values.append("number", this.number);
+      let my_values = new URLSearchParams()
+      my_values.append('number', this.number)
       for (let i = 0; i < this.max_value; ++i) {
         if (this.options[i].value) {
-          my_values.append("values", i);
+          my_values.append('values', i)
         }
       }
-      let saved = this;
+      let saved = this
       axios
-        .post(Tools.get_url() + "create_student", my_values)
+        .post(Tools.get_url() + 'create_student', my_values)
         .then(function(response) {
-          let user_numbers = eval(response.data.number);
-          let user_passwords = eval(response.data.password);
-          for (let i = 0; i < user_numbers.length; ++i) {
+          let user_names = eval(response.data.number)
+          let user_passwords = eval(response.data.password)
+          for (let i = 0; i < user_names.length; ++i) {
             saved.tableData.push({
-              user_number: user_numbers[i],
+              user_name: user_names[i],
               user_pwd: user_passwords[i]
-            });
+            })
           }
           saved.$notify({
-            title: "生成用户成功！",
-            message: "请注意保存表格中的数据！",
-            position: "bottom-right"
-          });
-        });
+            title: '生成用户成功！',
+            message: '请注意保存表格中的数据！',
+            position: 'bottom-right'
+          })
+        })
     }
   }
-};
+}
 </script>
