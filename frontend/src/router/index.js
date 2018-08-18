@@ -11,6 +11,7 @@ import BookList from '@/components/book/list'
 import BookCategoryList from '@/components/bookcategory/list'
 import UserChangePwd from '@/components/user/changepwd'
 import UserProfile from '@/components/user/profile'
+import SendMessage from '@/components/group/sendmessage'
 Vue.use(Router)
 // 懒加载方式，当路由被访问的时候才加载对应组件
 const Login = resolve => require(['@/components/login'], resolve)
@@ -113,8 +114,7 @@ let router = new Router({
       menuShow: true,
       iconCls: 'iconfont icon-setting1',
       children: [
-        { path: '/user/profile', component: UserProfile, name: '群发消息', menuShow: true },
-        { path: '/user/changepwd', component: UserChangePwd, name: '私发消息', menuShow: true }
+        { path: '/group/sendmessage', component: SendMessage, name: '群发消息', menuShow: true },
       ]
     },
     {
