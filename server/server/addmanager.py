@@ -8,9 +8,12 @@ from . import debug
 def add_manager(request):
     manager_name = request.POST.get('username')
     password = request.POST.get('password')
-    manager_num = models.User_info.objects.filter(is_manager=True).count()
-    manager_num += 100000
-    manager_num += 1
+    manager_num = 100001
+    try:
+        manager_num = models.User_info.objects.filter(is_manager=True).latest('number').number
+        manager_num += 1
+    except:
+        pass
 
     student = models.User_info.objects.create_user(
         number=manager_num,
