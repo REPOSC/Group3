@@ -114,7 +114,7 @@ export default {
               function(result) {
                 that.loading = false;
                 localStorage.removeItem("access-user");
-                that.$router.go("/login"); // 用go刷新
+                that.$router.push("/login"); // 用go刷新
               },
               function(err) {
                 that.loading = false;
@@ -150,6 +150,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 //作为唯一的属性
+
 .container {
   //容器包括头部的各种样式
   position: absolute;
@@ -220,7 +221,7 @@ export default {
       overflow-y: auto;
     }
     .el-menu {
-      height: 100%; /*写给不支持calc()的浏览器*/
+      height: 100%;
       height: -moz-calc(100% - 80px);
       height: -webkit-calc(100% - 80px);
       height: calc(100% - 80px);
@@ -266,4 +267,5 @@ export default {
     }
   }
 }
+
 </style>

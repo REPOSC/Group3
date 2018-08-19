@@ -1,3 +1,5 @@
+const MAX_VALUE = 12
+
 function get_url() {
   return 'http://139.199.106.168:8000/'
 }
@@ -30,8 +32,26 @@ function checknum(number) {
   return true
 }
 
+function del_element(array, arr_element) {
+	let index = -1
+	for (let i = 0; i < array.length; ++i) {
+		if (array[i] === arr_element) {
+			index = 1
+			break
+		}
+	}
+	if (index === -1) {
+		return
+	}
+	else {
+		array.splice(index,1)
+	}
+}
+
 export {
   get_url,
   checknum,
   checkcount,
+  del_element,
+  MAX_VALUE,
 }

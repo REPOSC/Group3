@@ -18,7 +18,7 @@ def get_first_function(request):
     for book_word in book_words_set:
         book_words_dict[book_word.word_number] = [
             book_word.word_content, book_word.word_sound]
-    return JsonResponse({"konwledge": book_knowledge_dict, "guide": book_guide_dict, "words": book_words_dict})
+    return JsonResponse({"knowledge": book_knowledge_dict, "guide": book_guide_dict, "words": book_words_dict})
 
 
 def get_second_function(request):
