@@ -1,77 +1,61 @@
 <template>
   <div class='choose'>
     <div class='levelbtn'>
-      <button @click="onetest">K1</button>
-      <button>K2</button>
-      <button>K3</button>
-      <button>K4</button>
-      <button>K5</button>
-      <button>K6</button>
-      <button>K7</button>
-      <button>K8</button>
-      <button>K9</button>
-      <button>K10</button>
-      <button>K11</button>
-      <button>K12</button>
+      <span v-for="level in levels">
+        <button :class="level.check" @click="submit(level.id)">{{level.id + 1}}</button>
+      </span>
     </div>
   </div>
 </template>
 
 <script>
-import * as Tools from '../../components/Tools.js'
-import qs from 'qs';
+import * as Tools from "../../components/Tools.js";
+import qs from "qs";
 export default {
   data() {
     return {
-      username: '',
-      levels: []
+      max_value: 12,
+      username: "",
+      levels: [],
+      last_level: "",
+      judge_level: false
     };
   },
-  onLoad: function() {
-    let Fly2 = require('../../../node_modules/flyio/dist/npm/wx.js');
-    let fly2 = new Fly2();
+  onLoad: function(option) {
+    this.username = option.username;
+    this.last_level = option.last_level;
+    let fly = Tools.get_fly();
     let save = this;
-    fly2
+    fly
       .post(
-        Tools.get_url() + 'user_level',
+        Tools.get_url() + "user_level",
         qs.stringify({
-          id: '10000245'
+          id: save.username
         })
       )
       .then(function(response) {
         save.levels = [];
         let temp = response.data.levels;
-        let i;
-        for (i in temp) {
-          save.levels.push(temp[i]);
+        for (let i = 0; i < save.max_value; ++i) {
+          if (temp.indexOf(i) !== -1) {
+            if (save.judge_level === false) {
+              if (save.last_level < i) {
+                save.last_level = i;
+              }
+              save.judge_level = true;
+            }
+            save.levels.push({ check: "true", id: i });
+          } else {
+            save.levels.push({ check: "false", id: i });
+          }
         }
       });
   },
   methods: {
-    onetest: function() {
-      console.log(this.levels);
-      let Fly2 = require('../../../node_modules/flyio/dist/npm/wx.js');
-      let fly2 = new Fly2();
-      let save = this;
-      fly2
-        .post(
-          Tools.get_url() + 'user_level',
-          qs.stringify({
-            id: '10000245',
-            password: 'cXmjsy7P6acoWEj'
-          })
-        )
-        .then(function(response) {
-          if (response.data.status === 'error') {
-            wx.showModal({
-              content: '账号或密码错误，请重新登录'
-            });
-          } else {
-            wx.redirectTo({
-              url: '../level/main'
-            });
-          }
-        });
+    submit: function(level) {
+      wx.navigateTo({
+        url: "../bookshelf/main?username=" + this.username + "&level=" + level
+      });
     }
   }
 };
@@ -89,7 +73,23 @@ div h1 {
   margin: 0 auto;
 }
 button {
-  width: 21%;
+  width: 33%;
+  height: 50%;
+  padding: 20px;
+  margin: 30px 20px;
+  border-radius: 100%;
+}
+.true {
+  width: 33%;
+  height: 50%;
+  padding: 20px;
+  margin: 30px 20px;
+  background-color: green;
+  border-radius: 100%;
+}
+.false {
+  background-color: gray;
+  width: 33%;
   height: 50%;
   padding: 20px;
   margin: 30px 20px;
