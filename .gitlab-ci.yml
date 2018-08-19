@@ -1,0 +1,21 @@
+stages:
+  - init
+  - backendtest
+
+environment:
+  stage: init
+  script:
+    - python3 -m venv ~/venv
+    - source ~/venv/bin/activate
+    - pip install --upgrade pip
+    - pip install Django mysqlclient
+    - pip install Pillow
+
+
+test:
+  stage: backendtest
+  script:
+    - source ~/venv/bin/activate
+    - python ./server/manage.py makemigrations backend
+    - python ./server/manage.py migrate
+    - python ./server/manage.py test
