@@ -16,6 +16,7 @@
 
 <script>
 import qs from 'qs';
+import * as Tools from '../../components/Tools.js'
 export default {
   data() {
     return {
@@ -30,7 +31,7 @@ export default {
       let save = this;
       fly
         .post(
-          'http://139.199.106.168:8000/auth_student',
+          Tools.get_url()+'auth_student',
           qs.stringify({
             id: save.username,
             password: save.password
