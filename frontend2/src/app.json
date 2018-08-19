@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/me/main",
     "pages/game2/main",
     "pages/practice/main",
     "pages/show/main",
