@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/e_book/main",
     "pages/me/main",
     "pages/game2/main",
     "pages/practice/main",
@@ -8,7 +9,6 @@
     "pages/bookshelf/main",
     "pages/level/main",
     "pages/login/main",
-    "pages/Me/main",
     "pages/community/main"
   ],
   "window": {
