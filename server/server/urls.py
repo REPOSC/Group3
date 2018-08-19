@@ -17,7 +17,7 @@ from django.urls import path, include
 from . import views, createstudent, userlevel, showbooks, \
     changepassword, setlevel, authmanager, authstudent,\
     getbookcontent, addmanager, changemanager, delmanager,\
-    putmessage, getmanagers
+    putmessage, getmanagers, getbook
 from django.contrib import admin
 
 urlpatterns = [
@@ -40,5 +40,6 @@ urlpatterns = [
     path('get_fourth_function', getbookcontent.get_fourth_function),
     path('get_fifth_function', getbookcontent.get_fifth_function),
     path('put_message', putmessage.put_message),
+    path('get_book', getbook.get_book),
     path('get_managers',getmanagers.get_managers),
 ]

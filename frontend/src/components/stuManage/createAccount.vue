@@ -33,14 +33,14 @@ import axios from 'axios'
 export default {
   data: function() {
     return {
-      max_value: 12,
+      MAX_VALUE: Tools.MAX_VALUE,
       options: [],
       tableData: [],
       number: 1
     }
   },
   created: function() {
-    for (let i = 0; i < this.max_value; ++i) {
+    for (let i = 0; i < this.MAX_VALUE; ++i) {
       this.options.push({ value: false, number: String(i + 1) })
     }
   },
@@ -52,7 +52,7 @@ export default {
       }
       let my_values = new URLSearchParams()
       my_values.append('number', this.number)
-      for (let i = 0; i < this.max_value; ++i) {
+      for (let i = 0; i < this.MAX_VALUE; ++i) {
         if (this.options[i].value) {
           my_values.append('values', i)
         }

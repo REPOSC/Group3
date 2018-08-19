@@ -83,9 +83,9 @@ home.vue
 
 .texts {
   width: 100%;
-  border: 2px;
+  border: 2px solid pink;
   text-align: left;
   font-size: 20px;
-  height: 300px;
+  height: 100px;
   resize: none;
 }
