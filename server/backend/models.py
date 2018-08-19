@@ -24,7 +24,7 @@ class Book_info(models.Model):
     level = models.IntegerField()
     name = models.CharField(max_length=50)
     introduction = models.TextField()
-    pages = models.IntegerField()
+    pages = models.IntegerField(null=True)
     is_persual = models.BooleanField()
 
 
@@ -51,10 +51,7 @@ class Page_content(models.Model):
 
 class Book_words(models.Model):
     book_number = models.ForeignKey(
-        'Book_info',
-        to_field='number',
-        on_delete=models.CASCADE,
-        primary_key=True)
+        'Book_info', to_field='number', on_delete=models.CASCADE)
     word_number = models.IntegerField()
     word_content = models.CharField(max_length=50)
     word_sound = models.FileField()
