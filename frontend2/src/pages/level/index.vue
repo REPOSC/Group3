@@ -18,6 +18,7 @@
 </template>
 
 <script>
+import * as Tools from '../../components/Tools.js'
 import qs from 'qs';
 export default {
   data() {
@@ -32,7 +33,7 @@ export default {
     let save = this;
     fly2
       .post(
-        'http://139.199.106.168:8000/user_level',
+        Tools.get_url() + 'user_level',
         qs.stringify({
           id: '10000245'
         })
@@ -54,7 +55,7 @@ export default {
       let save = this;
       fly2
         .post(
-          'http://139.199.106.168:8000/user_level',
+          Tools.get_url() + 'user_level',
           qs.stringify({
             id: '10000245',
             password: 'cXmjsy7P6acoWEj'
