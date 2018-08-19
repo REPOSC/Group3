@@ -3,7 +3,7 @@
     <form class='form-control'>
       <div class='card'>
         <p>账号:</p>
-        <input type='text' class='input' v-model='username' focus=true />
+        <input type='text' class='input' v-model='username'/>
       </div>
       <div class='card'>
         <p>密码:</p>
@@ -20,14 +20,14 @@ import * as Tools from '../../components/Tools.js'
 export default {
   data() {
     return {
-      username: '10000245',
-      password: 'cXmjsy7P6acoWEj'
+      username: '10000328',
+      password: 'A54t8M65hwBrykS',
+      last_level: ""
     };
   },
   methods: {
     handlelogin: function() {
-      let Fly = require('../../../node_modules/flyio/dist/npm/wx.js');
-      let fly = new Fly();
+      let fly = Tools.get_fly()
       let save = this;
       fly
         .post(
@@ -43,8 +43,9 @@ export default {
               content: '账号或密码错误，请重新登录'
             });
           } else {
+            save.last_level = response.data.last_level
             wx.redirectTo({
-              url: '../level/main'
+              url: '../level/main?username=' + save.username + '&last_level=' + save.last_level
             });
           }
         });

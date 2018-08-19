@@ -4,7 +4,7 @@ from backend import models
 
 
 def show_level(request):
-    number = request.POST.get('id','')
+    number = request.POST.get('id', '')
     levels = models.User_level.objects.filter(number=number)
     level_list = []
     for onelevel in levels:
