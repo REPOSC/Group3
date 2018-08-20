@@ -10,6 +10,7 @@ environment:
     - pip install --upgrade pip
     - pip install Django mysqlclient
     - pip install Pillow
+    - pip install django-cors-headers
 
 test:
   stage: backendtest
@@ -17,4 +18,5 @@ test:
     - source ~/venv/bin/activate
     - python ./server/manage.py makemigrations backend
     - python ./server/manage.py migrate
-    - python ./server/manage.py test
+    - cd ./server
+    - python manage.py test
