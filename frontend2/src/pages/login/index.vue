@@ -15,37 +15,41 @@
 </template>
 
 <script>
-import qs from 'qs';
-import * as Tools from '../../components/Tools.js'
+import qs from "qs";
+import * as Tools from "../../components/Tools.js";
 export default {
   data() {
     return {
-      username: '10000328',
-      password: 'A54t8M65hwBrykS',
+      username: "10000328",
+      password: "A54t8M65hwBrykS",
       last_level: ""
     };
   },
   methods: {
     handlelogin: function() {
-      let fly = Tools.get_fly()
+      let fly = Tools.get_fly();
       let save = this;
       fly
         .post(
-          Tools.get_url()+'auth_student',
+          Tools.get_url() + "auth_student",
           qs.stringify({
             id: save.username,
             password: save.password
           })
         )
         .then(function(response) {
-          if (response.data.status === 'error') {
+          if (response.data.status === "error") {
             wx.showModal({
-              content: '账号或密码错误，请重新登录'
+              content: "账号或密码错误，请重新登录"
             });
           } else {
-            save.last_level = response.data.last_level
+            save.last_level = response.data.last_level;
             wx.redirectTo({
-              url: '../level/main?username=' + save.username + '&last_level=' + save.last_level
+              url:
+                "../level/main?username=" +
+                save.username +
+                "&last_level=" +
+                save.last_level
             });
           }
         });

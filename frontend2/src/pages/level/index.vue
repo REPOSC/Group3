@@ -53,9 +53,15 @@ export default {
   },
   methods: {
     submit: function(level) {
-      wx.navigateTo({
-        url: "../bookshelf/main?username=" + this.username + "&level=" + level
-      });
+      if (this.levels[level].check === "true") {
+        wx.navigateTo({
+          url: "../bookshelf/main?username=" + this.username + "&level=" + level
+        });
+      } else {
+        wx.showModal({
+          content: "您还没有拥有此等级的书籍，请选择其他等级。"
+        });
+      }
     }
   }
 };
