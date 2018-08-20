@@ -17,7 +17,7 @@ from django.urls import path, include
 from . import views, back_createstudent, front_userlevel, front_showbooks, \
     back_changepassword, back_setlevel, back_authmanager, front_authstudent,\
     front_getbookcontent, back_addmanager, back_changemanager, back_delmanager,\
-    back_putmessage, back_getmanagers, back_getbook
+    back_putmessage, back_getmanagers, back_getbook,back_allstudent,back_getstudent
 from django.contrib import admin
 
 urlpatterns = [
@@ -32,6 +32,8 @@ urlpatterns = [
     path('get_fourth_function', front_getbookcontent.get_fourth_function),
     path('get_fifth_function', front_getbookcontent.get_fifth_function),
     path('', views.main),
+	path('all_student', back_allstudent.all_student),
+	path('get_student', back_getstudent.get_student),
     path('create_student', back_createstudent.create_student),
     path('auth_manager', back_authmanager.auth_manager),
     path('change_password', back_changepassword.change_password),
