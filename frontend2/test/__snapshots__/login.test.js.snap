@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`测试登录界面 为login单元测试增加快照 1`] = `
+<div
+  class="login"
+>
+  <form
+    class="form-control"
+  >
+    <div
+      class="card"
+    >
+      <p>
+        账号:
+      </p>
+       
+      <input
+        class="input"
+        type="text"
+      />
+    </div>
+     
+    <div
+      class="card"
+    >
+      <p>
+        密码:
+      </p>
+       
+      <input
+        class="input"
+        type="password"
+      />
+    </div>
+     
+    <button>
+      登录
+    </button>
+  </form>
+</div>
+`;

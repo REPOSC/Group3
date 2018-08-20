@@ -1,0 +1,3 @@
+env：
+ node: true
+ jest: true
