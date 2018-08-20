@@ -48,25 +48,38 @@
       <div class="title"> 词汇表 </div>
       <br><br>
       <div v-for="(word,index) in words">
-        <Word_list
-        v-bind:word_text="words[index].text"
-        v-bind:word_audio="words[index].audio"
+        <Word
         v-bind:index="index"
-        @get_text="get_text" @get_audio="get_audio"></Word_list>
+        @get_text="get_text" @get_audio="get_guide_audio"></Word>
         <br><br>
       </div>
       <br><br>
       <el-button @click="add_word"> 添加新单词 </el-button>
       <br><br>
     </div>
-
+    <div>
+      <div v-for="(page,index) in pages">
+        <Page
+          v-bind:index="index"
+          @get_english="get_book_english_text"
+          @get_chinese="get_book_chinese_text"
+          @get_audio="get_book_audio"
+          @get_picture="get_book_picture"
+        ></Page>
+        <br><br>
+      </div>
+      <el-button @click="add_page"> 添加新的一页 </el-button>
+      <br><br>
+    </div>
+    <br><br>
     <el-button type="primary" @click="submit"> 上传书籍 </el-button>
     <br><br>
   </div>
 </template>
 <script>
 import * as Tools from '../Tools/Tools'
-import word_list from './_word_list.vue'
+import word from './_word.vue'
+import page from './_page.vue'
 import axios from 'axios'
 export default {
   data: function() {
@@ -77,12 +90,12 @@ export default {
       level: 1,
       guides: [''],
       knowledges: [''],
-      words: [{ text: '', audio: null}],
-      persual: 'true'
+      words: [{ text: '', audio: null }],
+      persual: 'true',
+      pages: [{ english_text: '', chinese_text: '', audio: null, picture: null}]
     }
   },
-  mounted: function() {
-  },
+  mounted: function() {},
   methods: {
     add_knowledge: function() {
       this.knowledges.push('')
@@ -91,13 +104,28 @@ export default {
       this.guides.push('')
     },
     add_word: function() {
-      this.words.push({ word_text: '', audio_file: null})
+      this.words.push({ text: '', audio: null })
     },
-    get_audio: function(obj) {
+    add_page: function() {
+      this.pages.push({ english_text: '', chinese_text: '', audio: null, picture: null })
+    },
+    get_guide_audio: function(obj) {
       this.words[obj.index].audio = obj.value
     },
     get_text: function(obj) {
       this.words[obj.index].text = obj.value
+    },
+    get_book_audio: function(obj) {
+      this.pages[obj.index].audio = obj.value
+    },
+    get_book_picture: function(obj) {
+      this.pages[obj.index].picture = obj.value
+    },
+    get_book_english_text: function(obj) {
+      this.pages[obj.index].english_text = obj.value
+    },
+    get_book_chinese_text: function(obj) {
+      this.pages[obj.index].chinese_text = obj.value
     },
     submit: function() {
       if (!confirm('确定要上传所有的内容吗？')) {
@@ -118,6 +146,12 @@ export default {
         my_values.append('word_text', this.words[i].text)
         my_values.append('word_audio', this.words[i].audio)
       }
+      for (let i = 0; i < this.pages.length; ++i) {
+        my_values.append('book_english_text', this.pages[i].english_text)
+        my_values.append('book_chinese_text', this.pages[i].chinese_text)
+        my_values.append('book_audio', this.pages[i].audio)
+        my_values.append('book_picture', this.pages[i].picture)
+      }
       let saved = this
       axios
         .post(Tools.get_url() + 'get_book', my_values)
@@ -130,12 +164,10 @@ export default {
     }
   },
   components: {
-    Word_list: word_list
+    Word: word,
+    Page: page
   }
 }
 </script>
 <style>
-.demo-table-expand label {
-  font-weight: bold;
-}
 </style>
