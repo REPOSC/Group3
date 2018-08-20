@@ -1,6 +1,6 @@
 {
   "pages": [
-
+    "pages/message/main",
     "pages/login/main",
     "pages/game1/main",
     "pages/e_book/main",
