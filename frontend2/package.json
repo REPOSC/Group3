@@ -8,12 +8,14 @@
     "dev": "node build/dev-server.js",
     "start": "node build/dev-server.js",
     "build": "node build/build.js",
-    "eslint": "eslint --ext .js,.vue src"
+    "eslint": "eslint --ext .js,.vue src",
+    "test": "jest"
   },
   "dependencies": {
     "flyio": "^0.6.0",
     "mpvue": "^1.0.11",
-    "vuex": "^3.0.1"
+    "vuex": "^3.0.1",
+    "vue": "^2.4.4"
   },
   "devDependencies": {
     "babel-core": "^6.22.1",
@@ -60,7 +62,11 @@
     "webpack-bundle-analyzer": "^2.2.1",
     "webpack-dev-middleware-hard-disk": "^1.12.0",
     "webpack-merge": "^4.1.0",
-    "webpack-mpvue-asset-plugin": "^0.1.1"
+    "webpack-mpvue-asset-plugin": "^0.1.1",
+    "@vue/test-utils": "^1.0.0-beta.13",
+    "jest": "^21.2.1",
+    "vue-jest": "^2.6.0",
+    "vue-template-compiler": "^2.4.4"
   },
   "engines": {
     "node": ">= 4.0.0",
@@ -70,5 +76,20 @@
     "> 1%",
     "last 2 versions",
     "not ie <= 8"
-  ]
+  ],
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "vue"
+    ],
+    "transform": {
+      "^.+\\.js$": "<rootDir>/node_modules/babel-jest",
+      ".*\\.(vue)$": "<rootDir>/node_modules/vue-jest"
+    },
+    "moduleNameMapper": {
+      "^@/(.*)$": "<rootDir>/src/$1"
+    },
+    "collectCoverage": true
+  }
 }
