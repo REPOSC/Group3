@@ -11,7 +11,7 @@
   <i-row class="body">
     <i-col span="18" offset="1">
       <div class="bookshelf">
-        <book :key="book.id" v-for="book in books" :book="book" @click="choosebook"></book>
+        <book :key="book.id" v-for="book in books" :book="book" alt="book" @click="choosebook"></book>
       </div>
     </i-col>
     <i-col span="3" offset="1">
@@ -37,88 +37,88 @@
 </template>
 
 <script>
-import book from '@/components/book'
-import iconbtn from '@/components/iconbtn'
+import book from "@/components/book";
+import iconbtn from "@/components/iconbtn";
 export default {
-  data () {
+  data() {
     return {
       books: [
         {
           id: 1,
           percent: 10,
-          title: 'BOOK1',
-          image: '/static/img/英语1.jpg'
+          title: "BOOK1",
+          image: "/static/img/english1.jpg"
         },
         {
           id: 2,
           percent: 90,
-          title: 'BOOK1',
-          image: '/static/img/英语1.jpg'
+          title: "BOOK1",
+          image: "/static/img/english1.jpg"
         },
         {
           id: 3,
           percent: 30,
-          title: 'BOOK1',
-          image: '/static/img/英语1.jpg'
+          title: "BOOK1",
+          image: "/static/img/english1.jpg"
         },
         {
           id: 4,
           percent: 10,
-          title: 'BOOK1',
-          image: '/static/img/英语1.jpg'
+          title: "BOOK1",
+          image: "/static/img/english1.jpg"
         },
         {
           id: 5,
           percent: 90,
-          title: 'BOOK1',
-          image: '/static/img/英语1.jpg'
+          title: "BOOK1",
+          image: "/static/img/english1.jpg"
         },
         {
           id: 6,
           percent: 30,
-          title: 'BOOK1',
-          image: '/static/img/英语1.jpg'
+          title: "BOOK1",
+          image: "/static/img/english1.jpg"
         },
         {
           id: 7,
           percent: 10,
-          title: 'BOOK1',
-          image: '/static/img/英语1.jpg'
+          title: "BOOK1",
+          image: "/static/img/english1.jpg"
         },
         {
           id: 8,
           percent: 90,
-          title: 'BOOK1',
-          image: '/static/img/英语1.jpg'
+          title: "BOOK1",
+          image: "/static/img/english1.jpg"
         },
         {
           id: 9,
           percent: 30,
-          title: 'BOOK1',
-          image: '/static/img/英语1.jpg'
+          title: "BOOK1",
+          image: "/static/img/english1.jpg"
         }
       ],
-      level: 'K1',
-      search: ''
-    }
+      level: "K1",
+      search: ""
+    };
   },
   components: {
-    book, iconbtn
+    book,
+    iconbtn
   },
   methods: {
-    toMe () {
-      console.log('click tome')
+    toMe() {
+      console.log("click tome");
     },
-    choosebook () {
-    }
+    choosebook() {}
   }
-}
+};
 </script>
 
 <style>
 page {
   background-size: 100% 100%;
-  background-image: url('https://thumbnail0.baidupcs.com/thumbnail/208d7bfe35c662f32a88a1fe206d44e9?fid=3911358295-250528-398515735348763&time=1534424400&rt=sh&sign=FDTAER-DCb740ccc5511e5e8fedcff06b081203-mj%2BYVt%2Fbo9W%2BSqMC7ImwhtUDIcs%3D&expires=8h&chkv=0&chkbd=0&chkpc=&dp-logid=5285426163203658882&dp-callid=0&size=c710_u400&quality=100&vuk=-&ft=video');
+  background-image: url("https://139.199.106.168/image/back.jpg");
 }
 .search {
   margin-top: 20px;
@@ -139,7 +139,7 @@ h1 {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  background-image: url("https://thumbnail0.baidupcs.com/thumbnail/275db52d93a970233afb4fea857c139c?fid=3911358295-250528-262347411912026&time=1534410000&rt=sh&sign=FDTAER-DCb740ccc5511e5e8fedcff06b081203-w2xas%2BOoBk%2F%2BXqN7eP6ofInMNNg%3D&expires=8h&chkv=0&chkbd=0&chkpc=&dp-logid=5282056197767209282&dp-callid=0&size=c710_u400&quality=100&vuk=-&ft=video");
+  background-image: url("https://139.199.106.168/image/shelf.png");
   background-size: 100% 100%;
   padding-left: 5px;
   padding-right: 5px;
