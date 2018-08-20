@@ -40,11 +40,10 @@ class Page_content(models.Model):
     number = models.ForeignKey(
         'Book_info',
         to_field='number',
-        on_delete=models.CASCADE,
-        primary_key=True)
+        on_delete=models.CASCADE,)
     page = models.IntegerField()
     image = models.ImageField()
-    sound = models.FileField()
+    audio = models.FileField()
     english_text = models.TextField()
     chinese_text = models.TextField()
 
