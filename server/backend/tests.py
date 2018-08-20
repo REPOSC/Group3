@@ -2,7 +2,7 @@ from django.test import TestCase, Client
 import sys
 sys.path.append("..")
 from server import debug
-from server.getmanagers import get_managers
+from server.back_getmanagers import get_managers
 
 
 class SendviewsTestCase(TestCase):
