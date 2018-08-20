@@ -14,32 +14,32 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.urls import path, include
-from . import views, createstudent, userlevel, showbooks, \
-    changepassword, setlevel, authmanager, authstudent,\
-    getbookcontent, addmanager, changemanager, delmanager,\
-    putmessage, getmanagers, getbook
+from . import views, back_createstudent, front_userlevel, front_showbooks, \
+    back_changepassword, back_setlevel, back_authmanager, front_authstudent,\
+    front_getbookcontent, back_addmanager, back_changemanager, back_delmanager,\
+    back_putmessage, back_getmanagers, back_getbook
 from django.contrib import admin
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('create_student', createstudent.create_student),
-    path('user_level', userlevel.show_level),
-    path('get_books', showbooks.get_books),
+    path('auth_student', front_authstudent.auth_student),
+    path('user_level', front_userlevel.show_level),
+    path('get_books', front_showbooks.get_books),
+    path('find_books', front_showbooks.find_books),
+    path('get_first_function', front_getbookcontent.get_first_function),
+    path('get_second_function', front_getbookcontent.get_second_function),
+    path('get_third_function', front_getbookcontent.get_third_function),
+    path('get_fourth_function', front_getbookcontent.get_fourth_function),
+    path('get_fifth_function', front_getbookcontent.get_fifth_function),
     path('', views.main),
-    path('auth_student', authstudent.auth_student),
-    path('auth_manager', authmanager.auth_manager),
-    path('find_books', showbooks.find_books),
-    path('change_password', changepassword.change_password),
-    path('set_level', setlevel.set_level),
-    path('add_manager', addmanager.add_manager),
-    path('change_manager', changemanager.change_manager),
-    path('del_manager', delmanager.del_manager),
-    path('get_first_function', getbookcontent.get_first_function),
-    path('get_second_function', getbookcontent.get_second_function),
-    path('get_third_function', getbookcontent.get_third_function),
-    path('get_fourth_function', getbookcontent.get_fourth_function),
-    path('get_fifth_function', getbookcontent.get_fifth_function),
-    path('put_message', putmessage.put_message),
-    path('get_book', getbook.get_book),
-    path('get_managers',getmanagers.get_managers),
+    path('create_student', back_createstudent.create_student),
+    path('auth_manager', back_authmanager.auth_manager),
+    path('change_password', back_changepassword.change_password),
+    path('set_level', back_setlevel.set_level),
+    path('add_manager', back_addmanager.add_manager),
+    path('change_manager', back_changemanager.change_manager),
+    path('del_manager', back_delmanager.del_manager),
+    path('put_message', back_putmessage.put_message),
+    path('get_book', back_getbook.get_book),
+    path('get_managers', back_getmanagers.get_managers),
 ]

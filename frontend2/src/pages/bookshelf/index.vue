@@ -39,72 +39,26 @@
 <script>
 import book from "@/components/book";
 import iconbtn from "@/components/iconbtn";
+import * as Tools from "../../components/Tools.js";
+import qs from "qs";
 export default {
   data() {
     return {
-      books: [
-        {
-          id: 1,
-          percent: 10,
-          title: "BOOK1",
-          image: "/static/img/english1.jpg"
-        },
-        {
-          id: 2,
-          percent: 90,
-          title: "BOOK1",
-          image: "/static/img/english1.jpg"
-        },
-        {
-          id: 3,
-          percent: 30,
-          title: "BOOK1",
-          image: "/static/img/english1.jpg"
-        },
-        {
-          id: 4,
-          percent: 10,
-          title: "BOOK1",
-          image: "/static/img/english1.jpg"
-        },
-        {
-          id: 5,
-          percent: 90,
-          title: "BOOK1",
-          image: "/static/img/english1.jpg"
-        },
-        {
-          id: 6,
-          percent: 30,
-          title: "BOOK1",
-          image: "/static/img/english1.jpg"
-        },
-        {
-          id: 7,
-          percent: 10,
-          title: "BOOK1",
-          image: "/static/img/english1.jpg"
-        },
-        {
-          id: 8,
-          percent: 90,
-          title: "BOOK1",
-          image: "/static/img/english1.jpg"
-        },
-        {
-          id: 9,
-          percent: 30,
-          title: "BOOK1",
-          image: "/static/img/english1.jpg"
-        }
-      ],
-      level: "K1",
+      username: '',
+      books: [],
+      level: "",
       search: ""
     };
   },
   components: {
     book,
     iconbtn
+  },
+  onLoad: function(options) {
+    this.username = option.username
+    this.level = option.level
+    let fly = Tools.get_fly()
+    let save = this
   },
   methods: {
     toMe() {
