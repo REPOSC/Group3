@@ -1,29 +1,27 @@
 <template>
 <div class="book-card">
   <div class="thumb">
-    <img :src="book.image" mode="aspectFit" />
+    <img :src="'/static/img/english1.jpg'" mode="aspectFit" />
   </div>
   <div>
-    <p :title="book.title">{{ book.title }}</p>
+    <p :title="book.name">{{ book.name }}</p>
   </div>
   <div>
-    <progress :percent="book.percent" stroke-width="5" activeColor=#53cce9 ></progress>
+    <progress :percent="book.process" stroke-width="5" activeColor=#53cce9 ></progress>
   </div>
 </div>
 </template>
 
 <script>
 export default {
-  props: ['book']
-}
+  props: ["book"]
+};
 </script>
 
 <style scoped>
 .book-card {
-  padding: 0px 10px;
-  margin-left: 3px;
-  margin-right: 3px;
-  margin-top: 40px;
+  padding: 0% 3%;
+  margin: 10% 3%;
   width: 20%;
   height: 16%;
   color: #53cce9;
@@ -31,7 +29,7 @@ export default {
   font-weight: bold;
 }
 img {
-  width:50px;
-  height:60px;
+  width: 50px;
+  height: 60px;
 }
 </style>
