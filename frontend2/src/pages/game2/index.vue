@@ -1,17 +1,11 @@
 <template>
   <div class="game">
     <div class="word">
-      <i-row>
-        <i-col span="4" offset="6">
-          <img src="/static/img/game2/read.png"/>
-        </i-col>
-        <i-col span="7" offset="1">
-          <span>{{ word }}</span>
-        </i-col>
-      </i-row>
+      <img src="/static/img/game2/read.png"/>
+      <span>{{ word }}</span>
     </div>
     <div class="picGroup">
-      <img :key="pic.index" v-for="pic in pics" :src="pic.src" mode="aspectFit"/>
+      <img :key="pic.index" v-for="pic in pics" :isanswer="pic.isanswer" :src="pic.src" mode="aspectFit" @click="choice(pic)"/>
     </div>
   </div>
 </template>
@@ -20,25 +14,65 @@
 export default {
   data () {
     return {
-      word: 'dark',
+      word: 'hehei',
       pics: [
         {
           index: 1,
+          isanswer: true,
           src: '/static/img/game2/cat1.jpg'
         },
         {
           index: 2,
+          isanswer: false,
           src: '/static/img/game2/cat2.jpg'
         },
         {
           index: 3,
+          isanswer: false,
           src: '/static/img/game2/cat3.jpg'
         },
         {
           index: 4,
+          isanswer: false,
           src: '/static/img/game2/cat4.jpg'
         }
       ]
+    }
+  },
+  methods: {
+    choice(pic) {
+      console.log(pic.isanswer);
+      if (pic.isanswer === true) {
+        wx.showModal({
+          title: '选对啦!宝宝真棒！',
+          content: '已完成该练习，是否退出~',
+          cancelText: '再看看',
+          confirmText: '退出',
+          confirmColor: '#ffb001',
+          success: function(res) {
+            if (res.confirm) {
+              wx.navigateBack({
+                url: '../practice/main'
+              })
+            }
+          }
+        })
+      } else {
+        wx.showModal({
+          title:'啊噢，就差一点点噢...',
+          content: '再试一次吧~',
+          cancelText: '不了',
+          confirmText: '再试一次',
+          confirmColor: '#ffb001',
+          success: function(res) {
+            if(res.cancel) {
+              wx.navigateBack({
+                url: '../practice/main'
+              })
+            }
+          }
+        })
+      }
     }
   }
 }
@@ -53,7 +87,8 @@ page {
   margin-top: 30px;
 }
 .word {
-  padding: 35px;
+  width: 100%;
+  text-align: center;
 }
 .word span {
   display: inline-block;
