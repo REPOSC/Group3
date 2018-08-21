@@ -1,6 +1,6 @@
 <template>
   <div class="matching">
-    <p class="game_name">连线游戏</p>
+    <!-- <p class="game_name">连线游戏</p> -->
     <div class="content">
       <div class="words">
         <span v-for="word in words" :key="word.index">{{ word.text }}</span>
@@ -62,13 +62,6 @@ page {
   background-size: 100% 100%;
   background-image: url('https://thumbnail0.baidupcs.com/thumbnail/208d7bfe35c662f32a88a1fe206d44e9?fid=3911358295-250528-398515735348763&time=1534424400&rt=sh&sign=FDTAER-DCb740ccc5511e5e8fedcff06b081203-mj%2BYVt%2Fbo9W%2BSqMC7ImwhtUDIcs%3D&expires=8h&chkv=0&chkbd=0&chkpc=&dp-logid=5285426163203658882&dp-callid=0&size=c710_u400&quality=100&vuk=-&ft=video');
 }
-.game_name {
-  margin: 20px auto;
-  color: yellow;
-  font-size: 30px;
-  font-weight: bold;
-  text-align: center;
-}
 .content {
   display: flex;
   justify-content: space-between;
@@ -87,11 +80,14 @@ page {
   display: inline-block;
   text-align: center;
   background-color: #ffb001;
-  margin: 25px auto;
+  margin: 30px auto;
+  border-radius: 10px;
 }
 .pictures img {
   margin: 10px 50px;
   width: 80px;
   height: 80px;
+  border: 5px solid #ffb001;
+  border-radius: 10px;
 }
 </style>

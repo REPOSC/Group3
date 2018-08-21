@@ -2,18 +2,24 @@
   <div>
     <img src="/static/img/rainbow.png">
     <div class="title">课后练习</div>
-    <div class="game">
-      <button id="btn1">连线游戏</button>
-      <button id="btn2">单词识别</button>
-      <button id="btn3">趣味拼图</button>
-      <button id="btn4">选词填空</button>
+    <div class="game" @click="turnTo">
+      <button id="game1">连线游戏</button>
+      <button id="game2">单词识别</button>
+      <button id="game3">趣味拼图</button>
+      <button id="game4">选词填空</button>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-
+  methods: {
+    turnTo (e) {
+      wx.navigateTo({
+        url: '/pages/' + e.target.id + '/main'
+      });
+    }
+  }
 }
 </script>
 
@@ -38,16 +44,16 @@ img {
   width: 70px;
   height: 70px;
 }
-#btn1 {
+#game1 {
   background-color: #019dd6;
 }
-#btn2 {
+#game2 {
   background-color: #f67c30;
 }
-#btn3 {
+#game3 {
   background-color: #00c544;
 }
-#btn4 {
+#game4 {
   background-color: #f53076;
 }
 </style>
