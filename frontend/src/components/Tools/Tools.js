@@ -32,20 +32,37 @@ function checknum(number) {
   return true
 }
 
+function check_warning(object, my_component, my_index) {
+  if (object === '' || object === undefined || object === null) {
+    if (confirm(my_component + '中的第' + my_index + '个条目为空，无论如何也要上传吗？')) {
+      return true
+    } else {
+      return false
+    }
+  }
+  return true
+}
+
+function check_fetal(object, my_component, my_index) {
+  if (object === '' || object === undefined || object === null) {
+    alert(my_component + '中的第' + my_index + '个条目为空，无法上传！')
+    return false
+  }
+  return true
+}
+
 function del_element(array, arr_element) {
-	let index = -1
-	for (let i = 0; i < array.length; ++i) {
-		if (array[i] === arr_element) {
-			index = 1
-			break
-		}
-	}
-	if (index === -1) {
-		return
-	}
-	else {
-		array.splice(index,1)
-	}
+  let index = -1
+  for (let i = 0; i < array.length; ++i) {
+    if (array[i] === arr_element) {
+      index = 1
+      break
+    }
+  }
+  if (index === -1) {
+  } else {
+    array.splice(index, 1)
+  }
 }
 
 export {
@@ -53,5 +70,7 @@ export {
   checknum,
   checkcount,
   del_element,
-  MAX_VALUE,
+  check_warning,
+  check_fetal,
+  MAX_VALUE
 }
