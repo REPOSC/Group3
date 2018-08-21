@@ -95,3 +95,7 @@ home.vue
   width: 100%;
   height: 500px;
 }
+
+.file-btn {
+  float: right;
+}

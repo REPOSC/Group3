@@ -68,7 +68,7 @@
         ></Page>
         <br><br>
       </div>
-      <el-button @click="add_page"> 添加新的一页 </el-button>
+      <el-button @click="add_page"> 添加新的书页 </el-button>
       <br><br>
     </div>
     <br><br>
@@ -88,11 +88,11 @@ export default {
       introduction: '',
       MAX_VALUE: Tools.MAX_VALUE,
       level: 1,
-      guides: [''],
-      knowledges: [''],
-      words: [{ text: '', audio: null }],
+      guides: [],
+      knowledges: [],
+      words: [],
       persual: 'true',
-      pages: [{ english_text: '', chinese_text: '', audio: null, picture: null}]
+      pages: []
     }
   },
   mounted: function() {},
@@ -130,26 +130,56 @@ export default {
     submit: function() {
       if (!confirm('确定要上传所有的内容吗？')) {
         return
+      } else if (this.bookname === '') {
+        alert('没有填写书籍名称，无法上传！')
+        return
+      } else if (this.pages.length === 0) {
+        alert('书籍没有内容书页，无法上传！')
+        return
       }
-      let my_values = new URLSearchParams()
+      let my_values = new FormData()
       my_values.append('bookname', this.bookname)
       my_values.append('introduction', this.introduction)
       my_values.append('level', this.level)
       my_values.append('persual', this.persual === 'true')
       for (let i = 0; i < this.guides.length; ++i) {
+        if (!Tools.check_warning(this.guides[i], '知识导读', String(i + 1))) {
+          return
+        }
         my_values.append('guides', this.guides[i])
       }
       for (let i = 0; i < this.knowledges.length; ++i) {
+        if (!Tools.check_warning(this.knowledges[i], '重点知识讲解', String(i + 1))) {
+          return
+        }
         my_values.append('knowledges', this.knowledges[i])
       }
       for (let i = 0; i < this.words.length; ++i) {
+        if (!Tools.check_fetal(this.words[i].text, '重点单词文本', String(i + 1))) {
+          return
+        }
         my_values.append('word_text', this.words[i].text)
+        if (!Tools.check_fetal(this.words[i].audio, '重点单词音频', String(i + 1))) {
+          return
+        }
         my_values.append('word_audio', this.words[i].audio)
       }
       for (let i = 0; i < this.pages.length; ++i) {
+        if (!Tools.check_warning(this.pages[i].english_text, '书籍内容英语文本', String(i + 1))) {
+          return
+        }
         my_values.append('book_english_text', this.pages[i].english_text)
+        if (!Tools.check_warning(this.pages[i].chinese_text, '书籍内容中文翻译', String(i + 1))) {
+          return
+        }
         my_values.append('book_chinese_text', this.pages[i].chinese_text)
+        if (!Tools.check_fetal(this.pages[i].audio, '书籍内容配音', String(i + 1))) {
+          return
+        }
         my_values.append('book_audio', this.pages[i].audio)
+        if (!Tools.check_fetal(this.pages[i].picture, '书籍内容图片', String(i + 1))) {
+          return
+        }
         my_values.append('book_picture', this.pages[i].picture)
       }
       let saved = this
