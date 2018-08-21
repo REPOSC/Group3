@@ -1,9 +1,7 @@
 <template>
   <div class='choose'>
     <div class='levelbtn'>
-      <span v-for="level in levels">
-        <button :class="level.check" @click="submit(level.id)">{{level.id + 1}}</button>
-      </span>
+      <button v-for="level in levels" :key=level.id :class="level.check" @click="submit(level.id)">{{level.id + 1}}</button>
     </div>
   </div>
 </template>
@@ -79,26 +77,16 @@ div h1 {
   margin: 0 auto;
 }
 button {
-  width: 33%;
+  width: 20%;
   height: 50%;
   padding: 20px;
-  margin: 30px 20px;
+  margin: 8% 6.5%;
   border-radius: 100%;
 }
 .true {
-  width: 33%;
-  height: 50%;
-  padding: 20px;
-  margin: 30px 20px;
   background-color: green;
-  border-radius: 100%;
 }
 .false {
   background-color: gray;
-  width: 33%;
-  height: 50%;
-  padding: 20px;
-  margin: 30px 20px;
-  border-radius: 100%;
 }
 </style>
