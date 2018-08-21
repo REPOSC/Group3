@@ -1,7 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils import timezone
-
+import sys
+sys.path.append("..")
+from server import tools
 
 # Create your models here.
 class User_info(AbstractUser):
@@ -24,7 +26,7 @@ class Book_info(models.Model):
     level = models.IntegerField()
     name = models.CharField(max_length=50)
     introduction = models.TextField()
-    pages = models.IntegerField(null=True)
+    pages = models.IntegerField()
     is_persual = models.BooleanField()
 
 
@@ -42,8 +44,8 @@ class Page_content(models.Model):
         to_field='number',
         on_delete=models.CASCADE,)
     page = models.IntegerField()
-    image = models.ImageField()
-    audio = models.FileField()
+    image = models.ImageField(upload_to=tools.book_page_picture)
+    audio = models.FileField(upload_to=tools.book_page_audio)
     english_text = models.TextField()
     chinese_text = models.TextField()
 
@@ -53,7 +55,7 @@ class Book_words(models.Model):
         'Book_info', to_field='number', on_delete=models.CASCADE)
     word_number = models.IntegerField()
     word_content = models.CharField(max_length=50)
-    word_sound = models.FileField()
+    word_sound = models.FileField(upload_to=tools.book_word_audio)
 
 
 class Book_knowledge(models.Model):

@@ -122,4 +122,4 @@ STATICFILES_DIRS = [
 AUTH_USER_MODEL = 'backend.User_Info'
 CORS_ORIGIN_ALLOW_ALL = True
 AUTHENTICATION_BACKENDS = ('django.contrib.auth.backends.ModelBackend', )
-LOGIN_URL = '/#/login/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'files')

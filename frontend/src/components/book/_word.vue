@@ -32,7 +32,5 @@ export default {
 }
 </script>
 <style scoped>
-.file-btn {
-  float: right;
-}
+
 </style>
