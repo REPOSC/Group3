@@ -9,11 +9,11 @@
         <img :src="src" alt="Bookcontent" mode="aspectFit">
       </div>
       <div class="btngroup">
-        <button class="previous"></button>
-        <button class="listen"></button>
-        <button class="add"></button>
-        <button class="play"></button>
-        <button class="next"></button>
+        <button class="previous" @click="previouspage"></button>
+        <button class="listen" @click="playaudio"></button>
+        <button class="add" :isrecord="isrecord" @click="record"></button>
+        <button class="play" :isplay="isplay" @click="playrecord"></button>
+        <button class="next" @click="nextpage"></button>
       </div>
     </div>
   </div>
@@ -23,7 +23,47 @@ export default {
   data () {
     return {
       BookName: 'BOOK1',
-      src: 'http://139.199.106.168/image/bookface.jpg'
+      src: 'http://139.199.106.168/image/bookface.jpg',
+      isrecord: false,
+      isplay: false,
+      recorderManager: wx.getRecorderManager(),
+      recordsrc: '',
+      innerRecordContext: '',
+      innerAudioContext: ''
+    }
+  },
+  methods: {
+    playaudio () {
+      this.innerAudioContext = wx.createInnerAudioContext()
+      this.innerAudioContext.src = this.recordsrc
+      this.innerAudioContext.play()
+    },
+    previouspage () {
+      let now = this
+      now.src = 'http://139.199.106.168/image/bookface.jpg'
+    },
+    record () {
+      let save = this
+      if (save.isrecord === true) {
+        save.recorderManager.stop()
+        save.recorderManager.onStop((res) => {
+          const tempFilePath = res
+          this.recordsrc = res.tempFilePath
+          this.innerRecordContext = wx.createInnerAudioContext()
+          this.innerRecordContext.src = this.recordsrc
+        })
+        save.isrecord = false
+      } else {
+          save.recorderManager.start()
+          save.isrecord = true
+      }
+    },
+    playrecord () {
+      this.innerRecordContext.play()
+    },
+    nextpage () {
+      let now = this
+      now.src = 'http://139.199.106.168/image/bookmiddle.jpg'
     }
   }
 }
@@ -92,4 +132,3 @@ h1 {
   background-image: url("http://139.199.106.168/image/right.png");
 }
 </style>
-
