@@ -44,4 +44,5 @@ urlpatterns = [
     path('put_message', back_putmessage.put_message),
     path('get_book', back_getbook.get_book),
     path('get_managers', back_getmanagers.get_managers),
+    path('get_word_audio', front_getbookcontent.get_word_audio),
 ]

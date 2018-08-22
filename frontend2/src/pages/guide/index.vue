@@ -14,20 +14,23 @@
     </i-row>
     <div class="firstpart">
       <img src="/static/img/yellow-tap.png">
-      <h1>本课重点知识</h1>
-      <p :key="one.index" v-for="one in ones">{{ one.index }}、{{ one.text }}</p>
+      <h1>本课重点知识 </h1>
+      <p :key="index" v-for="(one,index) in ones">{{ index-0+1 }}、{{ one }}</p>
     </div>
     <div class="secpart">
       <img src="/static/img/green-tap.png">
       <h1>今日导读</h1>
-      <p :key="two.index" v-for="two in twos">{{ two.index }}、{{ two.text }}</p>
+      <p :key="index" v-for="(two,index) in twos">{{ index-0+1 }}、{{ two }}</p>
     </div>
     <div class="thirdpart">
       <div class="subtitle">
         <img src="/static/img/red-tap.png">
         <h1>词汇表与配音讲解</h1>
       </div>
-      <p :key="three.index" v-for="three in threes">{{ three.text }}</p>
+      <div :key="index" v-for="(three,index) in threes">
+        <div class="word">{{ index-0+1 }}、{{ three }}</div>
+        <i-icon type="customerservice_fill" size="28" class="word" @click="hear(index)"/>
+      </div>
     </div>
     <div class="bottom">
       <i-row>
@@ -43,52 +46,79 @@
 </template>
 
 <script>
+import * as Tools from '../../components/Tools.js'
+import qs from 'qs'
+
 export default {
   data () {
     return {
       booktitle: ' BOOK1 ',
-      ones: [
-        {
-          index: 1,
-          text: '学会拼读简单dark'
-        },
-        {
-          index: 2,
-          text: '背诵句子It is dark'
-        },
-        {
-          index: 3,
-          text: '抄写课本一遍'
-        }
-      ],
-      twos: [
-        {
-          index: 1,
-          text: '与孩子一起看封面，并讨论自己居住的社区在天黑之后是什么样子的，谁晚上还不在家里，哪些动物夜晚才出来活动。'
-        },
-        {
-          index: 2,
-          text: '引导孩子仔细观察书的封面，让孩子讲一讲图片中的哪些细节可以显示天黑了，例如：天空的颜色，大钟显示的时间是6点，太阳刚刚下山，天上的星星刚刚显露出来。'
-        }
-      ],
-      threes: [
-        {
-          index: 1,
-          text: 'dark'
-        },
-        {
-          index: 2,
-          text: 'park'
-        },
-        {
-          index: 3,
-          text: 'mark'
-        },
-        {
-          index: 4,
-          text: 'last'
-        }
-      ]
+      booknumber: 0,
+      ones: [],
+      twos: [],
+      threes: [],
+      current_audio: null,
+    }
+  },
+  onLoad: function(status) {
+    this.init(status)
+  },
+  methods: {
+    init: function(status) {
+      let fly = Tools.get_fly()
+      this.booknumber = status.book
+      let save = this
+      fly
+          .post(
+            Tools.get_url() + 'get_first_function',
+            qs.stringify({
+              book_id: this.booknumber
+            })
+          )
+          .then(function(response) {
+            let knowledges = response.data.knowledge
+            let guides = response.data.guide
+            let word_contents = response.data.words
+            save.ones = knowledges
+            save.twos = guides
+            save.threes = word_contents
+          })
+    },
+    hear: function(index) {
+      // let fly = Tools.get_fly()
+      // let save = this
+      // fly
+      //     .post(
+      //       Tools.get_url() + 'get_word_audio',
+      //       qs.stringify({
+      //         book_id: this.booknumber,
+      //         audio_index: index
+      //       })
+      //     )
+      //     .then(function(response) {
+      //       save.current_audio = response.data
+      //       console.log(save.current_audio)
+      //     })
+       wx.downloadFile({
+            url: Tools.get_url() + 'get_word_audio?book_id=' + this.booknumber + "&audio_index=" + index,
+            success: function (res) {
+            console.log(res)
+            if (res.statusCode === 200) {
+              wx.playVoice({
+                filePath: res.tempFilePath,
+                success: function(){
+                  console.log('hello')
+                }
+              })
+              wx.playVoice({
+                filePath: "/static/10500.wav",
+                success: function(){
+                  console.log('hello')
+                }
+              })
+            }
+          }
+       })
     }
   }
 }
@@ -97,8 +127,8 @@ export default {
 <style>
 page {
   background-size: 100% 100%;
-  background-image: url('https://thumbnail0.baidupcs.com/thumbnail/208d7bfe35c662f32a88a1fe206d44e9?fid=3911358295-250528-398515735348763&time=1534424400&rt=sh&sign=FDTAER-DCb740ccc5511e5e8fedcff06b081203-mj%2BYVt%2Fbo9W%2BSqMC7ImwhtUDIcs%3D&expires=8h&chkv=0&chkbd=0&chkpc=&dp-logid=5285426163203658882&dp-callid=0&size=c710_u400&quality=100&vuk=-&ft=video');
-}
+  /*background-image: url('https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1534945615291&di=fa4a915965df971671ec98a8fe2d5a52&imgtype=0&src=http%3A%2F%2Fp.moto8.com%2Fforum%2F201201%2F04%2F195150zxaed89qa2e67t29.jpg');
+*/}
 .head img {
   width: 60px;
   height: 60px;
@@ -173,4 +203,8 @@ img {
   background-color: #ffb001;
   margin-left: 10px;
 }
+.word {
+  display: inline;
+}
+
 </style>

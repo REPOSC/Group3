@@ -15,7 +15,6 @@ def random_string(num):
 
 
 def book_page_audio(instance, filename):
-    debug.debug(instance.number)
     return os.path.join(settings.MEDIA_ROOT, 'Book_Pages_Audios', str(instance.number.number), str(instance.page) + '-' + random_string(5) + filename)
 
 
