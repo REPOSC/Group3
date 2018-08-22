@@ -35,5 +35,6 @@ module.exports = {
     'vue/valid-template-root': 'off',
     'vue/no-use-v-if-with-v-for': 'off',
     'vue/no-unused-components': 'off',
+    'no-undef': 'off',
   }
 }

@@ -1,6 +1,8 @@
 stages:
   - init
   - backendtest
+  - frontendonelint
+  - frontendtwolint
 
 environment:
   stage: init
@@ -10,7 +12,6 @@ environment:
     - pip install --upgrade pip
     - pip install Django mysqlclient
     - pip install Pillow
-    - pip install django-cors-headers
 
 test:
   stage: backendtest
@@ -20,3 +21,17 @@ test:
     - python ./server/manage.py migrate
     - cd ./server
     - python manage.py test
+    
+frontendonelint:
+  stage: frontendonelint
+  script:
+    - cd ./frontend
+    - npm install --save-dev eslint eslint-plugin-vue@next
+    - npm run eslint
+    
+frontendtwolint:
+  stage: frontendtwolint
+  script: 
+    - cd ./frontend2
+    - npm install --save-dev eslint eslint-plugin-vue@next
+    - npm run eslint

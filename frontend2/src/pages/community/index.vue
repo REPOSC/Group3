@@ -2,7 +2,7 @@
   <div class="container">
     <div class="record" :key="record.id" v-for="record in records">
       <div class="user">
-        <img :src="record.avatar"/>
+        <img :src="record.avatar" />
         <p class="username">{{ record.username }}</p>
       </div>
       <p class="content">{{ record.content }}</p>
@@ -16,7 +16,7 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       records: [
         {
@@ -53,12 +53,8 @@ export default {
     }
   },
   methods: {
-    like () {
-
-    },
-    comment () {
-
-    }
+    like() {},
+    comment() {}
   }
 }
 </script>
@@ -66,7 +62,7 @@ export default {
 <style scoped>
 page {
   background-size: 100% 100%;
-  background-image: url("https://139.199.106.168/image/back.jpg");
+  background-image: url('https://139.199.106.168/image/back.jpg');
 }
 .container {
   display: flex;
@@ -109,7 +105,7 @@ page {
   bottom: 10px;
   width: 100%;
   display: flex;
-  justify-content:space-around;
+  justify-content: space-around;
 }
 .about_me button {
   color: #fff;

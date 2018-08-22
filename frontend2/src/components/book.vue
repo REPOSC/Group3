@@ -1,26 +1,26 @@
 <template>
-<div class="book-card">
-  <div class="thumb" @click="on_click">
-    <img :src="'/static/img/english1.jpg'" mode="aspectFit" />
+  <div class="book-card">
+    <div class="thumb" @click="on_click">
+      <img :src="'/static/img/english1.jpg'" mode="aspectFit" />
+    </div>
+    <div>
+      <p :title="book.name">{{ book.name }}</p>
+    </div>
+    <div>
+      <progress :percent="book.process" stroke-width="5" activeColor=#53cce9></progress>
+    </div>
   </div>
-  <div>
-    <p :title="book.name">{{ book.name }}</p>
-  </div>
-  <div>
-    <progress :percent="book.process" stroke-width="5" activeColor=#53cce9 ></progress>
-  </div>
-</div>
 </template>
 
 <script>
 export default {
-  props: ["book"],
+  props: ['book'],
   methods: {
-	on_click: function() {
-		this.$emit('on_click',this.book)
-		}
-	}
-};
+    on_click: function() {
+      this.$emit('on_click', this.book)
+    }
+  }
+}
 </script>
 
 <style scoped>

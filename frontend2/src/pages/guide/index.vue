@@ -29,7 +29,7 @@
       </div>
       <div :key="index" v-for="(three,index) in threes">
         <div class="word">{{ index-0+1 }}、{{ three }}</div>
-        <i-icon type="customerservice_fill" size="28" class="word" @click="hear(index)"/>
+        <i-icon type="customerservice_fill" size="28" class="word" @click="hear(index)" />
       </div>
     </div>
     <div class="bottom">
@@ -50,14 +50,14 @@ import * as Tools from '../../components/Tools.js'
 import qs from 'qs'
 
 export default {
-  data () {
+  data() {
     return {
       booktitle: ' BOOK1 ',
       booknumber: 0,
       ones: [],
       twos: [],
       threes: [],
-      current_audio: null,
+      current_audio: null
     }
   },
   onLoad: function(status) {
@@ -69,20 +69,20 @@ export default {
       this.booknumber = status.book
       let save = this
       fly
-          .post(
-            Tools.get_url() + 'get_first_function',
-            qs.stringify({
-              book_id: this.booknumber
-            })
-          )
-          .then(function(response) {
-            let knowledges = response.data.knowledge
-            let guides = response.data.guide
-            let word_contents = response.data.words
-            save.ones = knowledges
-            save.twos = guides
-            save.threes = word_contents
+        .post(
+          Tools.get_url() + 'get_first_function',
+          qs.stringify({
+            book_id: this.booknumber
           })
+        )
+        .then(function(response) {
+          let knowledges = response.data.knowledge
+          let guides = response.data.guide
+          let word_contents = response.data.words
+          save.ones = knowledges
+          save.twos = guides
+          save.threes = word_contents
+        })
     },
     hear: function(index) {
       // let fly = Tools.get_fly()
@@ -99,26 +99,31 @@ export default {
       //       save.current_audio = response.data
       //       console.log(save.current_audio)
       //     })
-       wx.downloadFile({
-            url: Tools.get_url() + 'get_word_audio?book_id=' + this.booknumber + "&audio_index=" + index,
-            success: function (res) {
-            console.log(res)
-            if (res.statusCode === 200) {
-              wx.playVoice({
-                filePath: res.tempFilePath,
-                success: function(){
-                  console.log('hello')
-                }
-              })
-              wx.playVoice({
-                filePath: "/static/10500.wav",
-                success: function(){
-                  console.log('hello')
-                }
-              })
-            }
+      wx.downloadFile({
+        url:
+          Tools.get_url() +
+          'get_word_audio?book_id=' +
+          this.booknumber +
+          '&audio_index=' +
+          index,
+        success: function(res) {
+          console.log(res)
+          if (res.statusCode === 200) {
+            wx.playVoice({
+              filePath: res.tempFilePath,
+              success: function() {
+                console.log('hello')
+              }
+            })
+            wx.playVoice({
+              filePath: '/static/10500.wav',
+              success: function() {
+                console.log('hello')
+              }
+            })
           }
-       })
+        }
+      })
     }
   }
 }
@@ -128,7 +133,8 @@ export default {
 page {
   background-size: 100% 100%;
   /*background-image: url('https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1534945615291&di=fa4a915965df971671ec98a8fe2d5a52&imgtype=0&src=http%3A%2F%2Fp.moto8.com%2Fforum%2F201201%2F04%2F195150zxaed89qa2e67t29.jpg');
-*/}
+*/
+}
 .head img {
   width: 60px;
   height: 60px;
@@ -138,7 +144,7 @@ page {
   font-weight: bolder;
   font-family: fantasy;
   color: white;
-  background-color: #019dd6
+  background-color: #019dd6;
 }
 .title {
   margin-top: 15px;
@@ -206,5 +212,4 @@ img {
 .word {
   display: inline;
 }
-
 </style>
