@@ -9,20 +9,12 @@
     <div class="input-title">
       上传第 {{index+1}} 页图片
     </div>
-    <input
-      class="file-btn"
-      type="file"
-      accept="image/*"
-      @change="get_picture">
+    <input class="file-btn" type="file" accept="image/*" @change="get_picture">
     <br><br>
     <div class="input-title">
       上传第 {{index+1}} 页音频
     </div>
-    <input
-      class="file-btn"
-      type="file"
-      accept="audio/*"
-      @change="get_audio">
+    <input class="file-btn" type="file" accept="audio/*" @change="get_audio">
     <br><br>
     <div class="input-title">
       输入第 {{index+1}} 页英文
@@ -49,11 +41,11 @@ export default {
     }
   },
   methods: {
-    get_audio: function (e) {
+    get_audio: function(e) {
       let audio = e.target.files[0]
       this.$emit('get_audio', { value: audio, index: this.index })
     },
-    get_picture: function (e) {
+    get_picture: function(e) {
       let picture = e.target.files[0]
       let reader = new FileReader()
       reader.readAsDataURL(picture)
@@ -63,10 +55,10 @@ export default {
       }
       this.$emit('get_picture', { value: picture, index: this.index })
     },
-    get_english_text: function () {
+    get_english_text: function() {
       this.$emit('get_english', { value: this.english_text, index: this.index })
     },
-    get_chinese_text: function () {
+    get_chinese_text: function() {
       this.$emit('get_chinese', { value: this.chinese_text, index: this.index })
     }
   }

@@ -16,7 +16,7 @@ import SendMessage from '@/components/group/sendmessage'
 import groupzone from '@/components/group/zone'
 Vue.use(Router)
 // 懒加载方式，当路由被访问的时候才加载对应组件
-const Login = resolve => require(['@/components/login'], resolve);
+const Login = resolve => require(['@/components/login'], resolve)
 let router = new Router({
   // 路由器连接入口实现跳转页面组件
   routes: [

@@ -13,14 +13,20 @@
       </div>
       <div class="topbar-account topbar-btn">
         <el-dropdown trigger="click">
-          <span class="el-dropdown-link userinfo-inner"><i class="iconfont icon-user"></i> {{nickname}}  <i
-            class="iconfont icon-down"></i></span>
+          <span class="el-dropdown-link userinfo-inner">
+            <i class="iconfont icon-user"></i> {{nickname}}
+            <i class="iconfont icon-down"></i>
+          </span>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item>
-              <div @click="jumpTo('/user/profile')"><span>个人信息</span></div>
+              <div @click="jumpTo('/user/profile')">
+                <span>个人信息</span>
+              </div>
             </el-dropdown-item>
             <el-dropdown-item>
-              <div @click="jumpTo('/user/changepwd')"><span>修改密码</span></div>
+              <div @click="jumpTo('/user/changepwd')">
+                <span>修改密码</span>
+              </div>
             </el-dropdown-item>
             <el-dropdown-item divided @click.native="logout">退出登录</el-dropdown-item>
           </el-dropdown-menu>
@@ -28,27 +34,30 @@
       </div>
     </el-col>
     <!--中间-->
-    <el-col :span="24" class="main" >
+    <el-col :span="24" class="main">
       <!--左侧导航-->
-      <aside :class="{showSidebar:!collapsed}" >
+      <aside :class="{showSidebar:!collapsed}">
         <!--展开折叠开关-->
         <div class="menu-toggle" @click.prevent="collapse">
           <i class="iconfont icon-menufold" v-show="!collapsed"></i>
           <i class="iconfont icon-menuunfold" v-show="collapsed"></i>
         </div>
         <!--导航菜单-->
-        <el-menu :default-active="defaultActiveIndex" router :collapse="collapsed" @select="handleSelect" >
+        <el-menu :default-active="defaultActiveIndex" router :collapse="collapsed" @select="handleSelect">
           <template v-for="(item,index) in $router.options.routes" v-if="item.menuShow">
             <el-submenu v-if="!item.leaf" :index="index+''">
-              <template slot="title"><i :class="item.iconCls"></i><span slot="title">{{item.name}}</span></template>
-              <el-menu-item v-for="term in item.children" :key="term.path" :index="term.path" v-if="term.menuShow"
-                            :class="$route.path===term.path?'is-active':''">
-                <i :class="term.iconCls"></i><span slot="title">{{term.name}}</span>
+              <template slot="title">
+                <i :class="item.iconCls"></i>
+                <span slot="title">{{item.name}}</span>
+              </template>
+              <el-menu-item v-for="term in item.children" :key="term.path" :index="term.path" v-if="term.menuShow" :class="$route.path===term.path?'is-active':''">
+                <i :class="term.iconCls"></i>
+                <span slot="title">{{term.name}}</span>
               </el-menu-item>
             </el-submenu>
-            <el-menu-item v-else-if="item.leaf&&item.children&&item.children.length" :index="item.children[0].path"
-                          :class="$route.path===item.children[0].path?'is-active':''">
-              <i :class="item.iconCls"></i><span slot="title">{{item.children[0].name}}</span>
+            <el-menu-item v-else-if="item.leaf&&item.children&&item.children.length" :index="item.children[0].path" :class="$route.path===item.children[0].path?'is-active':''">
+              <i :class="item.iconCls"></i>
+              <span slot="title">{{item.children[0].name}}</span>
             </el-menu-item>
           </template>
         </el-menu>
@@ -68,84 +77,84 @@
 </template>
 
 <script>
-import { bus } from "../bus.js";
+import { bus } from '../bus.js'
 export default {
-  name: "home",
+  name: 'home',
   created() {
-    bus.$on("setNickName", text => {
-      this.nickname = text;
-    });
-    bus.$on("goto", url => {
-      if (url === "/login") {
-        localStorage.removeItem("access-user");
+    bus.$on('setNickName', text => {
+      this.nickname = text
+    })
+    bus.$on('goto', url => {
+      if (url === '/login') {
+        localStorage.removeItem('access-user')
       }
-      this.$router.push(url);
-    });
+      this.$router.push(url)
+    })
   },
   data() {
     return {
-      defaultActiveIndex: "0",
-      nickname: "",
+      defaultActiveIndex: '0',
+      nickname: '',
       collapsed: false
-    };
+    }
   },
   methods: {
     handleSelect(index) {
-      this.defaultActiveIndex = index;
+      this.defaultActiveIndex = index
     },
     // 折叠导航栏
     collapse: function() {
-      this.collapsed = !this.collapsed;
+      this.collapsed = !this.collapsed
     },
     jumpTo(url) {
-      this.defaultActiveIndex = url;
-      this.$router.push(url); // 用go刷新
+      this.defaultActiveIndex = url
+      this.$router.push(url) // 用go刷新
     },
     logout() {
-      let that = this;
-      this.$confirm("确认退出吗?", "提示", {
-        confirmButtonClass: "el-button--warning"
+      let that = this
+      this.$confirm('确认退出吗?', '提示', {
+        confirmButtonClass: 'el-button--warning'
       })
         .then(() => {
           // 确认
-          that.loading = true;
+          that.loading = true
           API.logout()
             .then(
               function(result) {
-                that.loading = false;
-                localStorage.removeItem("access-user");
-                that.$router.push("/login"); // 用go刷新
+                that.loading = false
+                localStorage.removeItem('access-user')
+                that.$router.push('/login') // 用go刷新
               },
               function(err) {
-                that.loading = false;
+                that.loading = false
                 that.$message.error({
                   showClose: true,
                   message: err.toString(),
                   duration: 2000
-                });
+                })
               }
             )
             .catch(function(error) {
-              that.loading = false;
-              console.log(error);
+              that.loading = false
+              console.log(error)
               that.$message.error({
                 showClose: true,
-                message: "请求出现异常",
+                message: '请求出现异常',
                 duration: 2000
-              });
-            });
+              })
+            })
         })
-        .catch(() => {});
+        .catch(() => {})
     }
   },
   mounted() {
-    let user = localStorage.getItem("access-user");
+    let user = localStorage.getItem('access-user')
     if (user) {
-      user = JSON.parse(user);
-      this.nickname = user.nickname || "";
+      user = JSON.parse(user)
+      this.nickname = user.nickname || ''
     }
   }
-};
+}
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
@@ -267,5 +276,4 @@ export default {
     }
   }
 }
-
 </style>
