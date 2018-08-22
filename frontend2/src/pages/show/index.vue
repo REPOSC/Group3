@@ -1,10 +1,10 @@
 <template>
   <div class="div">
-    <button id="btn1">亲子阅读指导</button>
-    <button id="btn2">E-Book</button>
-    <button id="btn3">中英文讲解</button>
-    <button id="btn4">课后练习</button>
-    <button id="btn5">阅读拓展</button>
+    <button id="btn1" @click="toGuide">亲子阅读指导</button>
+    <button id="btn2" @click="toEbook">E-Book</button>
+    <button id="btn3" @click="toTranslation">中英文讲解</button>
+    <button id="btn4" @click="toPractice">课后练习</button>
+    <button id="btn5" @click="toGuide">阅读拓展</button>
     <div class="bottom">
       <div class="function" @click="toCommunity">
         <img src="/static/img/man.png">
@@ -20,12 +20,72 @@
 
 <script>
 export default {
+  data: function() {
+    return {
+      username: null,
+      booknumber: null
+    }
+  },
+  onLoad: function(option) {
+    this.init(option)
+  },
   methods: {
-    toCommunity () {
-
+    init: function(option) {
+      this.username = option.username
+      this.booknumber = parseInt(option.book)
     },
-    toMe () {
-
+    toGuide: function() {
+      let save = this
+      wx.navigateTo({
+        url:
+          '../guide/main?username=' + save.username + '&book=' + save.booknumber
+      })
+    },
+    toEbook: function() {
+      let save = this
+      wx.navigateTo({
+        url:
+          '../e_book/main?username=' +
+          save.username +
+          '&book=' +
+          save.booknumber
+      })
+    },
+    toTranslation: function() {
+      let save = this
+      wx.navigateTo({
+        url:
+          '../translation/main?username=' +
+          save.username +
+          '&book=' +
+          save.booknumber
+      })
+    },
+    toPractice: function() {
+      let save = this
+      wx.navigateTo({
+        url:
+          '../practice/main?username=' +
+          save.username +
+          '&book=' +
+          save.booknumber
+      })
+    },
+    toCommunity: function() {
+      let save = this
+      wx.navigateTo({
+        url:
+          '../community/main?username=' +
+          save.username +
+          '&book=' +
+          save.booknumber
+      })
+    },
+    toMe: function() {
+      let save = this
+      wx.navigateTo({
+        url: '../me/main?username=' + save.username + '&book=' + save.booknumber
+      })
     }
   }
 }
