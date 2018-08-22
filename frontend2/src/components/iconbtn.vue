@@ -1,35 +1,33 @@
 <template>
 <div class="left" @click="clickhandel">
   <div class="detail" @click="todetail">
-    <img src="/static/img/detail.png">
-    <p>精读</p>
+	<img src="/static/img/detail.png" @click="$emit('persual')">
+	<p class="text">精读</p>
   </div>
-  <div class="extensive" @click="toextensive">
-    <img src="/static/img/extend.png">
-    <p>泛读</p>
+  <div class="extensive" @click="$emit('not_persual')">
+	<img src="/static/img/extend.png">
+	<p class="text">泛读</p>
   </div>
-  <div class="previous" @click="toprevious">
-    <img src="/static/img/left.png">
-    <p>上一页</p>
+  <div class="previous" @click="$emit('toprevious')">
+	<img src="/static/img/left.png">
+	<p class="text">上一页</p>
   </div>
-  <div class="next" @click="tonext">
-    <img src="/static/img/right.png">
-    <p>下一页</p>
+  <div class="next" @click="$emit('tonext')">
+	<img src="/static/img/right.png">
+	<p class="text">下一页</p>
   </div>
 </div>
 </template>
 
 <script>
 export default {
-  props: ['iconbtn'],
-  methods: {
-    clickhandle () {
-    }
-  }
 }
 </script>
 
 <style>
+.text{
+  color:black;
+}
 .detail, .extensive {
   width: 50px;
   height: 60px;

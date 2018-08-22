@@ -1,5 +1,5 @@
 <template>
-<div class="bookinterface" @click="get">
+<div class="bookinterface">
   <i-row class="title">
     <i-col span="8" offset="1">
       <img src="/static/img/rainbow.png">
@@ -11,24 +11,30 @@
   <i-row class="body">
     <i-col span="18" offset="1">
       <div class="bookshelf">
-        <book v-for="book in nowbooks" :key="book.number" :book="book" alt="book" @click="get"></book>
+        <book v-for="book in nowbooks" :book="book" @on_click="get" class="book"></book>
       </div>
     </i-col>
     <i-col span="3" offset="1">
-      <iconbtn></iconbtn>
+      <iconbtn
+		@persual="change_to_persual"
+		@not_persual="change_to_not_persual"
+		@toprevious="change_to_previous"
+		@tonext="change_to_next"
+		></iconbtn>
     </i-col>
   </i-row>
   <div class="bottom">
     <i-row>
       <i-col span="17" offset="1">
-        <div class="search">
-          <input type="text" v-model="search" placeholder='搜索' clearable/>
+        <div>
+          <input type="text" class="inline" v-model="search_text" placeholder='搜索' clearable/>
+          <img src="/static/img/search.png" @click="search" class="inline search-icon">
         </div>
       </i-col>
       <i-col span="5">
-        <div class="toMeBtn" @click="toMe">
+        <div class="toMeBtn" @click="to_me">
           <img src="/static/img/man.png">
-          <p>我的</p>
+          <p class="text">我的</p>
         </div>
       </i-col>
     </i-row>
@@ -46,10 +52,11 @@ export default {
     return {
       username: "",
       nowbooks: [],
+      candicate_books: [],
       persualbooks: [],
       notpersualbooks: [],
-      level: "",
-      search: "",
+      level: 0,
+      search_text: "",
       maxpersualshelf: 0,
       maxnotpersualshelf: 0,
       nowshelf: 0,
@@ -61,70 +68,135 @@ export default {
     iconbtn
   },
   onLoad: function(option) {
-    this.username = option.username;
-    this.level = option.level;
-    let fly = Tools.get_fly();
-    let save = this;
-    fly
-      .post(
-        Tools.get_url() + "get_books",
-        qs.stringify({
-          level: save.level,
-          id: save.username
-        })
-      )
-      .then(function(response) {
-        let books = response.data.answer;
-        for (let book in books) {
-          if (books[book].is_persual === true) {
-            save.persualbooks.push(books[book]);
-          } else {
-            save.notpersualbooks.push(books[book]);
-          }
-        }
-        save.maxpersualshelf = (save.persualbooks.length - 1) / 9 + 1;
-        save.maxnotpersualshelf = (save.notpersualbooks.length - 1) / 9 + 1;
-        console.log(save.persualbooks);
-        console.log(save.notpersualbooks);
-      });
-  },
-  onReady: function() {
-    this.get()
+    this.init(option);
   },
   methods: {
-    get: function() {
-      this.nowbooks = []
-      this.nowbooks = this.getbooks()
-    },
-    getbooks: function() {
-      let nowbooks = [];
+    init: function(option) {
+      this.username = option.username;
+      this.level = parseInt(option.level);
+      this.persualbooks = [];
+      this.notpersualbooks = [];
+      let fly = Tools.get_fly();
       let save = this;
-      if (save.nowbookkind === true) {
-        for (
-          let i = save.nowshelf * 9;
-          (i < save.persualbooks.length) & (i < (save.nowshelf + 1) * 9);
-          i++
-        ) {
-          nowbooks.push(save.persualbooks[i]);
-        }
-        save.nowbookkind = false
+      fly
+        .post(
+          Tools.get_url() + "get_books",
+          qs.stringify({
+            level: save.level,
+            id: save.username
+          })
+        )
+        .then(function(response) {
+          let books = response.data.answer;
+          for (let book of books) {
+            if (book.is_persual === true) {
+              save.persualbooks.push(book);
+            } else {
+              save.notpersualbooks.push(book);
+            }
+          }
+          save.maxpersualshelf = (save.persualbooks.length - 1) / 9 + 1;
+          save.maxnotpersualshelf = (save.notpersualbooks.length - 1) / 9 + 1;
+          save.candicate_books = save.nowbookkind
+            ? save.persualbooks
+            : save.notpersualbooks;
+          save.split_books();
+        });
+    },
+    get: function(book) {
+      let save = this;
+      wx.navigateTo({
+        url:
+          "../show/main?username=" +
+          save.username +
+          "&book=" +
+          book.number +
+          "&process" +
+          book.process
+      });
+    },
+    split_books: function() {
+      this.nowbooks = [];
+      for (
+        let i = this.nowshelf * 9;
+        i < this.candicate_books.length && i < (this.nowshelf + 1) * 9;
+        i++
+      ) {
+        this.nowbooks.push(this.candicate_books[i]);
+      }
+    },
+    change_to_next: function() {
+      if ((this.nowshelf + 1) * 9 >= this.candicate_books.length) {
+        wx.showToast({
+          title: "已经是最后一页",
+          icon: "success",
+          duration: 1500,
+          mask: true
+        });
       } else {
-        for (
-          let i = save.nowshelf * 9;
-          (i < save.notpersualbooks.length) & (i < (save.nowshelf + 1) * 9);
-          i++
-        ) {
-          nowbooks.push(save.notpersualbooks[i]);
+        this.nowshelf++;
+        this.split_books();
+      }
+    },
+    change_to_previous: function() {
+      if (this.nowshelf <= 0) {
+        wx.showToast({
+          title: "已经是第一页",
+          icon: "success",
+          duration: 1500,
+          mask: true
+        });
+      } else {
+        this.nowshelf--;
+        this.split_books();
+      }
+    },
+    change_to_persual: function() {
+      if (this.nowbookkind) {
+        wx.showToast({
+          title: "现在已是精读书",
+          icon: "success",
+          duration: 1500,
+          mask: true
+        });
+      }
+      this.nowbookkind = true;
+      this.candicate_books = this.persualbooks;
+      this.nowshelf = 0;
+      this.split_books();
+    },
+    change_to_not_persual: function() {
+      if (!this.nowbookkind) {
+        wx.showToast({
+          title: "现在已是泛读书",
+          icon: "success",
+          duration: 1500,
+          mask: true
+        });
+      }
+      this.nowbookkind = false;
+      this.candicate_books = this.notpersualbooks;
+      this.nowshelf = 0;
+      this.split_books();
+    },
+    search: function() {
+      let start_books = this.nowbookkind
+        ? this.persualbooks
+        : this.notpersualbooks;
+      this.candicate_books = [];
+      this.nowshelf = 0;
+      for (let i = 0; i < start_books.length; i++) {
+        if (start_books[i].name.indexOf(this.search_text) !== -1) {
+          this.candicate_books.push(start_books[i]);
         }
       }
-      console.log(nowbooks)
-      return nowbooks;
+      this.split_books();
     },
-    storebook: function() {},
-    toMe: function() {
-      console.log("click tome");
-    },
-    choosebook: function() {}
+    to_me: function() {
+      wx.navigateTo({
+        url: "../me/main?username=" + this.username
+      });
+    }
   }
 };
 </script>
@@ -133,9 +205,6 @@ export default {
 page {
   background-size: 100% 100%;
   background-image: url("https://139.199.106.168/image/back.jpg");
-}
-.search {
-  margin-top: 20px;
 }
 h1 {
   margin-top: 30px;
@@ -152,7 +221,7 @@ h1 {
 .bookshelf {
   display: flex;
   flex-wrap: wrap;
-  justify-content: left;
+  align-content: flex-start;
   background-image: url("https://139.199.106.168/image/shelf.png");
   background-size: 100% 100%;
   padding-left: 5px;
@@ -160,6 +229,10 @@ h1 {
   padding-top: 4px;
   padding-bottom: 11px;
   height: 360px;
+  z-index: 5;
+}
+.book {
+  height: 33%
 }
 .body {
   margin: 20px 0px;
@@ -177,12 +250,24 @@ h1 {
   width: 70px;
   height: 70px;
 }
+.text {
+  color: black;
+}
 input {
-  height: 50px;
+  height: 40px;
   color: white;
   border: white solid 4px;
   font-weight: bolder;
   background-color: #ffb001;
   border-radius: 3%;
+  margin-top: 10%;
+  width: 80%;
+}
+.inline {
+  display: inline-block;
+}
+.search-icon {
+  width: 45px;
+  height: 50px;
 }
 </style>

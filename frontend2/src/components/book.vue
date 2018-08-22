@@ -1,6 +1,6 @@
 <template>
 <div class="book-card">
-  <div class="thumb">
+  <div class="thumb" @click="on_click">
     <img :src="'/static/img/english1.jpg'" mode="aspectFit" />
   </div>
   <div>
@@ -14,7 +14,12 @@
 
 <script>
 export default {
-  props: ["book"]
+  props: ["book"],
+  methods: {
+	on_click: function() {
+		this.$emit('on_click',this.book)
+		}
+	}
 };
 </script>
 
@@ -25,8 +30,8 @@ export default {
   width: 20%;
   height: 16%;
   color: #53cce9;
-  font-size: 16px;
-  font-weight: bold;
+  font-size: 14px;
+  text-align: center;
 }
 img {
   width: 50px;

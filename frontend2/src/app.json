@@ -1,18 +1,17 @@
 {
   "pages": [
-    "pages/community/main",
+	"pages/login/main",
+	"pages/bookshelf/main",	
     "pages/practice/main",
     "pages/game3/main",
-    "pages/message/main",
-    "pages/e_book/main",
-    "pages/login/main",
+    "pages/e_book/main",    
     "pages/game1/main",
     "pages/me/main",
     "pages/game2/main",
     "pages/show/main",
-    "pages/guide/main",
-    "pages/bookshelf/main",
-    "pages/level/main"
+    "pages/guide/main",    
+    "pages/level/main",
+    "pages/community/main"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -20,22 +19,5 @@
     "navigationBarTitleText": "弗恩阅读英语",
     "navigationBarTextStyle": "white",
     "backgroundColor": "#53cce9"
-  },
-  "tabBar": {
-    "selectedColor": "#ffb001",
-    "list": [
-      {
-        "pagePath": "pages/community/main",
-        "iconPath": "static/img/community.jpg",
-        "selectedIconPath": "static/img/community.jpg",
-        "text": "社群"
-      },
-      {
-        "pagePath": "pages/message/main",
-        "iconPath": "static/img/message.jpg",
-        "selectedIconPath": "static/img/message.jpg",
-        "text": "我的消息"
-      }
-    ]
   }
 }
