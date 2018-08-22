@@ -15,13 +15,16 @@
 <script>
 import axios from 'axios'
 import qs from 'qs'
+import store from '../store/store'
+import * as Tools from './Tools/Tools'
+
 export default {
   data() {
     return {
       loading: false,
       account: {
-        username: '123',
-        pwd: '123456'
+        username: '100001',
+        pwd: '111111'
       },
       rules: {
         username: [{ required: true, message: '请输入账号', trigger: 'blur' }],
@@ -35,7 +38,7 @@ export default {
       let saved = this
       axios
         .post(
-          'http://192.168.55.33:8000/auth_manager',
+          Tools.get_url() + 'auth_manager',
           qs.stringify({
             id: saved.account.username,
             password: saved.account.pwd
@@ -45,6 +48,8 @@ export default {
           if (response.data.status === 'error') {
             alert('登录失败，用户名或密码错误。')
           } else {
+            store.commit('login')
+            console.log(store.state)
             saved.$router.push({ path: '/' })
           }
         })

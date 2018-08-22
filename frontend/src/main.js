@@ -7,7 +7,21 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import '@/assets/iconfont.css'
 import '@/assets/styles/main.css'
+import store from './store/store'
 Vue.config.productionTip = false
+
+router.beforeEach((to, from, next) => {
+  if (to.path === '/login') {
+    next()
+  } else {
+    if (!store.state.user) {
+      next({ path: '/login' })
+    } else {
+      next()
+    }
+  }
+})
+
 Vue.use(ElementUI)
 new Vue({
   el: '#app',
