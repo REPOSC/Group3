@@ -56,8 +56,4 @@ describe('测试登录界面', () => {
     wrapper.find('button').trigger('click');
     expect(qs.stringify).toBeCalled();
   });
-
-  it('为login单元测试增加快照', () => {
-    expect(vm.$el).toMatchSnapshot()
-  });
 })
