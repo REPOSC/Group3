@@ -13,13 +13,13 @@
         <el-checkbox class="checkbox" v-model="option.value">{{"等级"+option.number}}</el-checkbox>
       </span>
       <br><br>
-      <el-button type = "primary" @click="submit">立即生成</el-button>
+      <el-button type="primary" @click="submit">立即生成</el-button>
       <br><br>
     </div>
     <div class="card">
       <el-table :data="tableData" height="400">
-        <el-table-column prop="user_name" width="100px" align="center" label="账户" ></el-table-column>
-        <el-table-column prop="user_pwd" align="center" label="密码" ></el-table-column>
+        <el-table-column prop="user_name" width="100px" align="center" label="账户"></el-table-column>
+        <el-table-column prop="user_pwd" align="center" label="密码"></el-table-column>
       </el-table>
     </div>
     <br><br>
