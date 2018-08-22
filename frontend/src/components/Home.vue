@@ -78,6 +78,7 @@
 
 <script>
 import { bus } from '../bus.js'
+import store from '../store/store'
 export default {
   name: 'home',
   created() {
@@ -116,33 +117,35 @@ export default {
         confirmButtonClass: 'el-button--warning'
       })
         .then(() => {
+          store.commit('logout')
+          that.$router.push('/login') // 用go刷新
           // 确认
-          that.loading = true
-          API.logout()
-            .then(
-              function(result) {
-                that.loading = false
-                localStorage.removeItem('access-user')
-                that.$router.push('/login') // 用go刷新
-              },
-              function(err) {
-                that.loading = false
-                that.$message.error({
-                  showClose: true,
-                  message: err.toString(),
-                  duration: 2000
-                })
-              }
-            )
-            .catch(function(error) {
-              that.loading = false
-              console.log(error)
-              that.$message.error({
-                showClose: true,
-                message: '请求出现异常',
-                duration: 2000
-              })
-            })
+          // that.loading = true
+          // API.logout()
+          //   .then(
+          //     function(result) {
+          //       that.loading = false
+          //       localStorage.removeItem('access-user')
+          //       that.$router.push('/login') // 用go刷新
+          //     },
+          //     function(err) {
+          //       that.loading = false
+          //       that.$message.error({
+          //         showClose: true,
+          //         message: err.toString(),
+          //         duration: 2000
+          //       })
+          //     }
+          //   )
+          //   .catch(function(error) {
+          //     that.loading = false
+          //     console.log(error)
+          //     that.$message.error({
+          //       showClose: true,
+          //       message: '请求出现异常',
+          //       duration: 2000
+          //     })
+          //   })
         })
         .catch(() => {})
     }
