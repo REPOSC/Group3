@@ -12,7 +12,7 @@ import BookList from '@/components/book/list'
 import UserChangePwd from '@/components/user/changepwd'
 import UserProfile from '@/components/user/profile'
 import SendMessage from '@/components/group/sendmessage'
-import groupzone from '@/components/group/zone'
+import groupdzone from '@/components/group/dzone'
 Vue.use(Router)
 // 懒加载方式，当路由被访问的时候才加载对应组件
 const Login = resolve => require(['@/components/login'], resolve)
@@ -125,10 +125,10 @@ let router = new Router({
       iconCls: 'iconfont icon-home', // 图标样式class
       children: [
         {
-          path: '/group/zone',
+          path: '/group/dzone',
           name: '查看社群消息',
           menuShow: true,
-          component: groupzone
+          component: groupdzone
         }
       ]
     },
