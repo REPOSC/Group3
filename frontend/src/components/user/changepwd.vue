@@ -31,34 +31,40 @@ export default {
     }
   },
   methods: {
-    submit: function() {
+    isequal: function(old_pwd, password, confirm_pwd) {
       if (
-        this.old_pwd === '' ||
-        this.password === '' ||
-        this.confirm_pwd === ''
+        old_pwd === '' ||
+        password === '' ||
+        confirm_pwd === ''
       ) {
         alert('请填写所有的字段！')
-        return
-      } else if (this.password !== this.confirm_pwd) {
+        return false
+      } else if (password !== confirm_pwd) {
         alert('两次密码不匹配！')
-        return
+        return false
+      } else {
+        return true
       }
-      let saved = this
-      axios
-        .post(
-          Tools.get_url() + 'change_manager',
-          qs.stringify({
-            username: saved.username,
-            password: saved.password
+    },
+    submit: function() {
+      if (this.isequal(this.old_pwd, this.password, this.confirm_pwd)) {
+        let saved = this
+        axios
+          .post(
+            Tools.get_url() + 'change_manager',
+            qs.stringify({
+              username: saved.username,
+              password: saved.password
+            })
+          )
+          .then(function(response) {
+            if (response.data.success) {
+              alert('修改管理员密码成功！')
+            } else {
+              alert('修改密码失败，管理员不存在！')
+            }
           })
-        )
-        .then(function(response) {
-          if (response.data.success) {
-            alert('修改管理员密码成功！')
-          } else {
-            alert('修改密码失败，管理员不存在！')
-          }
-        })
+      }
     }
   }
 }
