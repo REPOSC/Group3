@@ -9,7 +9,6 @@ import memberadd from '@/components/memberManager/addMember'
 import memberchangePwd from '@/components/memberManager/changePwd'
 import memberremove from '@/components/memberManager/removeMember'
 import BookList from '@/components/book/list'
-import BookCategoryList from '@/components/bookcategory/list'
 import UserChangePwd from '@/components/user/changepwd'
 import UserProfile from '@/components/user/profile'
 import SendMessage from '@/components/group/sendmessage'
@@ -88,8 +87,7 @@ let router = new Router({
       menuShow: true,
       iconCls: 'iconfont icon-books',
       children: [
-        { path: '/book/list', component: BookList, name: '添加书籍', menuShow: true },
-        { path: '/bookcategory/list', component: BookCategoryList, name: '管理书籍', menuShow: true }
+        { path: '/book/list', component: BookList, name: '添加书籍', menuShow: true }
       ]
     },
     {
