@@ -3,6 +3,7 @@ stages:
   - backendtest
   - frontendonelint
   - frontendtwolint
+  - serverpylint
 
 environment:
   stage: init
@@ -35,3 +36,12 @@ frontendtwolint:
     - cd ./frontend2
     - npm install --save-dev eslint eslint-plugin-vue@next
     - npm run eslint
+   
+serverpylint:
+  stage: serverpylint
+  script:
+    - cd ./server
+    - pylint --rcfile=pylint.conf ./server/*
+    - pylint --rcfile=pylint.conf ./backend/*
+    
+    
