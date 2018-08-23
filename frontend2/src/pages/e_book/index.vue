@@ -70,7 +70,7 @@ export default {
         .then(function(response) {
           save.bookpagenumber = response.data.page_number
           save.booknowpage = Math.round(save.bookpagenumber * save.bookprocess)
-          if (save.bookprocess === 1) {
+          if (parseInt(save.bookprocess) === 1) {
             save.booknowpage--
           }
           save.getbook()
