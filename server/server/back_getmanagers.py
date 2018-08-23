@@ -1,8 +1,5 @@
 from django.http import JsonResponse
-from django.contrib.auth.models import User
 from backend import models
-from . import tools
-from . import debug
 
 
 def get_managers(request):

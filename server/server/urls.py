@@ -15,9 +15,9 @@ Including another URLconf
 """
 from django.urls import path, include
 from . import views, back_createstudent, front_userlevel, front_showbooks, \
-    back_changepassword, back_setlevel, back_authmanager, front_authstudent,\
-    front_getbookcontent, back_addmanager, back_changemanager, back_delmanager,\
-    back_putmessage, back_getmanagers, back_getbook,back_allstudent,back_getstudent
+    back_changepassword, back_setlevel, back_authmanager, front_authstudent, \
+    front_getbookcontent, back_addmanager, back_changemanager, back_delmanager, \
+    back_putmessage, back_getmanagers, back_getbook, back_allstudent, back_getstudent
 from django.contrib import admin
 
 urlpatterns = [

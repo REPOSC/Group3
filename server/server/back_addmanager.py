@@ -1,8 +1,5 @@
 from django.http import JsonResponse
-from django.contrib.auth.models import User
 from backend import models
-from . import tools
-from . import debug
 
 
 def add_manager(request):
@@ -14,7 +11,6 @@ def add_manager(request):
         manager_num += 1
     except:
         pass
-
     student = models.User_info.objects.create_user(
         number=manager_num,
         password=password,
