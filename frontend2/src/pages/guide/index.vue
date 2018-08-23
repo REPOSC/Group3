@@ -14,12 +14,12 @@
     </i-row>
     <div class="firstpart">
       <img src="/static/img/yellow-tap.png">
-      <h1>本课重点知识 </h1>
+      <h1>本书导读</h1>
       <p :key="index" v-for="(one,index) in ones">{{ index-0+1 }}、{{ one }}</p>
     </div>
     <div class="secpart">
       <img src="/static/img/green-tap.png">
-      <h1>今日导读</h1>
+      <h1>本课重点知识</h1>
       <p :key="index" v-for="(two,index) in twos">{{ index-0+1 }}、{{ two }}</p>
     </div>
     <div class="thirdpart">
@@ -35,7 +35,7 @@
     <div class="bottom">
       <i-row>
         <i-col span="6" offset="9">
-          <div class="toMeBtn" @click="toMe">
+          <div class="toMeBtn" @click="to_me">
             <img src="/static/img/man.png">
             <p>我的</p>
           </div>
@@ -57,48 +57,40 @@ export default {
       ones: [],
       twos: [],
       threes: [],
-      current_audio: null
+      current_audio: null,
+      innerAudioContext: null
     }
   },
   onLoad: function(status) {
-    this.init(status)
+    this.booknumber = status.booknumber
+    this.booktitle = status.bookname
+  },
+  onShow: function() {
+    this.init()
   },
   methods: {
-    init: function(status) {
+    init: function() {
       let fly = Tools.get_fly()
-      this.booknumber = status.book
       let save = this
       fly
         .post(
           Tools.get_url() + 'get_first_function',
           qs.stringify({
-            book_id: this.booknumber
+            book_id: save.booknumber
           })
         )
         .then(function(response) {
           let knowledges = response.data.knowledge
           let guides = response.data.guide
           let word_contents = response.data.words
-          save.ones = knowledges
-          save.twos = guides
+          save.ones = guides
+          save.twos = knowledges
           save.threes = word_contents
         })
+      this.innerAudioContext = wx.createInnerAudioContext()
     },
     hear: function(index) {
-      // let fly = Tools.get_fly()
-      // let save = this
-      // fly
-      //     .post(
-      //       Tools.get_url() + 'get_word_audio',
-      //       qs.stringify({
-      //         book_id: this.booknumber,
-      //         audio_index: index
-      //       })
-      //     )
-      //     .then(function(response) {
-      //       save.current_audio = response.data
-      //       console.log(save.current_audio)
-      //     })
+      let save = this
       wx.downloadFile({
         url:
           Tools.get_url() +
@@ -107,22 +99,16 @@ export default {
           '&audio_index=' +
           index,
         success: function(res) {
-          console.log(res)
           if (res.statusCode === 200) {
-            wx.playVoice({
-              filePath: res.tempFilePath,
-              success: function() {
-                console.log('hello')
-              }
-            })
-            wx.playVoice({
-              filePath: '/static/10500.wav',
-              success: function() {
-                console.log('hello')
-              }
-            })
+            save.innerAudioContext.src = res.tempFilePath
+            save.innerAudioContext.play()
           }
         }
+      })
+    },
+    to_me: function() {
+      wx.navigateTo({
+        url: '../me/main?username=' + this.username
       })
     }
   }
@@ -132,13 +118,14 @@ export default {
 <style>
 page {
   background-size: 100% 100%;
-  /*background-image: url('https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1534945615291&di=fa4a915965df971671ec98a8fe2d5a52&imgtype=0&src=http%3A%2F%2Fp.moto8.com%2Fforum%2F201201%2F04%2F195150zxaed89qa2e67t29.jpg');
-*/
+  background-image: url('https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1534945615291&di=fa4a915965df971671ec98a8fe2d5a52&imgtype=0&src=http%3A%2F%2Fp.moto8.com%2Fforum%2F201201%2F04%2F195150zxaed89qa2e67t29.jpg');
 }
+
 .head img {
   width: 60px;
   height: 60px;
 }
+
 .head h1 {
   font-size: 25px;
   font-weight: bolder;
@@ -146,44 +133,53 @@ page {
   color: white;
   background-color: #019dd6;
 }
+
 .title {
   margin-top: 15px;
 }
+
 .firstpart {
   color: #eff000;
   align-content: center;
   margin: 30px;
   margin-top: 0px;
 }
+
 .secpart {
   color: #02c45d;
   align-content: center;
   margin: 30px;
 }
+
 .thirdpart {
   color: #de6648;
   align-content: center;
   margin: 30px;
 }
+
 .subtitle {
   display: block;
 }
+
 h1 {
   display: inline;
   font-size: 22px;
   font-weight: bolder;
   font-family: fantasy;
 }
+
 p {
   display: block;
   margin-right: 15px;
   font-size: 16px;
   font-weight: bold;
 }
+
 img {
   width: 30px;
   height: 30px;
 }
+
 .thirdpart p {
   display: inline-block;
   font-size: 20px;
@@ -191,6 +187,7 @@ img {
   margin-right: 50px;
   margin-bottom: 10px;
 }
+
 .toMeBtn {
   position: fixed;
   width: 70px;
@@ -201,14 +198,17 @@ img {
   text-align: center;
   bottom: 10px;
 }
+
 .toMeBtn img {
   width: 70px;
   height: 70px;
 }
+
 .toMeBtn p {
   background-color: #ffb001;
   margin-left: 10px;
 }
+
 .word {
   display: inline;
 }

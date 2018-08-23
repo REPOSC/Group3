@@ -30,11 +30,31 @@ def get_word_audio(request):
 
 
 def get_second_function(request):
-    user_id = request.POST.get('user_id', '')
     book_id = request.POST.get('book_id', '')
-    one_process = models.User_process.objects.filter(
-        user_number=user_id, book_number=book_id)
-    one_book_words = models.Book_words.objects.filter(book_number=book_id)
+    book = models.Book_info.objects.get(number=int(book_id))
+    return JsonResponse({'page_number': book.pages})
+
+
+def get_page_texts(request):
+    book_id = request.POST.get('book_id', '')
+    book_page = request.POST.get('book_page', '')
+    page = models.Page_content.objects.get(
+        number=int(book_id), page=int(book_page))
+    return JsonResponse({'english': page.english_text, 'chinese': page.chinese_text})
+
+
+def get_page_audio(request):
+    book_id = request.GET.get('book_id')
+    page_id = request.GET.get('page_index')
+    page = models.Page_content.objects.get(number=book_id, page=page_id)
+    return HttpResponse(page.audio)
+
+
+def get_page_image(request):
+    book_id = request.GET.get('book_id')
+    page_id = request.GET.get('page_index')
+    page = models.Page_content.objects.get(number=book_id, page=page_id)
+    return HttpResponse(page.image)
 
 
 def get_third_function(request):

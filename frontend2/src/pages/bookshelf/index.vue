@@ -42,6 +42,7 @@ import book from '@/components/book'
 import iconbtn from '@/components/iconbtn'
 import * as Tools from '../../components/Tools.js'
 import qs from 'qs'
+
 export default {
   data() {
     return {
@@ -63,12 +64,14 @@ export default {
     iconbtn
   },
   onLoad: function(option) {
-    this.init(option)
+    this.username = option.username
+    this.level = parseInt(option.level)
+  },
+  onShow: function() {
+    this.init()
   },
   methods: {
-    init: function(option) {
-      this.username = option.username
-      this.level = parseInt(option.level)
+    init: function() {
       this.persualbooks = []
       this.notpersualbooks = []
       let fly = Tools.get_fly()
@@ -84,6 +87,7 @@ export default {
         .then(function(response) {
           let books = response.data.answer
           for (let book of books) {
+            book.process *= 100
             if (book.is_persual === true) {
               save.persualbooks.push(book)
             } else {
@@ -104,10 +108,10 @@ export default {
         url:
           '../show/main?username=' +
           save.username +
-          '&book=' +
+          '&booknum=' +
           book.number +
-          '&process' +
-          book.process
+          '&bookname=' +
+          book.name
       })
     },
     split_books: function() {
@@ -201,6 +205,7 @@ page {
   background-size: 100% 100%;
   background-image: url('https://139.199.106.168/image/back.jpg');
 }
+
 h1 {
   margin-top: 30px;
   padding: 2px;
@@ -208,11 +213,13 @@ h1 {
   font-size: 43px;
   font-family: fantasy;
 }
+
 .title img {
   margin-top: 10px;
   width: 90px;
   height: 90px;
 }
+
 .bookshelf {
   display: flex;
   flex-wrap: wrap;
@@ -226,12 +233,15 @@ h1 {
   height: 360px;
   z-index: 5;
 }
+
 .book {
   height: 33%;
 }
+
 .body {
   margin: 20px 0px;
 }
+
 .toMeBtn {
   width: 70px;
   height: 90px;
@@ -241,13 +251,16 @@ h1 {
   text-align: center;
   float: right;
 }
+
 .toMeBtn img {
   width: 70px;
   height: 70px;
 }
+
 .text {
   color: black;
 }
+
 input {
   height: 40px;
   color: white;
@@ -258,9 +271,11 @@ input {
   margin-top: 10%;
   width: 80%;
 }
+
 .inline {
   display: inline-block;
 }
+
 .search-icon {
   width: 45px;
   height: 50px;
