@@ -1,13 +1,13 @@
 <template>
   <div class="card">
     <div class="title">推送消息给用户</div>
-    <br><br>
+    <div class="space"></div>
     <div class="input-title">编辑消息</div>
-    <br><br>
+    <div class="space"></div>
     <textarea v-model="content" class="texts"></textarea>
-    <br><br>
+    <div class="space"></div>
     <el-button type="primary" @click="submit"> 发送 </el-button>
-    <br><br>
+    <div class="space"></div>
   </div>
 </template>
 <script>

@@ -2,21 +2,21 @@
   <div>
     <div class="card">
       <div class="title">添加管理员</div>
-      <br><br>
+      <div class="space"></div>
       <div class="input-title">管理员姓名</div>
-      <br><br>
+      <div class="space"></div>
       <el-input v-model="nickname" placeholder="请输入账户名"></el-input>
-      <br><br>
+      <div class="space"></div>
       <div class="input-title">登录密码</div>
-      <br><br>
+      <div class="space"></div>
       <el-input v-model="password" placeholder="请输入密码" type="password"></el-input>
-      <br><br>
+      <div class="space"></div>
       <div class="input-title">登录密码</div>
-      <br><br>
+      <div class="space"></div>
       <el-input v-model="confirm_pwd" placeholder="请再次输入密码" type="password"></el-input>
-      <br><br>
+      <div class="space"></div>
       <el-button type = "primary" @click="submit" >确认注册</el-button>
-      <br><br>
+      <div class="space"></div>
     </div>
     <div class="card">
       <el-table :data="tableData" height="100">
