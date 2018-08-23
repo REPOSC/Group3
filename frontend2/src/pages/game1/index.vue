@@ -6,7 +6,7 @@
         <span v-for="word in words" :key="word.index">{{ word.text }}</span>
       </div>
       <div class="pictures">
-        <img :key="picture.index" v-for="picture in pictures" :src="picture.src" mode="aspectFit"/>
+        <img :key="picture.index" v-for="picture in pictures" :src="picture.src" mode="aspectFit" />
       </div>
     </div>
   </div>
@@ -14,7 +14,7 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       words: [
         {
@@ -68,7 +68,8 @@ page {
   padding: 20px 20px;
   margin: 10px 10px;
 }
-.words, .pictures{
+.words,
+.pictures {
   width: 40%;
 }
 .words span {

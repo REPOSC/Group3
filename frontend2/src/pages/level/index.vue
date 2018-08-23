@@ -7,62 +7,62 @@
 </template>
 
 <script>
-import * as Tools from "../../components/Tools.js";
-import qs from "qs";
+import * as Tools from '../../components/Tools.js'
+import qs from 'qs'
 export default {
   data() {
     return {
       max_value: 12,
-      username: "",
+      username: '',
       levels: [],
-      last_level: "",
+      last_level: '',
       judge_level: false
-    };
+    }
   },
   onLoad: function(option) {
-    this.username = option.username;
-    this.last_level = option.last_level;
-    let fly = Tools.get_fly();
-    let save = this;
+    this.username = option.username
+    this.last_level = option.last_level
+    let fly = Tools.get_fly()
+    let save = this
     fly
       .post(
-        Tools.get_url() + "user_level",
+        Tools.get_url() + 'user_level',
         qs.stringify({
           id: save.username
         })
       )
       .then(function(response) {
-        save.levels = [];
-        let temp = response.data.levels;
+        save.levels = []
+        let temp = response.data.levels
         for (let i = 0; i < save.max_value; ++i) {
           if (temp.indexOf(i) !== -1) {
             if (save.judge_level === false) {
               if (save.last_level < i) {
-                save.last_level = i;
+                save.last_level = i
               }
-              save.judge_level = true;
+              save.judge_level = true
             }
-            save.levels.push({ check: "true", id: i });
+            save.levels.push({ check: 'true', id: i })
           } else {
-            save.levels.push({ check: "false", id: i });
+            save.levels.push({ check: 'false', id: i })
           }
         }
-      });
+      })
   },
   methods: {
     submit: function(level) {
-      if (this.levels[level].check === "true") {
+      if (this.levels[level].check === 'true') {
         wx.navigateTo({
-          url: "../bookshelf/main?username=" + this.username + "&level=" + level
-        });
+          url: '../bookshelf/main?username=' + this.username + '&level=' + level
+        })
       } else {
         wx.showModal({
-          content: "您还没有拥有此等级的书籍，请选择其他等级。"
-        });
+          content: '您还没有拥有此等级的书籍，请选择其他等级。'
+        })
       }
     }
   }
-};
+}
 </script>
 
 <style>

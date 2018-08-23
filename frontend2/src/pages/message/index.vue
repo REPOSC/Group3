@@ -1,23 +1,26 @@
 <template>
   <div>
     <div class="like" :key="like.id" v-for="like in likes">
-      <img :src="like.avatar"/>
-      <p><span>{{ like.username }}</span>赞了你</p>
+      <img :src="like.avatar" />
+      <p>
+        <span>{{ like.username }}</span>赞了你</p>
     </div>
     <div class="comment" :key="comment.id" v-for="comment in comments">
       <div class="user">
-        <img :src="comment.avatar"/>
-        <p><span>{{ like.username }}</span>评论了你：</p>
+        <img :src="comment.avatar" />
+        <p>
+          <span>{{ like.username }}</span>评论了你：</p>
         <a>回复</a>
       </div>
-      <br><p class="content">{{ comment.content }}</p>
+      <br>
+      <p class="content">{{ comment.content }}</p>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       likes: [
         {

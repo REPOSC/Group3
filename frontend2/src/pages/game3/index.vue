@@ -4,14 +4,14 @@
       <div class="area" :key="area.index" v-for="area in areas"></div>
     </div>
     <div class="picture">
-      <img :key="picture.index" v-for="picture in pictures" :src="picture.src" mode="aspectFit"/>
+      <img :key="picture.index" v-for="picture in pictures" :src="picture.src" mode="aspectFit" />
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       pictures: [
         {
@@ -33,7 +33,7 @@ export default {
       ],
       areas: [
         {
-          index: 1,
+          index: 1
         },
         {
           index: 2

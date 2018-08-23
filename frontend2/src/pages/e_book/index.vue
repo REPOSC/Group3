@@ -20,7 +20,7 @@
 </template>
 <script>
 export default {
-  data () {
+  data() {
     return {
       BookName: 'BOOK1',
       src: 'http://139.199.106.168/image/bookface.jpg',
@@ -33,35 +33,35 @@ export default {
     }
   },
   methods: {
-    playaudio () {
+    playaudio() {
       this.innerAudioContext = wx.createInnerAudioContext()
       this.innerAudioContext.src = this.recordsrc
       this.innerAudioContext.play()
     },
-    previouspage () {
+    previouspage() {
       let now = this
       now.src = 'http://139.199.106.168/image/bookface.jpg'
     },
-    record () {
+    record() {
       let save = this
       if (save.isrecord === true) {
         save.recorderManager.stop()
-        save.recorderManager.onStop((res) => {
-          const tempFilePath = res
+        save.recorderManager.onStop(res => {
+          // const tempFilePath = res
           this.recordsrc = res.tempFilePath
           this.innerRecordContext = wx.createInnerAudioContext()
           this.innerRecordContext.src = this.recordsrc
         })
         save.isrecord = false
       } else {
-          save.recorderManager.start()
-          save.isrecord = true
+        save.recorderManager.start()
+        save.isrecord = true
       }
     },
-    playrecord () {
+    playrecord() {
       this.innerRecordContext.play()
     },
-    nextpage () {
+    nextpage() {
       let now = this
       now.src = 'http://139.199.106.168/image/bookmiddle.jpg'
     }
@@ -71,7 +71,7 @@ export default {
 <style>
 page {
   background-size: 100% 100%;
-  background-image: url("http://139.199.106.168/image/back.jpg")
+  background-image: url('http://139.199.106.168/image/back.jpg');
 }
 .title {
   margin: 30px 20px;
@@ -108,7 +108,7 @@ h1 {
   text-align: center;
   background-color: #ffb001;
 }
-.btngroup button{
+.btngroup button {
   display: inline-block;
   width: 50px;
   height: 50px;
@@ -117,18 +117,18 @@ h1 {
   vertical-align: middle;
 }
 .previous {
-  background-image: url("http://139.199.106.168/image/left.png");
+  background-image: url('http://139.199.106.168/image/left.png');
 }
 .listen {
-  background-image: url("http://139.199.106.168/image/listen.png");
+  background-image: url('http://139.199.106.168/image/listen.png');
 }
 .add {
-  background-image: url("http://139.199.106.168/image/add.png");
+  background-image: url('http://139.199.106.168/image/add.png');
 }
 .play {
-  background-image: url("http://139.199.106.168/image/play.png");
+  background-image: url('http://139.199.106.168/image/play.png');
 }
 .next {
-  background-image: url("http://139.199.106.168/image/right.png");
+  background-image: url('http://139.199.106.168/image/right.png');
 }
 </style>

@@ -1,18 +1,18 @@
 <template>
   <div class="game">
     <div class="word">
-      <img src="/static/img/game2/read.png"/>
+      <img src="/static/img/game2/read.png" />
       <span>{{ word }}</span>
     </div>
     <div class="picGroup">
-      <img :key="pic.index" v-for="pic in pics" :isanswer="pic.isanswer" :src="pic.src" mode="aspectFit" @click="choice(pic)"/>
+      <img :key="pic.index" v-for="pic in pics" :isanswer="pic.isanswer" :src="pic.src" mode="aspectFit" @click="choice(pic)" />
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       word: 'hehei',
       pics: [
@@ -41,7 +41,7 @@ export default {
   },
   methods: {
     choice(pic) {
-      console.log(pic.isanswer);
+      console.log(pic.isanswer)
       if (pic.isanswer === true) {
         wx.showModal({
           title: '选对啦!宝宝真棒！',
@@ -59,13 +59,13 @@ export default {
         })
       } else {
         wx.showModal({
-          title:'啊噢，就差一点点噢...',
+          title: '啊噢，就差一点点噢...',
           content: '再试一次吧~',
           cancelText: '不了',
           confirmText: '再试一次',
           confirmColor: '#ffb001',
           success: function(res) {
-            if(res.cancel) {
+            if (res.cancel) {
               wx.navigateBack({
                 url: '../practice/main'
               })
@@ -109,7 +109,7 @@ page {
   flex-wrap: wrap;
   margin: 20px;
 }
-.picGroup img{
+.picGroup img {
   width: 40%;
   height: 100px;
   margin: 10px auto;

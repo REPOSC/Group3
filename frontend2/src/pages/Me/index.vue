@@ -14,7 +14,7 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       username: '哈哈哈'
     }

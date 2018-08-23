@@ -14,10 +14,10 @@
 <script>
 export default {
   methods: {
-    turnTo (e) {
+    turnTo(e) {
       wx.navigateTo({
         url: '/pages/' + e.target.id + '/main'
-      });
+      })
     }
   }
 }
