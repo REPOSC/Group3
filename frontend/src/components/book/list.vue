@@ -23,14 +23,14 @@
       <br><br>
     </div>
     <div class="card">
-      <div class="title"> 亲子阅读指导 </div>
+      <div class="title"> 本书导读 </div>
       <br><br>
       <div v-for="(guide,index) in guides">
         <textarea class="texts" v-model="guides[index]"></textarea>
         <br><br>
       </div>
       <br><br>
-      <el-button @click="add_guide"> 添加新指导条目 </el-button>
+      <el-button @click="add_guide"> 添加新导读条目 </el-button>
       <br><br>
     </div>
     <div class="card">
