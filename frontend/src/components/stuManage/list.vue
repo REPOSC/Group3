@@ -3,19 +3,17 @@
   <div>
     <!--为echarts准备一个具备大小的容器dom-->
     <div class="login-container demonstration">
-      <!--<el-input placeholder="请输入查找的账户" icon="search" v-model="schfilter" v-on:change="find" class="search-input">-->
-      <!--</el-input>-->
-      <div class="searchWord">
-        <div style="display: inline-block"> 搜索：</div>
-        <el-input v-model="search" style="display: inline-block;width: 1300px" placeholder="请输入搜索内容">
-        </el-input>
+      <div>
+        <el-input v-model="TableDataName" placeholder="请输入账号" style="width:240px"></el-input>
+        <el-button type="primary" @click="doFilter">搜索</el-button>
+        <el-button type="primary" @click="doFilter1">返回</el-button>
       </div>
       <el-table :data="tableData.slice((currpage - 1) * pagesize, currpage * pagesize)" align="center">
         <el-table-column prop="user_name" label="账号" sortable width="180">
         </el-table-column>
         <el-table-column prop="user_nickname" label="姓名" sortable width="180">
         </el-table-column>
-        <el-table-column prop="user_level" label="等级" sortable width="180">
+        <el-table-column prop="level" label="等级" sortable width="180">
         </el-table-column>
         <el-table-column prop="book_num" label="阅读数量" sortable width="180">
         </el-table-column>
@@ -64,7 +62,10 @@ export default {
         { value: 135, name: '视频广告' },
         { value: 1548, name: '搜索引擎' }
       ],
-      tableData: []
+      tableData: [],
+      tableData1: [],
+      TableDataName: '',
+      filterTableData: []
     }
   },
   watch: {
@@ -73,32 +74,6 @@ export default {
         item => ~item.user_name.indexOf(val)
       )
     }
-  },
-  tables() {
-    const search = this.search
-    if (search) {
-      // filter() 方法创建一个新的数组，新数组中的元素是通过检查指定数组中符合条件的所有元素。
-      // 注意： filter() 不会对空数组进行检测。
-      // 注意： filter() 不会改变原始数组。
-      return this.dormitory.filter(data => {
-        // some() 方法用于检测数组中的元素是否满足指定条件;
-        // some() 方法会依次执行数组的每个元素：
-        // 如果有一个元素满足条件，则表达式返回true , 剩余的元素不会再执行检测;
-        // 如果没有满足条件的元素，则返回false。
-        // 注意： some() 不会对空数组进行检测。
-        // 注意： some() 不会改变原始数组。
-        return Object.keys(data).some(key => {
-          // indexOf() 返回某个指定的字符在某个字符串中首次出现的位置，如果没有找到就返回-1；
-          // 该方法对大小写敏感！所以之前需要toLowerCase()方法将所有查询到内容变为小写。
-          return (
-            String(data[key])
-              .toLowerCase()
-              .indexOf(search) > -1
-          )
-        })
-      })
-    }
-    return this.dormitory
   },
   methods: {
     handleCurrentChange(cpage) {
@@ -202,38 +177,53 @@ export default {
         .then(function(response) {
           let nicknames = eval(response.data.user_nicknames)
           let names = eval(response.data.user_numbers)
+          let levels = eval(response.data.levelss)
           for (let i = 0; i < nicknames.length; ++i) {
             saved.tableData.push({
               user_nickname: nicknames[i],
-              user_name: names[i]
+              user_name: names[i],
+              level: levels[i]
             })
           }
         })
     },
-    handleClick(row) {
-      let saved = this
-      let value = row.user_name
-      axios
-        .post(Tools.get_url() + 'all_student', value)
-        .then(function(response) {
-          let nicknames = eval(response.data.user_nicknames)
-          let names = eval(response.data.user_numbers)
-          for (let i = 0; i < nicknames.length; ++i) {
-            saved.tableData.push({
-              user_nickname: nicknames[i],
-              user_name: names[i]
-            })
+    doFilter() {
+      this.tableData1 = this.tableData
+      if (this.TableDataName === '') {
+        this.$message.warning('查询条件不能为空！')
+        return
+      }
+      // 每次手动将数据置空,因为会出现多次点击搜索情况
+      this.filterTableData = []
+      this.tableData.forEach((value, index) => {
+        if (value.user_name) {
+          if (value.user_name.indexOf(this.TableDataName) >= 0) {
+            this.filterTableData.push(value)
           }
-        })
+        }
+      })
+      // 页面数据改变重新统计数据数量和当前页
+      this.pagesize = 10
+      this.currpage = 1
+      this.tableData = this.filterTableData
+    },
+    doFilter1() {
+      this.tableData = this.tableData1
+      this.pagesize = 10
+      this.currpage = 1
+      this.TableDataName = ''
+    },
+    chushi() {
+      this.tableData1 = this.tableData
     }
   },
-  // 调用
   mounted() {
     this.$nextTick(function() {
       this.drawPie('main')
     })
     this.initChart()
     this.stulist()
+    this.chushi()
   }
 }
 </script>
