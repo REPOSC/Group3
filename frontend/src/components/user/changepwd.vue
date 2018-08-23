@@ -1,21 +1,21 @@
 <template>
   <div class="card">
     <div class="title">修改密码</div>
-    <div class="space"></div>
+    <br><br>
     <div class="input-title">旧密码</div>
-    <div class="space"></div>
+    <br><br>
     <el-input type="password" v-model="old_pwd" auto-complete="off" placeholder="请输入旧密码">{{old_pwd}}</el-input>
-    <div class="space"></div>
+    <br><br>
     <div class="input-title">新密码</div>
-    <div class="space"></div>
+    <br><br>
     <el-input type="password" v-model="password" auto-complete="off" placeholder="请输入密码">{{password}}</el-input>
-    <div class="space"></div>
+    <br><br>
     <div class="input-title">确认登陆密码</div>
-    <div class="space"></div>
+    <br><br>
     <el-input type="password" v-model="confirm_pwd" auto-complete="off" placeholder="请输入密码">{{confirm_pwd}}</el-input>
-    <div class="space"></div>
+    <br><br>
     <el-button type="primary" @click="submit">确认修改</el-button>
-    <div class="space"></div>
+    <br><br>
   </div>
 </template>
 <script>
@@ -31,34 +31,40 @@ export default {
     }
   },
   methods: {
-    submit: function() {
+    isequal: function(old_pwd, password, confirm_pwd) {
       if (
-        this.old_pwd === '' ||
-        this.password === '' ||
-        this.confirm_pwd === ''
+        old_pwd === '' ||
+        password === '' ||
+        confirm_pwd === ''
       ) {
         alert('请填写所有的字段！')
-        return
-      } else if (this.password !== this.confirm_pwd) {
+        return false
+      } else if (password !== confirm_pwd) {
         alert('两次密码不匹配！')
-        return
+        return false
+      } else {
+        return true
       }
-      let saved = this
-      axios
-        .post(
-          Tools.get_url() + 'change_manager',
-          qs.stringify({
-            username: saved.username,
-            password: saved.password
+    },
+    submit: function() {
+      if (this.isequal(this.old_pwd, this.password, this.confirm_pwd)) {
+        let saved = this
+        axios
+          .post(
+            Tools.get_url() + 'change_manager',
+            qs.stringify({
+              username: saved.username,
+              password: saved.password
+            })
+          )
+          .then(function(response) {
+            if (response.data.success) {
+              alert('修改管理员密码成功！')
+            } else {
+              alert('修改密码失败，管理员不存在！')
+            }
           })
-        )
-        .then(function(response) {
-          if (response.data.success) {
-            alert('修改管理员密码成功！')
-          } else {
-            alert('修改密码失败，管理员不存在！')
-          }
-        })
+      }
     }
   }
 }

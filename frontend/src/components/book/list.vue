@@ -2,70 +2,70 @@
   <div>
     <div class="card">
       <div class="title"> 基本信息 </div>
-      <div class="space"></div>
+      <br><br>
       <div class="input-title"> 书籍名称 </div>
-      <div class="space"></div>
+      <br><br>
       <el-input v-model="bookname" placeholder="请输入名称"></el-input>
-      <div class="space"></div>
+      <br><br>
       <div class="input-title"> 书籍简介 </div>
-      <div class="space"></div>
+      <br><br>
       <textarea class="texts" v-model="introduction"></textarea>
-      <div class="space"></div>
+      <br><br>
       <div class="input-title"> 是否为精读书 </div>
-      <div class="space"></div>
+      <br><br>
       <div>
         <el-radio v-model="persual" label="true" border>精读</el-radio>
         <el-radio v-model="persual" label="false" border>泛读</el-radio>
       </div>
       <div class="input-title"> 书籍等级 </div>
-      <div class="space"></div>
+      <br><br>
       <el-input-number v-model="level" :min="1" :max="MAX_VALUE"></el-input-number>
-      <div class="space"></div>
+      <br><br>
     </div>
     <div class="card">
       <div class="title"> 亲子阅读指导 </div>
-      <div class="space"></div>
+      <br><br>
       <div v-for="(guide,index) in guides">
         <textarea class="texts" v-model="guides[index]"></textarea>
-        <div class="space"></div>
+        <br><br>
       </div>
-      <div class="space"></div>
+      <br><br>
       <el-button @click="add_guide"> 添加新指导条目 </el-button>
-      <div class="space"></div>
+      <br><br>
     </div>
     <div class="card">
       <div class="title"> 本书重点知识 </div>
-      <div class="space"></div>
+      <br><br>
       <div v-for="(knowledge,index) in knowledges">
         <textarea class="texts" v-model="knowledges[index]"></textarea>
-        <div class="space"></div>
+        <br><br>
       </div>
-      <div class="space"></div>
+      <br><br>
       <el-button @click="add_knowledge"> 添加新知识 </el-button>
-      <div class="space"></div>
+      <br><br>
     </div>
     <div class="card">
       <div class="title"> 词汇表 </div>
-      <div class="space"></div>
+      <br><br>
       <div v-for="(word,index) in words">
         <Word v-bind:index="index" @get_text="get_text" @get_audio="get_guide_audio"></Word>
-        <div class="space"></div>
+        <br><br>
       </div>
-      <div class="space"></div>
+      <br><br>
       <el-button @click="add_word"> 添加新单词 </el-button>
-      <div class="space"></div>
+      <br><br>
     </div>
     <div>
       <div v-for="(page,index) in pages">
         <Page v-bind:index="index" @get_english="get_book_english_text" @get_chinese="get_book_chinese_text" @get_audio="get_book_audio" @get_picture="get_book_picture"></Page>
-        <div class="space"></div>
+        <br><br>
       </div>
       <el-button @click="add_page"> 添加新的书页 </el-button>
-      <div class="space"></div>
+      <br><br>
     </div>
-    <div class="space"></div>
+    <br><br>
     <el-button type="primary" @click="submit"> 上传书籍 </el-button>
-    <div class="space"></div>
+    <br><br>
   </div>
 </template>
 <script>

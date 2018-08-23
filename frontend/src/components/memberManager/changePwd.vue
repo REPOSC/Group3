@@ -1,21 +1,21 @@
 <template>
   <div class="card">
     <div class="title">修改管理员密码</div>
-    <div class="space"></div>
+    <br><br>
     <div class="input-title">管理员账号</div>
-    <div class="space"></div>
+    <br><br>
     <el-input type="text" v-model="username" auto-complete="off" placeholder="请输入管理员账号">{{username}}</el-input>
-    <div class="space"></div>
+    <br><br>
     <div class="input-title">新密码</div>
-    <div class="space"></div>
+    <br><br>
     <el-input type="password" v-model="password" auto-complete="off" placeholder="请输入密码">{{password}}</el-input>
-    <div class="space"></div>
+    <br><br>
     <div class="input-title">确认登陆密码</div>
-    <div class="space"></div>
+    <br><br>
     <el-input type="password" v-model="confirm_pwd" auto-complete="off" placeholder="请输入密码">{{confirm_pwd}}</el-input>
-    <div class="space"></div>
+    <br><br>
     <el-button type="primary" @click="submit">确认修改</el-button>
-    <div class="space"></div>
+    <br><br>
   </div>
 </template>
 

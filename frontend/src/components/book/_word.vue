@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-input @change="get_text" v-model="text" placeholder="请输入单词"></el-input>
-    <div class="space"></div>
+    <br><br>
     <div class="input-title">
       上传该单词音频
     </div>
