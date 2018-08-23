@@ -1,35 +1,33 @@
 <template>
-  <div class='card '>
+  <div class='card'>
     <div class="title">
       添加书籍第 {{index+1}} 页
     </div>
-    <div class="space"></div>
+    <br><br>
     <img v-bind:src="image_addr" class="picture">
-    <div class="space"></div>
-    <div>
-      <div class="input-title">
-        上传第 {{index+1}} 页图片
-      </div>
-      <input class="file-btn" type="file" accept="image/*" @change="get_picture">
+    <br><br>
+    <div class="input-title">
+      上传第 {{index+1}} 页图片
     </div>
-    <div class="space"></div>
-    <div>
-      <div class="input-title">
-        上传第 {{index+1}} 页音频
-      </div>
-      <input class="file-btn" type="file" accept="audio/*" @change="get_audio">
+    <input class="file-btn" type="file" accept="image/*" @change="get_picture">
+    <br><br>
+    <div class="input-title">
+      上传第 {{index+1}} 页音频
     </div>
-    <div class="space"></div>
+    <input class="file-btn" type="file" accept="audio/*" @change="get_audio">
+    <br><br>
     <div class="input-title">
       输入第 {{index+1}} 页英文
     </div>
+    <br><br>
     <textarea class="texts" @change="get_english_text" v-model="english_text"></textarea>
-    <div class="space"></div>
+    <br><br>
     <div class="input-title">
       输入第 {{index+1}} 页中文
     </div>
+    <br><br>
     <textarea class="texts" @change="get_chinese_text" v-model="chinese_text"></textarea>
-    <div class="space"></div>
+    <br><br>
   </div>
 </template>
 <script>
@@ -67,5 +65,4 @@ export default {
 }
 </script>
 <style scoped>
-
 </style>

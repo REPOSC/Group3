@@ -89,7 +89,7 @@
     width: 160px;
     height: 46px;
     position: absolute;
-    left: 0;
+    left: 0px;
     top: 5px;
     /* background-color: aqua; */
     line-height: 40px;
@@ -156,7 +156,7 @@
   .text_title {
     position: absolute;
     top: 60px;
-    left: 0;
+    left: 0px;
     font-size: 40px;
     /* color: rgb(250, 250, 250); */
     color: white;
@@ -174,7 +174,7 @@
   .text_desc {
     position: absolute;
     top: 110px;
-    left: 0;
+    left: 0px;
     font-size: 22px;
     /* color: rgb(238, 236, 236); */
     color: white;
