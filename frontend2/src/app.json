@@ -1,15 +1,16 @@
 {
   "pages": [
-	"pages/login/main",
-	"pages/bookshelf/main",	
+    "pages/login/main",
+    "pages/translation/main",
+    "pages/bookshelf/main",
     "pages/practice/main",
     "pages/game3/main",
-    "pages/e_book/main",    
+    "pages/e_book/main",
     "pages/game1/main",
     "pages/me/main",
     "pages/game2/main",
     "pages/show/main",
-    "pages/guide/main",    
+    "pages/guide/main",
     "pages/level/main",
     "pages/community/main"
   ],
