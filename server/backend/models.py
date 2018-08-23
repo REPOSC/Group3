@@ -1,7 +1,7 @@
+import sys
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils import timezone
-import sys
 sys.path.append("..")
 from server import tools
 

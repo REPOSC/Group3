@@ -1,5 +1,5 @@
-from django.test import TestCase, Client
 import sys
+from django.test import TestCase, Client
 sys.path.append("..")
 
 
