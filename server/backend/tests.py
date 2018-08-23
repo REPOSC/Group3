@@ -1,7 +1,6 @@
 from django.test import TestCase, Client
 import sys
 sys.path.append("..")
-from server import debug
 
 
 class SendviewsTestCase(TestCase):

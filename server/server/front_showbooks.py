@@ -1,5 +1,4 @@
 from django.http import JsonResponse
-from django.contrib.auth.decorators import login_required
 from backend import models
 
 
@@ -15,15 +14,13 @@ def get_books(require):
             one_info = {'number': book.number,
                         'name': book.name,
                         'process': process[0].process * 100,
-                        'is_persual': book.is_persual
-                        }
+                        'is_persual': book.is_persual}
         except:
             process = 0
             one_info = {'number': book.number,
                         'name': book.name,
                         'process': process,
-                        'is_persual': book.is_persual
-                        }
+                        'is_persual': book.is_persual}
         user_book_info.append(one_info)
     return JsonResponse({'answer': user_book_info})
 

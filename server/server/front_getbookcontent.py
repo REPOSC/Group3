@@ -17,14 +17,17 @@ def get_first_function(request):
     for book_guide in book_guide_set:
         book_guide_dict[book_guide.guide_number] = book_guide.guide_text
     for book_word in book_words_set:
-        book_words_dict[book_word.word_number] = book_word.word_content         
+        book_words_dict[book_word.word_number] = book_word.word_content
     return JsonResponse({"knowledge": book_knowledge_dict, "guide": book_guide_dict, "words": book_words_dict})
+
 
 def get_word_audio(request):
     book_id = request.GET.get('book_id')
     word_id = request.GET.get('audio_index')
-    book_word = models.Book_words.objects.get(book_number=book_id, word_number=word_id)
+    book_word = models.Book_words.objects.get(
+        book_number=book_id, word_number=word_id)
     return HttpResponse(book_word.word_sound)
+
 
 def get_second_function(request):
     user_id = request.POST.get('user_id', '')
