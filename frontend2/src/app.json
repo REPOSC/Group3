@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/login/main",
+    "pages/modify_info/main",
     "pages/translation/main",
     "pages/bookshelf/main",
     "pages/practice/main",
