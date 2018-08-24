@@ -1,6 +1,7 @@
 from django.http import JsonResponse
 from backend import models
 
+
 def all_student(request):
     students = models.User_info.objects.filter(is_manager=0)
     stu_nicknames = []

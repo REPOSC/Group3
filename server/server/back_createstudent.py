@@ -7,7 +7,6 @@ def create_student(request):
     student_num = models.User_info.objects.filter(is_manager=False).count()
     student_num += 10000000
     count = int(request.POST.get('number'))
-
     student_names = []
     student_pwds = []
     for i in range(count):
@@ -22,7 +21,6 @@ def create_student(request):
         student.save()
         student_levels = request.POST.getlist('values')
         for j in student_levels:
-
             student_level = models.User_level.objects.create(
                 number=student, level=j)
             student_level.save()

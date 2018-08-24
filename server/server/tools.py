@@ -63,6 +63,13 @@ def fourth_game_image(instance, filename):
                         str(instance.key) + '-' + random_string(5) + filename)
 
 
+def fourth_game_audio(instance, filename):
+    return os.path.join(settings.MEDIA_ROOT,
+                        'Boot_Fourth_Game_Audios',
+                        str(instance.number.number),
+                        str(instance.key) + '-' + random_string(5) + filename)
+
+
 def function_video(instance, filename):
     return os.path.join(settings.MEDIA_ROOT,
                         'Function_videos',

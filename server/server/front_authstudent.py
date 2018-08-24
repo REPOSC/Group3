@@ -2,6 +2,7 @@ from django.http import JsonResponse
 from django.contrib.auth import authenticate, login
 from backend import models
 
+
 def auth_student(request):
     number = request.POST.get('id', '')
     user_pwd = request.POST.get('password', '')
@@ -12,4 +13,4 @@ def auth_student(request):
         login(request, user)
         last_levels = models.User_info.objects.filter(username=number)
         last_level = last_levels[0].lasttime_level
-        return JsonResponse({'status': 'right', 'last_level':last_level})
+        return JsonResponse({'status': 'right', 'last_level': last_level})
