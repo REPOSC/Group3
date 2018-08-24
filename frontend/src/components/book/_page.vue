@@ -1,33 +1,27 @@
 <template>
-  <div class='card'>
-    <div class="title">
-      添加书籍第 {{index+1}} 页
+  <div class='card '>
+    <div class="space">
+      <div class="title">
+        添加书籍第 {{index+1}} 页
+      </div>
     </div>
-    <br><br>
     <img v-bind:src="image_addr" class="picture">
-    <br><br>
-    <div class="input-title">
-      上传第 {{index+1}} 页图片
+    <div class="space align">
+      <div class="input-title displayed">上传第 {{index+1}} 页图片</div>
+      <input class="file-btn displayed" type="file" accept="image/*" @change="get_picture">
     </div>
-    <input class="file-btn" type="file" accept="image/*" @change="get_picture">
-    <br><br>
-    <div class="input-title">
-      上传第 {{index+1}} 页音频
+    <div class="space align">
+      <div class="input-title displayed">上传第 {{index+1}} 页音频</div>
+      <input class="file-btn displayed" type="file" accept="audio/*" @change="get_audio">
     </div>
-    <input class="file-btn" type="file" accept="audio/*" @change="get_audio">
-    <br><br>
-    <div class="input-title">
+    <div class="input-title space">
       输入第 {{index+1}} 页英文
     </div>
-    <br><br>
     <textarea class="texts" @change="get_english_text" v-model="english_text"></textarea>
-    <br><br>
-    <div class="input-title">
+    <div class="input-title space">
       输入第 {{index+1}} 页中文
     </div>
-    <br><br>
     <textarea class="texts" @change="get_chinese_text" v-model="chinese_text"></textarea>
-    <br><br>
   </div>
 </template>
 <script>

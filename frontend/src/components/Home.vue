@@ -119,33 +119,6 @@ export default {
         .then(() => {
           store.commit('logout')
           that.$router.push('/login') // 用go刷新
-          // 确认
-          // that.loading = true
-          // API.logout()
-          //   .then(
-          //     function(result) {
-          //       that.loading = false
-          //       localStorage.removeItem('access-user')
-          //       that.$router.push('/login') // 用go刷新
-          //     },
-          //     function(err) {
-          //       that.loading = false
-          //       that.$message.error({
-          //         showClose: true,
-          //         message: err.toString(),
-          //         duration: 2000
-          //       })
-          //     }
-          //   )
-          //   .catch(function(error) {
-          //     that.loading = false
-          //     console.log(error)
-          //     that.$message.error({
-          //       showClose: true,
-          //       message: '请求出现异常',
-          //       duration: 2000
-          //     })
-          //   })
         })
         .catch(() => {})
     }
@@ -178,6 +151,7 @@ export default {
       color: #ffffff;
     } //个人用户按钮
     .topbar-btn:hover {
+      color: #f5ff7f;
     } //点击后改变样式
     .topbar-logo {
       float: left;
@@ -200,7 +174,7 @@ export default {
       text-align: left;
       width: 200px;
       padding-left: 10px;
-      border-left: 1px solid #000;
+      border-left: 1px solid #060606;
     }
     .topbar-account {
       float: right;
@@ -246,6 +220,7 @@ export default {
     }
     .el-menu {
       width: 180px;
+      text-align: left;
     }
     .el-menu--collapse {
       width: 60px;
@@ -254,6 +229,8 @@ export default {
     .el-submenu .el-submenu__title {
       height: 46px;
       line-height: 46px;
+      color: white;
+      text-align: left;
     }
     .el-menu-item:hover,
     .el-submenu .el-menu-item:hover,
