@@ -1,28 +1,23 @@
 <template>
   <div>
     <div class="card">
-      <div class="title">随机生成账户</div>
-      <br><br>
-      <div class="input-title">产生个数</div>
-      <br><br>
+      <div class="title space">随机生成账户</div>
+      <div class="input-title space">产生个数</div>
       <el-input v-model="number" placeholder="请输入个数"></el-input>
-      <br><br>
-      <div class="input-title">等级选择</div>
-      <br><br>
+      <div class="input-title space">等级选择</div>
       <span v-for="option in options">
         <el-checkbox class="checkbox" v-model="option.value">{{"等级"+option.number}}</el-checkbox>
       </span>
-      <br><br>
+      <div class="space">
       <el-button type="primary" @click="submit">立即生成</el-button>
-      <br><br>
+      </div>
     </div>
-    <div class="card">
+    <div class="card space">
       <el-table :data="tableData" height="400">
         <el-table-column prop="user_name" width="100px" align="center" label="账户"></el-table-column>
         <el-table-column prop="user_pwd" align="center" label="密码"></el-table-column>
       </el-table>
     </div>
-    <br><br>
   </div>
 </template>
 

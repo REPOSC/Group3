@@ -1,6 +1,6 @@
 <!--suppress ALL -->
 <template>
-  <div class="login-container">
+  <div class="loginContainer">
     <div class="dynamicsBox">
       <div class="dynamicsHead">
         <div class="userText">
@@ -44,7 +44,7 @@
         </div>
       </div>
       <div class="hello">
-        <div class="pingluninfo" v-for='i in shuoData'>
+        <div class="pinglunInfo" v-for='i in shuoData'>
           <div class="ren"> {{i.shuo_user_id}}</div><br>
           <div class="say">{{i.article}}</div>
           <button class="shan">删除</button>
@@ -159,7 +159,7 @@ export default {
   width: 100%;
   height: auto;
 }
-.login-container {
+.loginContainer {
   -webkit-border-radius: 5px;
   border-radius: 5px;
   -moz-border-radius: 5px;
@@ -236,7 +236,7 @@ export default {
   line-height: 40px;
   border-bottom: 1px solid #e7e7e7;
 }
-.pingluninfo {
+.pinglunInfo {
   height: auto;
   padding-bottom: 15px;
   color: #999;

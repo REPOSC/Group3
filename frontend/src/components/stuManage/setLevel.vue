@@ -1,22 +1,15 @@
 <template>
   <div class="card">
-    <div class="title">修改账户等级</div>
-    <br><br>
-    <div class="input-title">会员账号</div>
-    <br><br>
+    <div class="title space">修改账户等级</div>
+    <div class="input-title space">会员账号</div>
     <el-input type="text" v-model="username" auto-complete="off" placeholder="请输入您的账号">{{username}}</el-input>
-    <br><br>
-    <div class="input-title">等级选择</div>
-    <br><br>
+    <div class="input-title space">等级选择</div>
     <span v-for="option in options">
       <el-checkbox v-model="option.value" class="checkbox">{{"等级"+option.number}}</el-checkbox>
     </span>
-    <br><br>
-    <el-button type="primary" @click="submit">确认修改</el-button>
-    <br><br>
+    <el-button class="space" type="primary" @click="submit">确认修改</el-button>
   </div>
 </template>
-
 <script>
 import * as Tools from '../Tools/Tools.js'
 import axios from 'axios'
