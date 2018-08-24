@@ -5,7 +5,7 @@ import { mount } from '@vue/test-utils'
 import login from '../src/pages/login/index'
 import qs from 'qs';
 
-describe('测试登录界面', () => {
+describe('test login interface', () => {
   let wrapper,vm;
 
   beforeEach(() => {
@@ -18,31 +18,31 @@ describe('测试登录界面', () => {
       })
   });
 
-  it('测试账号输入', () => {
+  it('test for inputing account', () => {
     expect(vm.username).toEqual(['12345'])
   });
 
-  it('测试密码输入', () => {
+  it('test for password inputing', () => {
     expect(vm.password).toEqual(['11111'])
   });
 
-  it('测试显示登录按钮', () => {
+  it('test login button', () => {
     expect(wrapper.contains('button')).toBe(true);
   });
 
-  it('测试使用表单', () => {
+  it('test the showing of form', () => {
     expect(wrapper.contains('form')).toBe(true);
   });
 
-  it('测试p标签的显示', () => {
+  it('test the showing of p', () => {
     expect(wrapper.contains('p')).toBe(true);
   });
 
-  it('测试div的显示', () => {
+  it('test the showing of div', () => {
     expect(wrapper.contains('div')).toBe(true);
   });
 
-  it('测试点击登录按钮触发handlelogin方法', () => {
+  it('test clicking handlelogin function', () => {
     const mockFn = jest.fn();
     wrapper.setMethods({
       handlelogin: mockFn
@@ -52,7 +52,7 @@ describe('测试登录界面', () => {
     expect(mockFn).toHaveBeenCalledTimes(1);
   });
 
-  it('测试点击登录按钮调用了qs.stringify方法', () => {
+  it('test for qs.stringify using', () => {
     wrapper.find('button').trigger('click');
     expect(qs.stringify).toBeCalled();
   });
