@@ -1,23 +1,67 @@
-import changepwd from '@/components/user/changepwd.vue'
+import changepwd from '@/components/user/changepwd'
 
-describe('测试密码修改界面', () => {
-  it('测试密码不统一', () => {
-    expect(changepwd.isequal('123', '234', '245')).toBe(false)
+describe('changepwd.vue', () => {
+  it('test data() is function', () => {
+    expect(typeof changepwd.data).toBe('function')
   })
 
-  it('测试旧密码未填写', () => {
-    expect(changepwd.isequal('', '234', '245')).toBe(false)
+  it('test defaultData of old_pwd', () => {
+    const defaultData = changepwd.data()
+    expect(defaultData.old_pwd).toBe('')
   })
 
-  it('测试新密码未填写', () => {
-    expect(changepwd.isequal('123', '', '245')).toBe(false)
+  it('test defaultData of password', () => {
+    const defaultData = changepwd.data()
+    expect(defaultData.password).toBe('')
   })
 
-  it('测试确认密码未填写', () => {
-    expect(changepwd.isequal('123', '245', '')).toBe(false)
+  it('test defaultData of confirm_pwd', () => {
+    const defaultData = changepwd.data()
+    expect(defaultData.confirm_pwd).toBe('')
   })
 
-  it('测试修改密码内容正确', () => {
-    expect(changepwd.isequal('123', '245', '245')).toBe(true)
-  })
+  // it('test the old_pwd is ""', () => {
+  //   const Constructor = Vue.extend(changepwd)
+  //   const vm = new Constructor().$mount()
+  //   vm.old_pwd = ''
+  //   vm.password = '234'
+  //   vm.confirm_pwd = '234'
+  //   expect(vm.is_equal()).toBe(false)
+  // })
+
+  // it('test the password is ""', () => {
+  //   const Constructor = Vue.extend(changepwd)
+  //   const vm = new Constructor().$mount()
+  //   vm.old_pwd = '123'
+  //   vm.password = ''
+  //   vm.confirm_pwd = '234'
+  //   expect(vm.is_equal()).toBe(false)
+  // })
+
+  // it('test the confirm_pwd is ""', () => {
+  //   const Constructor = Vue.extend(changepwd)
+  //   const vm = new Constructor().$mount()
+  //   vm.old_pwd = '123'
+  //   vm.password = '234'
+  //   vm.confirm_pwd = ''
+  //   expect(vm.is_equal()).toBe(false)
+  // })
+
+  // it('test the confirm_pwd is not equal to password', () => {
+  //   const Constructor = Vue.extend(changepwd)
+  //   const vm = new Constructor().$mount()
+  //   vm.old_pwd = '123'
+  //   vm.password = '234'
+  //   vm.confirm_pwd = '235'
+  //   expect(vm.is_equal()).toBe(false)
+  // })
+
+  // it('test the confirm_pwd is equal to password', () => {
+  //   const Constructor = Vue.extend(changepwd)
+  //   const vm = new Constructor().$mount()
+  //   vm.old_pwd = '123'
+  //   vm.password = '234'
+  //   vm.confirm_pwd = '234'
+  //   expect(vm.is_equal()).toBe(true)
+  // })
 })

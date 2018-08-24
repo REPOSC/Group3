@@ -31,16 +31,23 @@ export default {
     }
   },
   methods: {
-    submit: function() {
+    is_equal: function() {
       if (
         this.old_pwd === '' ||
         this.password === '' ||
         this.confirm_pwd === ''
       ) {
         alert('请填写所有的字段！')
-        return
+        return false
       } else if (this.password !== this.confirm_pwd) {
         alert('两次密码不匹配！')
+        return false
+      } else {
+        return true
+      }
+    },
+    submit: function() {
+      if (!this.is_equal()) {
         return
       }
       let saved = this
