@@ -85,20 +85,8 @@
 </template>
 
 <script>
-import { bus } from '../bus.js'
 export default {
   name: 'home',
-  created() {
-    bus.$on('setNickName', text => {
-      this.nickname = text
-    })
-    bus.$on('goto', url => {
-      if (url === '/login') {
-        sessionStorage.removeItem('access-user')
-      }
-      this.$router.push(url)
-    })
-  },
   data() {
     return {
       defaultActiveIndex: '0',
@@ -127,13 +115,6 @@ export default {
           that.$router.push('/login') // 用go刷新
         })
         .catch(() => {})
-    }
-  },
-  mounted() {
-    let user = sessionStorage.getItem('access-user')
-    if (user) {
-      user = JSON.parse(user)
-      this.nickname = user.nickname || ''
     }
   }
 }
