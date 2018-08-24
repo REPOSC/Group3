@@ -7,7 +7,7 @@
     </div>
     <div>
       <el-form ref="AccountFrom" :model="account" :rules="rules" label-position="left" label-width="0px" class="demo-ruleForm login-container">
-        <h3 class="title">管理员登录</h3>
+        <h3 class="title">弗恩英语管理员登录</h3>
         <el-form-item prop="username">
           <el-input type="text" v-model="account.username" auto-complete="off" placeholder="账号"></el-input>
         </el-form-item>
@@ -24,7 +24,6 @@
 <script>
 import axios from 'axios'
 import qs from 'qs'
-import store from '../store/store'
 import * as Tools from './Tools/Tools'
 
 export default {
@@ -60,8 +59,9 @@ export default {
           if (response.data.status === 'error') {
             alert('登录失败，用户名或密码错误。')
           } else {
-            store.commit('login')
-            console.log(store.state)
+            window.sessionStorage.is_load = 'true'
+            window.sessionStorage.username = saved.account.username
+            window.sessionStorage.is_superuser = response.data.is_superuser
             saved.$router.push({ path: '/' })
           }
         })
@@ -77,9 +77,10 @@ export default {
   border-radius: 5px;
   -moz-border-radius: 5px;
   background-clip: padding-box;
-  margin: 160px auto;
-  width: 350px;
-  padding: 35px 35px 15px 35px;
+  margin: 260px auto;
+  width: 500px;
+  height: 309px;
+  padding: 50px 100px 50px 100px;
   background: #fff;
   border: 1px solid #eaeaea;
   box-shadow: 0 0 25px #cac6c6;
@@ -99,12 +100,12 @@ export default {
   ); /*Safari5.1 Chrome 10+*/
   background: -o-linear-gradient(top, #ace, #00c1de); /* Opera 11.10+ */
   .title {
-    margin: 0 auto 40px auto;
+    margin: 10px 35px 55px 35px;
     text-align: center;
     color: #505458;
   }
   .remember {
-    margin: 0 0 35px 0;
+    margin: 40px 35px 35px 0;
   }
 }
 /**{*/

@@ -7,17 +7,20 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import '@/assets/iconfont.css'
 import '@/assets/styles/main.css'
-import store from './store/store'
 Vue.config.productionTip = false
 
 router.beforeEach((to, from, next) => {
   if (to.path === '/login') {
+    window.sessionStorage.removeItem('is_load', 'username', 'is_superuser')
+    window.sessionStorage.setItem('is_load', 'username', 'is_superuser')
     next()
   } else {
-    if (!store.state.user) {
-      next({ path: '/login' })
-    } else {
+    if (window.sessionStorage.is_load === 'true') {
       next()
+    } else {
+      window.sessionStorage.removeItem('is_load', 'username', 'is_superuser')
+      window.sessionStorage.setItem('is_load', 'username', 'is_superuser')
+      next({ path: '/login' })
     }
   }
 })
