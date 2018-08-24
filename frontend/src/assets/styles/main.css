@@ -15,17 +15,20 @@ a {
   color: #2c3e50;
 }
 
-home.vue
-.el-menu-item, .el-submenu__title {
+home.vue .el-menu-item,
+.el-submenu__title {
   color: #fff;
 }
 
-.el-menu .el-menu-item, .el-submenu .el-submenu__title {
+.el-menu .el-menu-item,
+.el-submenu .el-submenu__title {
   height: 46px;
   line-height: 46px;
 }
 
-.el-menu-item:hover, .el-submenu .el-menu-item:hover, .el-submenu__title:hover {
+.el-menu-item:hover,
+.el-submenu .el-menu-item:hover,
+.el-submenu__title:hover {
   background-color: #7ed2df;
 }
 
@@ -37,8 +40,10 @@ home.vue
   background-color: #4A5064
 }
 
-.el-submenu .el-menu-item.is-active, .el-menu-item.is-active,
-.el-submenu .el-menu-item.is-active:hover, .el-menu-item.is-active:hover {
+.el-submenu .el-menu-item.is-active,
+.el-menu-item.is-active,
+.el-submenu .el-menu-item.is-active:hover,
+.el-menu-item.is-active:hover {
   background-color: #00C1DE;
   color: #fff;
 }
@@ -48,11 +53,9 @@ home.vue
   margin-right: 6px;
 }
 
-.warp-breadcrum{
+.warp-breadcrum {
   margin: 5px 10px 15px 0;
 }
-
-
 
 .card {
   border-radius: 5px;
@@ -67,15 +70,15 @@ home.vue
 }
 
 .title {
-  height:30px;
+  height: 30px;
   font-size: 24px;
 }
 
 .checkbox {
   width: 25%;
-  border:2px;
+  border: 2px;
   text-align: left;
-  color:grey;
+  color: grey;
 }
 
 .texts {
@@ -96,20 +99,25 @@ home.vue
   display: inline;
   float: right;
 }
-.space{
+
+.space {
   margin-top: 20px;
   margin-bottom: 20px;
 }
-.inline{
+
+.inline {
   display: inline;
 }
+
 .input-title {
-  text-align: left ;
-  color:brown ;
+  text-align: left;
+  color: brown;
 }
-.align{
-text-align: left;
+
+.align {
+  text-align: left;
 }
-.displayed{
+
+.displayed {
   display: inline;
 }

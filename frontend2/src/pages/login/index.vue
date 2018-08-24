@@ -20,8 +20,8 @@ import * as Tools from '../../components/Tools.js'
 export default {
   data() {
     return {
-      username: '10000001',
-      password: '111111',
+      username: '10000002',
+      password: 'GIiw0IVyVslSXTw',
       last_level: ''
     }
   },
