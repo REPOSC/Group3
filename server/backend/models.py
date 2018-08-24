@@ -6,6 +6,8 @@ sys.path.append("..")
 from server import tools
 
 # Create your models here.
+
+
 class User_info(AbstractUser):
     number = models.IntegerField(unique=True, null=True)
     nickname = models.CharField(max_length=50)
@@ -134,7 +136,7 @@ class Firstgame(models.Model):
         on_delete=models.CASCADE,
         primary_key=True)
     key = models.CharField(max_length=50)
-    value = models.CharField(max_length=50)
+    value = models.ImageField(upload_to=tools.first_game_image)
 
 
 class Secondgame(models.Model):
@@ -144,7 +146,12 @@ class Secondgame(models.Model):
         on_delete=models.CASCADE,
         primary_key=True)
     key = models.CharField(max_length=50)
-    value = models.CharField(max_length=50)
+    true_value = models.ImageField(upload_to=tools.second_game_image)
+    false_value_one = models.ImageField(upload_to=tools.second_game_image)
+    false_value_two = models.ImageField(
+        upload_to=tools.second_game_image)
+    false_value_three = models.ImageField(
+        upload_to=tools.second_game_image)
 
 
 class Thirdgame(models.Model):
@@ -154,22 +161,29 @@ class Thirdgame(models.Model):
         on_delete=models.CASCADE,
         primary_key=True)
     key = models.CharField(max_length=50)
-    value = models.CharField(max_length=50)
+    value = models.ImageField(upload_to=tools.third_game_image)
 
 
-class Forthgame(models.Model):
+class Fourthgame(models.Model):
     number = models.ForeignKey(
         'Book_info',
         to_field='number',
         on_delete=models.CASCADE,
         primary_key=True)
-    key = models.CharField(max_length=50)
-    value = models.CharField(max_length=50)
+    key = models.FileField(upload_to=tools.fourth_game_audio)
+    true_value = models.ImageField(upload_to=tools.fourth_game_image)
+    false_value_one = models.ImageField(upload_to=tools.fourth_game_image)
+    false_value_two = models.ImageField(
+        upload_to=tools.fourth_game_image)
+    false_value_three = models.ImageField(
+        upload_to=tools.fourth_game_image)
 
 
 class User_game(models.Model):
     user_number = models.ForeignKey(
-        'User_info', to_field='number', on_delete=models.CASCADE)
+        'User_info',
+        to_field='number',
+        on_delete=models.CASCADE)
     book_number = models.ForeignKey(
         'Book_info', to_field='number', on_delete=models.CASCADE)
     firstgame = models.BooleanField(default=False)
@@ -180,4 +194,22 @@ class User_game(models.Model):
 
 class Function_video(models.Model):
     function = models.CharField(max_length=50)
-    video = models.FileField()
+    video = models.FileField(upload_to=tools.function_video)
+
+
+class Punch_content(models. Model):
+    user_number = models.ForeignKey(
+        'User_info',
+        to_field='number',
+        on_delete=models.CASCADE)
+    book_number = models.ForeignKey(
+        'Book_info', to_field='number', on_delete=models.CASCADE)
+    content = models.FileField(upload_to=tools.punch_content)
+
+
+class Profile_photo(models. Model):
+    user_number = models.ForeignKey(
+        'User_info',
+        to_field='number',
+        on_delete=models.CASCADE)
+    photo = models.ImageField(upload_to=tools.profile_photo)
