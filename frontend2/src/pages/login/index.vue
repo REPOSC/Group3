@@ -59,6 +59,10 @@ export default {
 </script>
 
 <style>
+page {
+  background-size: 100% 100%;
+  background-image: url('https://139.199.106.168/image/back.jpg');
+}
 a {
   padding: 10px 28px;
   margin-bottom: 30px，40px;

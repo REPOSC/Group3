@@ -20,8 +20,10 @@ test:
     - source ~/venv/bin/activate
     - python ./server/manage.py makemigrations backend
     - python ./server/manage.py migrate
-    - cd ./server
-    - python manage.py test
+    - cd ./server    
+    - pip3 install coverage --quiet
+    - python -m coverage run --source="." manage.py test
+    - python -m coverage report
     
 frontendonelint:
   stage: frontendonelint

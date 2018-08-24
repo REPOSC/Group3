@@ -48,7 +48,7 @@ export default {
                 }
                 save.judge_level = true
               }
-              if (i === save.last_level) {
+              if (i === parseInt(save.last_level)) {
                 save.levels.push({ check: 'last', id: i })
               } else {
                 save.levels.push({ check: 'true', id: i })
@@ -76,8 +76,9 @@ export default {
             })
           )
           .then(function(response) {
+            save.last_level = level
             wx.navigateTo({
-              url: '../bookshelf/main?username=' + this.username + '&level=' + level
+              url: '../bookshelf/main?username=' + save.username + '&level=' + level
             })
           })
       }
@@ -87,6 +88,10 @@ export default {
 </script>
 
 <style>
+page {
+  background-size: 100% 100%;
+  background-image: url('https://139.199.106.168/image/back.jpg');
+}
 div h1 {
   font-size: 35px;
   margin: 0 auto;
