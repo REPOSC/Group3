@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "选词填空",
+  "usingComponents": {
+    "i-icon": "../../iview/icon/index"
+  }
+}

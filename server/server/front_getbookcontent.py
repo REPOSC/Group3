@@ -57,23 +57,24 @@ def get_page_image(request):
     return HttpResponse(page.image)
 
 
-def get_third_function(request):
-    user_id = request.POST.get('user_id', '')
-    book_id = request.POST.get('book_id', '')
-    one_process = models.User_process.objects.filter(
-        user_number=user_id, book_number=book_id)
-    one_book_words = models.Book_words.objects.filter(book_number=book_id)
+def get_first_game_texts(request):
+    book_id = request.POST.get('book_id')
+    words = models.First_game.objects.filter(number=book_id)
+    texts = []
+    for i in words:
+        texts.append(i.key)
+    return JsonResponse({'texts': texts})
+
+
+def get_first_game_image(request):
+    book_id = request.GET.get('book_id')
+    word_text = request.GET.get('word_text')
+    book = models.Book_info.objects.get(number=book_id)
+    word = models.First_game.objects.get(number=book, key=word_text)
+    return HttpResponse(word.value)
 
 
 def get_fourth_function(request):
-    user_id = request.POST.get('user_id', '')
-    book_id = request.POST.get('book_id', '')
-    one_process = models.User_process.objects.filter(
-        user_number=user_id, book_number=book_id)
-    one_book_words = models.Book_words.objects.filter(book_number=book_id)
-
-
-def get_fifth_function(request):
     user_id = request.POST.get('user_id', '')
     book_id = request.POST.get('book_id', '')
     one_process = models.User_process.objects.filter(

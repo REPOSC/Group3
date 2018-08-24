@@ -1,5 +1,6 @@
 from django.http import JsonResponse
 from backend import models
+from . import debug
 
 
 def get_book(request):
@@ -19,6 +20,11 @@ def get_book(request):
     page_chinese_texts = request.POST.getlist('book_chinese_text')
     page_audios = request.FILES.getlist('book_audio')
     page_pictures = request.FILES.getlist('book_picture')
+    first_game_texts = request.POST.getlist('first_game_text')
+    first_game_pictures = request.FILES.getlist('first_game_picture')
+    second_game_text = request.POST.get('second_game_text')
+    second_game_answer = int(request.POST.get('second_game_answer'))
+    second_game_pictures = request.FILES.getlist('second_game_picture')
     book = models.Book_info.objects.create(
         number=book_num,
         level=book_level,
@@ -60,4 +66,19 @@ def get_book(request):
             chinese_text=page_chinese_texts[i]
         )
         page.save()
+    for i in range(len(first_game_texts)):
+        first_game = models.First_game.objects.create(
+            number=book,
+            key=first_game_texts[i],
+            value=first_game_pictures[i]
+        )
+    second_game_selection = models.Second_game.objects.create(
+        number=book,
+        key=second_game_text,
+        true_value=second_game_pictures[second_game_answer],
+        false_value_one=second_game_pictures[1 ^ second_game_answer],
+        false_value_two=second_game_pictures[2 ^ second_game_answer],
+        false_value_three=second_game_pictures[3 ^ second_game_answer],
+    )
+    second_game_selection.save()
     return JsonResponse({"success": True})

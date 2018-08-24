@@ -15,10 +15,18 @@
 
 <script>
 export default {
+  data: function() {
+    return {
+      booknumber: null
+    }
+  },
+  onLoad: function(status) {
+    this.booknumber = status.book
+  },
   methods: {
     turnTo(e) {
       wx.navigateTo({
-        url: '/pages/' + e.target.id + '/main'
+        url: '/pages/' + e.target.id + '/main?booknumber=' + this.booknumber
       })
     }
   }

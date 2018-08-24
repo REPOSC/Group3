@@ -1,17 +1,17 @@
 {
   "pages": [
-    "pages/show/main",
-    "pages/expanding/main",
     "pages/login/main",
     "pages/modify_info/main",
     "pages/translation/main",
     "pages/bookshelf/main",
-    "pages/practice/main",
-    "pages/game3/main",
-    "pages/e_book/main",
-    "pages/game1/main",
+    "pages/practice/main",    
+    "pages/e_book/main",    
     "pages/me/main",
+    "pages/game1/main",
     "pages/game2/main",
+    "pages/game3/main",
+    "pages/game4/main",
+    "pages/show/main",
     "pages/guide/main",
     "pages/level/main",
     "pages/community/main"

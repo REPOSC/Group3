@@ -7,77 +7,90 @@
     </div>
     <canvas canvas-id="drawline"></canvas>
     <div class="pics">
-      <img :key="pic.index" v-for="pic in pics" :class="pic.status" :src="pic.src" mode="aspectFit"  @click="click_picture(pic)"/>
+      <img :key="pic.index" v-for="pic in pics" :class="pic.status" :src="pic.src" mode="aspectFit" @click="click_picture(pic)" />
     </div>
   </div>
 </template>
 
 <script>
+import * as Tools from '../../components/Tools.js'
+import qs from 'qs'
 export default {
   data() {
     return {
+      booknumber: null,
       now_word: '',
       now_pic: '',
       length: 0,
-      words: [
-        {
-          index: 0,
-          text: 'banana',
-          status: 'word_unmatch'
-        },
-        {
-          index: 1,
-          text: 'apple',
-          status: 'word_unmatch'
-        },
-        {
-          index: 2,
-          text: 'orange',
-          status: 'word_unmatch'
-        },
-        {
-          index: 3,
-          text: 'cherry',
-          status: 'word_unmatch'
-        }
-      ],
-      pics: [
-        {
-          index: 0,
-          match_index: 1,
-          src: '/static/img/game1/apple.jpg',
-          status: 'pic_unmatch'
-        },
-        {
-          index: 1,
-          match_index: 0,
-          src: '/static/img/game1/banana.jpg',
-          status: 'pic_unmatch'
-        },
-        {
-          index: 2,
-          match_index: 3,
-          src: '/static/img/game1/cherry.jpg',
-          status: 'pic_unmatch'
-        },
-        {
-          index: 3,
-          match_index: 2,
-          src: '/static/img/game1/orange.jpg',
-          status: 'pic_unmatch'
-        }
-      ]
+      words: [],
+      pics: []
     }
   },
+  onLoad(status) {
+    this.booknumber = status.booknumber
+  },
   onShow() {
-    this.length = this.words.length
+    this.init()
   },
   methods: {
+    init() {
+      this.now_word = ''
+      this.now_pic = ''
+      this.length = 0
+      this.words = []
+      this.pics = []
+      let fly = Tools.get_fly()
+      let save = this
+      fly
+        .post(
+          Tools.get_url() + 'get_first_game_texts',
+          qs.stringify({
+            book_id: save.booknumber
+          })
+        )
+        .then(function(response) {
+          let texts = response.data.texts
+          let random_indexs = Tools.generate_random_list(texts.length)
+          for (let i = 0; i < texts.length; ++i) {
+            save.words.push({
+              index: i,
+              text: texts[i],
+              status: 'word_unmatch'
+            })
+            save.pics.push({
+              index: random_indexs[i],
+              match_index: i,
+              status: 'pic_unmatch'
+            })
+          }
+          save.pics.sort(function(a, b) {
+            return a.index > b.index ? 1 : a.index === b.index ? 0 : -1
+          })
+          for (let i = 0; i < texts.length; ++i) {
+            wx.downloadFile({
+              url:
+                Tools.get_url() +
+                'get_first_game_image?book_id=' +
+                save.booknumber +
+                '&word_text=' +
+                save.words[save.pics[i].match_index].text,
+              success: function(picture_response) {
+                if (picture_response.statusCode === 200) {
+                  let pic_tmp_obj = save.pics[i]
+                  pic_tmp_obj.src = picture_response.tempFilePath
+                  save.$set(save.pics, i, pic_tmp_obj)
+                }
+              }
+            })
+          }
+          save.length = save.words.length
+        })
+    },
     line_end(pic_index) {
-      return (pic_index * 120 + 70)
+      return pic_index * 120 + 70
     },
     line_start(word_index) {
-      return (120 * word_index + 75)
+      return 120 * word_index + 75
     },
     drawline() {
       let context = wx.createCanvasContext('drawline')
@@ -86,7 +99,10 @@ export default {
       for (let i = 0; i < this.words.length; i++) {
         if (this.pics[i].status === 'pic_matched') {
           context.moveTo(0, this.line_start(this.pics[i].match_index))
-          context.lineTo(wx.getSystemInfoSync().windowWidth * 0.4, this.line_end(i))
+          context.lineTo(
+            wx.getSystemInfoSync().windowWidth * 0.4,
+            this.line_end(i)
+          )
         }
       }
       context.stroke()
@@ -97,7 +113,10 @@ export default {
         this.now_word = ''
         word.status = 'word_unmatch'
       } else {
-        if (this.now_word !== '' && this.words[this.now_word].status !== 'word_matched') {
+        if (
+          this.now_word !== '' &&
+          this.words[this.now_word].status !== 'word_matched'
+        ) {
           this.words[this.now_word].status = 'word_unmatch'
         }
         if (word.status === 'word_unmatch') {
