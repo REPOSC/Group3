@@ -1,5 +1,7 @@
 {
   "pages": [
+    "pages/show/main",
+    "pages/expanding/main",
     "pages/login/main",
     "pages/modify_info/main",
     "pages/translation/main",
@@ -10,7 +12,6 @@
     "pages/game1/main",
     "pages/me/main",
     "pages/game2/main",
-    "pages/show/main",
     "pages/guide/main",
     "pages/level/main",
     "pages/community/main"

@@ -3,7 +3,7 @@
     <button id="btn1" @click="toGuide">亲子阅读指导</button>
     <button id="btn2" @click="toEbook">E-Book</button>
     <button id="btn4" @click="toPractice">课后练习</button>
-    <button id="btn5" @click="toGuide">阅读拓展</button>
+    <button id="btn5" @click="toExpanding">阅读拓展</button>
     <div class="bottom">
       <div class="function" @click="toCommunity">
         <img src="/static/img/man.png">
@@ -115,6 +115,16 @@ export default {
       wx.navigateTo({
         url: '../me/main?username=' + save.username + '&book=' + save.booknumber
       })
+    },
+    toExpanding: function() {
+      let save = this
+      wx.navigateTo({
+        url:
+          '../expanding/main?username=' +
+          save.username +
+          '&book=' +
+          save.booknumber
+      })
     }
   }
 }
@@ -130,9 +140,10 @@ page {
 }
 
 button {
-  color: #fef;
+  width: 80%;
+  color: #fff;
   font-weight: bold;
-  margin: 20px auto;
+  margin: 30px auto;
 }
 
 .bottom {
