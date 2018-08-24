@@ -5,7 +5,7 @@
         <img src="/static/img/rainbow.png">
       </i-col>
       <i-col span="4" offset="1">
-        <h1>{{ level + 1 }}</h1>
+        <h1>Key{{ level + 1 }}</h1>
       </i-col>
     </i-row>
     <i-row class="body">

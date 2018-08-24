@@ -24,6 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth_student', front_authstudent.auth_student),
     path('user_level', front_userlevel.show_level),
+    path('change_last_level', front_userlevel.change_last_level),
     path('get_books', front_showbooks.get_books),
     path('find_books', front_showbooks.find_books),
     path('get_first_function', front_getbookcontent.get_first_function),
