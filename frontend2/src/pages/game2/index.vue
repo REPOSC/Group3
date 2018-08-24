@@ -40,38 +40,44 @@ export default {
     }
   },
   methods: {
+    show_right_message() {
+      wx.showModal({
+        title: '选对啦!宝宝真棒！',
+        content: '已完成该练习，是否退出~',
+        cancelText: '再看看',
+        confirmText: '退出',
+        confirmColor: '#ffb001',
+        success: function(res) {
+          if (res.confirm) {
+            wx.navigateBack({
+              url: '../practice/main'
+            })
+          }
+        }
+      })
+    },
+    show_false_message() {
+      wx.showModal({
+        title: '啊噢，就差一点点噢...',
+        content: '再试一次吧~',
+        cancelText: '不了',
+        confirmText: '再试一次',
+        confirmColor: '#ffb001',
+        success: function(res) {
+          if (res.cancel) {
+            wx.navigateBack({
+              url: '../practice/main'
+            })
+          }
+        }
+      })
+    },
     choice(pic) {
       console.log(pic.isanswer)
       if (pic.isanswer === true) {
-        wx.showModal({
-          title: '选对啦!宝宝真棒！',
-          content: '已完成该练习，是否退出~',
-          cancelText: '再看看',
-          confirmText: '退出',
-          confirmColor: '#ffb001',
-          success: function(res) {
-            if (res.confirm) {
-              wx.navigateBack({
-                url: '../practice/main'
-              })
-            }
-          }
-        })
+        show_right_message()
       } else {
-        wx.showModal({
-          title: '啊噢，就差一点点噢...',
-          content: '再试一次吧~',
-          cancelText: '不了',
-          confirmText: '再试一次',
-          confirmColor: '#ffb001',
-          success: function(res) {
-            if (res.cancel) {
-              wx.navigateBack({
-                url: '../practice/main'
-              })
-            }
-          }
-        })
+        show_false_message()
       }
     }
   }
