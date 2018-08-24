@@ -72,7 +72,7 @@ let router = new Router({
       path: '/',
       component: Home,
       name: '后台账户管理',
-      menuShow: true,
+      menuShow: judge(),
       iconCls: 'iconfont icon-setting1',
       children: [
         { path: '/memberManager/addMember', component: memberadd, name: '添加账户', menuShow: true },
@@ -114,7 +114,10 @@ let router = new Router({
       menuShow: true,
       iconCls: 'iconfont icon-setting1',
       children: [
-        { path: '/group/sendmessage', component: SendMessage, name: '群发消息', menuShow: true }
+        { path: '/group/sendmessage',
+          component: SendMessage,
+          name: '群发消息',
+          menuShow: true }
       ]
     },
     {
@@ -145,4 +148,13 @@ let router = new Router({
     }
   ]
 })
+
+function judge() {
+  if (window.sessionStorage.is_superuser === 'true') {
+    return true
+  } else {
+    return false
+  }
+}
+
 export default router

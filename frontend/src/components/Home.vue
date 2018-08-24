@@ -50,12 +50,20 @@
                 <i :class="item.iconCls"></i>
                 <span slot="title">{{item.name}}</span>
               </template>
-              <el-menu-item v-for="term in item.children" :key="term.path" :index="term.path" v-if="term.menuShow" :class="$route.path===term.path?'is-active':''">
+              <el-menu-item
+                v-for="term in item.children"
+                :key="term.path"
+                :index="term.path"
+                v-if="term.menuShow"
+                :class="$route.path===term.path?'is-active':''">
                 <i :class="term.iconCls"></i>
                 <span slot="title">{{term.name}}</span>
               </el-menu-item>
             </el-submenu>
-            <el-menu-item v-else-if="item.leaf&&item.children&&item.children.length" :index="item.children[0].path" :class="$route.path===item.children[0].path?'is-active':''">
+            <el-menu-item
+              v-else-if="item.leaf&&item.children&&item.children.length"
+              :index="item.children[0].path"
+              :class="$route.path===item.children[0].path?'is-active':''">
               <i :class="item.iconCls"></i>
               <span slot="title">{{item.children[0].name}}</span>
             </el-menu-item>
@@ -78,7 +86,6 @@
 
 <script>
 import { bus } from '../bus.js'
-import store from '../store/store'
 export default {
   name: 'home',
   created() {
@@ -87,7 +94,7 @@ export default {
     })
     bus.$on('goto', url => {
       if (url === '/login') {
-        localStorage.removeItem('access-user')
+        sessionStorage.removeItem('access-user')
       }
       this.$router.push(url)
     })
@@ -117,14 +124,13 @@ export default {
         confirmButtonClass: 'el-button--warning'
       })
         .then(() => {
-          store.commit('logout')
           that.$router.push('/login') // 用go刷新
         })
         .catch(() => {})
     }
   },
   mounted() {
-    let user = localStorage.getItem('access-user')
+    let user = sessionStorage.getItem('access-user')
     if (user) {
       user = JSON.parse(user)
       this.nickname = user.nickname || ''
