@@ -33,3 +33,50 @@ def book_word_audio(instance, filename):
                         'Book_Words_Audios',
                         str(instance.book_number.number),
                         str(instance.word_number) + '-' + random_string(5) + filename)
+
+
+def first_game_image(instance, filename):
+    return os.path.join(settings.MEDIA_ROOT,
+                        'Boot_First_Game_Pictures',
+                        str(instance.number.number),
+                        str(instance.key) + '-' + random_string(5) + filename)
+
+
+def second_game_image(instance, filename):
+    return os.path.join(settings.MEDIA_ROOT,
+                        'Boot_Second_Game_Pictures',
+                        str(instance.number.number),
+                        str(instance.key) + '-' + random_string(5) + filename)
+
+
+def third_game_image(instance, filename):
+    return os.path.join(settings.MEDIA_ROOT,
+                        'Boot_Third_Game_Pictures',
+                        str(instance.number.number),
+                        str(instance.key) + '-' + random_string(5) + filename)
+
+
+def fourth_game_image(instance, filename):
+    return os.path.join(settings.MEDIA_ROOT,
+                        'Boot_Fourth_Game_Pictures',
+                        str(instance.number.number),
+                        str(instance.key) + '-' + random_string(5) + filename)
+
+
+def function_video(instance, filename):
+    return os.path.join(settings.MEDIA_ROOT,
+                        'Function_videos',
+                        str(instance.function) + '-' + random_string(5) + filename)
+
+
+def punch_content(instance, filename):
+    return os.path.join(settings.MEDIA_ROOT,
+                        'Punch_content',
+                        str(instance.book_number.number),
+                        str(instance.user_number) + '-' + random_string(5) + filename)
+
+
+def profile_photo(instance, filename):
+    return os.path.join(settings.MEDIA_ROOT,
+                        'Profile_photo',
+                        str(instance.user_number.number) + '-' + random_string(5) + filename)
