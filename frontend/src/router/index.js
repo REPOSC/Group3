@@ -71,18 +71,6 @@ let router = new Router({
     {
       path: '/',
       component: Home,
-      name: '后台账户管理',
-      menuShow: judge(),
-      iconCls: 'iconfont icon-setting1',
-      children: [
-        { path: '/memberManager/addMember', component: memberadd, name: '添加账户', menuShow: true },
-        { path: '/memberManager/changePwd', component: memberchangePwd, name: '修改密码', menuShow: true },
-        { path: '/memberManager/removeMember', component: memberremove, name: '删除账户', menuShow: true }
-      ]
-    },
-    {
-      path: '/',
-      component: Home,
       name: '教学内容设置',
       menuShow: true,
       iconCls: 'iconfont icon-books',
@@ -144,6 +132,18 @@ let router = new Router({
       children: [
         { path: '/user/profile', component: UserProfile, name: '个人信息', menuShow: true },
         { path: '/user/changePwd', component: UserChangePwd, name: '修改密码', menuShow: true }
+      ]
+    },
+    {
+      path: '/',
+      component: Home,
+      name: '管理员账户管理',
+      menuShow: judge(),
+      iconCls: 'iconfont icon-setting1',
+      children: [
+        { path: '/memberManager/addMember', component: memberadd, name: '添加账户', menuShow: true },
+        { path: '/memberManager/changePwd', component: memberchangePwd, name: '修改密码', menuShow: true },
+        { path: '/memberManager/removeMember', component: memberremove, name: '删除账户', menuShow: true }
       ]
     }
   ]

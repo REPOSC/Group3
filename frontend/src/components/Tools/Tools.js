@@ -34,7 +34,11 @@ function checknum(number) {
 
 function check_warning(object, my_component, my_index) {
   if (object === '' || object === undefined || object === null) {
-    if (confirm(my_component + '中的第' + my_index + '个条目为空，无论如何也要上传吗？')) {
+    if (
+      confirm(
+        my_component + '中的第' + my_index + '个条目为空，无论如何也要上传吗？'
+      )
+    ) {
       return true
     } else {
       return false
@@ -64,6 +68,14 @@ function del_element(array, arr_element) {
   }
 }
 
+function initpage() {
+  window.sessionStorage.removeItem('is_load', 'username', 'is_superuser')
+  window.sessionStorage.setItem('is_load', 'username', 'is_superuser')
+  window.sessionStorage.is_load = 'false'
+  window.sessionStorage.username = ''
+  window.sessionStorage.is_superuser = 'false'
+}
+
 export {
   get_url,
   checknum,
@@ -71,5 +83,6 @@ export {
   del_element,
   check_warning,
   check_fetal,
-  MAX_VALUE
+  MAX_VALUE,
+  initpage
 }
