@@ -13,7 +13,7 @@ describe('Login.vue', () => {
 
   it('test default of password', () => {
     const defaultData = Login.data()
-    expect(defaultData.account.pwd).toBe('111111')
+    expect(defaultData.account.pwd).toBe('222222')
   })
 
   it('test input of username', () => {

@@ -203,7 +203,7 @@ export default {
 <style>
 page {
   background-size: 100% 100%;
-  background-image: url('https://139.199.106.168/image/back.jpg');
+  background-image: url('https://daisy-donald.cn/image/back.jpg');
 }
 
 h1 {
@@ -224,7 +224,7 @@ h1 {
   display: flex;
   flex-wrap: wrap;
   align-content: flex-start;
-  background-image: url('https://139.199.106.168/image/shelf.png');
+  background-image: url('https://daisy-donald.cn/image/shelf.png');
   background-size: 100% 100%;
   padding-left: 5px;
   padding-right: 5px;
