@@ -1,6 +1,7 @@
 stages:
   - init
   - backendtest
+  - frontendonetest
   - frontendonelint
   - frontendtwolint
   - serverpylint
@@ -14,7 +15,7 @@ environment:
     - pip install Django mysqlclient
     - pip install Pillow
 
-test:
+backendtest:
   stage: backendtest
   script:
     - source ~/venv/bin/activate
@@ -24,6 +25,13 @@ test:
     - pip3 install coverage --quiet
     - python -m coverage run --source="." manage.py test
     - python -m coverage report
+    
+frontendonetest:
+  stage: frontendonetest
+  script:
+    - cd ./frontend
+    - npm install
+    - npm test  
     
 frontendonelint:
   stage: frontendonelint

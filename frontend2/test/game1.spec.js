@@ -28,24 +28,4 @@ describe('test game1 interface', () => {
   it('test for showing canvas', () => {
     expect(wrapper.contains('canvas')).toBe(true);
   });
-
-  it('test clicking click word function', () => {
-    const mockFn = jest.fn();
-    wrapper.setMethods({
-      click_word: mockFn
-    });
-    wrapper.find('.words div').trigger('click');
-    expect(mockFn).toBeCalled();
-    expect(mockFn).toHaveBeenCalledTimes(1);
-  });
-
-  it('test clicking click pics function', () => {
-    const mockFn = jest.fn();
-    wrapper.setMethods({
-      click_picture: mockFn
-    });
-    wrapper.find('.pics img').trigger('click');
-    expect(mockFn).toBeCalled();
-    expect(mockFn).toHaveBeenCalledTimes(1);
-  });
 })
