@@ -4,11 +4,11 @@
       <img src="/static/img/avatar.jpg">
       <p class="username">{{ username }}</p>
     </div>
-    <button id="btn1">修改资料</button>
-    <button id="btn2">系统消息</button>
-    <button id="btn3">功能介绍</button>
-    <button id="btn4">关于弗恩英语</button>
-    <button id="btn5">退出登录</button>
+    <button id="modify_info" @click="turnTo">修改资料</button>
+    <button id="notice" @click="turnTo">系统消息</button>
+    <button id="introduction" @click="turnTo">功能介绍</button>
+    <button id="about_vron" @click="turnTo">关于弗恩英语</button>
+    <button id="logout" @click="turnTo">退出登录</button>
   </div>
 </template>
 
@@ -17,6 +17,13 @@ export default {
   data() {
     return {
       username: '哈哈哈'
+    }
+  },
+  methods: {
+    turnTo(e) {
+      wx.navigateTo({
+        url: '/pages/' + e.target.id + '/main'
+      })
     }
   }
 }
@@ -45,27 +52,27 @@ p {
   margin: 25px 40px;
   font-weight: bold;
 }
-#btn1 {
+#modify_info {
   color: #fff;
   background-color: #019dd6;
   margin-top: 40px;
 }
-#btn2 {
+#notice {
   color: #fff;
   background-color: #00c544;
   margin-top: 20px;
 }
-#btn3 {
+#introduction {
   color: #fff;
   background-color: #f67c30;
   margin-top: 20px;
 }
-#btn4 {
+#about_vron {
   color: #fff;
   background-color: #00fe90;
   margin-top: 20px;
 }
-#btn5 {
+#logout {
   color: #fff;
   background-color: #f53076;
   margin-top: 40px;
