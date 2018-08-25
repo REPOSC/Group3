@@ -29,7 +29,6 @@ urlpatterns = [
     path('find_books', front_showbooks.find_books),
     path('get_first_function', front_getbookcontent.get_first_function),
     path('get_second_function', front_getbookcontent.get_second_function),
-    path('get_fourth_function', front_getbookcontent.get_fourth_function),
     path('', views.main),
     path('all_student', back_allstudent.all_student),
     path('get_student', back_getstudent.get_student),
@@ -52,5 +51,8 @@ urlpatterns = [
     path('get_first_game_image', front_getbookcontent.get_first_game_image),
     path('get_first_game_texts', front_getbookcontent.get_first_game_texts),
     path('get_second_game_image', front_getbookcontent.get_second_game_image),
-    path('get_second_game_text', front_getbookcontent.get_second_game_text)
+    path('get_second_game_text', front_getbookcontent.get_second_game_text),
+    path('get_fourth_game_image', front_getbookcontent.get_fourth_game_image),
+    path('get_fourth_game_text', front_getbookcontent.get_fourth_game_text),
+    path('get_fourth_game_audio', front_getbookcontent.get_fourth_game_audio)
 ]

@@ -4,7 +4,8 @@ from . import tools
 
 
 def create_student(request):
-    student_num = models.User_info.objects.filter(is_manager=False).count()
+    student_num = models.User_info.objects.filter(
+        is_manager=False, is_superuser=False).count()
     student_num += 10000000
     count = int(request.POST.get('number'))
     student_names = []

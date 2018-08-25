@@ -55,7 +55,7 @@
       <div class="input-title space">在这里放入四张图片文件，并选择正确的选项</div>
       <el-radio-group class="space" v-model="second_selections.answer" @change="get_secondgame_answer">
         <el-radio v-for="(item, index) in 4" :label=index>
-          <Second_item v-bind:index=index @get_picture="get_secondgame_picture"></Second_item>
+          <Picture_item v-bind:index=index @get_picture="get_secondgame_picture"></Picture_item>
         </el-radio>
       </el-radio-group>
     </div>
@@ -64,6 +64,18 @@
     </div>
     <div class="card">
       <div class="title">添加第四个游戏</div>
+      <div class="input-title space">在这里输入单词</div>
+      <el-input v-model="fourth_selections.text"></el-input>
+      <div class="input-title space">在这里放入四张图片文件，并选择正确的选项</div>
+      <el-radio-group class="space" v-model="fourth_selections.answer" @change="get_fourthgame_answer">
+        <el-radio v-for="(item, index) in 4" :label=index>
+          <Picture_item v-bind:index=index @get_picture="get_fourthgame_picture"></Picture_item>
+        </el-radio>
+      </el-radio-group>
+      <div class="space align">
+        <div class="input-title displayed">在这里放入单词的音频</div>
+        <input class="file-btn displayed" type="file" accept="audio/*" @change="get_fourthgame_audio">
+      </div>
     </div>
     <el-button type="primary" @click="submit"> 上传书籍 </el-button>
   </div>
@@ -74,7 +86,7 @@ import word from './_word.vue'
 import page from './_page.vue'
 import axios from 'axios'
 import firstgame_selection from './_firstgame_selection.vue'
-import secondgame_selection from './_secondgame_selection.vue'
+import picture_selection from './_picture_selection.vue'
 export default {
   data: function() {
     return {
@@ -92,6 +104,12 @@ export default {
         text: '',
         answer: 0,
         picture: [null, null, null, null]
+      },
+      fourth_selections: {
+        text: '',
+        answer: 0,
+        picture: [null, null, null, null],
+        audio: null
       }
     }
   },
@@ -150,6 +168,16 @@ export default {
     get_secondgame_answer: function(value) {
       this.second_selections.answer = value
     },
+    get_fourthgame_picture: function(obj) {
+      this.fourth_selections.picture[obj.index] = obj.value
+    },
+    get_fourthgame_audio: function(e) {
+      console.log(e.target.files[0])
+      this.fourth_selections.audio = e.target.files[0]
+    },
+    get_fourthgame_answer: function(value) {
+      this.fourth_selections.answer = value
+    },
     submit: function() {
       if (!confirm('确定要上传所有的内容吗？')) {
         return
@@ -187,6 +215,15 @@ export default {
           this.second_selections.picture[i]
         )
       }
+      my_values.append('fourth_game_text', this.fourth_selections.text)
+      my_values.append('fourth_game_answer', this.fourth_selections.answer)
+      for (let i = 0; i < 4; ++i) {
+        my_values.append(
+          'fourth_game_picture',
+          this.fourth_selections.picture[i]
+        )
+      }
+      my_values.append('fourth_game_audio', this.fourth_selections.audio)
       let saved = this
       axios
         .post(Tools.get_url() + 'get_book', my_values)
@@ -202,7 +239,7 @@ export default {
     Word: word,
     Page: page,
     First_item: firstgame_selection,
-    Second_item: secondgame_selection
+    Picture_item: picture_selection
   }
 }
 </script>

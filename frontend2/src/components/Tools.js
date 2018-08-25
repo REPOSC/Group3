@@ -17,7 +17,7 @@ function generate_random_list(number) {
     })
   }
   list.sort(function (a, b) {
-    return a.value > b.value ? 1 : (a.value === b.value ? 0 : -1)
+    return a.value > b.value ? 1 : a.value === b.value ? 0 : -1
   })
   for (let i = 0; i < number; ++i) {
     list[i] = list[i].key
