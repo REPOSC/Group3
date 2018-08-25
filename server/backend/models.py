@@ -85,7 +85,7 @@ class User_punch(models.Model):
 
 
 class Book_punch_requirement(models.Model):
-    number = models.ForeignKey(
+    number = models.OneToOneField(
         'Book_info',
         to_field='number',
         on_delete=models.CASCADE,
@@ -144,10 +144,14 @@ class Second_game(models.Model):
         to_field='number',
         on_delete=models.CASCADE)
     key = models.CharField(max_length=50)
-    true_value = models.ImageField(null=True, upload_to=tools.second_game_image)
-    false_value_one = models.ImageField(null=True, upload_to=tools.second_game_image)
-    false_value_two = models.ImageField(null=True, upload_to=tools.second_game_image)
-    false_value_three = models.ImageField(null=True, upload_to=tools.second_game_image)
+    true_value = models.ImageField(
+        null=True, upload_to=tools.second_game_image)
+    false_value_one = models.ImageField(
+        null=True, upload_to=tools.second_game_image)
+    false_value_two = models.ImageField(
+        null=True, upload_to=tools.second_game_image)
+    false_value_three = models.ImageField(
+        null=True, upload_to=tools.second_game_image)
 
 
 class Third_game(models.Model):
@@ -165,10 +169,14 @@ class Fourth_game(models.Model):
         to_field='number',
         on_delete=models.CASCADE)
     key = models.FileField(upload_to=tools.fourth_game_audio)
-    true_value = models.ImageField(null=True, upload_to=tools.fourth_game_image)
-    false_value_one = models.ImageField(null=True, upload_to=tools.fourth_game_image)
-    false_value_two = models.ImageField(null=True, upload_to=tools.fourth_game_image)
-    false_value_three = models.ImageField(null=True, upload_to=tools.fourth_game_image)
+    true_value = models.ImageField(
+        null=True, upload_to=tools.fourth_game_image)
+    false_value_one = models.ImageField(
+        null=True, upload_to=tools.fourth_game_image)
+    false_value_two = models.ImageField(
+        null=True, upload_to=tools.fourth_game_image)
+    false_value_three = models.ImageField(
+        null=True, upload_to=tools.fourth_game_image)
 
 
 class User_game(models.Model):
@@ -176,7 +184,8 @@ class User_game(models.Model):
         'User_info',
         to_field='number',
         on_delete=models.CASCADE)
-    book_number = models.ForeignKey('Book_info', to_field='number', on_delete=models.CASCADE)
+    book_number = models.ForeignKey(
+        'Book_info', to_field='number', on_delete=models.CASCADE)
     firstgame = models.BooleanField(default=False)
     secondgame = models.BooleanField(default=False)
     thirdgame = models.BooleanField(default=False)

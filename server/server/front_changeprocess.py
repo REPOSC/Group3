@@ -1,5 +1,6 @@
 from django.http import HttpResponse
 from backend import models
+from django.http import JsonResponse
 
 
 def change_process(request):
@@ -17,4 +18,4 @@ def change_process(request):
         user_process = models.User_process.objects.create(
             user_number=user, book_number=book, process=float(process))
         user_process.save()
-    return HttpResponse('None')
+    return JsonResponse({'success': True})
