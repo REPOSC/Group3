@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/community/main",
     "pages/login/main",
     "pages/game4/main",
     "pages/notice/main",
@@ -14,8 +15,7 @@
     "pages/game3/main",
     "pages/show/main",
     "pages/guide/main",
-    "pages/level/main",
-    "pages/community/main"
+    "pages/level/main"
   ],
   "window": {
     "backgroundTextStyle": "light",
