@@ -11,73 +11,102 @@
 </template>
 
 <script>
+import * as Tools from '../../components/Tools.js'
+import qs from 'qs'
 export default {
   data() {
     return {
-      word: 'hehei',
-      pics: [
-        {
-          index: 1,
-          isanswer: true,
-          src: '/static/img/game2/cat1.jpg'
-        },
-        {
-          index: 2,
-          isanswer: false,
-          src: '/static/img/game2/cat2.jpg'
-        },
-        {
-          index: 3,
-          isanswer: false,
-          src: '/static/img/game2/cat3.jpg'
-        },
-        {
-          index: 4,
-          isanswer: false,
-          src: '/static/img/game2/cat4.jpg'
-        }
-      ]
+      booknumber: null,
+      word: '',
+      pics: []
     }
   },
+  onLoad: function(status) {
+    this.booknumber = status.booknumber
+  },
+  onShow: function() {
+    this.init()
+  },
   methods: {
-    show_right_message() {
-      wx.showModal({
-        title: '选对啦!宝宝真棒！',
-        content: '已完成该练习，是否退出~',
-        cancelText: '再看看',
-        confirmText: '退出',
-        confirmColor: '#ffb001',
-        success: function(res) {
-          if (res.confirm) {
-            wx.navigateBack({
-              url: '../practice/main'
-            })
+    init() {
+      this.pics = []
+      for (let i = 0; i < 4; ++i) {
+        this.pics.push({
+          isanswer: null,
+          src: null,
+          index: i
+        })
+      }
+      let fly = Tools.get_fly()
+      let save = this
+      fly
+        .post(
+          Tools.get_url() + 'get_second_game_text',
+          qs.stringify({
+            book_id: this.booknumber
+          })
+        )
+        .then(function(response) {
+          save.word = response.data.text
+        })
+      let requests = [
+        { status: true, number: -1 },
+        { status: false, number: 1 },
+        { status: false, number: 2 },
+        { status: false, number: 3 }
+      ]
+      let random_list = Tools.generate_random_list(4)
+      for (let i = 0; i < 4; ++i) {
+        wx.downloadFile({
+          url:
+            Tools.get_url() +
+            'get_second_game_image?book_id=' +
+            save.booknumber +
+            '&status=' +
+            requests[random_list[i]].status +
+            '&number=' +
+            requests[random_list[i]].number,
+          success: function(picture_response) {
+            let pic_tmp_obj = save.pics[i]
+            pic_tmp_obj.src = picture_response.tempFilePath
+            pic_tmp_obj.isanswer = requests[random_list[i]].status
+            save.$set(save.pics, i, pic_tmp_obj)
           }
-        }
-      })
-    },
-    show_false_message() {
-      wx.showModal({
-        title: '啊噢，就差一点点噢...',
-        content: '再试一次吧~',
-        cancelText: '不了',
-        confirmText: '再试一次',
-        confirmColor: '#ffb001',
-        success: function(res) {
-          if (res.cancel) {
-            wx.navigateBack({
-              url: '../practice/main'
-            })
-          }
-        }
-      })
+        })
+      }
     },
     choice(pic) {
       console.log(pic.isanswer)
       if (pic.isanswer === true) {
-        show_right_message()
+        wx.showModal({
+          title: '选对啦!宝宝真棒！',
+          content: '已完成该练习，是否退出~',
+          cancelText: '再看看',
+          confirmText: '退出',
+          confirmColor: '#ffb001',
+          success: function(response) {
+            if (response.confirm) {
+              wx.navigateBack({
+                url: '../practice/main'
+              })
+            }
+          }
+        })
       } else {
-        show_false_message()
+        wx.showModal({
+          title: '啊噢，就差一点点噢...',
+          content: '再试一次吧~',
+          cancelText: '不了',
+          confirmText: '再试一次',
+          confirmColor: '#ffb001',
+          success: function(response) {
+            if (response.cancel) {
+              wx.navigateBack({
+                url: '../practice/main'
+              })
+            }
+          }
+        })
       }
     }
   }
@@ -87,7 +116,6 @@ export default {
 <style>
 page {
   background-size: 100% 100%;
-  background-image: url('https://thumbnail0.baidupcs.com/thumbnail/208d7bfe35c662f32a88a1fe206d44e9?fid=3911358295-250528-398515735348763&time=1534424400&rt=sh&sign=FDTAER-DCb740ccc5511e5e8fedcff06b081203-mj%2BYVt%2Fbo9W%2BSqMC7ImwhtUDIcs%3D&expires=8h&chkv=0&chkbd=0&chkpc=&dp-logid=5285426163203658882&dp-callid=0&size=c710_u400&quality=100&vuk=-&ft=video');
 }
 .game {
   margin-top: 30px;
