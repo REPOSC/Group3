@@ -118,7 +118,7 @@ export default {
 <style>
 page {
   background-size: 100% 100%;
-  background-image: url('https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1534945615291&di=fa4a915965df971671ec98a8fe2d5a52&imgtype=0&src=http%3A%2F%2Fp.moto8.com%2Fforum%2F201201%2F04%2F195150zxaed89qa2e67t29.jpg');
+  background-image: url('https://daisy-donald.cn/image/back.jpg');
 }
 
 .head img {
@@ -139,7 +139,7 @@ page {
 }
 
 .firstpart {
-  color: #eff000;
+  color: #1000f0;
   align-content: center;
   margin: 30px;
   margin-top: 0px;

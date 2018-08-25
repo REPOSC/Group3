@@ -21,37 +21,36 @@ backendtest:
     - source ~/venv/bin/activate
     - python ./server/manage.py makemigrations backend
     - python ./server/manage.py migrate
-    - cd ./server    
+    - cd ./server
     - pip3 install coverage --quiet
     - python -m coverage run --source="." manage.py test
     - python -m coverage report
-    
+
 frontendonetest:
   stage: frontendonetest
   script:
     - cd ./frontend
     - npm install
-    - npm test  
-    
+    - npm test
+
 frontendonelint:
   stage: frontendonelint
   script:
     - cd ./frontend
     - npm install --save-dev eslint eslint-plugin-vue@next
     - npm run eslint
-    
+
 frontendtwolint:
   stage: frontendtwolint
-  script: 
+  script:
     - cd ./frontend2
     - npm install --save-dev eslint eslint-plugin-vue@next
     - npm run eslint
-   
+
 serverpylint:
   stage: serverpylint
   script:
     - cd ./server
     - pylint --rcfile=pylint.conf ./server/*
     - pylint --rcfile=pylint.conf ./backend/*
-    
-    
+

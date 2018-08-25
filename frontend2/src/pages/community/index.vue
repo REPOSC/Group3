@@ -62,7 +62,7 @@ export default {
 <style scoped>
 page {
   background-size: 100% 100%;
-  background-image: url('https://139.199.106.168/image/back.jpg');
+  background-image: url('https://daisy-donald.cn/image/back.jpg');
 }
 .container {
   display: flex;
