@@ -51,4 +51,6 @@ urlpatterns = [
     path('get_process', front_getprocess.get_process),
     path('get_first_game_image', front_getbookcontent.get_first_game_image),
     path('get_first_game_texts', front_getbookcontent.get_first_game_texts),
+    path('get_second_game_image', front_getbookcontent.get_second_game_image),
+    path('get_second_game_text', front_getbookcontent.get_second_game_text)
 ]
