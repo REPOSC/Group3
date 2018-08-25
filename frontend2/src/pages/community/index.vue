@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="record" :key="record.id" v-for="record in records">
+    <div class="record" v-for="record in records">
       <div class="user">
         <img :src="record.avatar" />
         <p class="username">{{ record.username }}</p>
@@ -9,6 +9,12 @@
       <div class="action">
         <button id="like" @click="like">赞</button>
         <button id="comment" @click="comment">评论</button>
+      </div>
+      <div class="comment">
+        <p v-for="(comment, key) in record.comments">
+          <span v-if="key === -1">{{ key }}</span>
+          <span class="username">{{ comment.username }}</span>
+          : {{ comment.content }}</p>
       </div>
     </div>
   </div>
@@ -28,12 +34,12 @@ export default {
             {
               id: 1,
               username: '小蒜',
-              content: '我是小蒜'
+              content: '真棒'
             },
             {
               id: 2,
               username: '小可',
-              content: '我是小可'
+              content: '666'
             }
           ]
         },
@@ -59,7 +65,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 page {
   background-size: 100% 100%;
   background-image: url('https://daisy-donald.cn/image/back.jpg');
@@ -79,7 +85,7 @@ page {
   display: flex;
 }
 .username {
-  font-weight: bold;
+  color: #53cce9;
   height: 40px;
   line-height: 40px;
 }
@@ -87,6 +93,10 @@ page {
   margin-left: 50%;
   display: flex;
   justify-content: space-between;
+}
+.comment {
+  margin-top: 5px;
+  border-top: 1px solid #fcf;
 }
 #like {
   width: 40%;
@@ -99,19 +109,6 @@ page {
   color: #fff;
   font-weight: bold;
   background-color: #ffb001;
-}
-.about_me {
-  position: fixed;
-  bottom: 10px;
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
-}
-.about_me button {
-  color: #fff;
-  font-size: 22px;
-  background-color: #ffb001;
-  border-radius: 10px;
 }
 img {
   width: 30px;

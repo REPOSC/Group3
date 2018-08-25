@@ -130,7 +130,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 page {
   background-size: 100% 100%;
   background-image: url('https://daisy-donald.cn/image/back.jpg');
