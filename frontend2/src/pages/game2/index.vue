@@ -76,7 +76,6 @@ export default {
       }
     },
     choice(pic) {
-      console.log(pic.isanswer)
       if (pic.isanswer === true) {
         wx.showModal({
           title: '选对啦!宝宝真棒！',

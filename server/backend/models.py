@@ -177,6 +177,7 @@ class Fourth_game(models.Model):
         null=True, upload_to=tools.fourth_game_image)
     false_value_three = models.ImageField(
         null=True, upload_to=tools.fourth_game_image)
+    text = models.CharField(max_length=50)
 
 
 class User_game(models.Model):

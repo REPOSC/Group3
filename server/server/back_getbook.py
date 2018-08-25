@@ -25,6 +25,10 @@ def get_book(request):
     second_game_text = request.POST.get('second_game_text')
     second_game_answer = int(request.POST.get('second_game_answer'))
     second_game_pictures = request.FILES.getlist('second_game_picture')
+    fourth_game_text = request.POST.get('fourth_game_text')
+    fourth_game_audio = request.FILES.get('fourth_game_audio')
+    fourth_game_answer = int(request.POST.get('fourth_game_answer'))
+    fourth_game_pictures = request.FILES.getlist('fourth_game_picture')
     book = models.Book_info.objects.create(
         number=book_num,
         level=book_level,
@@ -79,6 +83,15 @@ def get_book(request):
         false_value_one=second_game_pictures[1 ^ second_game_answer],
         false_value_two=second_game_pictures[2 ^ second_game_answer],
         false_value_three=second_game_pictures[3 ^ second_game_answer],
+    )
+    fourth_game_selection = models.Fourth_game.objects.create(
+        number=book,
+        key=fourth_game_audio,
+        text=fourth_game_text,
+        true_value=fourth_game_pictures[fourth_game_answer],
+        false_value_one=fourth_game_pictures[1 ^ fourth_game_answer],
+        false_value_two=fourth_game_pictures[2 ^ fourth_game_answer],
+        false_value_three=fourth_game_pictures[3 ^ fourth_game_answer],
     )
     second_game_selection.save()
     return JsonResponse({"success": True})

@@ -74,14 +74,6 @@ def get_first_game_image(request):
     return HttpResponse(word.value)
 
 
-def get_fourth_function(request):
-    user_id = request.POST.get('user_id', '')
-    book_id = request.POST.get('book_id', '')
-    one_process = models.User_process.objects.filter(
-        user_number=user_id, book_number=book_id)
-    one_book_words = models.Book_words.objects.filter(book_number=book_id)
-
-
 def get_second_game_text(request):
     book_id = request.POST.get('book_id')
     book = models.Book_info.objects.get(number=book_id)
@@ -104,3 +96,34 @@ def get_second_game_image(request):
             return HttpResponse(pictures.false_value_two)
         else:
             return HttpResponse(pictures.false_value_three)
+
+
+def get_fourth_game_image(request):
+    book_id = request.GET.get('book_id')
+    book = models.Book_info.objects.get(number=book_id)
+    status = request.GET.get('status')
+    number = int(request.GET.get('number'))
+    pictures = models.Fourth_game.objects.get(number=book)
+    if status == 'true':
+        return HttpResponse(pictures.true_value)
+    else:
+        if number == 1:
+            return HttpResponse(pictures.false_value_one)
+        elif number == 2:
+            return HttpResponse(pictures.false_value_two)
+        else:
+            return HttpResponse(pictures.false_value_three)
+
+
+def get_fourth_game_text(request):
+    book_id = request.POST.get('book_id')
+    book = models.Book_info.objects.get(number=book_id)
+    text = models.Fourth_game.objects.get(number=book)
+    return JsonResponse({'text': text.text})
+
+
+def get_fourth_game_audio(request):
+    book_id = request.GET.get('book_id')
+    book = models.Book_info.objects.get(number=book_id)
+    audio = models.Fourth_game.objects.get(number=book)
+    return HttpResponse(audio.key)

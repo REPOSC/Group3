@@ -1,42 +1,110 @@
 <template>
   <div class="game">
-    <i-icon type="customerservice" @click="playsound"/>
+    <div class="center">
+      <i-icon type="systemprompt_fill" @click="play_sound" size="40" />
+    </div>
     <div class="picGroup">
       <img :key="pic.index" v-for="pic in pics" :isanswer="pic.isanswer" :src="pic.src" mode="aspectFit" @click="choice(pic)" />
+    </div>
+    <div v-bind:class="word_class">
+      {{word}}
     </div>
   </div>
 </template>
 
 <script>
+import * as Tools from '../../components/Tools.js'
+import qs from 'qs'
 export default {
+  data() {
+    return {
+      innerAudioContext: null,
+      word_class: null,
+      booknumber: null,
+      word: null,
+      pics: []
+    }
+  },
   onLoad: function(status) {
     this.booknumber = status.booknumber
-    this.username = status.username
   },
   onShow: function() {
     this.init()
   },
-  data() {
-    return {
-      audio: null,
-      picture: null,
-      username: null,
-      booknumber: null
-    }
-  },
   methods: {
-    init() {},
+    init() {
+      this.word_class = 'hidden'
+      this.innerAudioContext = wx.createInnerAudioContext()
+      this.pics = []
+      for (let i = 0; i < 4; ++i) {
+        this.pics.push({
+          isanswer: null,
+          src: null,
+          index: i
+        })
+      }
+      let fly = Tools.get_fly()
+      let save = this
+      fly
+        .post(
+          Tools.get_url() + 'get_fourth_game_text',
+          qs.stringify({
+            book_id: this.booknumber
+          })
+        )
+        .then(function(response) {
+          save.word = response.data.text
+        })
+      let requests = [
+        { status: true, number: -1 },
+        { status: false, number: 1 },
+        { status: false, number: 2 },
+        { status: false, number: 3 }
+      ]
+      let random_list = Tools.generate_random_list(4)
+      for (let i = 0; i < 4; ++i) {
+        wx.downloadFile({
+          url:
+            Tools.get_url() +
+            'get_fourth_game_image?book_id=' +
+            save.booknumber +
+            '&status=' +
+            requests[random_list[i]].status +
+            '&number=' +
+            requests[random_list[i]].number,
+          success: function(picture_response) {
+            let pic_tmp_obj = save.pics[i]
+            pic_tmp_obj.src = picture_response.tempFilePath
+            pic_tmp_obj.isanswer = requests[random_list[i]].status
+            save.$set(save.pics, i, pic_tmp_obj)
+          }
+        })
+      }
+    },
+    play_sound() {
+      let save = this
+      wx.downloadFile({
+        url:
+          Tools.get_url() + 'get_fourth_game_audio?book_id=' + save.booknumber,
+        success: function(audio_response) {
+          if (audio_response.statusCode === 200) {
+            save.innerAudioContext.src = audio_response.tempFilePath
+            save.innerAudioContext.play()
+          }
+        }
+      })
+    },
     choice(pic) {
-      console.log(pic.isanswer)
       if (pic.isanswer === true) {
+        this.word_class = 'center'
         wx.showModal({
           title: '选对啦!宝宝真棒！',
           content: '已完成该练习，是否退出~',
           cancelText: '再看看',
           confirmText: '退出',
           confirmColor: '#ffb001',
-          success: function(res) {
-            if (res.confirm) {
+          success: function(response) {
+            if (response.confirm) {
               wx.navigateBack({
                 url: '../practice/main'
               })
@@ -50,8 +118,8 @@ export default {
           cancelText: '不了',
           confirmText: '再试一次',
           confirmColor: '#ffb001',
-          success: function(res) {
-            if (res.cancel) {
+          success: function(response) {
+            if (response.cancel) {
               wx.navigateBack({
                 url: '../practice/main'
               })
@@ -67,27 +135,9 @@ export default {
 <style>
 page {
   background-size: 100% 100%;
-  background-image: url('https://daisy-donald.cn/image/back.jpg');
 }
 .game {
   margin-top: 30px;
-}
-.word {
-  width: 100%;
-  text-align: center;
-}
-.word span {
-  display: inline-block;
-  font-size: 35px;
-  font-weight: bolder;
-  color: #ffb001;
-  vertical-align: middle;
-}
-.word img {
-  display: inline-block;
-  width: 50px;
-  height: 50px;
-  vertical-align: middle;
 }
 .picGroup {
   display: flex;
@@ -104,5 +154,15 @@ page {
   padding: 5px;
   background-color: white;
   border-radius: 10%;
+}
+.center {
+  margin: 50px auto;
+  text-align: center;
+  font-size: 40px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+.hidden {
+  display: none;
 }
 </style>
