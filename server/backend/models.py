@@ -161,6 +161,7 @@ class Third_game(models.Model):
         on_delete=models.CASCADE)
     key = models.CharField(max_length=50)
     value = models.ImageField(upload_to=tools.third_game_image)
+    value_number = models.IntegerField()
 
 
 class Fourth_game(models.Model):

@@ -58,14 +58,11 @@ export default {
               status: 'word_unmatch'
             })
             save.pics.push({
-              index: random_indexs[i],
-              match_index: i,
+              index: i,
+              match_index: random_indexs[i],
               status: 'pic_unmatch'
             })
           }
-          save.pics.sort(function(a, b) {
-            return a.index > b.index ? 1 : a.index === b.index ? 0 : -1
-          })
           for (let i = 0; i < texts.length; ++i) {
             wx.downloadFile({
               url:

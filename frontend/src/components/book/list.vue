@@ -53,7 +53,7 @@
       <div class="input-title space">在这里输入单词</div>
       <el-input v-model="second_selections.text"></el-input>
       <div class="input-title space">在这里放入四张图片文件，并选择正确的选项</div>
-      <el-radio-group class="space" v-model="second_selections.answer" @change="get_secondgame_answer">
+      <el-radio-group class="space" v-model="second_selections.answer">
         <el-radio v-for="(item, index) in 4" :label=index>
           <Picture_item v-bind:index=index @get_picture="get_secondgame_picture"></Picture_item>
         </el-radio>
@@ -61,6 +61,19 @@
     </div>
     <div class="card">
       <div class="title">添加第三个游戏</div>
+      <div class="input-title space">在这里输入单词</div>
+      <el-input v-model="third_selections.text"></el-input>
+      <div class="space align">
+        <div class="input-title displayed">在这里添加图片</div>
+        <input type="file" class="file-btn displayed" accept="image/*" @change="get_thirdgame_picture">
+      </div>
+      <div class="space">
+        <img v-bind:src="third_selections.picture_addr" :class="third_selections.picture?'picture':'hidden'">
+      </div>
+      <el-radio-group class="space" v-model="third_selections.splits">
+        <el-radio :label=2> 分成 4 张图片（2x2） </el-radio>
+        <el-radio :label=3> 分成 9 张图片（3x3） </el-radio>
+      </el-radio-group>
     </div>
     <div class="card">
       <div class="title">添加第四个游戏</div>
@@ -104,6 +117,12 @@ export default {
         text: '',
         answer: 0,
         picture: [null, null, null, null]
+      },
+      third_selections: {
+        text: '',
+        picture: null,
+        picture_addr: '',
+        splits: 2
       },
       fourth_selections: {
         text: '',
@@ -168,6 +187,15 @@ export default {
     get_secondgame_answer: function(value) {
       this.second_selections.answer = value
     },
+    get_thirdgame_picture: function(e) {
+      this.third_selections.picture = e.target.files[0]
+      let reader = new FileReader()
+      reader.readAsDataURL(this.third_selections.picture)
+      let saved = this
+      reader.onload = function(e) {
+        saved.third_selections.picture_addr = e.target.result
+      }
+    },
     get_fourthgame_picture: function(obj) {
       this.fourth_selections.picture[obj.index] = obj.value
     },
@@ -215,6 +243,9 @@ export default {
           this.second_selections.picture[i]
         )
       }
+      my_values.append('third_game_text', this.third_selections.text)
+      my_values.append('third_game_splits', this.third_selections.splits)
+      my_values.append('third_game_picture', this.third_selections.picture)
       my_values.append('fourth_game_text', this.fourth_selections.text)
       my_values.append('fourth_game_answer', this.fourth_selections.answer)
       for (let i = 0; i < 4; ++i) {
