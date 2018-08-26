@@ -1,12 +1,12 @@
 <template>
   <div class="card">
     <p>请选择或者拍摄视频上传</p>
-    <input type="file" accept="video/avi,video/mp4,video/flv,video/3gp,video/swf" capture="camcorder" @change="onFileChange" style="display: none;">
+    <input type="file" accept="video/avi,video/mp4,video/flv,video/3gp,video/swf" capture="camcorder" @change="onFileChange" >
     <video ref="video" controls="controls"></video>
-    <div style="padding: 20px;text-align: center">
+    <div >
       <p>{{videoProgress*100}}%</p>
     </div>
-    <el-button style="width: 30%;margin-left: 10%" bgcolor="#09c69c" color="#fff" shape="circle" @click.native="complete">确认上传</el-button>
+    <el-button  @click.native="complete">确认上传</el-button>
   </div>
 </template>
 <script>
