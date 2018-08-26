@@ -52,6 +52,9 @@ urlpatterns = [
     path('get_first_game_texts', front_getbookcontent.get_first_game_texts),
     path('get_second_game_image', front_getbookcontent.get_second_game_image),
     path('get_second_game_text', front_getbookcontent.get_second_game_text),
+    path('get_third_game_image', front_getbookcontent.get_third_game_image),
+    path('get_third_game_number', front_getbookcontent.get_third_game_number),
+    path('get_third_game_text', front_getbookcontent.get_third_game_text),
     path('get_fourth_game_image', front_getbookcontent.get_fourth_game_image),
     path('get_fourth_game_text', front_getbookcontent.get_fourth_game_text),
     path('get_fourth_game_audio', front_getbookcontent.get_fourth_game_audio)

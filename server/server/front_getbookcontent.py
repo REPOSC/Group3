@@ -98,6 +98,29 @@ def get_second_game_image(request):
             return HttpResponse(pictures.false_value_three)
 
 
+def get_third_game_number(request):
+    book_id = request.POST.get('book_id')
+    book = models.Book_info.objects.get(number=book_id)
+    book_number = models.Third_game.objects.filter(number=book_id).count()
+    return JsonResponse({'number': book_number-1})
+
+
+def get_third_game_image(request):
+    book_id = request.GET.get('book_id')
+    number = int(request.GET.get('number'))
+    book = models.Book_info.objects.get(number=book_id)
+    picture = models.Third_game.objects.get(
+        number=book_id, value_number=number)
+    return HttpResponse(picture.value)
+
+
+def get_third_game_text(request):
+    book_id = request.POST.get('book_id')
+    book = models.Book_info.objects.get(number=book_id)
+    book_number = models.Third_game.objects.filter(number=book_id)[0]
+    return JsonResponse({'text': book_number.key})
+
+
 def get_fourth_game_image(request):
     book_id = request.GET.get('book_id')
     book = models.Book_info.objects.get(number=book_id)

@@ -5,7 +5,7 @@
         添加书籍第 {{index+1}} 页
       </div>
     </div>
-    <img v-bind:src="image_addr" class="picture">
+    <img v-bind:src="picture_addr" class="picture">
     <div class="space align">
       <div class="input-title displayed">上传第 {{index+1}} 页图片</div>
       <input class="file-btn displayed" type="file" accept="image/*" @change="get_picture">
@@ -29,7 +29,7 @@ export default {
   props: ['index'],
   data: function() {
     return {
-      image_addr: null,
+      picture_addr: null,
       english_text: '',
       chinese_text: ''
     }
@@ -45,7 +45,7 @@ export default {
       reader.readAsDataURL(picture)
       let saved = this
       reader.onload = function(e) {
-        saved.image_addr = e.target.result
+        saved.picture_addr = e.target.result
       }
       this.$emit('get_picture', { value: picture, index: this.index })
     },
