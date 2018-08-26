@@ -13,6 +13,7 @@ class User_info(AbstractUser):
     nickname = models.CharField(max_length=50)
     lasttime_level = models.IntegerField(default=0)
     is_manager = models.BooleanField(default=False)
+    image = models.ImageField(null=True)
 
 
 class User_level(models.Model):

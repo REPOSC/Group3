@@ -17,7 +17,8 @@ from django.urls import path, include
 from . import views, back_createstudent, front_userlevel, front_showbooks, back_changepassword, back_setlevel, \
     back_authmanager, front_authstudent, front_getbookcontent, back_addmanager, back_changemanager, back_delmanager, \
     back_putmessage, back_getmanagers, back_getbook, back_allstudent, back_getstudent, front_changeprocess, \
-    front_getprocess
+    front_getprocess, front_getuserimage, front_getusernickname, front_changeusernickname, front_changeuserpassword,\
+    front_changeuserimage, logout
 from django.contrib import admin
 
 urlpatterns = [
@@ -57,5 +58,11 @@ urlpatterns = [
     path('get_third_game_text', front_getbookcontent.get_third_game_text),
     path('get_fourth_game_image', front_getbookcontent.get_fourth_game_image),
     path('get_fourth_game_text', front_getbookcontent.get_fourth_game_text),
-    path('get_fourth_game_audio', front_getbookcontent.get_fourth_game_audio)
+    path('get_fourth_game_audio', front_getbookcontent.get_fourth_game_audio),
+    path('get_user_image', front_getuserimage.get_user_image),
+    path('get_user_nickname', front_getusernickname.get_user_nickname),
+    path('change_user_image', front_changeuserimage.change_user_image),
+    path('change_user_nickname', front_changeusernickname.change_user_nickname),
+    path('change_user_password', front_changeuserpassword.change_user_password),
+    path('log_out', logout.log_out)
 ]
