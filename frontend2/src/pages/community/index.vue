@@ -1,20 +1,27 @@
 <template>
   <div class="container">
-    <div class="record" v-for="record in records">
+    <div class="record" v-for="(record, id) in records">
       <div class="user">
         <img :src="record.avatar" />
         <p class="username">{{ record.username }}</p>
       </div>
       <p class="content">{{ record.content }}</p>
       <div class="action">
-        <button id="like" @click="like">赞</button>
-        <button id="comment" @click="comment">评论</button>
+        <button id="like" @click="like(id)">赞
+          <span v-if="record.liked === false"></span>
+          <span v-if="record.likes !== 0">{{ record.likes }}</span>
+        </button>
+        <button id="comment" @click="comment(id)">评论</button>
       </div>
       <div class="comment">
-        <p v-for="(comment, key) in record.comments">
-          <span v-if="key === -1">{{ key }}</span>
+        <p v-for="comment in record.comments">
           <span class="username">{{ comment.username }}</span>
-          : {{ comment.content }}</p>
+          : {{ comment.content }}
+        </p>
+        <div class="new-comment" v-if="record.commented">
+          <textarea v-model="record.newcomment"/>
+          <button id="submit" @click="submit(id)">发送</button>
+        </div>
       </div>
     </div>
   </div>
@@ -26,41 +33,57 @@ export default {
     return {
       records: [
         {
-          id: 1,
           avatar: '/static/img/game2/cat1.jpg',
           username: '小吉',
           content: '今天我学了10个单词',
-          comments: [
-            {
-              id: 1,
-              username: '小蒜',
-              content: '真棒'
-            },
-            {
-              id: 2,
-              username: '小可',
-              content: '666'
-            }
-          ]
+          comments: [],
+          newcomment: '',
+          likes: 0,
+          liked: false,
+          commented: false
         },
         {
-          id: 2,
           avatar: '/static/img/game2/cat2.jpg',
           username: '小蒜',
-          content: '今天我学了8个单词'
+          content: '今天我学了8个单词',
+          comments: [],
+          likes: 0,
+          liked: false,
+          newcomment: '',
+          commented: false
         },
         {
-          id: 3,
           avatar: '/static/img/game2/cat3.jpg',
           username: '小可',
-          content: '今天我学了6个单词'
+          content: '今天我学了6个单词',
+          comments: [],
+          likes: 0,
+          liked: false,
+          newcomment: '',
+          commented: false
         }
       ]
     }
   },
   methods: {
-    like() {},
-    comment() {}
+    like(id) {
+      if (this.records[id].liked === false) {
+        this.records[id].likes += 1
+      } else {
+        this.records[id].likes -= 1
+      }
+      this.records[id].liked = !this.records[id].liked
+    },
+    comment(id) {
+      this.records[id].commented = true
+    },
+    submit(id) {
+      this.records[id].comments.push(
+        { username: '小可', content: this.records[id].newcomment }
+      )
+      this.records[id].commented = false
+      this.records[id].newcomment = ''
+    }
   }
 }
 </script>
@@ -78,6 +101,7 @@ page {
 .record {
   width: 90%;
   margin: 4%;
+  background-color: antiquewhite;
   border: 5px solid #53cce9;
   border-radius: 10px;
 }
@@ -90,29 +114,46 @@ page {
   line-height: 40px;
 }
 .action {
-  margin-left: 50%;
+  margin: 5% 0 5% 50%;
   display: flex;
   justify-content: space-between;
 }
 .comment {
-  margin-top: 5px;
+  margin: 5px;
   border-top: 1px solid #fcf;
+}
+.new-comment {
+  display: flex;
+  margin: 5px 0;
+}
+button {
+  height: 30px;
+  line-height: 30px;
+  color: #fff;
+  font-weight: bold;
 }
 #like {
   width: 40%;
-  color: #fff;
-  font-weight: bold;
   background-color: #f53076;
 }
 #comment {
   width: 40%;
-  color: #fff;
-  font-weight: bold;
   background-color: #ffb001;
+}
+#submit {
+  width: 20%;
+  background-color: #53cce9;
 }
 img {
   width: 30px;
   height: 30px;
   margin: 5px;
+}
+textarea {
+  padding: 0 2px;
+  border-radius: 10px;
+  height: 25px;
+  width: 75%;
+  border: 2px solid #ffb001;
 }
 </style>
