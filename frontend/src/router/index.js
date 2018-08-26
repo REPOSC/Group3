@@ -9,13 +9,16 @@ import memberadd from '@/components/memberManager/addMember'
 import memberchangePwd from '@/components/memberManager/changePwd'
 import memberremove from '@/components/memberManager/removeMember'
 import BookList from '@/components/book/list'
+import Bookchange from '@/components/book/change'
+import Bookcategory from '@/components/bookcategory/list'
+import video from '@/components/video/video'
 import UserChangePwd from '@/components/user/changepwd'
 import UserProfile from '@/components/user/profile'
 import SendMessage from '@/components/group/sendmessage'
 import groupdzone from '@/components/group/dzone'
 Vue.use(Router)
 // 懒加载方式，当路由被访问的时候才加载对应组件
-const Login = resolve => require(['@/components/login'], resolve)
+const Login = resolve => require(['@/components/Login'], resolve)
 let router = new Router({
   // 路由器连接入口实现跳转页面组件
   routes: [
@@ -52,9 +55,24 @@ let router = new Router({
       menuShow: true,
       iconCls: 'iconfont icon-setting1',
       children: [
-        { path: '/stuManage/createAccount', component: stuManagecreateAccount, name: '创建账号', menuShow: true },
-        { path: '/stuManage/profile', component: stuManagesetLevel, name: '设置等级', menuShow: true },
-        { path: '/stuManage/changepwd', component: stuManagerecoverPwd, name: '找回密码', menuShow: true }
+        {
+          path: '/stuManage/createAccount',
+          component: stuManagecreateAccount,
+          name: '创建账号',
+          menuShow: true
+        },
+        {
+          path: '/stuManage/profile',
+          component: stuManagesetLevel,
+          name: '设置等级',
+          menuShow: true
+        },
+        {
+          path: '/stuManage/changepwd',
+          component: stuManagerecoverPwd,
+          name: '找回密码',
+          menuShow: true
+        }
       ]
     },
     {
@@ -64,8 +82,18 @@ let router = new Router({
       menuShow: true,
       iconCls: 'iconfont icon-setting1',
       children: [
-        { path: '/book/list', component: BookList, name: '书本数据统计', menuShow: true },
-        { path: '/stuManager/list', component: stuManagelist, name: '学生数据统计', menuShow: true }
+        {
+          path: '/bookcategory/list',
+          component: Bookcategory,
+          name: '书本数据统计',
+          menuShow: true
+        },
+        {
+          path: '/stuManager/list',
+          component: stuManagelist,
+          name: '学生数据统计',
+          menuShow: true
+        }
       ]
     },
     {
@@ -75,7 +103,18 @@ let router = new Router({
       menuShow: true,
       iconCls: 'iconfont icon-books',
       children: [
-        { path: '/book/list', component: BookList, name: '添加书籍', menuShow: true }
+        {
+          path: '/book/list',
+          component: BookList,
+          name: '添加书籍',
+          menuShow: true
+        },
+        {
+          path: '/book/change',
+          component: Bookchange,
+          name: '管理书籍',
+          menuShow: true
+        }
       ]
     },
     {
@@ -88,10 +127,10 @@ let router = new Router({
       iconCls: 'iconfont icon-home', // 图标样式class
       children: [
         {
-          path: '/',
+          path: '/video/video',
           name: '添加功能介绍视频',
           menuShow: true,
-          component: Home
+          component: video
         }
       ]
     },
@@ -102,10 +141,12 @@ let router = new Router({
       menuShow: true,
       iconCls: 'iconfont icon-setting1',
       children: [
-        { path: '/group/sendmessage',
+        {
+          path: '/group/sendmessage',
           component: SendMessage,
           name: '群发消息',
-          menuShow: true }
+          menuShow: true
+        }
       ]
     },
     {
@@ -130,8 +171,18 @@ let router = new Router({
       menuShow: true,
       iconCls: 'iconfont icon-setting1',
       children: [
-        { path: '/user/profile', component: UserProfile, name: '个人信息', menuShow: true },
-        { path: '/user/changePwd', component: UserChangePwd, name: '修改密码', menuShow: true }
+        {
+          path: '/user/profile',
+          component: UserProfile,
+          name: '个人信息',
+          menuShow: true
+        },
+        {
+          path: '/user/changePwd',
+          component: UserChangePwd,
+          name: '修改密码',
+          menuShow: true
+        }
       ]
     },
     {
@@ -141,9 +192,24 @@ let router = new Router({
       menuShow: judge(),
       iconCls: 'iconfont icon-setting1',
       children: [
-        { path: '/memberManager/addMember', component: memberadd, name: '添加账户', menuShow: true },
-        { path: '/memberManager/changePwd', component: memberchangePwd, name: '修改密码', menuShow: true },
-        { path: '/memberManager/removeMember', component: memberremove, name: '删除账户', menuShow: true }
+        {
+          path: '/memberManager/addMember',
+          component: memberadd,
+          name: '添加账户',
+          menuShow: true
+        },
+        {
+          path: '/memberManager/changePwd',
+          component: memberchangePwd,
+          name: '修改密码',
+          menuShow: true
+        },
+        {
+          path: '/memberManager/removeMember',
+          component: memberremove,
+          name: '删除账户',
+          menuShow: true
+        }
       ]
     }
   ]

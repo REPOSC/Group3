@@ -1,6 +1,6 @@
 <!--suppress ALL -->
 <template>
-  <div>
+  <div>书本数据统计
     <!--为echarts准备一个具备大小的容器dom-->
     <div class="login-container demonstration">
       <div>
@@ -9,32 +9,30 @@
         <el-button type="primary" @click="doFilter1">返回</el-button>
       </div>
       <el-table :data="tableData.slice((currpage - 1) * pagesize, currpage * pagesize)" align="center">
-        <el-table-column prop="user_name" label="账号" sortable width="200">
+        <el-table-column prop="user_name" label="书目编号" sortable width="180">
         </el-table-column>
-        <el-table-column prop="user_nickname" label="姓名" sortable width="200">
+        <el-table-column prop="user_nickname" label="书名" sortable width="180">
         </el-table-column>
-        <el-table-column prop="level" label="等级" sortable width="200">
+        <el-table-column prop="level" label="等级" sortable width="180">
         </el-table-column>
-        <el-table-column prop="book" label="阅读数量" sortable width="200">
+        <el-table-column prop="book_num" label="阅读情况" sortable width="180">
         </el-table-column>
-        <el-table-column fixed="right" label="操作" width="200">
+        <el-table-column fixed="right" label="操作" width="180">
           <template slot-scope="scope">
             <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
+            <el-button @click="handleClick(scope.row)" type="text" size="small">修改</el-button>
           </template>
         </el-table-column>
       </el-table>
       <el-pagination background layout="prev, pager, next, sizes, total, jumper" :page-sizes="[5, 10, 15, 20]" :page-size="pagesize" :total="tableData.length" @current-change="handleCurrentChange" @size-change="handleSizeChange">
       </el-pagination>
     </div>
-    <div class="login-container chart" id="main"></div>
-    <div :class="className" :id="id" class="login-container chart column" ref="myEchart"></div>
   </div>
 </template>
 <script>
 import echarts from 'echarts'
 import axios from 'axios'
 import * as Tools from '../Tools/Tools'
-
 export default {
   props: {
     className: {
@@ -54,14 +52,8 @@ export default {
       currpage: 1,
       chart: null,
       charts: '',
-      opinion: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎'],
-      opinionData: [
-        { value: 335, name: '直接访问' },
-        { value: 310, name: '邮件营销' },
-        { value: 234, name: '联盟广告' },
-        { value: 135, name: '视频广告' },
-        { value: 1548, name: '搜索引擎' }
-      ],
+      opinion: [],
+      opinionData: [],
       tableData: [],
       tableData1: [],
       TableDataName: '',
@@ -178,13 +170,11 @@ export default {
           let nicknames = eval(response.data.user_nicknames)
           let names = eval(response.data.user_numbers)
           let levels = eval(response.data.levelss)
-          let books = eval(response.data.booknums)
           for (let i = 0; i < nicknames.length; ++i) {
             saved.tableData.push({
               user_nickname: nicknames[i],
               user_name: names[i],
-              level: levels[i],
-              book: books[i]
+              level: levels[i]
             })
           }
         })
