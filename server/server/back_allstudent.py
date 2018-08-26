@@ -1,5 +1,6 @@
 from django.http import JsonResponse
 from backend import models
+from . import debug
 
 
 def all_student(request):
@@ -11,7 +12,7 @@ def all_student(request):
     str1 = []
     str2 = ''
     for i in students:
-        aaa = models.User_process.objects.filter(user_number=i.username)
+        aaa = models.User_process.objects.filter(user_number=i.username).count()
         success.append(aaa)
         lv = models.User_level.objects.filter(number=i.username)
         for j in lv:
@@ -26,5 +27,5 @@ def all_student(request):
         'user_nicknames': stu_nicknames,
         'user_numbers': stu_numbers,
         'levelss': levels,
-        # 'booknums':success
+        'booknums':success
     })
