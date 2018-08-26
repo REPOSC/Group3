@@ -1,8 +1,8 @@
 {
   "pages": [
+    "pages/login/main",
     "pages/Rankinglist/main",
     "pages/community/main",
-    "pages/login/main",
     "pages/game4/main",
     "pages/notice/main",
     "pages/modify_info/main",
@@ -29,22 +29,21 @@
   "tabBar": {
     "selectedColor": "#ffb100",
     "positon": "top",
-    "list": [
-      {
-      "pagePath": "pages/message/main",
-      "text": "我的消息",
-      "iconPath": "/static/img/tabbar_icon/blue-mes.png",
-      "selectedIconPath": "/static/img/tabbar_icon/yellow-mes.png"
+    "list": [{
+        "pagePath": "pages/message/main",
+        "text": "我的消息",
+        "iconPath": "/static/img/tabbar_icon/blue-mes.png",
+        "selectedIconPath": "/static/img/tabbar_icon/yellow-mes.png"
       },
       {
-        "pagePath":"pages/community/main",
-        "text":"社群",
+        "pagePath": "pages/community/main",
+        "text": "社群",
         "iconPath": "/static/img/tabbar_icon/blue-com.png",
         "selectedIconPath": "/static/img/tabbar_icon/yellow-com.png"
       },
       {
-        "pagePath":"pages/Rankinglist/main",
-        "text":"排行榜",
+        "pagePath": "pages/Rankinglist/main",
+        "text": "排行榜",
         "iconPath": "/static/img/tabbar_icon/blue-rank.png",
         "selectedIconPath": "/static/img/tabbar_icon/yellow-rank.png"
       }

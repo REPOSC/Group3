@@ -1,6 +1,7 @@
 from django.http import JsonResponse
 from django.http import HttpResponse
 from backend import models
+from . import debug
 
 
 def get_first_function(request):
@@ -69,6 +70,8 @@ def get_first_game_texts(request):
 def get_first_game_image(request):
     book_id = request.GET.get('book_id')
     word_text = request.GET.get('word_text')
+    debug.debug(book_id)
+    debug.debug(word_text)
     book = models.Book_info.objects.get(number=book_id)
     word = models.First_game.objects.get(number=book, key=word_text)
     return HttpResponse(word.value)
@@ -101,7 +104,7 @@ def get_second_game_image(request):
 def get_third_game_number(request):
     book_id = request.POST.get('book_id')
     book = models.Book_info.objects.get(number=book_id)
-    book_number = models.Third_game.objects.filter(number=book_id).count()
+    book_number = models.Third_game.objects.filter(number=book).count()
     return JsonResponse({'number': book_number-1})
 
 
@@ -110,14 +113,14 @@ def get_third_game_image(request):
     number = int(request.GET.get('number'))
     book = models.Book_info.objects.get(number=book_id)
     picture = models.Third_game.objects.get(
-        number=book_id, value_number=number)
+        number=book, value_number=number)
     return HttpResponse(picture.value)
 
 
 def get_third_game_text(request):
     book_id = request.POST.get('book_id')
     book = models.Book_info.objects.get(number=book_id)
-    book_number = models.Third_game.objects.filter(number=book_id)[0]
+    book_number = models.Third_game.objects.filter(number=book)[0]
     return JsonResponse({'text': book_number.key})
 
 

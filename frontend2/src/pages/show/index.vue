@@ -80,16 +80,6 @@ export default {
           save.bookprocess
       })
     },
-    toTranslation: function() {
-      let save = this
-      wx.navigateTo({
-        url:
-          '../translation/main?username=' +
-          save.username +
-          '&book=' +
-          save.booknumber
-      })
-    },
     toPractice: function() {
       let save = this
       wx.navigateTo({
@@ -113,7 +103,7 @@ export default {
     toMe: function() {
       let save = this
       wx.navigateTo({
-        url: '../me/main?username=' + save.username + '&book=' + save.booknumber
+        url: '../me/main?username=' + save.username
       })
     },
     toExpanding: function() {

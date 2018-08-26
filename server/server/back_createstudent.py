@@ -18,6 +18,7 @@ def create_student(request):
             number=student_num,
             password=student_pwds[i],
             username=student_names[i],
+            nickname=student_names[i],
             is_manager=False)
         student.save()
         student_levels = request.POST.getlist('values')

@@ -1,29 +1,96 @@
 <template>
   <div class="me">
     <div class="my_info">
-      <img src="/static/img/avatar.jpg">
-      <p class="username">{{ username }}</p>
+      <img v-bind:src="image_file_addr">
+      <p class="username">{{ nickname }}</p>
     </div>
-    <button id="modify_info" @click="turnTo">修改资料</button>
+    <button id="modify_info" @click="change_info">修改资料</button>
     <button id="notice" @click="turnTo">系统消息</button>
     <button id="introduction" @click="turnTo">功能介绍</button>
-    <button id="about_vron" @click="turnTo">关于弗恩英语</button>
-    <button id="logout" @click="turnTo">退出登录</button>
+    <button id="about_vron" @click="about">关于弗恩英语</button>
+    <button id="logout" @click="logout">退出登录</button>
   </div>
 </template>
 
 <script>
+import * as Tools from '../../components/Tools.js'
+import qs from 'qs'
 export default {
   data() {
     return {
-      username: '哈哈哈'
+      username: null,
+      nickname: null,
+      image_file_addr: null
     }
   },
+  onLoad(status) {
+    this.username = status.username
+  },
+  onShow() {
+    this.init()
+  },
   methods: {
-    turnTo(e) {
-      wx.navigateTo({
-        url: '/pages/' + e.target.id + '/main'
+    init_nickname() {
+      let fly = Tools.get_fly()
+      let save = this
+      fly
+        .post(
+          Tools.get_url() + 'get_user_nickname',
+          qs.stringify({
+            username: save.username
+          })
+        )
+        .then(function(response) {
+          save.nickname = response.data.nickname
+        })
+    },
+    init_picture() {
+      let save = this
+      wx.downloadFile({
+        url: Tools.get_url() + 'get_user_image?username=' + save.username,
+        success: function(picture_response) {
+          if (picture_response.statusCode === 200) {
+            save.image_file_addr = picture_response.tempFilePath
+          }
+        },
+        fail: function(err) {
+          console.log(err)
+        }
       })
+    },
+    init() {
+      this.init_nickname()
+      this.init_picture()
+    },
+    change_info() {
+      wx.navigateTo({
+        url: '../modify_info/main?username=' + this.username
+      })
+    },
+    system_msg() {},
+    about() {
+      wx.showToast({
+        title: 'By Windows Vista',
+        icon: 'none',
+        duration: 1500,
+        mask: true
+      })
+    },
+    logout() {
+      let fly = Tools.get_fly()
+      let save = this
+      fly
+        .post(
+          Tools.get_url() + 'log_out',
+          qs.stringify({
+            username: save.username
+          })
+        )
+        .then(function(response) {
+          wx.redirectTo({
+            url: '../login/main'
+          })
+        })
     }
   }
 }
@@ -31,7 +98,7 @@ export default {
 
 <style scoped>
 page {
-  background-image: url('https://thumbnail0.baidupcs.com/thumbnail/208d7bfe35c662f32a88a1fe206d44e9?fid=3911358295-250528-398515735348763&time=1534424400&rt=sh&sign=FDTAER-DCb740ccc5511e5e8fedcff06b081203-mj%2BYVt%2Fbo9W%2BSqMC7ImwhtUDIcs%3D&expires=8h&chkv=0&chkbd=0&chkpc=&dp-logid=5285426163203658882&dp-callid=0&size=c710_u400&quality=100&vuk=-&ft=video');
+  background-image: url();
 }
 .me {
   padding-top: 30px;
