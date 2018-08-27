@@ -164,7 +164,7 @@ def get_book(request):
         book = get_book_info(request)
         put_guides(request, book)
         put_pages(request, book)
-        if book.is_persual == True:
+        if book.is_persual:
             put_game1(request, book)
             put_game2(request, book)
             put_game3(request, book)

@@ -1,5 +1,5 @@
-from django.http import JsonResponse
-from django.contrib.auth import authenticate, login
+from django.http import HttpResponse, JsonResponse
+from django.contrib.auth import authenticate, login, logout
 from backend import models
 
 

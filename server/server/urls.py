@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.urls import path, include
 from . import views, back_student, back_manager, back_message, back_book, \
-    front_book, front_student, front_forum
+    front_book, front_student, front_forum, back_forum
 from django.contrib import admin
 
 urlpatterns = [
@@ -64,9 +64,9 @@ urlpatterns = [
     path('get_book', back_book.get_book),
     path('get_punch_info', front_forum.get_punch_info),
     path('upload_homework', front_forum.upload_homework),
-    path('all_daka', back_alldaka.all_daka),
-    path('daka_comment', back_dakacomment.daka_comment),
-    path('daka_like', back_dakalike.daka_like),
-    path('del_comment', back_delcomment.del_comment),
-    path('del_punch', back_delpunch.del_punch)
+    path('all_daka', back_forum.all_daka),
+    path('daka_comment', back_forum.daka_comment),
+    path('daka_like', back_forum.daka_like),
+    path('del_comment', back_forum.del_comment),
+    path('del_punch', back_forum.del_punch)
 ]
