@@ -69,5 +69,6 @@ urlpatterns = [
     path('daka_like', back_forum.daka_like),
     path('del_comment', back_forum.del_comment),
     path('del_punch', back_forum.del_punch),
-    path('add_introduction_video', back_introduction.add_introduction_video)
+    path('add_introduction_video', back_introduction.add_introduction_video),
+    path('punch_reset', front_forum.punch_reset)
 ]
