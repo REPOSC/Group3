@@ -2,7 +2,7 @@
   "pages": [
     "pages/system_message/main",
     "pages/login/main",
-    "pages/Rankinglist/main",
+    "pages/rankinglist/main",
     "pages/expanding/main",
     "pages/community/main",
     "pages/game4/main",

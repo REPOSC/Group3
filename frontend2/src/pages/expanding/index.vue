@@ -13,9 +13,9 @@
       <textarea class="content" v-model="content"></textarea>
     </div>
     <div class="function">
-      <button @click="upload">上传作业</button>
-      <div>({{has_upload}})</div>
+      <button @click="uploadhomework">上传作业</button>
       <button @click="share">打卡分享</button>
+      <button @click="reset">清除打卡</button>
     </div>
   </div>
 </template>
@@ -26,9 +26,9 @@ import qs from 'qs'
 export default {
   data() {
     return {
-      username: null,
+      username: '',
       level: '',
-      booknumber: null,
+      booknumber: '',
       allfilepaths: [],
       is_punched: false,
       has_upload: 0,
@@ -60,17 +60,11 @@ export default {
           save.requirement = response.data.requirement
         })
     },
-    upload: function() {
+    uploadhomework: function() {
       if (this.is_punched === true) {
-        wx.showToast({
-          title: '您已完成打卡，不要再重复上传文件哦~',
-          icon: 'none'
-        })
+        this.failtoast('您已完成打卡，不要再重复上传文件哦~')
       } else if (this.is_punched === 'cannot') {
-        wx.showToast({
-          title: '本书没有阅读拓展要求，不能上传文件哦~',
-          icon: 'none'
-        })
+        this.failtoast('本书暂时没有阅读拓展要求，不能上传文件哦~')
       } else {
         let save = this
         wx.showModal({
@@ -107,29 +101,18 @@ export default {
       for (let i in tempFilePaths) {
         save.allfilepaths.push(tempFilePaths[i])
       }
-      wx.showToast({
-        title: '上传成功!'
-      })
+      save.successtoast('上传成功！')
       save.has_upload += tempFilePaths.length
     },
     choosefail: function(response) {
-      wx.showToast({
-        title: '选择文件失败！',
-        icon: 'none'
-      })
+      this.failtoast('选择文件失败！')
     },
     share: function() {
       let save = this
       if (save.is_punched) {
-        wx.showToast({
-          title: '您已完成打卡，不要重复打卡哦~',
-          icon: 'none'
-        })
+        save.failtoast('您已完成打卡，不要重复打卡哦~')
       } else if (save.allfilepaths.length === 0) {
-        wx.showToast({
-          title: '您还未上传文件，请先上传文件再打卡哦~',
-          icon: 'none'
-        })
+        save.failtoast('您还未上传文件，请先上传文件再打卡哦~')
       } else {
         wx.uploadFile({
           url: Tools.get_url() + 'upload_homework',
@@ -146,25 +129,70 @@ export default {
             if (jsonanswer.status === 'true') {
               save.is_punched = true
               save.allfilepaths = []
-              wx.showModal({
-                title: '打卡成功! 是否进入社群页面？',
-                success: function(userresponse) {
-                  if (userresponse.confirm) {
-                    wx.switchTab({
-                      url:
-                        '../community/main?username=' +
-                        save.username +
-                        '&level=' +
-                        save.level
-                    })
-                  }
-                }
-              })
+              save.gotocommunity(save)
             } else {
-              wx.showToast({
-                title: '打卡失败，请检查网络！',
-                icon: 'none'
-              })
+              save.failtoast('打卡失败，请检查网络！')
+            }
+          }
+        })
+      }
+    },
+    gotocommunity: function(save) {
+      wx.showModal({
+        title: '打卡成功! 是否进入社群页面？',
+        success: function(userresponse) {
+          if (userresponse.confirm) {
+            wx.switchTab({
+              url:
+                '../community/main?username=' +
+                save.username +
+                '&level=' +
+                save.level
+            })
+          }
+        }
+      })
+    },
+    failtoast: function(innertext) {
+      wx.showToast({
+        title: innertext,
+        icon: 'none'
+      })
+    },
+    successtoast: function(innertext) {
+      wx.showToast({
+        title: innertext
+      })
+    },
+    reset: function() {
+      let save = this
+      let fly = Tools.get_fly()
+      if (!save.is_punched) {
+        save.failtoast('您还未完成打卡~')
+      } else {
+        wx.showModal({
+          title: '是否要重置打卡记录？',
+          confirmText: '重置',
+          cancelText: '取消',
+          success: function(response) {
+            if (response.confirm) {
+              fly
+                .post(
+                  Tools.get_url() + 'punch_reset',
+                  qs.stringify({
+                    username: save.username,
+                    booknumber: save.booknumber
+                  })
+                )
+                .then(function(response) {
+                  if (response.data.status) {
+                    save.is_punched = false
+                    save.has_upload = 0
+                    save.successtoast('重置成功！')
+                  } else {
+                    save.failtoast('重置失败！')
+                  }
+                })
             }
           }
         })
@@ -173,10 +201,7 @@ export default {
   },
   onUnload: function() {
     if (this.allfilepaths.length !== 0) {
-      wx.showToast({
-        title: '您还未打卡，请注意完成打卡哦~',
-        icon: 'none'
-      })
+      this.failtoast('您还未打卡，请注意完成打卡哦~')
     }
   }
 }
@@ -230,9 +255,11 @@ p {
   margin: 20px auto;
 }
 button {
-  width: 35%;
+  margin-top: 15%;
+  width: 30%;
   color: #53cce9;
   font-weight: bold;
+  font-size: 14px;
   text-shadow: 2px 2px 3px #000;
   background-color: #ffb001;
 }
