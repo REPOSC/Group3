@@ -1,17 +1,23 @@
 <template>
-  <div class="div">
-    <button id="btn1" @click="toGuide">亲子阅读指导</button>
-    <button id="btn2" @click="toEbook">E-Book</button>
-    <button id="btn4" @click="toPractice">课后练习</button>
-    <button id="btn5" @click="toExpanding">阅读拓展</button>
-    <div class="bottom">
-      <div class="function" @click="toCommunity">
-        <img src="/static/img/man.png">
-        <p>社群</p>
+  <div>
+    <div class="title">
+      <img src="/static/img/rainbow.png">
+      <p>Book1</p>
+    </div>
+    <div class="items">
+      <button id="btn1" @click="toGuide">亲子阅读指导</button>
+      <button id="btn2" @click="toEbook">E-Book</button>
+      <button id="btn4" @click="toPractice">课后练习</button>
+      <button id="btn5" @click="toExpanding">阅读拓展</button>
+    </div>
+    <div class="function">
+      <div @click="toCommunity">
+        <img class="icon" src="/static/img/tabbar_icon/yellow-com.png"/>
+        <span>社群</span>
       </div>
-      <div class="function" @click="toMe">
-        <img src="/static/img/man.png">
-        <p>我的</p>
+      <div @click="toMe">
+        <img class="icon" src="/static/img/tabbar_icon/yellow-me.png"/>
+        <span>我的</span>
       </div>
     </div>
   </div>
@@ -145,38 +151,76 @@ page {
   background-image: url('https://daisy-donald.cn/image/back.jpg');
 }
 
-.div {
-  padding: 60px 50px;
+.items {
+  margin: 60px auto;
 }
 
-button {
-  width: 80%;
+.function {
+  height: 50px;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  position: fixed;
+  bottom: 0;
+  background-color: #53cce9;
+}
+
+.function div {
+  display: flex;
+  flex-wrap: wrap;
+  height: 50px;
+  width: 50px;
+}
+
+.function span {
+  height: 20px;
+  width: 50px;
+  color: #666;
+  font-size: 12px;
+  text-align: center;
+}
+
+.function img {
+  width: 30px;
+  height: 30px;
+  margin: 0 auto;
+}
+
+.items button {
   color: #fff;
+  width: 75%;
+  height: 50px;
+  line-height: 50px;
+  font-size: 20px;
   font-weight: bold;
   margin: 30px auto;
 }
 
-.bottom {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+.title {
+  height: 70px;
+  line-height: 70px;
   margin: 30px;
-}
-
-.function {
   text-align: center;
+  display: flex;
+  justify-content: center;
 }
 
-img {
-  margin-top: 50px;
+p {
+  color: yellow;
+  font-size: 30px;
+  font-weight: bold;
+  text-shadow: 2px 2px 3px #000;
+}
+
+.title img {
   width: 70px;
   height: 70px;
 }
 
-p {
-  color: #ffb001;
-  font-size: 20px;
-  font-weight: bold;
+.icon img {
+  margin-top: 50px;
+  width: 70px;
+  height: 70px;
 }
 
 #btn1 {

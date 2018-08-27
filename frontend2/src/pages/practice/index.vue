@@ -33,26 +33,31 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 page {
-  background-image: url('https://thumbnail0.baidupcs.com/thumbnail/208d7bfe35c662f32a88a1fe206d44e9?fid=3911358295-250528-398515735348763&time=1534424400&rt=sh&sign=FDTAER-DCb740ccc5511e5e8fedcff06b081203-mj%2BYVt%2Fbo9W%2BSqMC7ImwhtUDIcs%3D&expires=8h&chkv=0&chkbd=0&chkpc=&dp-logid=5285426163203658882&dp-callid=0&size=c710_u400&quality=100&vuk=-&ft=video');
+  background-size: 100% 100%;
+  background-image: url('https://daisy-donald.cn/image/back.jpg');
 }
-button {
-  width: 60%;
+.game button {
   color: #fff;
+  width: 75%;
+  height: 50px;
+  line-height: 50px;
+  font-size: 20px;
   font-weight: bold;
   margin: 30px auto;
 }
 .title {
   height: 70px;
   line-height: 70px;
+  margin: 30px;
   text-align: center;
   display: flex;
   justify-content: center;
 }
 p {
   color: yellow;
-  font-size: 25px;
+  font-size: 30px;
   font-weight: bold;
   text-shadow: 2px 2px 3px #000;
 }
@@ -61,7 +66,7 @@ img {
   height: 70px;
 }
 .game {
-  margin: 50px auto;
+  margin: 60px auto;
 }
 #game1 {
   background-color: #019dd6;
