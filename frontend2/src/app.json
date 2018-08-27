@@ -1,6 +1,5 @@
 {
   "pages": [
-    "pages/community/main",
     "pages/login/main",
     "pages/Rankinglist/main",
     "pages/expanding/main",

@@ -4,6 +4,25 @@ from backend import models
 from . import debug
 
 
+def get_books(request):
+    user_level = request.POST.get('level')
+    number = request.POST.get('id')
+    books = models.Book_info.objects.filter(level=user_level)
+    user_book_info = []
+    for book in books:
+        try:
+            process = models.User_process.objects.get(
+                user_number=number, book_number=book.number)
+            one_info = {'number': book.number, 'name': book.name,
+                        'process': process.process, 'is_persual': book.is_persual}
+        except:
+            process = 0
+            one_info = {'number': book.number, 'name': book.name,
+                        'process': process, 'is_persual': book.is_persual}
+        user_book_info.append(one_info)
+    return JsonResponse({'answer': user_book_info})
+
+
 def get_first_function(request):
     book_id = request.POST.get('book_id', '')
     book_knowledge_set = models.Book_knowledge.objects.filter(
@@ -153,3 +172,9 @@ def get_fourth_game_audio(request):
     book = models.Book_info.objects.get(number=book_id)
     audio = models.Fourth_game.objects.get(number=book)
     return HttpResponse(audio.key)
+
+
+def get_book_persual(request):
+    booknumber = request.POST.get('booknumber')
+    book = models.Book_info.objects.get(number=booknumber)
+    return JsonResponse({'bookpersual': 'true' if book.is_persual else 'false'})

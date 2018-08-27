@@ -12,7 +12,7 @@ def get_book_info(request):
     book_level = int(book_level) - 1
     book_introduction = request.POST.get('introduction')
     book_persual = request.POST.get('persual')
-    book_persual = True if book_persual == 'true' else False
+    book_persual = True if book_persual == 'persual' else False
     book_num = models.Book_info.objects.all().count()
     book_num += 1
     book = models.Book_info.objects.create(
@@ -149,15 +149,27 @@ def put_game4(request, book):
     fourth_game_selection.save()
 
 
+def put_expands(request, book):
+    expand_text = request.POST.get('expand')
+    if expand_text != '':
+        expand = models.Book_punch_requirement.objects.create(
+            number=book,
+            requirement=expand_text
+        )
+        expand.save()
+
+
 def get_book(request):
     try:
         book = get_book_info(request)
         put_guides(request, book)
         put_pages(request, book)
-        put_game1(request, book)
-        put_game2(request, book)
-        put_game3(request, book)
-        put_game4(request, book)
+        if book.is_persual == True:
+            put_game1(request, book)
+            put_game2(request, book)
+            put_game3(request, book)
+            put_game4(request, book)
+        put_expands(request, book)
     except:
         return JsonResponse({"success": False})
     return JsonResponse({"success": True})
