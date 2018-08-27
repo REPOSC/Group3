@@ -208,7 +208,6 @@ export default {
       this.fourth_selections.picture[obj.index] = obj.value
     },
     get_fourthgame_audio: function(e) {
-      console.log(e.target.files[0])
       this.fourth_selections.audio = e.target.files[0]
     },
     get_fourthgame_answer: function(value) {
@@ -224,7 +223,7 @@ export default {
       }
       my_values.append('introduction', this.introduction)
       my_values.append('level', this.level)
-      my_values.append('persual', this.persual === 'true')
+      my_values.append('persual', this.persual)
       return true
     },
     set_book_guides: function(my_values) {

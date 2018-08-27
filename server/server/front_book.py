@@ -89,8 +89,6 @@ def get_first_game_texts(request):
 def get_first_game_image(request):
     book_id = request.GET.get('book_id')
     word_text = request.GET.get('word_text')
-    debug.debug(book_id)
-    debug.debug(word_text)
     book = models.Book_info.objects.get(number=book_id)
     word = models.First_game.objects.get(number=book, key=word_text)
     return HttpResponse(word.value)

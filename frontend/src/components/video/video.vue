@@ -1,12 +1,12 @@
 <template>
   <div class="card">
     <p>请选择或者拍摄视频上传</p>
-    <input type="file" accept="video/avi,video/mp4,video/flv,video/3gp,video/swf" capture="camcorder" @change="onFileChange" >
+    <input type="file" accept="video/avi,video/mp4,video/flv,video/3gp,video/swf" capture="camcorder" @change="onFileChange">
     <video ref="video" controls="controls"></video>
-    <div >
+    <div>
       <p>{{videoProgress*100}}%</p>
     </div>
-    <el-button  @click.native="complete">确认上传</el-button>
+    <el-button @click.native="complete">确认上传</el-button>
   </div>
 </template>
 <script>
@@ -54,7 +54,6 @@ export default {
             var complete =
               (progressEvent.loaded / progressEvent.total * 100) | 0
             this.videoProgress = complete / 100
-            console.log(this.videoProgress)
           }
         }
         axios
