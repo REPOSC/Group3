@@ -12,7 +12,7 @@ def all_daka(request):
     for i in dakas:
         booknumbers.append(i.book_number)
         usernumbers.append(i.user_number)
-        punch = models.User_punch.objects.filter(user_number=i.user_number,book_number=i.book_number)
+        punch = models.User_punch.objects.filter(user_number=i.user_number, book_number=i.book_number)
         comments.append(punch.punch_text)
         riqis.append(i.time)
         likenums.append(i.like_number)

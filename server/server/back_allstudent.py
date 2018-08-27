@@ -10,13 +10,13 @@ def all_student(request):
     str1 = []
     str2 = ''
     for i in students:
-        user = models.User_process.objects.filter(user_number = i.username)
+        user = models.User_process.objects.filter(user_number=i.username)
         usernum = user.count()
         for n in usernum:
             if (n.process == 0):
                 usernum -= 1
         success.append(usernum)
-        lv = models.User_level.objects.filter(number = i.username)
+        lv = models.User_level.objects.filter(number=i.username)
         for j in lv:
             str1.append(str(j.level))
         str2 = ','.join(str1)
