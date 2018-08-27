@@ -80,6 +80,7 @@ class User_punch(models.Model):
         'User_info', to_field='number', on_delete=models.CASCADE)
     book_number = models.ForeignKey(
         'Book_info', to_field='number', on_delete=models.CASCADE)
+    punch_text = models.TextField()
     is_punched = models.BooleanField(default=False)
     time = models.DateTimeField(default=timezone.now)
     like_number = models.IntegerField(default=0)
@@ -207,6 +208,7 @@ class Punch_content(models. Model):
         on_delete=models.CASCADE)
     book_number = models.ForeignKey(
         'Book_info', to_field='number', on_delete=models.CASCADE)
+    content_number = models.IntegerField(default=0)
     content = models.FileField(upload_to=tools.punch_content)
 
 

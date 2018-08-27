@@ -18,7 +18,7 @@ from . import views, back_createstudent, front_userlevel, front_showbooks, back_
     back_authmanager, front_authstudent, front_getbookcontent, back_addmanager, back_changemanager, back_delmanager, \
     back_putmessage, back_getmanagers, back_getbook, back_allstudent, back_getstudent, front_changeprocess, \
     front_getprocess, front_getuserimage, front_getusernickname, front_changeusernickname, front_changeuserpassword,\
-    front_changeuserimage, logout
+    front_changeuserimage, logout, front_uploadhomework
 from django.contrib import admin
 
 urlpatterns = [
@@ -64,5 +64,7 @@ urlpatterns = [
     path('change_user_image', front_changeuserimage.change_user_image),
     path('change_user_nickname', front_changeusernickname.change_user_nickname),
     path('change_user_password', front_changeuserpassword.change_user_password),
-    path('log_out', logout.log_out)
+    path('log_out', logout.log_out),
+    path('get_punch_info', front_uploadhomework.get_punch_info),
+    path('upload_homework', front_uploadhomework.upload_homework)
 ]

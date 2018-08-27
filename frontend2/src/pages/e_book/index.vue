@@ -118,9 +118,9 @@ export default {
           save.booknumber +
           '&page_index=' +
           save.booknowpage,
-        success: function(res) {
-          if (res.statusCode === 200) {
-            save.imagesrc = res.tempFilePath
+        success: function(response) {
+          if (response.statusCode === 200) {
+            save.imagesrc = response.tempFilePath
           }
         }
       })
@@ -143,9 +143,9 @@ export default {
           save.booknumber +
           '&page_index=' +
           save.booknowpage,
-        success: function(res) {
-          if (res.statusCode === 200) {
-            save.innerAudioContext.src = res.tempFilePath
+        success: function(response) {
+          if (response.statusCode === 200) {
+            save.innerAudioContext.src = response.tempFilePath
             save.innerAudioContext.play()
           }
         }
@@ -182,8 +182,8 @@ export default {
       let save = this
       if (save.isrecord === true) {
         save.recorderManager.stop()
-        save.recorderManager.onStop(res => {
-          this.recordsrc = res.tempFilePath
+        save.recorderManager.onStop(response => {
+          this.recordsrc = response.tempFilePath
           this.innerRecordContext.src = this.recordsrc
         })
         save.isrecord = false
