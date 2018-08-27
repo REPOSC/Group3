@@ -32,13 +32,9 @@ function checknum(number) {
   return true
 }
 
-function check_warning(object, my_component, my_index) {
+function check_warning(object, message) {
   if (object === '' || object === undefined || object === null) {
-    if (
-      confirm(
-        my_component + '中的第' + my_index + '个条目为空，无论如何也要上传吗？'
-      )
-    ) {
+    if (confirm(message + '为空，无论如何也要上传吗？')) {
       return true
     } else {
       return false
@@ -47,9 +43,9 @@ function check_warning(object, my_component, my_index) {
   return true
 }
 
-function check_fetal(object, my_component, my_index) {
+function check_error(object, message) {
   if (object === '' || object === undefined || object === null) {
-    alert(my_component + '中的第' + my_index + '个条目为空，无法上传！')
+    alert(message + '为空， 无法上传！ ')
     return false
   }
   return true
@@ -82,7 +78,7 @@ export {
   checkcount,
   del_element,
   check_warning,
-  check_fetal,
+  check_error,
   MAX_VALUE,
   initpage
 }

@@ -26,9 +26,9 @@ import qs from 'qs'
 export default {
   data() {
     return {
-      username: '10000001',
+      username: null,
       level: '',
-      booknumber: '26',
+      booknumber: null,
       allfilepaths: [],
       is_punched: false,
       has_upload: 0,
@@ -37,9 +37,11 @@ export default {
     }
   },
   onLoad: function(option) {
-    this.init()
     this.username = option.username
     this.booknumber = option.book
+  },
+  onShow: function() {
+    this.init()
   },
   methods: {
     init: function() {
