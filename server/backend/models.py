@@ -131,6 +131,14 @@ class Message(models.Model):
     time = models.DateTimeField(default=timezone.now)
 
 
+class Message_user(models.Model):
+    message = models.ForeignKey(
+        'Message', to_field='id', on_delete=models.CASCADE)
+    number = models.ForeignKey(
+        'User_info', to_field='number', on_delete=models.CASCADE)
+    status = models.IntegerField()
+
+
 class First_game(models.Model):
     number = models.ForeignKey(
         'Book_info',
@@ -210,11 +218,3 @@ class Punch_content(models. Model):
         'Book_info', to_field='number', on_delete=models.CASCADE)
     content_number = models.IntegerField(default=0)
     content = models.FileField(upload_to=tools.punch_content)
-
-
-class Profile_photo(models. Model):
-    user_number = models.ForeignKey(
-        'User_info',
-        to_field='number',
-        on_delete=models.CASCADE)
-    photo = models.ImageField(upload_to=tools.profile_photo)

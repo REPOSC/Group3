@@ -27,7 +27,8 @@ export default {
       username: null,
       booknumber: null,
       bookname: null,
-      bookprocess: null
+      bookprocess: null,
+      persual: null
     }
   },
   onLoad: function(option) {
@@ -42,6 +43,17 @@ export default {
     init: function(option) {
       let fly = Tools.get_fly()
       let save = this
+      fly
+        .post(
+          Tools.get_url() + 'get_book_persual',
+          qs.stringify({
+            booknumber: save.booknumber
+          })
+        )
+        .then(function(response) {
+          save.persual =
+            response.data.bookpersual === 'true' ? 'persual' : 'not_persual'
+        })
       fly
         .post(
           Tools.get_url() + 'get_process',
@@ -82,13 +94,20 @@ export default {
     },
     toPractice: function() {
       let save = this
-      wx.navigateTo({
-        url:
-          '../practice/main?username=' +
-          save.username +
-          '&book=' +
-          save.booknumber
-      })
+      if (this.persual === 'not_persual') {
+        wx.showToast({
+          title: '此书为泛读书，暂无课后练习哦~',
+          icon: 'none'
+        })
+      } else {
+        wx.navigateTo({
+          url:
+            '../practice/main?username=' +
+            save.username +
+            '&book=' +
+            save.booknumber
+        })
+      }
     },
     toCommunity: function() {
       let save = this
