@@ -13,7 +13,7 @@ def all_student(request):
         user = models.User_process.objects.filter(user_number=i.username)
         usernum = user.count()
         for n in usernum:
-            if (n.process == 0):
+            if n.process == 0:
                 usernum -= 1
         success.append(usernum)
         lv = models.User_level.objects.filter(number=i.username)

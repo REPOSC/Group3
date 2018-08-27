@@ -67,9 +67,9 @@ urlpatterns = [
     path('log_out', logout.log_out),
     path('get_punch_info', front_uploadhomework.get_punch_info),
     path('upload_homework', front_uploadhomework.upload_homework),
-    path('all_daka',back_alldaka.all_daka),
-    path('daka_comment',back_dakacomment.daka_comment),
-    path('daka_like',back_dakalike.daka_like),
-    path('del_comment',back_delcomment.del_comment),
-    path('del_punch',back_delpunch.del_punch)
+    path('all_daka', back_alldaka.all_daka),
+    path('daka_comment', back_dakacomment.daka_comment),
+    path('daka_like', back_dakalike.daka_like),
+    path('del_comment', back_delcomment.del_comment),
+    path('del_punch', back_delpunch.del_punch)
 ]
