@@ -26,6 +26,16 @@
         </div>
       </div>
     </div>
+    <div class="function">
+      <div @click="toMessage">
+        <img src="/static/img/tabbar_icon/yellow-mes.png"/>
+        <span>消息</span>
+      </div>
+      <div @click="toRankinglist">
+        <img src="/static/img/tabbar_icon/yellow-rank.png"/>
+        <span>排行榜</span>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -121,6 +131,16 @@ export default {
         record.newcomment = ''
         this.now_comment_record = ''
       }
+    },
+    toMessage() {
+      wx.navigateTo({
+        url: '/pages/message/main?booknumber=' + this.booknumber
+      })
+    },
+    toRankinglist() {
+      wx.navigateTo({
+        url: '/pages/Rankinglist/main?booknumber=' + this.booknumber
+      })
     }
   }
 }
@@ -167,6 +187,33 @@ page {
 .new-comment {
   display: flex;
   margin: 5px 0;
+}
+.function {
+  height: 50px;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  position: fixed;
+  bottom: 0;
+  background-color: #53cce9;
+}
+.function div {
+  display: flex;
+  flex-wrap: wrap;
+  height: 50px;
+  width: 50px;
+}
+.function span {
+  height: 20px;
+  width: 50px;
+  color: #666;
+  font-size: 12px;
+  text-align: center;
+}
+.function img {
+  width: 30px;
+  height: 30px;
+  margin: 0 auto;
 }
 button {
   height: 30px;
