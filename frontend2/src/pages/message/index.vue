@@ -1,19 +1,25 @@
 <template>
-  <div>
-    <div class="like" :key="like.id" v-for="like in likes">
-      <img :src="like.avatar" />
-      <p>
-        <span>{{ like.username }}</span>赞了你</p>
-    </div>
-    <div class="comment" :key="comment.id" v-for="comment in comments">
-      <div class="user">
-        <img :src="comment.avatar" />
+  <div class="my-message">
+    <div class="message" :key="message.id" v-for="message in messages">
+      <div class="like" v-if="message.likes">
+        <img :src="message.avatar" />
         <p>
-          <span>{{ like.username }}</span>评论了你：</p>
-        <a>回复</a>
+          <span>{{ message.username }}</span>
+          赞了你的消息
+        </p>
+        <span class="detail_btn" @click="to_detail(message)">详情</span>
       </div>
-      <br>
-      <p class="content">{{ comment.content }}</p>
+      <div class="comment" v-if="message.comment" >
+        <div class="user">
+          <img :src="message.avatar" />
+          <p>
+            <span>{{ message.username }}</span>评论：
+          </p>
+          <span class="detail_btn" @click="to_detail(message)">详情</span>
+        </div>
+        <br>
+        <p class="content">{{ message.comment_content }}</p>
+      </div>
     </div>
   </div>
 </template>
@@ -22,52 +28,46 @@
 export default {
   data() {
     return {
-      likes: [
-        {
-          id: 1,
-          avatar: '/static/img/game2/cat1.jpg',
-          username: '小吉'
-        },
-        {
-          id: 2,
-          avatar: '/static/img/game2/cat2.jpg',
-          username: '小蒜'
-        },
-        {
-          id: 3,
-          avatar: '/static/img/game2/cat3.jpg',
-          username: '小可'
-        }
-      ],
-      comments: [
+      messages: [
         {
           id: 1,
           avatar: '/static/img/game2/cat1.jpg',
           username: '小吉',
-          content: '我是小吉'
+          likes: false,
+          comment: true,
+          comment_content: '我是小蒜啦安啦啦啦啦啦啦啦啦啦啦阿拉拉了啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊辣啊啊啊啊啊啊啊啊阿啊啊啊'
         },
         {
-          id: 2,
-          avatar: '/static/img/game2/cat2.jpg',
-          username: '小蒜',
-          content: '我是小蒜'
-        },
-        {
-          id: 3,
-          avatar: '/static/img/game2/cat3.jpg',
-          username: '小可',
-          content: '我是小可'
+          id: 1,
+          avatar: '/static/img/game2/cat1.jpg',
+          username: '小吉',
+          likes: true,
+          comments: false,
+          comment_content: ''
         }
       ]
+    }
+  },
+  methods: {
+    to_detail(message) {
+      wx.navigateTo({
+        url: '../message_detail/main'
+      })
     }
   }
 }
 </script>
 
 <style scoped>
+.my-message {
+  margin: 10px 10px;
+}
 .like {
   display: flex;
-  border-bottom: 5px solid #ffb001;
+  height: 100px;
+  margin: 4px;
+  background-color: antiquewhite;
+  border: 2px solid #ffb001;
 }
 like p {
   width: 100%;
@@ -77,18 +77,28 @@ like p {
   word-wrap: break-word;
 }
 .comment {
-  border-bottom: 5px solid #53cce9;
+  height: 100px;
+  margin: 4px;
+  background-color: antiquewhite;
+  border: 2px solid #53cce9;
 }
 .user {
   display: flex;
 }
-.content {
-  word-wrap: break-word;
-}
-a {
+.detail_btn {
   position: absolute;
-  right: 5px;
-  color: blue;
+  color: #ffb001;
+  right: 19px;
+}
+.content {
+  text-overflow: -o-ellipsis-lastline;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  align-content: center;
+  margin: auto 6px;
 }
 img {
   width: 30px;
