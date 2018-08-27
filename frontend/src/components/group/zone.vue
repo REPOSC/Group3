@@ -10,7 +10,7 @@
         <div class="headButton">
           <div class="oneButton">
             <el-button>置顶</el-button>
-            <el-button>删除</el-button>
+            <el-button @click="deldaka">删除</el-button>
           </div>
         </div>
       </div>
@@ -32,13 +32,13 @@
           <!--<ul>-->
           <!--<li><img :src="icons.forword" class="img"></li>-->
           <!--</ul>-->
-          <div @click="like" class="changecolor">
-            点赞
+          <div>
+            点赞人数{{items.like_num}}}
           </div>
           <!--<ul>-->
           <!--<li><img :src="icons.comment" class="img"></li>-->
           <!--</ul>-->
-          <div @click="comment" class="changecolor">
+          <div class="changecolor">
             评论
           </div>
         </div>
@@ -47,7 +47,7 @@
         <div class="pinglunInfo" v-for='i in shuoData'>
           <div class="ren"> {{i.shuo_user_id}}</div><br>
           <div class="say">{{i.article}}</div>
-          <button class="shan">删除</button>
+          <el-button @click="delcomment(i)">删除</el-button>
         </div>
         <div @click="showAll = !showAll" class="show-more">{{word}}</div>
       </div>
@@ -72,7 +72,7 @@ export default {
         comment: require('./comment.png'),
         forword: require('./forword.png')
       },
-      ratings: [],
+      ratings: '',
       showAll: false,
       shuoData: []
     }
@@ -121,12 +121,8 @@ export default {
           qs.stringify({ item: saved.items })
         )
         .then(function(response) {
-          let ids = eval(response.data.like_ids)
-          for (let i = 0; i < ids.length; ++i) {
-            saved.ratings.push({
-              id: ids[i]
-            })
-          }
+          let nicknames = eval(response.data.like_nicknames)
+          this.ratings = nicknames
         })
     },
     commentlist() {
@@ -137,13 +133,46 @@ export default {
           qs.stringify({ item: saved.items })
         )
         .then(function(response) {
-          let commentuserids = eval(response.data.comment_user_number_ids)
-          let shuocomments = eval(response.data.comments)
-          for (let i = 0; i < commentuserids.length; ++i) {
+          let commentusers = eval(response.data.comment_user_numbers)
+          let comments = eval(response.data.comments)
+          for (let i = 0; i < commentusers.length; ++i) {
             saved.shuoData.push({
-              shuo_user_id: commentuserids[i],
-              article: shuocomments[i]
+              shuo_user_id: commentusers[i],
+              article: comments[i]
             })
+          }
+        })
+    },
+    delcomment(e) {
+      if (!confirm('删除评论后无法恢复，确认要删除吗？')) {
+        return
+      }
+      let saved = this
+      axios
+        .post(
+          Tools.get_url() + 'del_comment',
+          qs.stringify({ item: saved.items, conent: e })
+        )
+        .then(function(response) {
+          if (response.data.success) {
+            alert('删除评论成功！')
+          } else {
+            alert('删除失败！')
+          }
+        })
+    },
+    deldaka() {
+      if (!confirm('删除打卡后无法恢复，确认要删除吗？')) {
+        return
+      }
+      let saved = this
+      axios
+        .post(Tools.get_url() + 'del_daka', qs.stringify({ item: saved.items }))
+        .then(function(response) {
+          if (response.data.success) {
+            alert('删除成功！')
+          } else {
+            alert('删除失败！')
           }
         })
     }

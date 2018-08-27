@@ -29,6 +29,7 @@
     <div class="login-container chart" id="main"></div>
     <div :class="className" :id="id" class="login-container chart column" ref="myEchart"></div>
   </div>
+
 </template>
 <script>
 import echarts from 'echarts'
