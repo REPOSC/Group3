@@ -1,8 +1,8 @@
 {
   "pages": [
+    "pages/community/main",
     "pages/login/main",
     "pages/Rankinglist/main",
-    "pages/community/main",
     "pages/game4/main",
     "pages/notice/main",
     "pages/modify_info/main",
@@ -17,7 +17,8 @@
     "pages/show/main",
     "pages/guide/main",
     "pages/level/main",
-    "pages/message/main"
+    "pages/message/main",
+    "pages/message_detail/main"
   ],
   "window": {
     "backgroundTextStyle": "light",

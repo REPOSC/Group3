@@ -3,15 +3,17 @@
     <div class="record" v-for="(record, id) in records">
       <div class="user">
         <img :src="record.avatar" />
-        <p class="username">{{ record.username }}</p>
+        <p class="username">
+          <span v-if="id === -1">id</span>{{ record.username }}
+        </p>
       </div>
       <p class="content">{{ record.content }}</p>
       <div class="action">
-        <button id="like" @click="like(id)">赞
+        <button id="like" @click="like(record)">赞
           <span v-if="record.liked === false"></span>
           <span v-if="record.likes !== 0">{{ record.likes }}</span>
         </button>
-        <button id="comment" @click="comment(id)">评论</button>
+        <button id="comment" @click="comment(record)">{{ record.comment_info }}</button>
       </div>
       <div class="comment">
         <p v-for="comment in record.comments">
@@ -20,7 +22,7 @@
         </p>
         <div class="new-comment" v-if="record.commented">
           <textarea v-model="record.newcomment"/>
-          <button id="submit" @click="submit(id)">发送</button>
+          <button id="submit" @click="submit(record)">发送</button>
         </div>
       </div>
     </div>
@@ -31,18 +33,23 @@
 export default {
   data() {
     return {
+      comment_user: '小可',
+      now_comment_record: '',
       records: [
         {
+          id: 0,
           avatar: '/static/img/game2/cat1.jpg',
           username: '小吉',
-          content: '今天我学了10个单词',
+          content: '今天我学了10个单词,啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿',
           comments: [],
-          newcomment: '',
           likes: 0,
           liked: false,
-          commented: false
+          newcomment: '',
+          commented: false,
+          comment_info: '评论'
         },
         {
+          id: 1,
           avatar: '/static/img/game2/cat2.jpg',
           username: '小蒜',
           content: '今天我学了8个单词',
@@ -50,9 +57,11 @@ export default {
           likes: 0,
           liked: false,
           newcomment: '',
-          commented: false
+          commented: false,
+          comment_info: '评论'
         },
         {
+          id: 2,
           avatar: '/static/img/game2/cat3.jpg',
           username: '小可',
           content: '今天我学了6个单词',
@@ -60,29 +69,58 @@ export default {
           likes: 0,
           liked: false,
           newcomment: '',
-          commented: false
+          commented: false,
+          comment_info: '评论'
         }
       ]
     }
   },
   methods: {
-    like(id) {
-      if (this.records[id].liked === false) {
-        this.records[id].likes += 1
+    like(record) {
+      if (record.liked === false) {
+        record.likes += 1
       } else {
-        this.records[id].likes -= 1
+        record.likes -= 1
       }
-      this.records[id].liked = !this.records[id].liked
+      record.liked = !record.liked
     },
-    comment(id) {
-      this.records[id].commented = true
+    comment(record) {
+      if (record.commented === true) {
+        record.comment_info = '评论'
+        record.commented = false
+        this.now_comment_record = ''
+      } else {
+        if (this.now_comment_record !== '') {
+          this.records[this.now_comment_record].comment_info = '评论'
+          this.records[this.now_comment_record].commented = false
+        }
+        record.comment_info = '取消'
+        record.commented = true
+        this.now_comment_record = record.id
+      }
     },
-    submit(id) {
-      this.records[id].comments.push(
-        { username: '小可', content: this.records[id].newcomment }
-      )
-      this.records[id].commented = false
-      this.records[id].newcomment = ''
+    is_empty(record) {
+      if (record.newcomment !== '') {
+        return false
+      }
+      return true
+    },
+    submit(record) {
+      if (this.is_empty(record)) {
+        wx.showToast({
+          title: '请输入评论内容',
+          icon: 'none',
+          duration: 1000,
+          mask: true
+        })
+      } else {
+        record.comments.push(
+          { username: this.comment_user, content: record.newcomment })
+        record.commented = false
+        record.comment_info = '评论'
+        record.newcomment = ''
+        this.now_comment_record = ''
+      }
     }
   }
 }
@@ -105,6 +143,10 @@ page {
   border: 5px solid #53cce9;
   border-radius: 10px;
 }
+.content {
+  margin: 0 5px;
+  text-align: justify;
+}
 .user {
   display: flex;
 }
@@ -114,7 +156,7 @@ page {
   line-height: 40px;
 }
 .action {
-  margin: 5% 0 5% 50%;
+  margin: 5% 0 5% 40%;
   display: flex;
   justify-content: space-between;
 }
@@ -141,7 +183,7 @@ button {
   background-color: #ffb001;
 }
 #submit {
-  width: 20%;
+  width: 25%;
   background-color: #53cce9;
 }
 img {
@@ -153,7 +195,7 @@ textarea {
   padding: 0 2px;
   border-radius: 10px;
   height: 25px;
-  width: 75%;
+  width: 70%;
   border: 2px solid #ffb001;
 }
 </style>
