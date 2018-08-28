@@ -48,7 +48,7 @@ import qs from 'qs'
 export default {
   data() {
     return {
-      username: '小可',
+      username: '',
       level: 0,
       records: [],
       now_comment_record: '',
@@ -66,6 +66,7 @@ export default {
   },
   methods: {
     get_community() {
+      this.records = []
       let fly = Tools.get_fly()
       let save = this
       fly
@@ -99,7 +100,7 @@ export default {
       let save = this
       fly
         .post(
-          Tools.get_url() + 'add_like',
+          Tools.get_url() + 'like',
           qs.stringify({
             username: record.username,
             booknumber: record.booknumber,
@@ -185,13 +186,15 @@ export default {
 <style>
 page {
   background-size: 100% 100%;
-  background-image: url('https://daisy-donald.cn/image/back.jpg');
+  background-image: url('https://daisy-donald.cn/image/sky.jpg');
 }
+
 .container {
   display: flex;
   height: 100%;
   padding-top: 10px;
 }
+
 .record {
   width: 90%;
   margin: 4%;
@@ -199,40 +202,49 @@ page {
   border: 5px solid #53cce9;
   border-radius: 10px;
 }
+
 .punchtext {
   margin: 0 5px;
   text-align: justify;
 }
+
 .user {
   display: flex;
 }
+
 .file {
   display: inline-block;
   margin: 20px 0 20px 20px;
 }
+
 .file img {
   height: 60px;
   width: 60px;
 }
+
 .username {
   color: #53cce9;
   font-size: 18px;
   height: 40px;
   line-height: 40px;
 }
+
 .action {
   margin: 5% 0 5% 40%;
   display: flex;
   justify-content: space-between;
 }
+
 .comment {
   margin: 5px;
   border-top: 1px solid #fcf;
 }
+
 .new-comment {
   display: flex;
   margin: 5px 0;
 }
+
 .function {
   height: 50px;
   width: 100%;
@@ -242,12 +254,14 @@ page {
   bottom: 0;
   background-color: #53cce9;
 }
+
 .function div {
   display: flex;
   flex-wrap: wrap;
   height: 50px;
   width: 50px;
 }
+
 .function span {
   height: 20px;
   width: 50px;
@@ -255,34 +269,41 @@ page {
   font-size: 12px;
   text-align: center;
 }
+
 .function img {
   width: 30px;
   height: 30px;
   margin: 0 auto;
 }
+
 button {
   height: 30px;
   line-height: 30px;
   color: #fff;
   font-weight: bold;
 }
+
 #like {
   width: 40%;
   background-color: #f53076;
 }
+
 #comment {
   width: 40%;
   background-color: #ffb001;
 }
+
 #submit {
   width: 25%;
   background-color: #53cce9;
 }
+
 img {
   width: 30px;
   height: 30px;
   margin: 5px;
 }
+
 textarea {
   padding: 0 2px;
   border-radius: 10px;

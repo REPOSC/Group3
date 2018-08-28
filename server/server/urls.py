@@ -81,5 +81,6 @@ urlpatterns = [
     path('add_introduction_video', back_introduction.add_introduction_video),
     path('punch_reset', front_forum.punch_reset),
     path('get_community', front_forum.get_community),
-    path('add_comment', front_forum.add_comment)
+    path('add_comment', front_forum.add_comment),
+    path('like', front_forum.like)
 ]

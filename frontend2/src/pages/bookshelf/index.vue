@@ -116,7 +116,12 @@ export default {
       let save = this
       wx.navigateTo({
         url:
-          '../show/main?username=' + save.username + '&booknum=' + book.number
+          '../show/main?username=' +
+          save.username +
+          '&booknum=' +
+          book.number +
+          '&level=' +
+          save.level
       })
     },
     split_books: function() {
@@ -210,6 +215,7 @@ page {
   background-size: 100% 100%;
   background-image: url('https://daisy-donald.cn/image/sky.jpg');
 }
+
 .title {
   height: 70px;
   line-height: 70px;
@@ -217,14 +223,17 @@ page {
   display: flex;
   justify-content: center;
 }
+
 .title p {
   font-size: 30px;
   font-weight: bold;
 }
+
 .title img {
   width: 70px;
   height: 70px;
 }
+
 .bookshelf {
   display: flex;
   flex-wrap: wrap;
@@ -238,12 +247,15 @@ page {
   height: 360px;
   z-index: 5;
 }
+
 .book {
   height: 33%;
 }
+
 .body {
   margin: 20px 0px;
 }
+
 .to-mine {
   width: 70px;
   height: 90px;
@@ -252,13 +264,16 @@ page {
   text-align: center;
   margin: 20px 15px;
 }
+
 .to-mine img {
   width: 60px;
   height: 60px;
 }
+
 .text {
   color: black;
 }
+
 input {
   height: 30px;
   color: white;
@@ -270,9 +285,11 @@ input {
   margin-top: 10%;
   width: 75%;
 }
+
 .inline {
   display: inline-block;
 }
+
 .search-icon {
   width: 40px;
   height: 40px;

@@ -126,21 +126,16 @@ def get_one_comment(nowusername, onebookpunchs, j, booksid, i):
     user = models.User_info.objects.filter(username=usernumber)
     username = user[0].number
     punchtime = onebookpunchs[j].time
-    likenumber = onebookpunchs[j].like_number
     punchtext = onebookpunchs[j].punch_text
+    likenumber = models.User_like.objects.filter(
+        user_number=username,
+        book_number=booksid[i]
+    ).count()
     contentnumber = models.Punch_content.objects.filter(
         user_number=username,
         book_number=booksid[i]
     ).count()
-    has_liked = models.User_like.objects.filter(
-        user_number=username,
-        book_number=booksid[i],
-        like_user_number=nowusername
-    ).count()
-    if has_liked is 0:
-        has_liked = False
-    else:
-        has_liked = True
+    has_liked = judge_like(username, booksid[i], nowusername)
     thisbook = models.Book_info.objects.filter(number=booksid[i])
     bookname = thisbook[0].name
     commentslist = get_comment(username, booksid[i])
@@ -209,3 +204,42 @@ def mysort(myproperty):
     def sortbypro(obj):
         return obj[myproperty]
     return sortbypro
+
+
+def like(request):
+    username = request.POST.get('username', '')
+    booknumber = request.POST.get('booknumber', '')
+    likeusername = request.POST.get('likeusername', '')
+    user = models.User_info.objects.get(username=username)
+    book = models.Book_info.objects.get(number=booknumber)
+    likeuser = models.User_info.objects.get(username=likeusername)
+    has_like = judge_like(username, booknumber, likeusername)
+    if has_like:
+        models.User_like.objects.get(
+            user_number=user,
+            book_number=book,
+            like_user_number=likeuser
+        ).delete()
+    else:
+        likeinfo = models.User_like.objects.create(
+            user_number=user,
+            book_number=book,
+            like_user_number=likeuser
+        )
+        likeinfo.save()
+    return JsonResponse({'status': 'true'})
+
+
+def judge_like(username, booknumber, likeusername):
+    user = models.User_info.objects.get(username=username)
+    book = models.Book_info.objects.get(number=booknumber)
+    likeuser = models.User_info.objects.get(username=likeusername)
+    has_liked = models.User_like.objects.filter(
+        user_number=user,
+        book_number=book,
+        like_user_number=likeuser
+    ).count()
+    if has_liked is 0:
+        return False
+    else:
+        return True
