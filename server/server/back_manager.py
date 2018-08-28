@@ -9,7 +9,8 @@ def add_manager(request):
     password = request.POST.get('password')
     manager_num = 100001
     try:
-        manager_num = models.User_info.objects.filter(is_manager=True).latest('number').number
+        manager_num = models.User_info.objects.filter(
+            is_manager=True).latest('number').number
         manager_num += 1
     except:
         pass
@@ -86,3 +87,13 @@ def change_selfpassword(request):
     except:
         return JsonResponse({"success": False})
     return JsonResponse({"success": True})
+
+
+def get_manager_info(request):
+    username = request.POST.get('username')
+    manager = models.User_info.objects.get(username=username)
+    return JsonResponse({
+        "name": manager.nickname,
+        "time": str(manager.date_joined.year)+'年'+str(manager.date_joined.month)+'月'+str(manager.date_joined.day)+'日',
+        "power": '超级管理员' if manager.is_superuser else '普通管理员'
+    })

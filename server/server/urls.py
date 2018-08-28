@@ -66,6 +66,7 @@ urlpatterns = [
     path('del_manager', back_manager.del_manager),
     path('get_managers', back_manager.get_managers),
     path('change_selfpassword', back_manager.change_selfpassword),
+    path('get_manager_info', back_manager.get_manager_info),
     path('put_message', back_message.put_message),
     path('get_book', back_book.get_book),
     path('all_book', back_book.all_book),
