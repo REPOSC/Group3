@@ -1,3 +1,4 @@
+# coding=utf-8
 from io import BytesIO
 from PIL import Image
 from django.http import JsonResponse
@@ -173,3 +174,28 @@ def get_book(request):
     except:
         return JsonResponse({"success": False})
     return JsonResponse({"success": True})
+
+
+def all_book(request):
+    books = models.Book_info.objects.all()
+    book_names = []
+    book_numbers = []
+    introductions = []
+    levels = []
+    persuals = []
+    for i in books:
+        book_names.append(i.name)
+        book_numbers.append(i.number)
+        introductions.append(i.introduction)
+        levels.append(i.level)
+        if i.is_persual:
+            persuals.append('精读')
+        else:
+            persuals.append('泛读')
+        return JsonResponse({
+            'book_name': book_names,
+            'book_number': book_numbers,
+            'level': levels,
+            'introduction': introductions,
+            'persual': persuals
+        })
