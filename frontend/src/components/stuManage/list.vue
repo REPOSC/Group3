@@ -2,11 +2,17 @@
 <template>
   <div>
     <!--为echarts准备一个具备大小的容器dom-->
-    <div class="login-container demonstration">
+    <div class="card  demonstration">
       <div>
-        <el-input v-model="TableDataName" placeholder="请输入账号" style="width:240px"></el-input>
+        <el-input v-model="TableDataName" :placeholder="search_method?'账号':'昵称'" class="searchbox"></el-input>
         <el-button type="primary" @click="doFilter">搜索</el-button>
-        <el-button type="primary" @click="doFilter1">返回</el-button>
+        <el-button type="primary" @click="doBack">返回</el-button>
+        <div class="space">
+          <el-radio-group v-model="search_method">
+            <el-radio :label="1">按账号查找</el-radio>
+            <el-radio :label="0">按昵称查找</el-radio>
+          </el-radio-group>
+        </div>
       </div>
       <el-table :data="tableData.slice((currpage - 1) * pagesize, currpage * pagesize)" align="center">
         <el-table-column prop="user_name" label="账号" sortable width="200">
@@ -26,8 +32,6 @@
       <el-pagination background layout="prev, pager, next, sizes, total, jumper" :page-sizes="[5, 10, 15, 20]" :page-size="pagesize" :total="tableData.length" @current-change="handleCurrentChange" @size-change="handleSizeChange">
       </el-pagination>
     </div>
-    <div class="login-container chart" id="main"></div>
-    <div :class="className" :id="id" class="login-container chart column" ref="myEchart"></div>
   </div>
 
 </template>
@@ -37,16 +41,6 @@ import axios from 'axios'
 import * as Tools from '../Tools/Tools'
 
 export default {
-  props: {
-    className: {
-      type: String,
-      default: 'yourClassName'
-    },
-    id: {
-      type: String,
-      default: 'yourID'
-    }
-  },
   name: '',
   data() {
     return {
@@ -54,6 +48,7 @@ export default {
       pagesize: 10,
       currpage: 1,
       chart: null,
+      search_method: 1,
       charts: '',
       opinion: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎'],
       opinionData: [
@@ -64,9 +59,8 @@ export default {
         { value: 1548, name: '搜索引擎' }
       ],
       tableData: [],
-      tableData1: [],
       TableDataName: '',
-      filterTableData: []
+      all_tabledata: null
     }
   },
   watch: {
@@ -82,11 +76,6 @@ export default {
     },
     handleSizeChange(psize) {
       this.pagesize = psize
-    },
-    f: function() {
-      this.tableData = this.otableData.filter(
-        item => ~item.user_name.indexOf(this.text)
-      )
     },
     drawPie(id) {
       this.charts = echarts.init(document.getElementById(id))
@@ -173,6 +162,10 @@ export default {
     },
     stulist() {
       let saved = this
+      this.$notify.info({
+        title: '请等待',
+        message: '正在初始化数据，请耐心等候……'
+      })
       axios
         .post(Tools.get_url() + 'all_student', null)
         .then(function(response) {
@@ -188,44 +181,51 @@ export default {
               book: books[i]
             })
           }
+          saved.$notify({
+            title: '初始化成功！',
+            type: 'success',
+            position: 'bottom-right'
+          })
+          saved.all_tabledata = saved.tableData
         })
     },
     doFilter() {
-      this.tableData1 = this.tableData
       if (this.TableDataName === '') {
-        this.$message.warning('查询条件不能为空！')
+        this.$notify.error({
+          title: '错误',
+          message: '查询条件不能为空！'
+        })
         return
       }
-      // 每次手动将数据置空,因为会出现多次点击搜索情况
-      this.filterTableData = []
-      this.tableData.forEach((value, index) => {
-        if (value.user_name) {
+      this.tableData = []
+      let saved = this
+      this.all_tabledata.forEach((value, index) => {
+        if (saved.search_method === 1) {
           if (value.user_name.indexOf(this.TableDataName) >= 0) {
-            this.filterTableData.push(value)
+            this.tableData.push(value)
+          }
+        } else if (saved.search_method === 0) {
+          if (value.user_nickname.indexOf(this.TableDataName) >= 0) {
+            this.tableData.push(value)
           }
         }
       })
-      // 页面数据改变重新统计数据数量和当前页
       this.pagesize = 10
       this.currpage = 1
-      this.tableData = this.filterTableData
     },
-    doFilter1() {
-      this.tableData = this.tableData1
+    doBack() {
+      this.tableData = this.all_tabledata
       this.pagesize = 10
       this.currpage = 1
       this.TableDataName = ''
-    },
-    chushi() {
-      this.tableData1 = this.tableData
     }
   },
   mounted() {
+    this.stulist()
     this.$nextTick(function() {
       this.drawPie('main')
     })
     this.initChart()
-    this.stulist()
     this.chushi()
   }
 }
@@ -235,20 +235,11 @@ export default {
   margin: auto auto 40px;
   height: 600px;
 }
-.login-container {
-  -webkit-border-radius: 5px;
-  border-radius: 5px;
-  -moz-border-radius: 5px;
-  background-clip: padding-box;
-  margin: 180px auto;
-  width: 80%;
-  padding: 35px 35px 15px 35px;
-  background: #fff;
-  border: 1px solid #eaeaea;
-  box-shadow: 0 0 25px #cac6c6;
-}
 .column {
   width: 80%;
   height: 80%;
+}
+.searchbox {
+  width: 240px;
 }
 </style>

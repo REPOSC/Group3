@@ -59,8 +59,7 @@ function check_warning(object, message) {
   return true
 }
 
-function check_error(object, error_message) {
-  let saved = this
+function check_error(object, error_message, saved) {
   if (object === '' || object === undefined || object === null) {
     saved.$notify({
       title: '警告',

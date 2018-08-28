@@ -1,8 +1,9 @@
 {
   "pages": [
     "pages/login/main",
+    "pages/level/main",
     "pages/system_message/main",
-    "pages/rankinglist/main",
+    "pages/Rankinglist/main",
     "pages/expanding/main",
     "pages/community/main",
     "pages/game1/main",
@@ -16,7 +17,6 @@
     "pages/me/main",
     "pages/show/main",
     "pages/guide/main",
-    "pages/level/main",
     "pages/message/main",
     "pages/message_detail/main"
   ],

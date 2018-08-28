@@ -116,12 +116,7 @@ export default {
       let save = this
       wx.navigateTo({
         url:
-          '../show/main?username=' +
-          save.username +
-          '&booknum=' +
-          book.number +
-          '&bookname=' +
-          book.name
+          '../show/main?username=' + save.username + '&booknum=' + book.number
       })
     },
     split_books: function() {

@@ -21,18 +21,18 @@
           : {{ comment.content }}
         </p>
         <div class="new-comment" v-if="record.commented">
-          <textarea v-model="record.newcomment"/>
+          <textarea v-model="record.newcomment" />
           <button id="submit" @click="submit(record)">发送</button>
         </div>
       </div>
     </div>
     <div class="function">
       <div @click="toMessage">
-        <img src="/static/img/tabbar_icon/yellow-mes.png"/>
+        <img src="/static/img/tabbar_icon/yellow-mes.png" />
         <span>消息</span>
       </div>
       <div @click="toRankinglist">
-        <img src="/static/img/tabbar_icon/yellow-rank.png"/>
+        <img src="/static/img/tabbar_icon/yellow-rank.png" />
         <span>排行榜</span>
       </div>
     </div>
@@ -45,12 +45,15 @@ export default {
     return {
       comment_user: '小可',
       now_comment_record: '',
+      username: null,
+      level: null,
       records: [
         {
           id: 0,
           avatar: '/static/img/game2/cat1.jpg',
           username: '小吉',
-          content: '今天我学了10个单词,啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿',
+          content:
+            '今天我学了10个单词,啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿',
           comments: [],
           likes: 0,
           liked: false,
@@ -84,6 +87,10 @@ export default {
         }
       ]
     }
+  },
+  onLoad: function(status) {
+    this.username = status.username
+    this.level = status.level
   },
   methods: {
     like(record) {
@@ -124,8 +131,10 @@ export default {
           mask: true
         })
       } else {
-        record.comments.push(
-          { username: this.comment_user, content: record.newcomment })
+        record.comments.push({
+          username: this.comment_user,
+          content: record.newcomment
+        })
         record.commented = false
         record.comment_info = '评论'
         record.newcomment = ''
@@ -134,12 +143,16 @@ export default {
     },
     toMessage() {
       wx.navigateTo({
-        url: '/pages/message/main?booknumber=' + this.booknumber
+        url: '/pages/message/main?username=' + this.username
       })
     },
     toRankinglist() {
       wx.navigateTo({
-        url: '/pages/Rankinglist/main?booknumber=' + this.booknumber
+        url:
+          '/pages/Rankinglist/main?username=' +
+          this.username +
+          '&level=' +
+          this.level
       })
     }
   }

@@ -32,6 +32,14 @@ export default {
     post_video: function(object) {
       let values = new FormData()
       let saved = this
+      if (!object.video) {
+        saved.$notify({
+          title: '警告',
+          message: '视频为空， 无法上传！',
+          type: 'warning'
+        })
+        return
+      }
       values.append('name', object.name)
       values.append('video', object.video)
       axios

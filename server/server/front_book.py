@@ -172,7 +172,9 @@ def get_fourth_game_audio(request):
     return HttpResponse(audio.key)
 
 
-def get_book_persual(request):
+def get_book_info(request):
     booknumber = request.POST.get('booknumber')
     book = models.Book_info.objects.get(number=booknumber)
-    return JsonResponse({'bookpersual': 'true' if book.is_persual else 'false'})
+    return JsonResponse({'bookpersual': 'true' if book.is_persual else 'false',
+                         'bookname': book.name,
+                         'booklevel': book.level})

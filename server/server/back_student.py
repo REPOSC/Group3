@@ -30,7 +30,7 @@ def create_student(request):
 
 
 def all_student(request):
-    students = models.User_info.objects.filter(is_manager=0)
+    students = models.User_info.objects.filter(is_manager=0, is_superuser=0)
     stu_nicknames = []
     stu_numbers = []
     levels = []
@@ -47,7 +47,7 @@ def all_student(request):
         success.append(usernum)
         lv = models.User_level.objects.filter(number=i.username)
         for j in lv:
-            str1.append(str(j.level))
+            str1.append(str(j.level+1))
         str2 = ','.join(str1)
         levels.append(str2)
         str1 = []

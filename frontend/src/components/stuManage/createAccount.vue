@@ -41,6 +41,14 @@ export default {
   },
   methods: {
     submit: function() {
+      if (this.number === '') {
+        this.$notify({
+          title: '警告',
+          message: '请填写产生个数！',
+          type: 'warning'
+        })
+        return
+      }
       this.tableData = []
       if (!Tools.checkcount(this.number, this)) {
         return

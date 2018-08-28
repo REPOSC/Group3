@@ -28,13 +28,30 @@ export default {
   },
   methods: {
     submit: function() {
+      if (this.username === '') {
+        this.$notify({
+          title: '警告',
+          message: '请填写会员账号！',
+          type: 'warning'
+        })
+        return
+      }
       let my_values = new URLSearchParams()
       let save = this
       my_values.append('username', this.username)
+      let count = 0
       for (let i = 0; i < this.max_value; ++i) {
         if (this.options[i].value) {
           my_values.append('values', i)
+          count++
         }
+      }
+      if (count === 0) {
+        this.$notify.error({
+          title: '错误',
+          message: '请至少选择一个等级！'
+        })
+        return
       }
       axios
         .post(Tools.get_url() + 'set_level', my_values)
