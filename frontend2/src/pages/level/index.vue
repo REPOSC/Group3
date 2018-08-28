@@ -1,7 +1,10 @@
 <template>
-  <div class='choose'>
-    <div class='levelbtn'>
-      <button v-for="level in levels" :key=level.id :class="level.check" @click="submit(level.id)">K{{level.id + 1}}</button>
+  <div class="choose">
+    <div class="levelbtn">
+      <button v-for="level in levels"
+        :key=level.id
+        :class="level.check"
+        @click="submit(level.id)">K{{ level.id + 1 }}</button>
     </div>
   </div>
 </template>
@@ -92,30 +95,30 @@ page {
   background-size: 100% 100%;
   background-image: url('https://daisy-donald.cn/image/back.jpg');
 }
-div h1 {
-  font-size: 35px;
-  margin: 0 auto;
-  width: 250px;
-}
 .levelbtn {
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
-  margin: 0 auto;
+  justify-content: space-between;
+  margin: 60px auto;
 }
 button {
-  width: 20%;
-  height: 50%;
-  padding: 20px;
-  margin: 8% 6.5%;
+  width: 80px;
+  height: 80px;
+  line-height: 80px;
+  color: #fff;
+  font-size: 25px;
+  font-weight: bold;
+  margin: 20px;
   border-radius: 100%;
 }
 .true {
-  background-color: green;
+  background-color: #00c544;
 }
 .false {
-  background-color: gray;
+  background-color: #ccc;
 }
 .last {
-  background-color: orange;
+  background-color: #ffb001;
 }
 </style>

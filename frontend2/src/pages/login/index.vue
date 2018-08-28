@@ -1,16 +1,14 @@
 <template>
-  <div class='login'>
-    <form class='form-control'>
-      <div class='card'>
-        <p>账号:</p>
-        <input type='text' class='input' v-model='username' />
+  <div>
+    <div class="login">
+      <div class="card">
+        <input type="text" placeholder="账号" v-model="username" />
       </div>
-      <div class='card'>
-        <p>密码:</p>
-        <input type='password' class='input' v-model='password' />
+      <div class="card">
+        <input type="password" placeholder="密码" v-model="password" />
       </div>
-      <button @click='handlelogin'>登录</button>
-    </form>
+      <button @click="handlelogin">登录</button>
+    </div>
   </div>
 </template>
 
@@ -63,34 +61,31 @@ page {
   background-size: 100% 100%;
   background-image: url('https://daisy-donald.cn/image/profile.jpg');
 }
-a {
-  padding: 10px 28px;
-  margin-bottom: 30px，40px;
-  background-color: #e7e7e7;
-  color: black;
-  border: none;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
+.login {
+  font-size: 25px;
+  margin: 160px auto;
 }
 .card {
-  display: inline;
+  width: 80%;
+  height: 30px;
+  line-height: 30px;
+  margin: 20px auto;
+  display: flex;
+  justify-content: space-around;
 }
-.input {
-  display: block;
-  padding: 0 12px;
-  margin-bottom: 5px;
-  border: 1px solid #ccc;
+input {
+  height: 50px;
+  line-height: 50px;
+  padding: 0 10px;
+  border: 1px solid #ffb001;
+  border-radius: 10px;
 }
-.form-control {
-  display: block;
-  padding: 150px 12px;
-  margin-bottom: 5px;
-}
-.login {
-  display: block;
-  padding: 0px 20px;
-  margin-bottom: 5px;
+button {
+  width: 80%;
+  height: 50px;
+  line-height: 50px;
+  color: #fff;
+  background-color: #ffb001;
+  margin: 100px auto;
 }
 </style>
