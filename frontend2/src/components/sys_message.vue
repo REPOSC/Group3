@@ -8,8 +8,8 @@
       <p :class="content_status">{{ content }}</p>
     </div>
     <div class="function" v-if="content_status === 'true'">
-      <button class="mark" @click="$emit('mark_notread')">{{ isread_info }}</button>
-      <button class="close" @click="$emit('delete_mes')">删除</button>
+      <button class="mark" @click="$emit('mark_message')">{{ isread_info }}</button>
+      <button class="close" @click="$emit('delete_message')">删除</button>
     </div>
   </div>
 </template>
@@ -30,15 +30,15 @@ export default {
 <style>
 .notread {
   color: #ffb100;
-  border: 5px solid #ffb100;
+  border: 3px solid #ffb100;
   margin: 10px auto;
   border-radius: 10px;
   padding: 5px 19px;
   background-color: antiquewhite;
 }
-.haveread {
+.read {
   color: #53cce9;
-  border: 5px solid #53cce9;
+  border: 2px solid #53cce9;
   margin: 10px auto;
   border-radius: 10px;
   padding: 5px 19px;
@@ -80,12 +80,12 @@ export default {
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   align-content: center;
-  color: #222
+  color: #222;
 }
 .true {
   text-align: justify;
   font-size: 18px;
-  color: #222
+  color: #222;
 }
 .expand {
   position: absolute;

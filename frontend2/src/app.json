@@ -1,10 +1,9 @@
 {
   "pages": [
-    "pages/system_message/main",
     "pages/login/main",
-    "pages/rankinglist/main",
+    "pages/system_message/main",
+    "pages/Rankinglist/main",
     "pages/expanding/main",
-    "pages/community/main",
     "pages/game4/main",
     "pages/notice/main",
     "pages/modify_info/main",
