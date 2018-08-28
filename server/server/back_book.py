@@ -4,6 +4,7 @@ from PIL import Image
 from django.http import JsonResponse
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from backend import models
+from . import debug
 from . import tools
 
 
@@ -180,22 +181,51 @@ def all_book(request):
     books = models.Book_info.objects.all()
     book_names = []
     book_numbers = []
-    introductions = []
     levels = []
     persuals = []
+    readings = []
+    readeds = []
     for i in books:
+        readingnum = models.User_process.objects.filter(
+            book_number=i.number).count()
+        readednum = models.User_process.objects.filter(
+            book_number=i.number, process=1).count()
+        readings.append(readingnum)
+        readeds.append(readednum)
         book_names.append(i.name)
         book_numbers.append(i.number)
-        introductions.append(i.introduction)
         levels.append(i.level)
         if i.is_persual:
             persuals.append('精读')
         else:
             persuals.append('泛读')
-        return JsonResponse({
-            'book_name': book_names,
-            'book_number': book_numbers,
-            'level': levels,
-            'introduction': introductions,
-            'persual': persuals
-        })
+    return JsonResponse({
+        'book_name': book_names,
+        'book_number': book_numbers,
+        'level': levels,
+        'persual': persuals,
+        'reading': readings,
+        'readed': readeds
+    })
+
+
+def del_book(request):
+    booknumber = request.POST.get('book_number')
+    book = models.Book_info.objects.get(number=booknumber)
+    models.Punch_content.objects.filter(book_number=book).delete()
+    models.User_game.objects.filter(book_number=book).delete()
+    models.First_game.objects.filter(number=book).delete()
+    models.Second_game.objects.filter(number=book).delete()
+    models.Third_game.objects.filter(number=book).delete()
+    models.Fourth_game.objects.filter(number=book).delete()
+    models.User_comment.objects.filter(book_number=book).delete()
+    models.User_like.objects.filter(book_number=book).delete()
+    models.Book_punch_requirement.objects.filter(number=book).delete()
+    models.User_punch.objects.filter(book_number=book).delete()
+    models.Book_guide.objects.filter(book_number=book).delete()
+    models.Book_knowledge.objects.filter(book_number=book).delete()
+    models.Book_words.objects.filter(book_number=book).delete()
+    models.Page_content.objects.filter(number=book).delete()
+    models.User_process.objects.filter(book_number=book).delete()
+    models.Book_info.objects.filter(number=booknumber).delete()
+    return JsonResponse({'success': 'true'})

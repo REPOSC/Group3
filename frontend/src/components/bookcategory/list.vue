@@ -1,26 +1,35 @@
 <!--suppress ALL -->
 <template>
-  <div>书本数据统计
+  <div>
     <!--为echarts准备一个具备大小的容器dom-->
-    <div class="login-container demonstration">
+    <div class="card demonstration">
       <div>
-        <el-input v-model="TableDataName" placeholder="请输入账号" style="width:240px"></el-input>
+        <el-input v-model="TableDataName" :placeholder="search_method?'账号':'书名'" class="searchbox"></el-input>
         <el-button type="primary" @click="doFilter">搜索</el-button>
-        <el-button type="primary" @click="doFilter1">返回</el-button>
+        <el-button type="primary" @click="doBack">返回</el-button>
+        <div class="space">
+          <el-radio-group v-model="search_method">
+            <el-radio :label="1">按账号查找</el-radio>
+            <el-radio :label="0">按书名查找</el-radio>
+          </el-radio-group>
+        </div>
       </div>
       <el-table :data="tableData.slice((currpage - 1) * pagesize, currpage * pagesize)" align="center">
-        <el-table-column prop="user_name" label="书目编号" sortable width="180">
+        <el-table-column prop="book_number" label="书目编号" sortable>
         </el-table-column>
-        <el-table-column prop="user_nickname" label="书名" sortable width="180">
+        <el-table-column prop="book_name" label="书名" sortable>
         </el-table-column>
-        <el-table-column prop="level" label="等级" sortable width="180">
+        <el-table-column prop="level" label="等级" sortable>
         </el-table-column>
-        <el-table-column prop="book_num" label="阅读情况" sortable width="180">
+        <el-table-column prop="persual" label="精读/泛读" sortable>
         </el-table-column>
-        <el-table-column fixed="right" label="操作" width="180">
+        <el-table-column prop="reading" label="浏览过" sortable>
+        </el-table-column>
+        <el-table-column prop="readed" label="已完成" sortable>
+        </el-table-column>
+        <el-table-column fixed="right" label="操作">
           <template slot-scope="scope">
-            <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
-            <el-button @click="handleClick(scope.row)" type="text" size="small">修改</el-button>
+            <el-button @click="handleClick(scope.row)" type="text" size="small">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -30,20 +39,10 @@
   </div>
 </template>
 <script>
-import echarts from 'echarts'
 import axios from 'axios'
 import * as Tools from '../Tools/Tools'
+import qs from 'qs'
 export default {
-  props: {
-    className: {
-      type: String,
-      default: 'yourClassName'
-    },
-    id: {
-      type: String,
-      default: 'yourID'
-    }
-  },
   name: '',
   data() {
     return {
@@ -52,12 +51,9 @@ export default {
       currpage: 1,
       chart: null,
       charts: '',
-      opinion: [],
-      opinionData: [],
       tableData: [],
-      tableData1: [],
       TableDataName: '',
-      filterTableData: []
+      search_method: 1
     }
   },
   watch: {
@@ -68,154 +64,109 @@ export default {
     }
   },
   methods: {
+    handleClick(row) {
+      this.deletebook(row.book_number)
+    },
     handleCurrentChange(cpage) {
       this.currpage = cpage
     },
     handleSizeChange(psize) {
       this.pagesize = psize
     },
-    f: function() {
-      this.tableData = this.otableData.filter(
-        item => ~item.user_name.indexOf(this.text)
-      )
-    },
-    drawPie(id) {
-      this.charts = echarts.init(document.getElementById(id))
-      this.charts.setOption({
-        tooltip: {
-          trigger: 'item',
-          formatter: '{a}<br/>{b}:{c} ({d}%)'
-        },
-        legend: {
-          orient: 'vertical',
-          x: 'left',
-          data: this.opinion
-        },
-        series: [
-          {
-            name: '访问来源',
-            type: 'pie',
-            radius: ['50%', '70%'],
-            avoidLabelOverlap: false,
-            label: {
-              normal: {
-                show: false,
-                position: 'center'
-              },
-              emphasis: {
-                show: true,
-                textStyle: {
-                  fontSize: '30',
-                  fontWeight: 'blod'
-                }
-              }
-            },
-            labelLine: {
-              normal: {
-                show: false
-              }
-            },
-            data: this.opinionData
-          }
-        ]
-      })
-    },
-    initChart() {
-      this.chart = echarts.init(this.$refs.myEchart)
-      // 把配置和数据放这里
-      this.chart.setOption({
-        color: ['#3398DB'],
-        tooltip: {
-          trigger: 'axis',
-          axisPointer: {
-            // 坐标轴指示器，坐标轴触发有效
-            type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
-          }
-        },
-        grid: {
-          left: '3%',
-          right: '4%',
-          bottom: '3%',
-          containLabel: true
-        },
-        xAxis: [
-          {
-            type: 'category',
-            data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-            axisTick: {
-              alignWithLabel: true
-            }
-          }
-        ],
-        yAxis: [
-          {
-            type: 'value'
-          }
-        ],
-        series: [
-          {
-            name: '直接访问',
-            type: 'bar',
-            barWidth: '60%',
-            data: [10, 52, 200, 334, 390, 330, 220]
-          }
-        ]
-      })
-    },
-    stulist() {
+    booklist() {
       let saved = this
-      axios
-        .post(Tools.get_url() + 'all_student', null)
-        .then(function(response) {
-          let nicknames = eval(response.data.user_nicknames)
-          let names = eval(response.data.user_numbers)
-          let levels = eval(response.data.levelss)
-          for (let i = 0; i < nicknames.length; ++i) {
-            saved.tableData.push({
-              user_nickname: nicknames[i],
-              user_name: names[i],
-              level: levels[i]
-            })
-          }
+      this.$notify.info({
+        title: '请等待',
+        message: '正在初始化数据，请耐心等候……'
+      })
+      axios.post(Tools.get_url() + 'all_book', null).then(function(response) {
+        saved.tableData = []
+        let names = eval(response.data.book_name)
+        let nums = eval(response.data.book_number)
+        let levels = eval(response.data.level)
+        let readings = eval(response.data.reading)
+        let readeds = eval(response.data.readed)
+        let persuals = eval(response.data.persual)
+        for (let i = 0; i < names.length; ++i) {
+          saved.tableData.push({
+            book_name: names[i],
+            book_number: nums[i],
+            level: levels[i],
+            persual: persuals[i],
+            reading: readings[i],
+            readed: readeds[i]
+          })
+        }
+        saved.$notify({
+          title: '初始化成功！',
+          type: 'success',
+          position: 'bottom-right'
         })
+        saved.all_tabledata = saved.tableData
+      })
     },
     doFilter() {
-      this.tableData1 = this.tableData
       if (this.TableDataName === '') {
-        this.$message.warning('查询条件不能为空！')
+        this.$notify.error({
+          title: '错误',
+          message: '查询条件不能为空！'
+        })
         return
       }
-      // 每次手动将数据置空,因为会出现多次点击搜索情况
-      this.filterTableData = []
-      this.tableData.forEach((value, index) => {
-        if (value.user_name) {
-          if (value.user_name.indexOf(this.TableDataName) >= 0) {
-            this.filterTableData.push(value)
+      this.tableData = []
+      let saved = this
+      this.all_tabledata.forEach((value, index) => {
+        if (saved.search_method === 1) {
+          if (String(value.book_number).indexOf(saved.TableDataName) >= 0) {
+            saved.tableData.push(value)
+          }
+        } else if (saved.search_method === 0) {
+          if (value.book_name.indexOf(saved.TableDataName) >= 0) {
+            saved.tableData.push(value)
           }
         }
       })
-      // 页面数据改变重新统计数据数量和当前页
       this.pagesize = 10
       this.currpage = 1
-      this.tableData = this.filterTableData
     },
-    doFilter1() {
-      this.tableData = this.tableData1
+    doBack() {
+      this.tableData = this.all_tabledata
       this.pagesize = 10
       this.currpage = 1
       this.TableDataName = ''
     },
-    chushi() {
-      this.tableData1 = this.tableData
+    deletebook(booknumber) {
+      if (!confirm('删除书籍后无法恢复，确认要删除吗？')) {
+        return
+      }
+      let saved = this
+      axios
+        .post(
+          Tools.get_url() + 'del_book',
+          qs.stringify({
+            book_number: booknumber
+          })
+        )
+        .then(function(response) {
+          if (response.data.success === 'true') {
+            saved.$notify({
+              title: '成功',
+              message: '删除书籍成功！',
+              type: 'success',
+              position: 'bottom-right'
+            })
+          } else {
+            saved.$notify.error({
+              title: '失败',
+              message: '删除失败！'
+            })
+          }
+          saved.booklist()
+        })
     }
   },
   mounted() {
-    this.$nextTick(function() {
-      this.drawPie('main')
-    })
-    this.initChart()
-    this.stulist()
-    this.chushi()
+    this.booklist()
   }
 }
 </script>
@@ -239,5 +190,8 @@ export default {
 .column {
   width: 80%;
   height: 80%;
+}
+.searchbox {
+  width: 240px;
 }
 </style>
