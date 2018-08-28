@@ -1,13 +1,23 @@
 <template>
-  <div class="content">
-    <div class="words">
-      <div :class="word.status" v-for="word in words" :key="word.index" @click="click_word(word)">
-        {{ word.text }}
-      </div>
+  <div class="game">
+    <div class="introduce">
+      <button @click="play_video()">{{ video_function.play_info }}</button>
     </div>
-    <canvas canvas-id="drawline"></canvas>
-    <div class="pics">
-      <img :key="pic.index" v-for="pic in pics" :class="pic.status" :src="pic.src" mode="aspectFit" @click="click_picture(pic)" />
+    <div v-if="video_function.is_play_video" class="video">
+      <video :src="video_function.src" />
+    </div>
+    <div class="content">
+      <div class="words">
+        <div :class="word.status" v-for="word in words" :key="word.index" @click="click_word(word)">
+          {{ word.text }}
+        </div>
+      </div>
+      <canvas canvas-id="drawline"></canvas>
+      <div class="pics">
+        <div class="pic" :key="pic.index" v-for="pic in pics">
+          <img :class="pic.status" :src="pic.src" mode="aspectFit" @click="click_picture(pic)" />
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -18,6 +28,11 @@ import qs from 'qs'
 export default {
   data() {
     return {
+      video_function: {
+        play_info: '功能讲解',
+        is_play_video: false,
+        src: 'http://wxsnsdy.tc.qq.com/105/20210/snsdyvideodownload?filekey=30280201010421301f0201690402534804102ca905ce620b1241b726bc41dcff44e00204012882540400&bizid=1023&hy=SH&fileparam=302c020101042530230204136ffd93020457e3c4ff02024ef202031e8d7f02030f42400204045a320a0201000400'
+      },
       booknumber: null,
       now_word: '',
       now_pic: '',
@@ -83,11 +98,11 @@ export default {
           save.length = save.words.length
         })
     },
-    line_end(pic_index) {
-      return pic_index * 120 + 70
-    },
     line_start(word_index) {
-      return 120 * word_index + 75
+      return word_index * 120 + 75
+    },
+    line_end(pic_index) {
+      return pic_index * 120 + 75
     },
     drawline() {
       let context = wx.createCanvasContext('drawline')
@@ -130,7 +145,7 @@ export default {
         wx.showToast({
           title: '做对啦！真棒！',
           image: '/static/game2/green-yes.png',
-          duration: 1500,
+          duration: 800,
           mask: true
         })
       } else {
@@ -161,26 +176,53 @@ export default {
         wx.showToast({
           title: '做错啦~再试试~',
           image: '/static/game2/red-false.png',
-          duration: 1500,
+          duration: 800,
           mask: true
         })
       } else {
         wx.showToast({
           title: '还没选择单词噢~',
           image: '/static/game2/lock.png',
-          duration: 1500,
+          duration: 800,
           mask: true
         })
+      }
+    },
+    play_video() {
+      if (!this.video_function.is_play_video) {
+        this.video_function.is_play_video = true
+        this.video_function.play_info = '关闭'
+      } else {
+        this.video_function.is_play_video = false
+        this.video_function.play_info = '功能讲解'
       }
     }
   }
 }
 </script>
 
-<style scoped>
+<style>
 page {
   background-size: 100% 100%;
-  background-image: url('https://daisy-donald.cn/image/back.jpg');
+  background-image: url('https://daisy-donald.cn/image/sky.jpg');
+}
+.game {
+  position: relative;
+  margin-top: 20px;
+}
+.introduce {
+  margin: 0 10% 0 70%;
+}
+button {
+  color: white;
+  font-size: 10px;
+  font-weight: bolder;
+  line-height: 20px;
+  background-color: #ffb100;
+}
+.video {
+  margin: 10px auto;
+  text-align: center;
 }
 canvas {
   width: 40%;
@@ -195,9 +237,6 @@ canvas {
 .pics {
   width: 30%;
 }
-.pics {
-  margin-top: 10px;
-}
 .words div {
   color: #fff;
   font-size: 25px;
@@ -208,11 +247,18 @@ canvas {
   margin: 30px auto;
   border-radius: 10px;
 }
+.pic {
+  height: 90px;
+  width: 100%;
+  line-height: 80px;
+  text-align: left;
+  margin: 30px auto;
+  border-radius: 10px;
+}
 .pics img {
   width: 80px;
   height: 80px;
   border-radius: 10px;
-  margin: 15px 0 15px auto;
 }
 .word_unmatch {
   background-color: #ffb001;

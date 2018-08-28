@@ -1,9 +1,6 @@
 <template>
-  <div class="full">
-    <div class="title">
-      <img src="http://139.199.106.168/image/y-book.png" alt="red-book-open">
-      <h1>{{ booktitle }}</h1>
-    </div>
+  <div class="e_book">
+    <title v-bind="video_function" @play_video="play_video"></title>
     <div class="body">
       <div class="book">
         <img :src="imagesrc" alt="Bookcontent" mode="scaleToFill" class="image">
@@ -24,12 +21,18 @@
 <script>
 import * as Tools from '../../components/Tools.js'
 import qs from 'qs'
+import title from '../../components/title'
 
 export default {
   data() {
     return {
+      video_function: {
+        play_info: '功能讲解',
+        is_play_video: false,
+        src: 'http://wxsnsdy.tc.qq.com/105/20210/snsdyvideodownload?filekey=30280201010421301f0201690402534804102ca905ce620b1241b726bc41dcff44e00204012882540400&bizid=1023&hy=SH&fileparam=302c020101042530230204136ffd93020457e3c4ff02024ef202031e8d7f02030f42400204045a320a0201000400',
+        booktitle: 'BOOK1'
+      },
       username: null,
-      booktitle: ' BOOK1 ',
       booknumber: 0,
       bookprocess: 0.0,
       booknowpage: 0,
@@ -47,10 +50,13 @@ export default {
       chinese_button_state: 'add'
     }
   },
+  components: {
+    title
+  },
   onLoad: function(status) {
     this.username = status.username
     this.booknumber = status.booknumber
-    this.booktitle = status.bookname
+    this.video_function.booktitle = status.bookname
     this.bookprocess = status.process
   },
   onShow: function() {
@@ -194,6 +200,15 @@ export default {
     },
     playrecord() {
       this.innerRecordContext.play()
+    },
+    play_video() {
+      if (!this.video_function.is_play_video) {
+        this.video_function.is_play_video = true
+        this.video_function.play_info = '关闭'
+      } else {
+        this.video_function.is_play_video = false
+        this.video_function.play_info = '功能讲解'
+      }
     }
   }
 }
@@ -201,52 +216,29 @@ export default {
 <style>
 page {
   background-size: 100% 100%;
-  background-image: url('https://daisy-donald.cn/image/back.jpg');
+  background-image: url('https://daisy-donald.cn/image/sky.jpg');
 }
-
-.title {
-  margin: 30px 20px;
-  text-align: center;
+.e_book {
+  margin: 10px 10px;
 }
-
-h1 {
-  display: inline-block;
-  text-align: center;
-  color: white;
-  font-size: 35px;
-  background-color: #ffb001;
-  width: 150px;
-  height: 50px;
-  margin: auto 10px;
-  vertical-align: middle;
-  border-radius: 60%;
-}
-
-.title img {
-  display: inline-block;
-  width: 70px;
+title {
   height: 70px;
-  vertical-align: middle;
 }
-
 .body {
   margin: auto 20px;
   border: 4px solid #ffb001;
-  background-color: #ffb001;
+  background-color: white;
 }
-
 .book {
   text-align: center;
   width: 100%;
   height: 200px;
 }
-
 .btngroup {
   margin: 10px auto;
   text-align: center;
   background-color: #ffb001;
 }
-
 .btngroup button {
   display: inline-block;
   width: 50px;
@@ -255,49 +247,39 @@ h1 {
   border: 1px solid #ffb001;
   vertical-align: middle;
 }
-
 .previous {
   background-image: url('http://139.199.106.168/image/left.png');
 }
-
 .listen {
   background-image: url('http://139.199.106.168/image/listen.png');
 }
-
 .add {
   background-image: url('http://139.199.106.168/image/add.png');
 }
-
 .play {
   background-image: url('http://139.199.106.168/image/play.png');
 }
-
 .next {
   background-image: url('http://139.199.106.168/image/right.png');
 }
-
 .hidden {
   visibility: hidden;
 }
-
 .visible {
   margin: 20px;
   visibility: visible;
   font-size: 20px;
 }
-
 .english-text {
   margin: 20px;
   font-family: 'Courier New', Courier, monospace;
   font-size: 30px;
   display: inline-block;
 }
-
 .image {
   height: 100%;
   width: 100%;
 }
-
 .button {
   float: right;
   margin: 20px;
