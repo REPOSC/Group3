@@ -8,7 +8,7 @@
       <input type="file" accept="video/avi,video/mp4,video/flv,video/3gp,video/swf" class="file-btn displayed" capture="camcorder" @change="onFileChange">
     </div>
     <div class="space">
-      <video ref="video" controls="controls" :src="video_src"></video>
+      <video ref="video" controls="controls" :src="video_src" class="fill"></video>
     </div>
     <el-button @click.native="complete">确认上传</el-button>
   </div>
@@ -41,5 +41,8 @@ export default {
 <style scoped>
 .shangchuan {
   text-align: left;
+}
+.fill {
+  width: 100%;
 }
 </style>

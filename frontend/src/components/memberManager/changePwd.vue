@@ -24,15 +24,24 @@ export default {
   },
   methods: {
     submit: function() {
+      if (!confirm('你确认更改密码吗？')) {
+        return
+      }
       if (
         this.username === '' ||
         this.password === '' ||
         this.confirm_pwd === ''
       ) {
-        alert('请填写所有的字段！')
+        this.$notify.error({
+          title: '错误',
+          message: '请填写所有的字段！'
+        })
         return
       } else if (this.password !== this.confirm_pwd) {
-        alert('两次密码不匹配！')
+        this.$notify.error({
+          title: '错误',
+          message: '两次密码不匹配！'
+        })
         return
       }
       let saved = this
@@ -46,9 +55,17 @@ export default {
         )
         .then(function(response) {
           if (response.data.success) {
-            alert('修改管理员密码成功！')
+            saved.$notify({
+              title: '成功',
+              message: '修改管理员密码成功！',
+              type: 'success',
+              position: 'bottom-right'
+            })
           } else {
-            alert('修改密码失败，管理员不存在！')
+            saved.$notify.error({
+              title: '失败',
+              message: '请检查管理员账号是否存在！'
+            })
           }
         })
     }

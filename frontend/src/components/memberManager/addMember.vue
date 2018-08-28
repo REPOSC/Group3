@@ -39,10 +39,16 @@ export default {
         this.password === '' ||
         this.confirm_pwd === ''
       ) {
-        alert('请填写所有的字段！')
+        this.$notify.error({
+          title: '错误',
+          message: '请填写所有的字段！'
+        })
         return
       } else if (this.password !== this.confirm_pwd) {
-        alert('两次密码不匹配！')
+        this.$notify.error({
+          title: '错误',
+          message: '两次密码不匹配！'
+        })
         return
       }
       let saved = this

@@ -30,10 +30,18 @@ export default {
         this.password === '' ||
         this.confirm_pwd === ''
       ) {
-        alert('请填写所有的字段！')
+        this.$notify({
+          title: '警告',
+          message: '请填写所有的字段！',
+          type: 'warning'
+        })
         return
       } else if (this.password !== this.confirm_pwd) {
-        alert('两次密码不匹配！')
+        this.$notify({
+          title: '警告',
+          message: '两次密码不一致！',
+          type: 'warning'
+        })
         return
       }
       let saved = this
@@ -47,9 +55,18 @@ export default {
         )
         .then(function(response) {
           if (response.data.success) {
-            alert('密码修改成功！')
+            saved.$notify({
+              title: '成功',
+              message: '密码修改成功！',
+              type: 'success',
+              position: 'bottom-right'
+            })
           } else {
-            alert('修改失败，用户不存在！')
+            saved.$notify({
+              title: '警告',
+              message: '修改失败，用户不存在！',
+              type: 'warning'
+            })
           }
         })
     }

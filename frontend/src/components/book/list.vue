@@ -431,7 +431,8 @@ export default {
         .then(function(response) {
           saved.$notify({
             title: '上传成功！',
-            position: 'bottom-right'
+            position: 'bottom-right',
+            type: 'success'
           })
         })
     },

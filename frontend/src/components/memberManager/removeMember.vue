@@ -32,9 +32,17 @@ export default {
         )
         .then(function(response) {
           if (response.data.success) {
-            alert('删除管理员成功！')
+            saved.$notify({
+              title: '成功',
+              message: '删除管理员成功！',
+              type: 'success',
+              position: 'bottom-right'
+            })
           } else {
-            alert('删除失败，管理员不存在！')
+            saved.$notify.error({
+              title: '失败',
+              message: '请检查管理员账号是否存在！'
+            })
           }
         })
     }

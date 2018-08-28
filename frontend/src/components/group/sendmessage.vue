@@ -18,6 +18,17 @@ export default {
   },
   methods: {
     submit: function() {
+      if (!confirm('你确认将此消息推送给所有人吗？')) {
+        return
+      }
+      if (this.content === '') {
+        this.$notify.error({
+          title: '错误',
+          message: '消息为空，无法发送！'
+        })
+        return
+      }
+      let saved = this
       axios
         .post(
           Tools.get_url() + 'put_message',
@@ -27,9 +38,17 @@ export default {
         )
         .then(function(response) {
           if (response.data.success) {
-            alert('发送消息成功！')
+            saved.$notify({
+              title: '成功',
+              message: '发送消息成功！',
+              type: 'success',
+              position: 'bottom-right'
+            })
           } else {
-            alert('发送消息失败！')
+            saved.$notify.error({
+              title: '错误',
+              message: '发送消息失败！'
+            })
           }
         })
     }
