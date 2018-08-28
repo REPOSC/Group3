@@ -4,14 +4,11 @@
       <img v-bind:src="image_file_addr">
       <p class="username">{{ nickname }}</p>
     </div>
-    <div class="function">
-      <button id="modify_info" @click="change_info">修改资料</button>
-      <button id="select_level" @click="select_level">选择等级</button>
-      <button id="notice" @click="turnTo">系统消息</button>
-      <button id="introduction" @click="turnTo">功能介绍</button>
-      <button id="about_vron" @click="about">关于弗恩英语</button>
-      <button id="logout" @click="logout">退出登录</button>
-    </div>
+    <button id="modify_info" @click="change_info">修改资料</button>
+    <button id="notice" @click="system_message">系统消息</button>
+    <button id="introduction" @click="turnTo">功能介绍</button>
+    <button id="about_vron" @click="about">关于弗恩英语</button>
+    <button id="logout" @click="logout">退出登录</button>
   </div>
 </template>
 
@@ -55,9 +52,6 @@ export default {
           if (picture_response.statusCode === 200) {
             save.image_file_addr = picture_response.tempFilePath
           }
-        },
-        fail: function(err) {
-          console.log(err)
         }
       })
     },
@@ -70,7 +64,11 @@ export default {
         url: '../modify_info/main?username=' + this.username
       })
     },
-    system_msg() {},
+    system_message() {
+      wx.navigateTo({
+        url: '../system_message/main?username=' + this.username
+      })
+    },
     about() {
       wx.showToast({
         title: 'By Windows Vista',
@@ -99,59 +97,52 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 page {
-  background-size: 100% 100%;
-  background-image: url('https://daisy-donald.cn/image/back.jpg');
+  background-image: url();
 }
 .me {
-  font-weight: bold;
+  padding-top: 30px;
+  margin: 20px 50px;
 }
 .my_info {
-  width: 60%;
-  height: 120px;
-  margin: 20px auto;
   display: flex;
-  flex-wrap: wrap;
   text-align: center;
 }
 img {
-  margin: 2px auto;
   width: 70px;
   height: 70px;
+  margin-left: 20px;
   border: 3px solid #ffb001;
   border-radius: 10px;
 }
 p {
-  height: 40px;
-  line-height: 40px;
-  width: 100%;
-}
-button {
-  color: #fff;
-  width: 75%;
-  height: 50px;
-  line-height: 50px;
-  font-size: 20px;
-  margin: 20px auto;
+  margin: 25px 40px;
+  font-weight: bold;
 }
 #modify_info {
+  color: #fff;
   background-color: #019dd6;
-}
-#select_level {
-  background-color: #f67c30;
+  margin-top: 40px;
 }
 #notice {
+  color: #fff;
   background-color: #00c544;
+  margin-top: 20px;
 }
 #introduction {
+  color: #fff;
   background-color: #f67c30;
+  margin-top: 20px;
 }
 #about_vron {
+  color: #fff;
   background-color: #00fe90;
+  margin-top: 20px;
 }
 #logout {
+  color: #fff;
   background-color: #f53076;
-  margin: 50px auto;
+  margin-top: 40px;
 }
 </style>

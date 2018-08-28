@@ -136,7 +136,7 @@ class Message_user(models.Model):
         'Message', to_field='id', on_delete=models.CASCADE)
     number = models.ForeignKey(
         'User_info', to_field='number', on_delete=models.CASCADE)
-    status = models.IntegerField()
+    del_status = models.BooleanField()
 
 
 class First_game(models.Model):
