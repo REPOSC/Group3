@@ -5,16 +5,15 @@
     "pages/rankinglist/main",
     "pages/expanding/main",
     "pages/community/main",
-    "pages/game4/main",
     "pages/game1/main",
+    "pages/game2/main",
+    "pages/game3/main",
+    "pages/game4/main",
     "pages/e_book/main",
     "pages/modify_info/main",
-    "pages/translation/main",
     "pages/bookshelf/main",
     "pages/practice/main",
     "pages/me/main",
-    "pages/game2/main",
-    "pages/game3/main",
     "pages/show/main",
     "pages/guide/main",
     "pages/level/main",
@@ -24,7 +23,7 @@
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#ffb001",
-    "navigationBarTitleText": "弗恩阅读英语",
+    "navigationBarTitleText": "弗恩英语",
     "navigationBarTextStyle": "white",
     "backgroundColor": "#53cce9"
   }

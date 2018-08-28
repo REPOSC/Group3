@@ -9,8 +9,13 @@
     <div class="word">
       <span>{{ word }}</span>
     </div>
-    <div class="picGroup">
-      <img :key="pic.index" v-for="pic in pics" :isanswer="pic.isanswer" :src="pic.src" mode="aspectFit" @click="choice(pic)" />
+    <div class="pic-group">
+      <img :key="pic.index"
+        v-for="pic in pics"
+        :isanswer="pic.isanswer"
+        :src="pic.src"
+        mode="aspectFit"
+        @click="choice(pic)" />
     </div>
   </div>
 </template>
@@ -165,13 +170,13 @@ button {
   color: #ffb001;
   vertical-align: middle;
 }
-.picGroup {
+.pic-group {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   margin: 20px;
 }
-.picGroup img {
+.pic-group img {
   width: 40%;
   height: 100px;
   margin: 10px auto;

@@ -1,5 +1,6 @@
 <template>
   <div>
+    <img src="https://daisy-donald.cn/image/lion.png" mode="aspectFit" />
     <div class="login">
       <div class="card">
         <input type="text" placeholder="账号" v-model="username" />
@@ -38,7 +39,8 @@ export default {
         .then(function(response) {
           if (response.data.status === 'error') {
             wx.showModal({
-              content: '账号或密码错误，请重新登录'
+              content: '账号或密码错误，请重新输入',
+              showCancel: false
             })
           } else {
             save.last_level = response.data.last_level
@@ -59,17 +61,17 @@ export default {
 <style>
 page {
   background-size: 100% 100%;
-  background-image: url('https://daisy-donald.cn/image/profile.jpg');
+  background-image: url('https://daisy-donald.cn/image/sky.jpg');
 }
 .login {
   font-size: 25px;
-  margin: 160px auto;
+  margin: 30px auto;
 }
 .card {
   width: 80%;
   height: 30px;
   line-height: 30px;
-  margin: 20px auto;
+  margin: 50px auto;
   display: flex;
   justify-content: space-around;
 }
@@ -87,5 +89,10 @@ button {
   color: #fff;
   background-color: #ffb001;
   margin: 100px auto;
+}
+img {
+  width: 100%;
+  height: 200px;
+  margin: 0 auto;
 }
 </style>

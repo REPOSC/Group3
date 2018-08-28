@@ -7,7 +7,11 @@
       <p :title="book.name">{{ book.name }}</p>
     </div>
     <div>
-      <progress :percent="book.process" stroke-width="5" activeColor=#53cce9></progress>
+      <progress
+        :percent="book.process"
+        stroke-width="5"
+        activeColor="#00c544">
+      </progress>
     </div>
   </div>
 </template>
@@ -36,5 +40,11 @@ export default {
 img {
   width: 50px;
   height: 60px;
+}
+p {
+  font-size: 12px;
+}
+progress {
+  margin: 5px auto;
 }
 </style>

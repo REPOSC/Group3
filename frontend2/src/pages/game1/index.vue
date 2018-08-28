@@ -8,14 +8,19 @@
     </div>
     <div class="content">
       <div class="words">
-        <div :class="word.status" v-for="word in words" :key="word.index" @click="click_word(word)">
-          {{ word.text }}
+        <div :class="word.status"
+          v-for="word in words"
+          :key="word.index"
+          @click="click_word(word)">{{ word.text }}
         </div>
       </div>
       <canvas canvas-id="drawline"></canvas>
       <div class="pics">
         <div class="pic" :key="pic.index" v-for="pic in pics">
-          <img :class="pic.status" :src="pic.src" mode="aspectFit" @click="click_picture(pic)" />
+          <img :class="pic.status"
+            :src="pic.src"
+            mode="aspectFit"
+            @click="click_picture(pic)" />
         </div>
       </div>
     </div>
@@ -144,7 +149,7 @@ export default {
       if (this.length !== 0) {
         wx.showToast({
           title: '做对啦！真棒！',
-          image: '/static/game2/green-yes.png',
+          image: 'https://daisy-donald.cn/image/green-yes.png',
           duration: 800,
           mask: true
         })
@@ -175,14 +180,14 @@ export default {
       } else if (this.now_word !== '') {
         wx.showToast({
           title: '做错啦~再试试~',
-          image: '/static/game2/red-false.png',
+          image: 'https://daisy-donald.cn/image/red-false.png',
           duration: 800,
           mask: true
         })
       } else {
         wx.showToast({
           title: '还没选择单词噢~',
-          image: '/static/game2/lock.png',
+          image: 'https://daisy-donald.cn/image/lock.png',
           duration: 800,
           mask: true
         })

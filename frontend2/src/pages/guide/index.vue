@@ -2,23 +2,26 @@
   <div class="guide">
     <title v-bind="video_function" @play_video="play_video"></title>
     <div class="firstpart">
-      <img src="/static/img/yellow-tap.png">
+      <img src="https://daisy-donald.cn/image/yellow-tap.png">
       <h1>本书导读</h1>
       <p :key="index" v-for="(one,index) in ones">{{ index-0+1 }}、{{ one }}</p>
     </div>
     <div class="secpart">
-      <img src="/static/img/green-tap.png">
+      <img src="https://daisy-donald.cn/image/green-tap.png">
       <h1>本课重点知识</h1>
       <p :key="index" v-for="(two,index) in twos">{{ index-0+1 }}、{{ two }}</p>
     </div>
     <div class="thirdpart">
       <div class="subtitle">
-        <img src="/static/img/red-tap.png">
+        <img src="https://daisy-donald.cn/image/red-tap.png">
         <h1>词汇表与配音讲解</h1>
       </div>
       <div :key="index" v-for="(three,index) in threes">
         <div class="word">{{ index-0+1 }}、{{ three }}</div>
-        <i-icon type="customerservice_fill" size="28" class="word" @click="hear(index)" />
+        <i-icon type="customerservice_fill"
+          size="28"
+          class="word"
+          @click="hear(index)" />
       </div>
     </div>
   </div>

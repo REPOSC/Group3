@@ -1,6 +1,6 @@
 {
+  "navigationBarTitleText": "e-book",
   "usingComponents": {
-    "i-button": "../../iview/button/index",
     "i-icon": "../../iview/icon/index"
   }
 }

@@ -1,13 +1,13 @@
 <template>
-  <div class='all_ranklist'>
+  <div class='all-ranklist'>
     <div class="title">
-      <img src="/static/img/rainbow.png">
+      <img src="https://daisy-donald.cn/image/rainbow.png">
       <p>排行榜</p>
     </div>
-    <div :class="my_ranklist">
+    <div :class="my-ranklist">
       <my_rank_card v-bind="my_rankinfo"></my_rank_card>
     </div>
-    <div class="their_ranklist" v-for="n in length">
+    <div class="their-ranklist" v-for="n in length">
       <rank_card v-bind="rankinfo[n-1]"></rank_card>
     </div>
   </div>
@@ -21,56 +21,56 @@ export default {
       length: 8,
       my_rankinfo: {
         rank_number: 3,
-        head_pic: '/static/game2/cat1.jpg',
+        head_pic: 'https://daisy-donald.cn/image/cat1.jpg',
         nickname: 'cfl',
         mark: 98
       },
       rankinfo: [
         {
           rank_number: 1,
-          head_pic: '/static/game2/cat1.jpg',
+          head_pic: 'https://daisy-donald.cn/image/cat1.jpg',
           nickname: 'yym',
           mark: 98
         },
         {
           rank_number: 2,
-          head_pic: '/static/game2/cat1.jpg',
+          head_pic: 'https://daisy-donald.cn/image/cat1.jpg',
           nickname: 'zth',
           mark: 98
         },
         {
           rank_number: 3,
-          head_pic: '/static/game2/cat1.jpg',
+          head_pic: 'https://daisy-donald.cn/image/cat1.jpg',
           nickname: 'cfl',
           mark: 98
         },
         {
           rank_number: 4,
-          head_pic: '/static/game2/cat1.jpg',
+          head_pic: 'https://daisy-donald.cn/image/cat1.jpg',
           nickname: 'zyz',
           mark: 98
         },
         {
           rank_number: 5,
-          head_pic: '/static/game2/cat1.jpg',
+          head_pic: 'https://daisy-donald.cn/image/cat1.jpg',
           nickname: 'yym',
           mark: 98
         },
         {
           rank_number: 6,
-          head_pic: '/static/game2/cat1.jpg',
+          head_pic: 'https://daisy-donald.cn/image/cat1.jpg',
           nickname: 'zth',
           mark: 98
         },
         {
           rank_number: 7,
-          head_pic: '/static/game2/cat1.jpg',
+          head_pic: 'https://daisy-donald.cn/image/cat1.jpg',
           nickname: 'cfl',
           mark: 98
         },
         {
           rank_number: 8,
-          head_pic: '/static/game2/cat1.jpg',
+          head_pic: 'https://daisy-donald.cn/image/cat1.jpg',
           nickname: 'zyz',
           mark: 98
         }
@@ -89,7 +89,7 @@ export default {
 <style>
 page {
   background-size: 100% 100%;
-  background-image: url('https://daisy-donald.cn/image/back.jpg');
+  background-image: url('https://daisy-donald.cn/image/sky.jpg');
 }
 .title {
   height: 70px;
@@ -102,20 +102,19 @@ page {
   color: #ffb001;
   font-size: 25px;
   font-weight: bold;
-  /* text-shadow: 2px 2px 3px #000; */
 }
 .title img {
   width: 70px;
   height: 70px;
 }
-.all_ranklist {
+.all-ranklist {
   margin: 20px 20px;
 }
-.my_ranklist {
+.my-ranklist {
   padding: 5px;
   margin: 20px auto;
 }
-.their_ranklist {
+.their-ranklist {
   margin: 10px auto;
 }
 rank_card {

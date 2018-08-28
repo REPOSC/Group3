@@ -7,11 +7,20 @@
       <video :src="video_function.src" />
     </div>
     <div class="area">
-      <img :key="area.index" v-for="area in areas" :class="areas_static+picture_number" :src='area.src' @click="choose_area(area)" />
-      <img :class='answer_static' :src='completed_picture' />
+      <img :key="area.index"
+        v-for="area in areas"
+        :class="areas_static+picture_number"
+        :src="area.src"
+        @click="choose_area(area)" />
+      <img :class="answer_static" :src="completed_picture" />
     </div>
     <div class="pic">
-      <img :key="pics.index" v-for="pic in pics" :src="pic.src" mode="aspectFit" :class="pic.status+picture_number" @click="choose_pic(pic)" />
+      <img :key="pics.index"
+      v-for="pic in pics"
+      :class="pic.status+picture_number"
+      :src="pic.src"
+      mode="aspectFit"
+      @click="choose_pic(pic)" />
     </div>
     <div class="texts">{{ word_text }}</div>
   </div>
@@ -214,7 +223,7 @@ export default {
     show_notchoose_message() {
       wx.showToast({
         title: '还没选择拼图噢~',
-        image: '/static/game2/lock.png',
+        image: 'https://daisy-donald.cn/image/lock.png',
         duration: 1500,
         mask: true
       })

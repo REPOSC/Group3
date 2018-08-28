@@ -1,34 +1,44 @@
 <template>
   <div class="bookinterface">
-    <i-row class="title">
-      <i-col span="8" offset="1">
-        <img src="/static/img/rainbow.png">
-      </i-col>
-      <i-col span="4" offset="1">
-        <h1>Key{{ level + 1 }}</h1>
-      </i-col>
-    </i-row>
+    <div class="title">
+      <img src="/static/img/rainbow.png">
+      <p>K{{ level + 1 }}</p>
+    </div>
     <i-row class="body">
       <i-col span="18" offset="1">
         <div class="bookshelf">
-          <book v-for="book in nowbooks" :book="book" @on_click="get" class="book"></book>
+          <book v-for="book in nowbooks"
+            :book="book"
+            @on_click="get"
+            class="book">
+          </book>
         </div>
       </i-col>
       <i-col span="3" offset="1">
-        <iconbtn @persual="change_to_persual" @not_persual="change_to_not_persual" @toprevious="change_to_previous" @tonext="change_to_next"></iconbtn>
+        <iconbtn
+          @persual="change_to_persual"
+          @not_persual="change_to_not_persual"
+          @toprevious="change_to_previous"
+          @tonext="change_to_next">
+        </iconbtn>
       </i-col>
     </i-row>
     <div class="bottom">
       <i-row>
         <i-col span="17" offset="1">
           <div>
-            <input type="text" class="inline" v-model="search_text" placeholder='搜索' clearable/>
-            <img src="/static/img/search.png" @click="search" class="inline search-icon">
+            <input type="text"
+              class="inline"
+              v-model="search_text"
+              placeholder='搜索' clearable />
+            <img src="https://daisy-donald.cn/image/search.png"
+              @click="search"
+              class="inline search-icon">
           </div>
         </i-col>
         <i-col span="5">
-          <div class="toMeBtn" @click="to_me">
-            <img src="/static/img/man.png">
+          <div class="to-me" @click="to_me">
+            <img src="https://daisy-donald.cn/image/man.png">
             <p class="text">我的</p>
           </div>
         </i-col>
@@ -128,7 +138,7 @@ export default {
       if ((this.nowshelf + 1) * 9 >= this.candicate_books.length) {
         wx.showToast({
           title: '已经是最后一页',
-          icon: 'success',
+          icon: 'none',
           duration: 1500,
           mask: true
         })
@@ -141,7 +151,7 @@ export default {
       if (this.nowshelf <= 0) {
         wx.showToast({
           title: '已经是第一页',
-          icon: 'success',
+          icon: 'none',
           duration: 1500,
           mask: true
         })
@@ -203,23 +213,23 @@ export default {
 <style>
 page {
   background-size: 100% 100%;
-  background-image: url('https://daisy-donald.cn/image/back.jpg');
+  background-image: url('https://daisy-donald.cn/image/sky.jpg');
 }
-
-h1 {
-  margin-top: 30px;
-  padding: 2px;
-  color: #ffb001;
-  font-size: 43px;
-  font-family: fantasy;
+.title {
+  height: 70px;
+  line-height: 70px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
 }
-
+.title p {
+  font-size: 30px;
+  font-weight: bold;
+}
 .title img {
-  margin-top: 10px;
-  width: 90px;
-  height: 90px;
+  width: 70px;
+  height: 70px;
 }
-
 .bookshelf {
   display: flex;
   flex-wrap: wrap;
@@ -233,51 +243,43 @@ h1 {
   height: 360px;
   z-index: 5;
 }
-
 .book {
   height: 33%;
 }
-
 .body {
   margin: 20px 0px;
 }
-
-.toMeBtn {
+.to-me {
   width: 70px;
   height: 90px;
   font-weight: bolder;
-  color: white;
   font-size: 18px;
   text-align: center;
-  float: right;
+  margin: 20px 15px;
 }
-
-.toMeBtn img {
-  width: 70px;
-  height: 70px;
+.to-me img {
+  width: 60px;
+  height: 60px;
 }
-
 .text {
   color: black;
 }
-
 input {
-  height: 40px;
+  height: 30px;
   color: white;
   border: white solid 4px;
+  padding: 5px;
   font-weight: bolder;
   background-color: #ffb001;
-  border-radius: 3%;
+  border-radius: 10px;
   margin-top: 10%;
-  width: 80%;
+  width: 75%;
 }
-
 .inline {
   display: inline-block;
 }
-
 .search-icon {
-  width: 45px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
 }
 </style>
