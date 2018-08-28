@@ -1,20 +1,23 @@
-<template>
-  <div class="e_book">
+e-book<template>
+  <div class="e-book">
     <title v-bind="video_function" @play_video="play_video"></title>
     <div class="body">
       <div class="book">
-        <img :src="imagesrc" alt="Bookcontent" mode="scaleToFill" class="image">
+        <img :src="imagesrc" mode="scaleToFill" class="image">
       </div>
-      <div class="btngroup">
+      <div class="function">
         <button class="previous" @click="previouspage"></button>
         <button class="listen" @click="playaudio"></button>
         <button class="add" :isrecord="isrecord" @click="record"></button>
         <button class="play" :isplay="isplay" @click="playrecord"></button>
         <button class="next" @click="nextpage"></button>
       </div>
-      <div class="english-text">{{english_text}}</div>
-      <i-icon v-bind:type="chinese_button_state" @click="change_chinese_state" class="button" />
-      <div v-bind:class="chinese_state">{{chinese_text}}</div>
+      <div class="english-text">{{ english_text }}</div>
+      <i-icon
+        v-bind:type="chinese_button_state"
+        @click="change_chinese_state"
+        class="button" />
+      <div v-bind:class="chinese_state">{{ chinese_text }}</div>
     </div>
   </div>
 </template>
@@ -218,7 +221,7 @@ page {
   background-size: 100% 100%;
   background-image: url('https://daisy-donald.cn/image/sky.jpg');
 }
-.e_book {
+.e-book {
   margin: 10px 10px;
 }
 title {
@@ -234,12 +237,12 @@ title {
   width: 100%;
   height: 200px;
 }
-.btngroup {
+.function {
   margin: 10px auto;
   text-align: center;
   background-color: #ffb001;
 }
-.btngroup button {
+.function button {
   display: inline-block;
   width: 50px;
   height: 50px;
@@ -248,19 +251,19 @@ title {
   vertical-align: middle;
 }
 .previous {
-  background-image: url('http://139.199.106.168/image/left.png');
+  background-image: url('http://daisy-donald.cn/image/left.png');
 }
 .listen {
-  background-image: url('http://139.199.106.168/image/listen.png');
+  background-image: url('http://daisy-donald.cn/image/listen.png');
 }
 .add {
-  background-image: url('http://139.199.106.168/image/add.png');
+  background-image: url('http://daisy-donald.cn/image/add.png');
 }
 .play {
-  background-image: url('http://139.199.106.168/image/play.png');
+  background-image: url('http://daisy-donald.cn/image/play.png');
 }
 .next {
-  background-image: url('http://139.199.106.168/image/right.png');
+  background-image: url('http://daisy-donald.cn/image/right.png');
 }
 .hidden {
   visibility: hidden;

@@ -58,7 +58,11 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
+page {
+  background-size: 100% 100%;
+  background-image: url('https://daisy-donald.cn/image/sky.jpg');
+}
 .my-message {
   margin: 10px 10px;
 }

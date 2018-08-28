@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="title">
-      <img src="/static/img/rainbow.png">
+      <img src="https://daisy-donald.cn/image/rainbow.png">
       <p>课后练习</p>
     </div>
     <div class="game" @click="turnTo">

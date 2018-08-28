@@ -1,19 +1,19 @@
 <template>
   <div class="left" @click="clickhandel">
     <div class="detail" @click="todetail">
-      <img src="/static/img/detail.png" @click="$emit('persual')">
+      <img src="https://daisy-donald.cn/image/detail.png" @click="$emit('persual')">
       <p class="text">精读</p>
     </div>
     <div class="extensive" @click="$emit('not_persual')">
-      <img src="/static/img/extend.png">
+      <img src="https://daisy-donald.cn/image/extend.png">
       <p class="text">泛读</p>
     </div>
     <div class="previous" @click="$emit('toprevious')">
-      <img src="/static/img/left.png">
+      <img src="https://daisy-donald.cn/image/left.png">
       <p class="text">上一页</p>
     </div>
     <div class="next" @click="$emit('tonext')">
-      <img src="/static/img/right.png">
+      <img src="https://daisy-donald.cn/image/right.png">
       <p class="text">下一页</p>
     </div>
   </div>
@@ -27,8 +27,7 @@ export default {}
 .text {
   color: black;
 }
-.detail,
-.extensive {
+.detail, .extensive {
   width: 50px;
   height: 60px;
   font-weight: bolder;
@@ -38,8 +37,7 @@ export default {}
   font-size: 18px;
   text-align: center;
 }
-.previous,
-.next {
+.previous, .next {
   width: 50px;
   height: 60px;
   font-weight: bolder;

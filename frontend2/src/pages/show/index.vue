@@ -1,22 +1,22 @@
 <template>
   <div>
     <div class="title">
-      <img src="/static/img/rainbow.png">
-      <p>Book1</p>
+      <img src="https://daisy-donald.cn/image/rainbow.png">
+      <p>功能选择</p>
     </div>
     <div class="items">
-      <button id="btn1" @click="toGuide">亲子阅读指导</button>
-      <button id="btn2" @click="toEbook">E-Book</button>
-      <button id="btn4" @click="toPractice">课后练习</button>
-      <button id="btn5" @click="toExpanding">阅读拓展</button>
+      <button id="guide" @click="to_guide">亲子阅读指导</button>
+      <button id="ebook" @click="to_ebook">E-Book</button>
+      <button id="practice" @click="to_practice">课后练习</button>
+      <button id="expanding" @click="to_expanding">阅读拓展</button>
     </div>
     <div class="function">
       <div @click="toCommunity">
-        <img class="icon" src="/static/img/tabbar_icon/yellow-com.png"/>
+        <img class="icon" src="https://daisy-donald.cn/image/yellow-com.png"/>
         <span>社群</span>
       </div>
       <div @click="toMe">
-        <img class="icon" src="/static/img/tabbar_icon/yellow-me.png"/>
+        <img class="icon" src="https://daisy-donald.cn/image/yellow-me.png"/>
         <span>我的</span>
       </div>
     </div>
@@ -72,7 +72,7 @@ export default {
           save.bookprocess = response.data.bookprocess
         })
     },
-    toGuide: function() {
+    to_guide: function() {
       let save = this
       wx.navigateTo({
         url:
@@ -84,7 +84,7 @@ export default {
           save.bookname
       })
     },
-    toEbook: function() {
+    to_ebook: function() {
       let save = this
       wx.navigateTo({
         url:
@@ -98,7 +98,7 @@ export default {
           save.bookprocess
       })
     },
-    toPractice: function() {
+    to_practice: function() {
       let save = this
       if (this.persual === 'not_persual') {
         wx.showToast({
@@ -131,7 +131,7 @@ export default {
         url: '../me/main?username=' + save.username
       })
     },
-    toExpanding: function() {
+    to_expanding: function() {
       let save = this
       wx.navigateTo({
         url:
@@ -150,11 +150,9 @@ page {
   background-size: 100% 100%;
   background-image: url('https://daisy-donald.cn/image/sky.jpg');
 }
-
 .items {
   margin: 60px auto;
 }
-
 .function {
   height: 50px;
   width: 100%;
@@ -164,14 +162,12 @@ page {
   bottom: 0;
   background-color: #53cce9;
 }
-
 .function div {
   display: flex;
   flex-wrap: wrap;
   height: 50px;
   width: 50px;
 }
-
 .function span {
   height: 20px;
   width: 50px;
@@ -179,13 +175,11 @@ page {
   font-size: 12px;
   text-align: center;
 }
-
 .function img {
   width: 30px;
   height: 30px;
   margin: 0 auto;
 }
-
 .items button {
   color: #fff;
   width: 75%;
@@ -195,7 +189,6 @@ page {
   font-weight: bold;
   margin: 30px auto;
 }
-
 .title {
   height: 70px;
   line-height: 70px;
@@ -204,42 +197,31 @@ page {
   display: flex;
   justify-content: center;
 }
-
 p {
   color: yellow;
   font-size: 30px;
   font-weight: bold;
   text-shadow: 2px 2px 3px #000;
 }
-
 .title img {
   width: 70px;
   height: 70px;
 }
-
 .icon img {
   margin-top: 50px;
   width: 70px;
   height: 70px;
 }
-
-#btn1 {
+#guide {
   background-color: #019dd6;
 }
-
-#btn2 {
+#ebook {
   background-color: #f67c30;
 }
-
-#btn3 {
-  background-color: #00c544;
-}
-
-#btn4 {
+#practice {
   background-color: #f53076;
 }
-
-#btn5 {
+#expanding {
   background-color: #00fe90;
 }
 </style>

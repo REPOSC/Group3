@@ -10,7 +10,12 @@
       <i-icon type="systemprompt_fill" @click="play_sound" size="40" />
     </div>
     <div class="picGroup">
-      <img :key="pic.index" v-for="pic in pics" :isanswer="pic.isanswer" :src="pic.src" mode="aspectFit" @click="choice(pic)" />
+      <img :key="pic.index"
+        v-for="pic in pics"
+        :isanswer="pic.isanswer"
+        :src="pic.src"
+        mode="aspectFit"
+        @click="choice(pic)" />
     </div>
     <div v-bind:class="word_class">
       {{word}}

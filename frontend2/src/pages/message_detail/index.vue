@@ -49,7 +49,7 @@ export default {
 <style>
 page {
   background-size: 100% 100%;
-  background-image: url('https://daisy-donald.cn/image/back.jpg');
+  background-image: url('https://daisy-donald.cn/image/sky.jpg');
 }
 .record {
   width: 90%;

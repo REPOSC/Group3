@@ -1,13 +1,13 @@
 <template>
   <div class="me">
-    <div class="my_info">
+    <div class="my-info">
       <img v-bind:src="image_file_addr">
       <p class="username">{{ nickname }}</p>
     </div>
-    <button id="modify_info" @click="change_info">修改资料</button>
-    <button id="notice" @click="system_message">系统消息</button>
+    <button id="modify-info" @click="change_info">修改资料</button>
+    <button id="system-message" @click="system_message">系统消息</button>
     <button id="introduction" @click="turnTo">功能介绍</button>
-    <button id="about_vron" @click="about">关于弗恩英语</button>
+    <button id="about-vron" @click="about">关于弗恩英语</button>
     <button id="logout" @click="logout">退出登录</button>
   </div>
 </template>
@@ -97,15 +97,16 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 page {
-  background-image: url();
+  background-size: 100% 100%;
+  background-image: url('https://daisy-donald.cn/image/sky.jpg');
 }
 .me {
   padding-top: 30px;
   margin: 20px 50px;
 }
-.my_info {
+.my-info {
   display: flex;
   text-align: center;
 }
@@ -120,28 +121,33 @@ p {
   margin: 25px 40px;
   font-weight: bold;
 }
-#modify_info {
+#modify-info {
   color: #fff;
+  font-weight: bold;
   background-color: #019dd6;
   margin-top: 40px;
 }
-#notice {
+#system-message {
   color: #fff;
+  font-weight: bold;
   background-color: #00c544;
   margin-top: 20px;
 }
 #introduction {
   color: #fff;
+  font-weight: bold;
   background-color: #f67c30;
   margin-top: 20px;
 }
-#about_vron {
+#about-vron {
   color: #fff;
+  font-weight: bold;
   background-color: #00fe90;
   margin-top: 20px;
 }
 #logout {
   color: #fff;
+  font-weight: bold;
   background-color: #f53076;
   margin-top: 40px;
 }

@@ -1,9 +1,9 @@
 <template>
-  <div class="rank_card">
-    <div class="rank_number">
+  <div class="rank-card">
+    <div class="rank-number">
       <p>{{ rank_number }}</p>
     </div>
-    <div class="head_pic">
+    <div class="head-pic">
       <img :src="head_pic">
     </div>
     <div class="nickname">
@@ -25,7 +25,7 @@ export default {
 }
 </script>
 <style scoped>
-.rank_card {
+.rank-card {
   display: flex;
   line-height: 100px;
   justify-content: space-between;
@@ -35,7 +35,7 @@ export default {
   border: 4px solid #53cce9;
   background-color: antiquewhite;
 }
-.head_pic img {
+.head-pic img {
   width: 90px;
   height: 90px;
   vertical-align: middle;
@@ -47,11 +47,11 @@ export default {
 .heart p {
   line-height: 50px;
 }
-.rank_number {
+.rank-number {
   width: 10%;
   text-align: center
 }
-.head_pic {
+.head-pic {
   width: 30%;
 }
 .nickname {

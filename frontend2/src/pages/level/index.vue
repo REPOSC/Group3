@@ -1,10 +1,10 @@
 <template>
   <div class="choose">
     <div class="levelbtn">
-      <button v-for="level in levels"
+      <div v-for="level in levels"
         :key=level.id
         :class="level.check"
-        @click="submit(level.id)">K{{ level.id + 1 }}</button>
+        @click="submit(level.id)">K{{ level.id + 1 }}</div>
     </div>
   </div>
 </template>
@@ -65,7 +65,8 @@ export default {
     submit: function(level) {
       if (this.levels[level].check === 'false') {
         wx.showModal({
-          content: '您还没有拥有此等级的书籍，请选择其他等级。'
+          content: '您未解锁该等级，请选择其他等级。',
+          showCancel: false
         })
       } else {
         let fly = Tools.get_fly()
@@ -81,7 +82,8 @@ export default {
           .then(function(response) {
             save.last_level = level
             wx.navigateTo({
-              url: '../bookshelf/main?username=' + save.username + '&level=' + level
+              url: '../bookshelf/main?username=' +
+              save.username + '&level=' + level
             })
           })
       }
@@ -93,7 +95,7 @@ export default {
 <style>
 page {
   background-size: 100% 100%;
-  background-image: url('https://daisy-donald.cn/image/back.jpg');
+  background-image: url('https://daisy-donald.cn/image/sky.jpg');
 }
 .levelbtn {
   width: 100%;
@@ -102,10 +104,11 @@ page {
   justify-content: space-between;
   margin: 60px auto;
 }
-button {
+.levelbtn div {
   width: 80px;
   height: 80px;
   line-height: 80px;
+  text-align: center;
   color: #fff;
   font-size: 25px;
   font-weight: bold;

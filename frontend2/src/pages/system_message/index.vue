@@ -1,7 +1,11 @@
 <template>
   <div class="all-message">
     <div class="messsage-card" v-for="n in messages.length">
-      <sys_message v-bind="messages[n-1]" @more="more(messages[n-1])" @delete_message="delete_message(n-1)" @mark_message="mark(messages[n-1])">
+      <sys_message
+        v-bind="messages[n-1]"
+        @more="more(messages[n-1])"
+        @delete_message="delete_message(n-1)"
+        @mark_message="mark(messages[n-1])">
       </sys_message>
     </div>
   </div>

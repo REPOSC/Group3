@@ -7,7 +7,7 @@
     <div class="body">
       <p :class="content_status">{{ content }}</p>
     </div>
-    <div class="function" v-if="content_status === 'true'">
+    <div class="function" v_if="content_status === 'true'">
       <button class="mark" @click="$emit('mark_message')">{{ isread_info }}</button>
       <button class="close" @click="$emit('delete_message')">删除</button>
     </div>
