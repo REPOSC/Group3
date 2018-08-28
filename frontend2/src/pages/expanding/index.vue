@@ -39,6 +39,7 @@ export default {
   onLoad: function(option) {
     this.username = option.username
     this.booknumber = option.book
+    this.level = option.level
   },
   onShow: function() {
     this.init()
@@ -242,12 +243,14 @@ export default {
 <style>
 page {
   background-size: 100% 100%;
-  background-image: url('https://daisy-donald.cn/image/back.jpg');
+  background-image: url('https://daisy-donald.cn/image/sky.jpg');
 }
+
 img {
   width: 70px;
   height: 70px;
 }
+
 .title {
   height: 70px;
   line-height: 70px;
@@ -255,6 +258,7 @@ img {
   display: flex;
   justify-content: center;
 }
+
 .describe {
   width: 80%;
   height: 100px;
@@ -263,6 +267,7 @@ img {
   border-radius: 10px;
   margin: 10px auto;
 }
+
 .content {
   width: 80%;
   height: 150px;
@@ -271,12 +276,14 @@ img {
   border-radius: 10px;
   margin: 10px auto;
 }
+
 p {
   color: yellow;
   font-size: 25px;
   font-weight: bold;
   text-shadow: 2px 2px 3px #000;
 }
+
 .item {
   font-size: 20px;
   margin-left: 10%;
@@ -286,6 +293,7 @@ p {
   display: flex;
   margin: 20px auto;
 }
+
 button {
   margin-top: 15%;
   width: 30%;

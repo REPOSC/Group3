@@ -15,7 +15,7 @@
         <img class="icon" src="https://daisy-donald.cn/image/yellow-com.png" />
         <span>社群</span>
       </div>
-      <div @click="toMe">
+      <div @click="tomine">
         <img class="icon" src="https://daisy-donald.cn/image/yellow-me.png" />
         <span>我的</span>
       </div>
@@ -41,6 +41,7 @@ export default {
   onLoad: function(option) {
     this.username = option.username
     this.booknumber = parseInt(option.booknum)
+    this.level = option.level
   },
   onShow: function() {
     this.init()
@@ -121,13 +122,16 @@ export default {
       let save = this
       wx.navigateTo({
         url:
-          '../community/main?username=' + save.username + '&level=' + save.level
+          '../community/main?username=' +
+          save.username +
+          '&level=' +
+          save.level
       })
     },
-    toMe: function() {
+    tomine: function() {
       let save = this
       wx.navigateTo({
-        url: '../me/main?username=' + save.username
+        url: '../mine/main?username=' + save.username
       })
     },
     to_expanding: function() {
@@ -149,9 +153,11 @@ page {
   background-size: 100% 100%;
   background-image: url('https://daisy-donald.cn/image/sky.jpg');
 }
+
 .items {
   margin: 60px auto;
 }
+
 .function {
   height: 50px;
   width: 100%;
@@ -161,12 +167,14 @@ page {
   bottom: 0;
   background-color: #53cce9;
 }
+
 .function div {
   display: flex;
   flex-wrap: wrap;
   height: 50px;
   width: 50px;
 }
+
 .function span {
   height: 20px;
   width: 50px;
@@ -174,11 +182,13 @@ page {
   font-size: 12px;
   text-align: center;
 }
+
 .function img {
   width: 30px;
   height: 30px;
   margin: 0 auto;
 }
+
 .items button {
   color: #fff;
   width: 75%;
@@ -188,6 +198,7 @@ page {
   font-weight: bold;
   margin: 30px auto;
 }
+
 .title {
   height: 70px;
   line-height: 70px;
@@ -196,30 +207,37 @@ page {
   display: flex;
   justify-content: center;
 }
+
 p {
   color: yellow;
   font-size: 30px;
   font-weight: bold;
   text-shadow: 2px 2px 3px #000;
 }
+
 .title img {
   width: 70px;
   height: 70px;
 }
+
 .icon img {
   margin-top: 50px;
   width: 70px;
   height: 70px;
 }
+
 #guide {
   background-color: #019dd6;
 }
+
 #ebook {
   background-color: #f67c30;
 }
+
 #practice {
   background-color: #f53076;
 }
+
 #expanding {
   background-color: #00fe90;
 }
