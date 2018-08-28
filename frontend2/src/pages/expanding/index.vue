@@ -9,7 +9,7 @@
       <div class="describe">{{ requirement }}</div>
     </div>
     <div>
-      <p class="item">打卡内容</p>
+      <p class="item">打卡感想</p>
       <textarea class="content" v-model="content"></textarea>
     </div>
     <div class="function">
@@ -27,7 +27,7 @@ export default {
   data() {
     return {
       username: '',
-      level: '',
+      level: 0,
       booknumber: '',
       allfilepaths: [],
       is_punched: false,
@@ -58,6 +58,7 @@ export default {
         .then(function(response) {
           save.is_punched = response.data.is_punched
           save.requirement = response.data.requirement
+          save.content = response.data.content
         })
     },
     uploadhomework: function() {
@@ -109,15 +110,44 @@ export default {
     },
     share: function() {
       let save = this
+      let allfilenumber = save.allfilepaths.length
       if (save.is_punched) {
         save.failtoast('您已完成打卡，不要重复打卡哦~')
-      } else if (save.allfilepaths.length === 0) {
+      } else if (save.has_upload === 0) {
         save.failtoast('您还未上传文件，请先上传文件再打卡哦~')
       } else {
+        let status = save.shareupload(save, allfilenumber, 0)
+        if (status) {
+          save.is_punched = true
+          save.has_upload = 0
+          save.gotocommunity(save)
+        } else {
+          save.failtoast('打卡失败，请检查网络链接~')
+          let fly = Tools.get_fly()
+          fly
+            .post(
+              Tools.get_url() + 'punch_reset',
+              qs.stringify({
+                username: save.username,
+                booknumber: save.booknumber
+              })
+            )
+            .then(function(response) {
+              save.is_punched = false
+              save.has_upload = 0
+              save.allfilepaths = []
+              save.content = ''
+            })
+        }
+      }
+    },
+    shareupload(save, total, index) {
+      if (index < total) {
+        let status = true
         wx.uploadFile({
           url: Tools.get_url() + 'upload_homework',
-          filePath: save.allfilepaths[0],
-          name: 'files',
+          filePath: save.allfilepaths[index],
+          name: 'file',
           formData: {
             username: save.username,
             booknumber: save.booknumber,
@@ -126,23 +156,23 @@ export default {
           success: function(response) {
             let answer = response.data
             let jsonanswer = JSON.parse(answer)
-            if (jsonanswer.status === 'true') {
-              save.is_punched = true
-              save.allfilepaths = []
-              save.gotocommunity(save)
+            if (jsonanswer.status !== 'true') {
+              status = false
+              return status
             } else {
-              save.failtoast('打卡失败，请检查网络！')
+              return save.shareupload(save, total, index + 1)
             }
           }
         })
       }
+      return true
     },
     gotocommunity: function(save) {
       wx.showModal({
         title: '打卡成功! 是否进入社群页面？',
         success: function(userresponse) {
           if (userresponse.confirm) {
-            wx.switchTab({
+            wx.navigateTo({
               url:
                 '../community/main?username=' +
                 save.username +
@@ -188,6 +218,8 @@ export default {
                   if (response.data.status) {
                     save.is_punched = false
                     save.has_upload = 0
+                    save.allfilepaths = []
+                    save.content = ''
                     save.successtoast('重置成功！')
                   } else {
                     save.failtoast('重置失败！')
@@ -200,7 +232,7 @@ export default {
     }
   },
   onUnload: function() {
-    if (this.allfilepaths.length !== 0) {
+    if (this.has_upload !== 0) {
       this.failtoast('您还未打卡，请注意完成打卡哦~')
     }
   }

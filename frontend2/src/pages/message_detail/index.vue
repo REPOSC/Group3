@@ -28,7 +28,7 @@ export default {
       record: {
         avatar: '/static/img/game2/cat1.jpg',
         username: '小吉',
-        content: '今天我学了10个单词啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦',
+        content: '今天我学了10个单词啦啦啦啦啦啦啦啦啦啦啦啦啦啦',
         comments: [
           {
             username: 'cfl',
@@ -36,7 +36,7 @@ export default {
           },
           {
             username: 'why',
-            content: '今天我学了10个单词啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦'
+            content: '今天我学了10个单词啦啦啦啦啦啦啦啦啦啦啦'
           }
         ],
         likes: 0

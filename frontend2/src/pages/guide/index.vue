@@ -4,12 +4,16 @@
     <div class="firstpart">
       <img src="https://daisy-donald.cn/image/yellow-tap.png">
       <h1>本书导读</h1>
-      <p :key="index" v-for="(one,index) in ones">{{ index-0+1 }}、{{ one }}</p>
+      <p :key="index" v-for="(one,index) in ones">
+        {{ index-0+1 }}、{{ one }}
+      </p>
     </div>
     <div class="secpart">
       <img src="https://daisy-donald.cn/image/green-tap.png">
       <h1>本课重点知识</h1>
-      <p :key="index" v-for="(two,index) in twos">{{ index-0+1 }}、{{ two }}</p>
+      <p :key="index" v-for="(two,index) in twos">
+        {{ index-0+1 }}、{{ two }}
+      </p>
     </div>
     <div class="thirdpart">
       <div class="subtitle">

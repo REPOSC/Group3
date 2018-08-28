@@ -37,7 +37,7 @@
           </div>
         </i-col>
         <i-col span="5">
-          <div class="to-me" @click="to_me">
+          <div class="to-mine" @click="to_mine">
             <img src="https://daisy-donald.cn/image/man.png">
             <p class="text">我的</p>
           </div>
@@ -196,9 +196,9 @@ export default {
       }
       this.split_books()
     },
-    to_me: function() {
+    to_mine: function() {
       wx.navigateTo({
-        url: '../me/main?username=' + this.username
+        url: '../mine/main?username=' + this.username
       })
     }
   }
@@ -244,7 +244,7 @@ page {
 .body {
   margin: 20px 0px;
 }
-.to-me {
+.to-mine {
   width: 70px;
   height: 90px;
   font-weight: bolder;
@@ -252,7 +252,7 @@ page {
   text-align: center;
   margin: 20px 15px;
 }
-.to-me img {
+.to-mine img {
   width: 60px;
   height: 60px;
 }
