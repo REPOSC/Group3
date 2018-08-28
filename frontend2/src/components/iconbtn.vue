@@ -1,7 +1,8 @@
 <template>
   <div class="left" @click="clickhandel">
     <div class="detail" @click="todetail">
-      <img src="https://daisy-donald.cn/image/detail.png" @click="$emit('persual')">
+      <img src="https://daisy-donald.cn/image/detail.png"
+        @click="$emit('persual')">
       <p class="text">精读</p>
     </div>
     <div class="extensive" @click="$emit('not_persual')">
@@ -27,7 +28,8 @@ export default {}
 .text {
   color: black;
 }
-.detail, .extensive {
+.detail,
+.extensive {
   width: 50px;
   height: 60px;
   font-weight: bolder;
@@ -37,7 +39,8 @@ export default {}
   font-size: 18px;
   text-align: center;
 }
-.previous, .next {
+.previous,
+.next {
   width: 50px;
   height: 60px;
   font-weight: bolder;

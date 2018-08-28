@@ -35,7 +35,7 @@ export default {
           username: '小吉',
           likes: false,
           comment: true,
-          comment_content: '我是小蒜啦安啦啦啦啦啦啦啦啦啦啦阿拉拉了啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊辣啊啊啊啊啊啊啊啊阿啊啊啊'
+          comment_content: '我是小蒜啦安啦啦啊啊啊啊啊啊阿啊啊啊'
         },
         {
           id: 1,
