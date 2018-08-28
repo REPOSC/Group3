@@ -12,11 +12,11 @@
     </div>
     <div class="function">
       <div @click="toCommunity">
-        <img class="icon" src="https://daisy-donald.cn/image/yellow-com.png"/>
+        <img class="icon" src="https://daisy-donald.cn/image/yellow-com.png" />
         <span>社群</span>
       </div>
       <div @click="toMe">
-        <img class="icon" src="https://daisy-donald.cn/image/yellow-me.png"/>
+        <img class="icon" src="https://daisy-donald.cn/image/yellow-me.png" />
         <span>我的</span>
       </div>
     </div>
@@ -34,13 +34,13 @@ export default {
       booknumber: null,
       bookname: null,
       bookprocess: null,
-      persual: null
+      persual: null,
+      level: null
     }
   },
   onLoad: function(option) {
     this.username = option.username
     this.booknumber = parseInt(option.booknum)
-    this.bookname = option.bookname
   },
   onShow: function() {
     this.init()
@@ -51,7 +51,7 @@ export default {
       let save = this
       fly
         .post(
-          Tools.get_url() + 'get_book_persual',
+          Tools.get_url() + 'get_book_info',
           qs.stringify({
             booknumber: save.booknumber
           })
@@ -59,6 +59,8 @@ export default {
         .then(function(response) {
           save.persual =
             response.data.bookpersual === 'true' ? 'persual' : 'not_persual'
+          save.bookname = response.data.bookname
+          save.level = response.data.booklevel
         })
       fly
         .post(
@@ -119,10 +121,7 @@ export default {
       let save = this
       wx.navigateTo({
         url:
-          '../community/main?username=' +
-          save.username +
-          '&book=' +
-          save.booknumber
+          '../community/main?username=' + save.username + '&level=' + save.level
       })
     },
     toMe: function() {

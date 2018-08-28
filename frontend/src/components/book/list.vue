@@ -214,7 +214,7 @@ export default {
       this.fourth_selections.answer = value
     },
     set_book_info: function(my_values) {
-      if (!Tools.check_error(this.bookname, '本书书名')) {
+      if (!Tools.check_error(this.bookname, '本书书名', this)) {
         return false
       }
       my_values.append('bookname', this.bookname)
@@ -229,7 +229,11 @@ export default {
     set_book_guides: function(my_values) {
       for (let i = 0; i < this.guides.length; ++i) {
         if (
-          !Tools.check_error(this.guides[i], '第 ' + (i + 1) + ' 个本书导读')
+          !Tools.check_error(
+            this.guides[i],
+            '第 ' + (i + 1) + ' 个本书导读',
+            this
+          )
         ) {
           return false
         }
@@ -242,7 +246,8 @@ export default {
         if (
           !Tools.check_error(
             this.knowledges[i],
-            '第 ' + (i + 1) + ' 个重点知识'
+            '第 ' + (i + 1) + ' 个重点知识',
+            this
           )
         ) {
           return false
@@ -256,7 +261,8 @@ export default {
         if (
           !Tools.check_error(
             this.words[i].text,
-            '第 ' + (i + 1) + ' 个单词的文本内容'
+            '第 ' + (i + 1) + ' 个单词的文本内容',
+            this
           )
         ) {
           return false
@@ -265,7 +271,8 @@ export default {
         if (
           !Tools.check_error(
             this.words[i].audio,
-            '第 ' + (i + 1) + ' 个单词的音频内容'
+            '第 ' + (i + 1) + ' 个单词的音频内容',
+            this
           )
         ) {
           return false
@@ -279,7 +286,8 @@ export default {
         if (
           !Tools.check_error(
             this.pages[i].english_text,
-            '第 ' + (i + 1) + '页的英文内容'
+            '第 ' + (i + 1) + '页的英文内容',
+            this
           )
         ) {
           return false
@@ -297,7 +305,8 @@ export default {
         if (
           !Tools.check_error(
             this.pages[i].audio,
-            '第 ' + (i + 1) + '页的音频内容'
+            '第 ' + (i + 1) + '页的音频内容',
+            this
           )
         ) {
           return false
@@ -306,7 +315,8 @@ export default {
         if (
           !Tools.check_error(
             this.pages[i].picture,
-            '第 ' + (i + 1) + '页的书籍图片'
+            '第 ' + (i + 1) + '页的书籍图片',
+            this
           )
         ) {
           return false
@@ -320,7 +330,8 @@ export default {
         if (
           !Tools.check_error(
             this.first_selections[i].text,
-            '连线游戏的第 ' + (i + 1) + ' 个单词文本部分'
+            '连线游戏的第 ' + (i + 1) + ' 个单词文本部分',
+            this
           )
         ) {
           return false
@@ -329,7 +340,8 @@ export default {
         if (
           !Tools.check_error(
             this.first_selections[i].picture,
-            '连线游戏的第 ' + (i + 1) + ' 个单词图片部分'
+            '连线游戏的第 ' + (i + 1) + ' 个单词图片部分',
+            this
           )
         ) {
           return false
@@ -342,7 +354,8 @@ export default {
       if (
         !Tools.check_error(
           this.second_selections.text,
-          '看词识图的单词文本部分'
+          '看词识图的单词文本部分',
+          this
         )
       ) {
         return false
@@ -353,7 +366,8 @@ export default {
         if (
           !Tools.check_error(
             this.second_selections.picture[i],
-            '看词识图的第 ' + (i + 1) + ' 个选项的图片'
+            '看词识图的第 ' + (i + 1) + ' 个选项的图片',
+            this
           )
         ) {
           return false
@@ -377,7 +391,11 @@ export default {
       my_values.append('third_game_text', this.third_selections.text)
       my_values.append('third_game_splits', this.third_selections.splits)
       if (
-        !Tools.check_error(this.third_selections.picture, '拼图游戏的图片部分')
+        !Tools.check_error(
+          this.third_selections.picture,
+          '拼图游戏的图片部分',
+          this
+        )
       ) {
         return false
       }
@@ -399,7 +417,8 @@ export default {
         if (
           !Tools.check_error(
             this.fourth_selections.picture[i],
-            '听音选图的第 ' + (i + 1) + ' 个选项的图片'
+            '听音选图的第 ' + (i + 1) + ' 个选项的图片',
+            this
           )
         ) {
           return false
@@ -410,7 +429,11 @@ export default {
         )
       }
       if (
-        !Tools.check_error(this.fourth_selections.audio, '听音选图的音频内容')
+        !Tools.check_error(
+          this.fourth_selections.audio,
+          '听音选图的音频内容',
+          this
+        )
       ) {
         return false
       }

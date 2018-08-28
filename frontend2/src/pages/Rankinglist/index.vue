@@ -15,74 +15,73 @@
 <script>
 import rank_card from '@/components/rank_card'
 import my_rank_card from '@/components/my_rank_card'
+import * as Tools from '../../components/Tools.js'
+import qs from 'qs'
 export default {
   data() {
     return {
-      length: 8,
+      username: null,
+      level: null,
       my_rankinfo: {
-        rank_number: 3,
-        head_pic: 'https://daisy-donald.cn/image/cat1.jpg',
-        nickname: 'cfl',
-        mark: 98
+        rank_number: 0,
+        head_pic: '正在获取...',
+        nickname: '正在获取...',
+        mark: '正在获取...'
       },
-      rankinfo: [
-        {
-          rank_number: 1,
-          head_pic: 'https://daisy-donald.cn/image/cat1.jpg',
-          nickname: 'yym',
-          mark: 98
-        },
-        {
-          rank_number: 2,
-          head_pic: 'https://daisy-donald.cn/image/cat1.jpg',
-          nickname: 'zth',
-          mark: 98
-        },
-        {
-          rank_number: 3,
-          head_pic: 'https://daisy-donald.cn/image/cat1.jpg',
-          nickname: 'cfl',
-          mark: 98
-        },
-        {
-          rank_number: 4,
-          head_pic: 'https://daisy-donald.cn/image/cat1.jpg',
-          nickname: 'zyz',
-          mark: 98
-        },
-        {
-          rank_number: 5,
-          head_pic: 'https://daisy-donald.cn/image/cat1.jpg',
-          nickname: 'yym',
-          mark: 98
-        },
-        {
-          rank_number: 6,
-          head_pic: 'https://daisy-donald.cn/image/cat1.jpg',
-          nickname: 'zth',
-          mark: 98
-        },
-        {
-          rank_number: 7,
-          head_pic: 'https://daisy-donald.cn/image/cat1.jpg',
-          nickname: 'cfl',
-          mark: 98
-        },
-        {
-          rank_number: 8,
-          head_pic: 'https://daisy-donald.cn/image/cat1.jpg',
-          nickname: 'zyz',
-          mark: 98
-        }
-      ]
+      rankinfo: []
+    }
+  },
+  onLoad(status) {
+    this.username = status.username
+    this.level = status.level
+  },
+  onShow() {
+    this.init()
+  },
+  methods: {
+    init() {
+      let fly = Tools.get_fly()
+      let save = this
+      fly
+        .post(
+          Tools.get_url() + 'get_all_ranks',
+          qs.stringify({
+            level: save.level
+          })
+        )
+        .then(function(response) {
+          for (let i = 0; i < response.data.people.length; ++i) {
+            wx.downloadFile({
+              url:
+                Tools.get_url() +
+                'get_user_image?username=' +
+                response.data.people[i].username,
+              success: function(picture_response) {
+                if (picture_response.statusCode === 200) {
+                  let tmp_user_image = picture_response.tempFilePath
+                  save.rankinfo.push({
+                    username: response.data.people[i].username,
+                    rank_number: i + 1,
+                    head_pic: tmp_user_image,
+                    nickname: response.data.people[i].nickname,
+                    mark: response.data.people[i].mark
+                  })
+                  if (response.data.people[i].username === save.username) {
+                    save.my_rankinfo.rank_number = i + 1
+                    save.my_rankinfo.head_pic = tmp_user_image
+                    save.my_rankinfo.nickname = response.data.people[i].nickname
+                    save.my_rankinfo.mark = response.data.people[i].mark
+                  }
+                }
+              }
+            })
+          }
+        })
     }
   },
   components: {
     rank_card,
     my_rank_card
-  },
-  onload() {
-    this.length = this.rankinfo.length
   }
 }
 </script>

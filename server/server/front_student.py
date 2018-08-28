@@ -1,6 +1,7 @@
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth import authenticate, login, logout
 from backend import models
+from . import debug
 
 
 def auth_student(request):
@@ -115,6 +116,45 @@ def change_last_level(request):
     except:
         return JsonResponse({"success": False})
     return JsonResponse({"success": True})
+
+
+def get_key(obj):
+    return obj['mark']
+
+
+def get_all_ranks(request):
+    level = request.POST.get('level')
+    all_people_level = models.User_level.objects.filter(level=level)
+    all_book = models.Book_info.objects.filter(level=level)
+    result = []
+    counter = 0
+    for person_level in all_people_level:
+        person = models.User_info.objects.get(
+            number=person_level.number.number)
+        person_process_mark = 0
+        for book in all_book:
+            if models.User_process.objects.filter(
+                    user_number=person,
+                    book_number=book
+            ).count() != 0:
+                person_process_mark += models.User_process.objects.get(
+                    user_number=person,
+                    book_number=book
+                ).process*60
+            if models.User_punch.objects.filter(
+                    user_number=person,
+                    book_number=book).count() != 0:
+                person_process_mark += (40 if models.User_punch.objects.get(
+                    user_number=person,
+                    book_number=book
+                ).is_punched else 0)
+        result.append({
+            'username': person.username,
+            'nickname': person.nickname,
+            'mark': person_process_mark
+        })
+    result.sort(key=get_key)
+    return JsonResponse({'people': result})
 
 
 def log_out(request):
