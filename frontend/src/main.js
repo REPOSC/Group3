@@ -19,7 +19,19 @@ router.beforeEach((to, from, next) => {
     next()
   } else {
     if (window.sessionStorage.is_load === 'true') {
-      next()
+      if (
+        to.path === '/memberManager/addMember' ||
+        to.path === '/memberManager/changePwd' ||
+        to.path === '/memberManager/removeMember'
+      ) {
+        if (window.sessionStorage.is_superuser === 'true') {
+          next()
+        } else {
+          next(from.path)
+        }
+      } else {
+        next()
+      }
     } else {
       tools.initpage()
       next({ path: '/login' })
