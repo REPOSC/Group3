@@ -65,8 +65,10 @@ urlpatterns = [
     path('change_manager', back_manager.change_manager),
     path('del_manager', back_manager.del_manager),
     path('get_managers', back_manager.get_managers),
+    path('change_selfpassword', back_manager.change_selfpassword),
     path('put_message', back_message.put_message),
     path('get_book', back_book.get_book),
+    path('all_book', back_book.all_book),
     path('get_punch_info', front_forum.get_punch_info),
     path('upload_homework', front_forum.upload_homework),
     path('all_daka', back_forum.all_daka),
@@ -74,5 +76,4 @@ urlpatterns = [
     path('daka_like', back_forum.daka_like),
     path('del_comment', back_forum.del_comment),
     path('del_punch', back_forum.del_punch),
-    path('add_introduction_video', back_introduction.add_introduction_video)
-]
+    path('add_introduction_video', back_introduction.add_introduction_video)]

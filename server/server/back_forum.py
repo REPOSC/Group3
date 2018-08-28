@@ -12,17 +12,16 @@ def all_daka(request):
     for i in dakas:
         booknumbers.append(i.book_number)
         usernumbers.append(i.user_number)
-        punch = models.User_punch.objects.filter(
-            user_number=i.user_number, book_number=i.book_number)
+        punch = models.User_punch.objects.filter(user_number=i.user_number, book_number=i.book_number)
         comments.append(punch.punch_text)
         riqis.append(i.time)
         likenums.append(i.like_number)
     return JsonResponse({
         'booknums': booknumbers,
         'usernums': usernumbers,
-        'likenums': likenums,
-        'riqis': riqis,
-        'contents': comments
+        'likenums':likenums,
+        'riqis':riqis,
+        'comments':comments
     })
 
 
@@ -36,7 +35,7 @@ def daka_comment(request):
         comment_user_number_ids.append(i.comment_user_number)
         comments.append(i.comment)
     return JsonResponse({
-        'comments': comments,
+        'comments':comments,
         'comment_user_numbers': comment_user_number_ids
     })
 

@@ -61,10 +61,11 @@ export default {
       let saved = this
       axios
         .post(
-          Tools.get_url() + 'change_manager',
+          Tools.get_url() + 'change_selfpassword',
           qs.stringify({
-            username: saved.username,
-            password: saved.password
+            username: window.sessionStorage.username,
+            password: saved.password,
+            oldpassword: saved.old_pwd
           })
         )
         .then(function(response) {
@@ -77,8 +78,8 @@ export default {
             })
           } else {
             saved.$notify({
-              title: '警告',
-              message: '修改密码失败，管理员不存在！',
+              title: '密码错误',
+              message: '修改密码失败！',
               type: 'warning'
             })
           }

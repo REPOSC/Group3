@@ -1,3 +1,4 @@
+# coding=utf-8
 from django.http import JsonResponse
 from django.contrib.auth import authenticate, login
 from backend import models
@@ -71,3 +72,17 @@ def get_managers(request):
         'user_names': manager_names,
         'user_numbers': manager_numbers
     })
+
+
+def change_selfpassword(request):
+    manager_name = request.POST.get('username')
+    password = request.POST.get('password')
+    oldpassword = request.POST.get('oldpassword')
+    try:
+        manager = authenticate(
+            username=manager_name, password=oldpassword)
+        manager.set_password(password)
+        manager.save()
+    except:
+        return JsonResponse({"success": False})
+    return JsonResponse({"success": True})

@@ -39,8 +39,9 @@ def all_student(request):
     str2 = ''
     for i in students:
         user = models.User_process.objects.filter(user_number=i.username)
+        num = user
         usernum = user.count()
-        for n in usernum:
+        for n in num:
             if n.process == 0:
                 usernum -= 1
         success.append(usernum)
