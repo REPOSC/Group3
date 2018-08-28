@@ -10,20 +10,21 @@ def get_key(message):
 
 def get_message(request):
     user_number = int(request.POST.get('username'))
+    user = models.User_info.objects.get(number=user_number)
     messages = []
-    all_messages = models.Message.objects.all()
+    all_messages = models.Message.objects.filter(time__gte=user.date_joined)
     for i in all_messages:
         message_index = i.id
         message_status = models.Message_user.objects.filter(
             number=user_number, message=message_index)
         if message_status.count() == 0:
             messages.append({'number': i.id,
-                             'time': str(i.time.year)+'年'+str(i.time.month) + '月'+str(i.time.day)+'日',
+                             'time': i.time,
                              'content': i.message,
                              'isread': 'false'})
         elif not message_status[0].del_status:
             messages.append({'number': i.id,
-                             'time': str(i.time.year)+'年'+str(i.time.month) + '月'+str(i.time.day)+'日',
+                             'time': i.time,
                              'content': i.message,
                              'isread': 'true'})
     messages.sort(key=get_key)

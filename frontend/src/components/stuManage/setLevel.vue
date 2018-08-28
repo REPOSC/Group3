@@ -29,6 +29,7 @@ export default {
   methods: {
     submit: function() {
       let my_values = new URLSearchParams()
+      let save = this
       my_values.append('username', this.username)
       for (let i = 0; i < this.max_value; ++i) {
         if (this.options[i].value) {
@@ -39,9 +40,18 @@ export default {
         .post(Tools.get_url() + 'set_level', my_values)
         .then(function(response) {
           if (response.data.success) {
-            alert('等级设置成功！')
+            save.$notify({
+              title: '成功',
+              message: '设置等级成功！',
+              type: 'success',
+              position: 'bottom-right'
+            })
           } else {
-            alert('设置失败，用户不存在！')
+            save.$notify({
+              title: '警告',
+              message: '设置失败,用户不存在!',
+              type: 'warning'
+            })
           }
         })
     }

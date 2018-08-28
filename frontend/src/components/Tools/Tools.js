@@ -4,29 +4,45 @@ function get_url() {
   return 'http://139.199.106.168:8000/'
 }
 
-function checkcount(number) {
-  if (!checknum(number)) {
+function checkcount(number, saved) {
+  if (!checknum(number, saved)) {
     return false
   }
-  if (parseInt(number) > 10000) {
-    alert('输入的数字过大，请检查')
+  if (parseInt(number) >= 1000) {
+    saved.$notify({
+      title: '警告',
+      message: '输入的数字过大，请检查！',
+      type: 'warning'
+    })
     return false
   } else if (parseInt(number) === 0) {
-    alert('个数不能为0！')
+    saved.$notify({
+      title: '警告',
+      message: '这个数字不能为零！',
+      type: 'warning'
+    })
     return false
   }
   return true
 }
 
-function checknum(number) {
+function checknum(number, saved) {
   for (let i = 0; i < number.length; ++i) {
     if (number[i] > '9' || number[i] < '0') {
-      alert('输入的数字非法，请检查')
+      saved.$notify({
+        title: '警告',
+        message: '输入的数字非法，请检查!',
+        type: 'warning'
+      })
       return false
     }
   }
   if (number.length === 0) {
-    alert('输入的数字非法，请检查')
+    saved.$notify({
+      title: '警告',
+      message: '输入的数字非法，请检查!',
+      type: 'warning'
+    })
     return false
   }
   return true
@@ -43,9 +59,14 @@ function check_warning(object, message) {
   return true
 }
 
-function check_error(object, message) {
+function check_error(object, error_message) {
+  let saved = this
   if (object === '' || object === undefined || object === null) {
-    alert(message + '为空， 无法上传！ ')
+    saved.$notify({
+      title: '警告',
+      message: error_message + '为空， 无法上传！',
+      type: 'warning'
+    })
     return false
   }
   return true

@@ -128,7 +128,7 @@ class User_comment(models.Model):
 
 class Message(models.Model):
     message = models.TextField()
-    time = models.DateTimeField(default=timezone.now)
+    time = models.DateField(default=timezone.now)
 
 
 class Message_user(models.Model):

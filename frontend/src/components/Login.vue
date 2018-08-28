@@ -57,7 +57,11 @@ export default {
         )
         .then(function(response) {
           if (response.data.status === 'error') {
-            alert('登录失败，用户名或密码错误。')
+            saved.$notify({
+              title: '登录失败',
+              message: '用户名或密码错误！',
+              type: 'warning'
+            })
           } else {
             window.sessionStorage.is_load = 'true'
             window.sessionStorage.username = saved.account.username

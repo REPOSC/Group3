@@ -9,7 +9,7 @@
         <el-checkbox class="checkbox" v-model="option.value">{{"等级"+option.number}}</el-checkbox>
       </span>
       <div class="space">
-      <el-button type="primary" @click="submit">立即生成</el-button>
+        <el-button type="primary" @click="submit">立即生成</el-button>
       </div>
     </div>
     <div class="card space">
@@ -42,17 +42,30 @@ export default {
   methods: {
     submit: function() {
       this.tableData = []
-      if (!Tools.checkcount(this.number)) {
+      if (!Tools.checkcount(this.number, this)) {
         return
       }
       let my_values = new URLSearchParams()
+      let counter = 0
       my_values.append('number', this.number)
       for (let i = 0; i < this.MAX_VALUE; ++i) {
         if (this.options[i].value) {
           my_values.append('values', i)
+          counter++
         }
       }
+      if (counter === 0) {
+        this.$notify.error({
+          title: '错误',
+          message: '请选择学生所在的等级！'
+        })
+        return
+      }
       let saved = this
+      this.$notify.info({
+        title: '请等待',
+        message: '正在创建用户，请耐心等候……'
+      })
       axios
         .post(Tools.get_url() + 'create_student', my_values)
         .then(function(response) {
@@ -67,6 +80,7 @@ export default {
           saved.$notify({
             title: '生成用户成功！',
             message: '请注意保存表格中的数据！',
+            type: 'success',
             position: 'bottom-right'
           })
         })
