@@ -32,7 +32,8 @@ def book_word_audio(instance, filename):
     return os.path.join(settings.MEDIA_ROOT,
                         'Book_Words_Audios',
                         str(instance.book_number.number),
-                        str(instance.word_number) + '-' + random_string(5) + filename)
+                        str(instance.word_number) + '-' +
+                        random_string(5) + filename)
 
 
 def first_game_image(instance, filename):
@@ -80,10 +81,12 @@ def punch_content(instance, filename):
     return os.path.join(settings.MEDIA_ROOT,
                         'Punch_content',
                         str(instance.book_number.number),
-                        str(instance.user_number) + '-' + random_string(8) + filename)
+                        str(instance.user_number) + '-' +
+                        random_string(8) + filename)
 
 
 def profile_photo(instance, filename):
     return os.path.join(settings.MEDIA_ROOT,
                         'Profile_photo',
-                        str(instance.user_number.number) + '-' + random_string(8) + filename)
+                        str(instance.user_number.number) + '-' +
+                        random_string(8) + filename)

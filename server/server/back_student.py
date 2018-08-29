@@ -108,6 +108,8 @@ def get_student_info(request):
     student = models.User_info.objects.get(username=username)
     return JsonResponse({
         "nickname": student.nickname,
-        "time": str(student.date_joined.year)+'年'+str(student.date_joined.month)+'月'+str(student.date_joined.day)+'日',
+        "time":
+            str(student.date_joined.year)+'年'+str(student.date_joined.month) +
+            '月'+str(student.date_joined.day)+'日',
         "lasttime_level": student.lasttime_level
     })

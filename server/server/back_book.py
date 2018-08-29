@@ -112,12 +112,18 @@ def put_game3(request, book):
     every_part_y = third_game_spliting_picture.size[1]/third_game_splits
     for i in range(third_game_splits):
         for j in range(third_game_splits):
-            tmp_image = third_game_spliting_picture.crop([int(every_part_x*j), int(every_part_y*i),
-                                                          int(every_part_x*(j+1)), int(every_part_y*(i+1))])
+            tmp_image = third_game_spliting_picture.crop(
+                [int(every_part_x*j), int(every_part_y*i),
+                 int(every_part_x*(j+1)), int(every_part_y*(i+1))])
             tmp_image_bytes = BytesIO()
             tmp_image.save(tmp_image_bytes, third_game_spliting_picture.format)
-            tmp_upload_file = InMemoryUploadedFile(tmp_image_bytes, None, tools.random_string(5)+'.jpg', 'image/jpeg',
-                                                   len(tmp_image_bytes.getvalue()), None)
+            tmp_upload_file = InMemoryUploadedFile(
+                tmp_image_bytes,
+                None,
+                tools.random_string(5)+'.jpg',
+                'image/jpeg',
+                len(tmp_image_bytes.getvalue()),
+                None)
             third_game_selection = models.Third_game.objects.create(
                 number=book,
                 key=third_game_text,

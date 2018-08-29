@@ -12,30 +12,33 @@ def all_daka(request):
     for i in dakas:
         booknumbers.append(i.book_number)
         usernumbers.append(i.user_number)
-        punch = models.User_punch.objects.filter(user_number=i.user_number, book_number=i.book_number)
+        punch = models.User_punch.objects.filter(
+            user_number=i.user_number,
+            book_number=i.book_number)
         comments.append(punch.punch_text)
         riqis.append(i.time)
         likenums.append(i.like_number)
     return JsonResponse({
         'booknums': booknumbers,
         'usernums': usernumbers,
-        'likenums':likenums,
-        'riqis':riqis,
-        'comments':comments
+        'likenums': likenums,
+        'riqis': riqis,
+        'comments': comments
     })
 
 
 def daka_comment(request):
     item = request.POST.get('item', '')
-    bookdakas = models.User_comment.objects.filter(book_number_id=item.book_num,
-                                                   user_number_id=item.user_name)
+    bookdakas = models.User_comment.objects.filter(
+        book_number_id=item.book_num,
+        user_number_id=item.user_name)
     comments = []
     comment_user_number_ids = []
     for i in bookdakas:
         comment_user_number_ids.append(i.comment_user_number)
         comments.append(i.comment)
     return JsonResponse({
-        'comments':comments,
+        'comments': comments,
         'comment_user_numbers': comment_user_number_ids
     })
 
@@ -67,7 +70,8 @@ def del_comment(request):
     comment = request.POST.get('comment')
     try:
         models.User_comment.objects.get(
-            book_number=item.book_num, user_number=item.user_name, comment_user_number=comment.shuo_user_id).delete()
+            book_number=item.book_num, user_number=item.user_name,
+            comment_user_number=comment.shuo_user_id).delete()
     except:
         return JsonResponse({"success": False})
     return JsonResponse({"success": True})

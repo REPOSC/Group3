@@ -94,6 +94,8 @@ def get_manager_info(request):
     manager = models.User_info.objects.get(username=username)
     return JsonResponse({
         "nickname": manager.nickname,
-        "time": str(manager.date_joined.year)+'年'+str(manager.date_joined.month)+'月'+str(manager.date_joined.day)+'日',
+        "time":
+            str(manager.date_joined.year)+'年'+str(manager.date_joined.month) +
+            '月'+str(manager.date_joined.day)+'日',
         "power": '超级管理员' if manager.is_superuser else '普通管理员'
     })
