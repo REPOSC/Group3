@@ -1,5 +1,8 @@
 <template>
   <div class="expanding">
+    <loading :hidden="hidden">
+      加载中...
+    </loading>
     <title v-bind="video_function" @play_video="play_video"></title>
     <div>
       <p class="item">课后拓展要求</p>
@@ -28,11 +31,7 @@ export default {
       video_function: {
         play_info: '功能讲解',
         is_play_video: false,
-        src: 'http://wxsnsdy.tc.qq.com/105/20210/snsdyvideodownload?' +
-          'filekey=30280201010421301f0201690402534804102ca905ce620b1' +
-          '241b726bc41dcff44e00204012882540400&bizid=1023&hy=SH&file' +
-          'param=302c020101042530230204136ffd93020457e3c4ff02024ef20' +
-          '2031e8d7f02030f42400204045a320a0201000400',
+        src: null,
         booktitle: 'BOOK1'
       },
       username: '',
@@ -42,7 +41,8 @@ export default {
       is_punched: false,
       has_upload: 0,
       requirement: '',
-      content: ''
+      content: '',
+      hidden: true
     }
   },
   components: {
@@ -61,14 +61,6 @@ export default {
     init: function() {
       let save = this
       let fly = Tools.get_fly()
-      wx.downloadFile({
-        url: Tools.get_url() + 'get_video?item=expanding',
-        success: function(video_response) {
-          if (video_response.statusCode === 200) {
-            save.video_function.src = video_response.tempFilePath
-          }
-        }
-      })
       fly
         .post(
           Tools.get_url() + 'get_punch_info',
@@ -256,6 +248,18 @@ export default {
       if (!this.video_function.is_play_video) {
         this.video_function.is_play_video = true
         this.video_function.play_info = '关闭'
+        this.hidden = false
+        let save = this
+        wx.downloadFile({
+          url: Tools.get_url() + 'get_video?item=expanding',
+          success: function(video_response) {
+            if (video_response.statusCode === 200) {
+              save.video_function.src = video_response.tempFilePath
+              console.log(save.video_function.src)
+            }
+            save.hidden = true
+          }
+        })
       } else {
         this.video_function.is_play_video = false
         this.video_function.play_info = '功能讲解'

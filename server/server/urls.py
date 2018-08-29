@@ -16,7 +16,7 @@ Including another URLconf
 from django.urls import path, include
 from . import views, back_student, back_manager, back_message, back_book, \
     front_book, front_student, front_forum, back_forum, back_introduction,\
-    front_message
+    front_message, front_introduction
 from django.contrib import admin
 
 urlpatterns = [
@@ -56,6 +56,7 @@ urlpatterns = [
     path('read_message', front_message.read_message),
     path('unread_message', front_message.unread_message),
     path('delete_message', front_message.delete_message),
+    path('get_video', front_introduction.get_video),
     path('', views.main),
     path('all_student', back_student.all_student),
     path('get_student', back_student.get_student),

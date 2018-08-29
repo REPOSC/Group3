@@ -1,5 +1,8 @@
 <template>
   <div class="game">
+    <loading :hidden="hidden">
+      加载中...
+    </loading>
     <div class="introduce">
       <button @click="play_video()">{{ video_function.play_info }}</button>
     </div>
@@ -7,20 +10,14 @@
       <video :src="video_function.src" />
     </div>
     <div class="area">
-      <img :key="area.index"
-        v-for="area in areas"
-        :class="areas_static+picture_number"
-        :src="area.src"
-        @click="choose_area(area)" />
+      <img :key="area.index" v-for="area in areas" :class="areas_static
+      +picture_number" :src="area.src" @click="choose_area(area)" />
       <img :class="answer_static" :src="completed_picture" />
     </div>
     <div class="pic">
-      <img :key="pics.index"
-      v-for="pic in pics"
-      :class="pic.status+picture_number"
-      :src="pic.src"
-      mode="aspectFit"
-      @click="choose_pic(pic)" />
+      <img :key="pics.index" v-for="pic in pics" :class="pic.status
+      +picture_number" :src="pic.src" mode="aspectFit" @click="choose_pic(pic)"
+       />
     </div>
     <div class="texts">{{ word_text }}</div>
   </div>
@@ -44,7 +41,8 @@ export default {
       picture_number: 4,
       word_text: '',
       pics: [],
-      areas: []
+      areas: [],
+      hidden: true
     }
   },
   onLoad: function(status) {
@@ -63,14 +61,6 @@ export default {
       this.areas = []
       let fly = Tools.get_fly()
       let save = this
-      wx.downloadFile({
-        url: Tools.get_url() + 'get_video?item=third_game',
-        success: function(video_response) {
-          if (video_response.statusCode === 200) {
-            save.video_function.src = video_response.tempFilePath
-          }
-        }
-      })
       fly
         .post(
           Tools.get_url() + 'get_third_game_text',
@@ -240,6 +230,18 @@ export default {
       if (!this.video_function.is_play_video) {
         this.video_function.is_play_video = true
         this.video_function.play_info = '关闭'
+        this.hidden = false
+        let save = this
+        wx.downloadFile({
+          url: Tools.get_url() + 'get_video?item=third_game',
+          success: function(video_response) {
+            if (video_response.statusCode === 200) {
+              save.video_function.src = video_response.tempFilePath
+              console.log(save.video_function.src)
+            }
+            save.hidden = true
+          }
+        })
       } else {
         this.video_function.is_play_video = false
         this.video_function.play_info = '功能讲解'
@@ -317,7 +319,6 @@ button {
 }
 
 .all_fill4,
-
 .all_fill9 {
   display: none;
 }
@@ -356,7 +357,6 @@ button {
 }
 
 .choosed4,
-
 .choosed9 {
   display: none;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,

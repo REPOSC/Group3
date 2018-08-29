@@ -1,5 +1,8 @@
 <template>
   <div class="game">
+    <loading :hidden="hidden">
+      加载中...
+    </loading>
     <div class="introduce">
       <button @click="play_video()">{{ video_function.play_info }}</button>
     </div>
@@ -8,19 +11,15 @@
     </div>
     <div class="content">
       <div class="words">
-        <div :class="word.status"
-          v-for="word in words"
-          :key="word.index"
-          @click="click_word(word)">{{ word.text }}
+        <div :class="word.status" v-for="word in words" :key="word.index"
+         @click="click_word(word)">{{ word.text }}
         </div>
       </div>
       <canvas canvas-id="draw_line"></canvas>
       <div class="pics">
         <div class="pic" :key="pic.index" v-for="pic in pics">
-          <img :class="pic.status"
-            :src="pic.src"
-            mode="aspectFit"
-            @click="click_picture(pic)" />
+          <img :class="pic.status" :src="pic.src" mode="aspectFit"
+          @click="click_picture(pic)" />
         </div>
       </div>
     </div>
@@ -36,18 +35,15 @@ export default {
       video_function: {
         play_info: '功能讲解',
         is_play_video: false,
-        src: 'http://wxsnsdy.tc.qq.com/105/20210/snsdyvideodownload?' +
-          'filekey=30280201010421301f0201690402534804102ca905ce620b1' +
-          '241b726bc41dcff44e00204012882540400&bizid=1023&hy=SH&file' +
-          'param=302c020101042530230204136ffd93020457e3c4ff02024ef20' +
-          '2031e8d7f02030f42400204045a320a0201000400'
+        src: null
       },
       booknumber: null,
       now_word: '',
       now_pic: '',
       length: 0,
       words: [],
-      pics: []
+      pics: [],
+      hidden: true
     }
   },
   onLoad(status) {
@@ -65,14 +61,6 @@ export default {
       this.pics = []
       let fly = Tools.get_fly()
       let save = this
-      wx.downloadFile({
-        url: Tools.get_url() + 'get_video?item=first_game',
-        success: function(video_response) {
-          if (video_response.statusCode === 200) {
-            save.video_function.src = video_response.tempFilePath
-          }
-        }
-      })
       fly
         .post(
           Tools.get_url() + 'get_first_game_texts',
@@ -209,6 +197,18 @@ export default {
       if (!this.video_function.is_play_video) {
         this.video_function.is_play_video = true
         this.video_function.play_info = '关闭'
+        this.hidden = false
+        let save = this
+        wx.downloadFile({
+          url: Tools.get_url() + 'get_video?item=first_game',
+          success: function(video_response) {
+            if (video_response.statusCode === 200) {
+              save.video_function.src = video_response.tempFilePath
+              console.log(save.video_function.src)
+            }
+            save.hidden = true
+          }
+        })
       } else {
         this.video_function.is_play_video = false
         this.video_function.play_info = '功能讲解'
