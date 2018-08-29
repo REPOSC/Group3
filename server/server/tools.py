@@ -74,7 +74,8 @@ def fourth_game_audio(instance, filename):
 def function_video(instance, filename):
     return os.path.join(settings.MEDIA_ROOT,
                         'Function_videos',
-                        str(instance.function) + '-' + random_string(8) + filename)
+                        str(instance.function) + '-' +
+                        random_string(8) + filename)
 
 
 def punch_content(instance, filename):
