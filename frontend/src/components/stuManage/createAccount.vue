@@ -6,7 +6,8 @@
       <el-input v-model="number" placeholder="请输入个数"></el-input>
       <div class="input-title space">等级选择</div>
       <span v-for="option in options">
-        <el-checkbox class="checkbox" v-model="option.value">{{"等级"+option.number}}</el-checkbox>
+        <el-checkbox class="checkbox" v-model="option.value">
+          {{"等级"+option.number}}</el-checkbox>
       </span>
       <div class="space">
         <el-button type="primary" @click="submit">立即生成</el-button>
@@ -14,15 +15,20 @@
     </div>
     <div class="card space">
       <el-table :data="tableData" height="400">
-        <el-table-column prop="user_name" width="100px" align="center" label="账户"></el-table-column>
-        <el-table-column prop="user_pwd" align="center" label="密码"></el-table-column>
+        <el-table-column
+          prop="user_name"
+          width="100px"
+          align="center"
+          label="账户"
+        ></el-table-column>
+        <el-table-column prop="user_pwd" align="center" label="密码">
+        </el-table-column>
       </el-table>
     </div>
   </div>
 </template>
 
 <script>
-/* eslint-disable camelcase */
 import * as Tools from '../Tools/Tools'
 import axios from 'axios'
 export default {

@@ -1,10 +1,12 @@
-<!--suppress ALL -->
 <template>
-  <div>
-    <!--为echarts准备一个具备大小的容器dom-->
-    <div class="card demonstration">
+  <div>书本数据统计
+    <div class="login-container demonstration">
       <div>
-        <el-input v-model="TableDataName" :placeholder="search_method?'账号':'书名'" class="searchbox"></el-input>
+        <el-input
+          v-model="TableDataName"
+          placeholder="请输入账号"
+          style="width:240px"
+        ></el-input>
         <el-button type="primary" @click="doFilter">搜索</el-button>
         <el-button type="primary" @click="doBack">返回</el-button>
         <div class="space">
@@ -14,8 +16,11 @@
           </el-radio-group>
         </div>
       </div>
-      <el-table :data="tableData.slice((currpage - 1) * pagesize, currpage * pagesize)" align="center">
-        <el-table-column prop="book_number" label="书目编号" sortable>
+      <el-table
+        :data="tableData.slice((currpage - 1) * pagesize, currpage * pagesize)"
+        align="center"
+      >
+        <el-table-column prop="user_name" label="书目编号" sortable width="180">
         </el-table-column>
         <el-table-column prop="book_name" label="书名" sortable>
         </el-table-column>
@@ -29,11 +34,19 @@
         </el-table-column>
         <el-table-column fixed="right" label="操作">
           <template slot-scope="scope">
-            <el-button @click="handleClick(scope.row)" type="text" size="small">删除</el-button>
+            <el-button @click="handleClick(scope.row)" type="text" size="small">
+              删除</el-button>
           </template>
         </el-table-column>
       </el-table>
-      <el-pagination background layout="prev, pager, next, sizes, total, jumper" :page-sizes="[5, 10, 15, 20]" :page-size="pagesize" :total="tableData.length" @current-change="handleCurrentChange" @size-change="handleSizeChange">
+      <el-pagination
+        background layout="prev, pager, next, sizes, total, jumper"
+        :page-sizes="[5, 10, 15, 20]"
+        :page-size="pagesize"
+        :total="tableData.length"
+        @current-change="handleCurrentChange"
+        @size-change="handleSizeChange"
+      >
       </el-pagination>
     </div>
   </div>

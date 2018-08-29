@@ -5,15 +5,28 @@
       <div class="input-title space">管理员姓名</div>
       <el-input v-model="nickname" placeholder="请输入账户名"></el-input>
       <div class="input-title space">登录密码</div>
-      <el-input v-model="password" placeholder="请输入密码" type="password"></el-input>
+      <el-input v-model="password" placeholder="请输入密码" type="password">
+      </el-input>
       <div class="input-title space">登录密码</div>
-      <el-input v-model="confirm_pwd" placeholder="请再次输入密码" type="password"></el-input>
-      <el-button class="space" type="primary" @click="submit">确认注册</el-button>
+      <el-input
+        v-model="confirm_pwd"
+        placeholder="请再次输入密码"
+        type="password"
+      ></el-input>
+      <el-button class="space" type="primary" @click="submit">
+        确认注册
+      </el-button>
     </div>
     <div class="card">
       <el-table :data="tableData" height="100">
-        <el-table-column prop="user_name" width="100px" align="center" label="账号"></el-table-column>
-        <el-table-column prop="user_pwd" align="center" label="密码"></el-table-column>
+        <el-table-column
+          prop="user_name"
+          width="100px"
+          align="center"
+          label="账号"
+        ></el-table-column>
+        <el-table-column prop="user_pwd" align="center" label="密码">
+        </el-table-column>
       </el-table>
     </div>
   </div>

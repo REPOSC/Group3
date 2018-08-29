@@ -8,20 +8,38 @@
     <img v-bind:src="picture_addr" class="picture">
     <div class="space align">
       <div class="input-title displayed">上传第 {{index+1}} 页图片</div>
-      <input class="file-btn displayed" type="file" accept="image/*" @change="get_picture">
+      <input
+        class="file-btn displayed"
+        type="file"
+        accept="image/*"
+        @change="get_picture"
+      >
     </div>
     <div class="space align">
       <div class="input-title displayed">上传第 {{index+1}} 页音频</div>
-      <input class="file-btn displayed" type="file" accept="audio/*" @change="get_audio">
+      <input
+        class="file-btn displayed"
+        type="file"
+        accept="audio/*"
+        @change="get_audio"
+      >
     </div>
     <div class="input-title space">
       输入第 {{index+1}} 页英文
     </div>
-    <textarea class="texts" @change="get_english_text" v-model="english_text"></textarea>
+    <textarea
+      class="texts"
+      @change="get_english_text"
+      v-model="english_text"
+    ></textarea>
     <div class="input-title space">
       输入第 {{index+1}} 页中文
     </div>
-    <textarea class="texts" @change="get_chinese_text" v-model="chinese_text"></textarea>
+    <textarea
+      class="texts"
+      @change="get_chinese_text"
+      v-model="chinese_text"
+    ></textarea>
   </div>
 </template>
 <script>

@@ -4,15 +4,30 @@
     <div class="space"></div>
     <div class="input-title">旧密码</div>
     <div class="space"></div>
-    <el-input type="password" v-model="old_pwd" auto-complete="off" placeholder="请输入旧密码">{{old_pwd}}</el-input>
+    <el-input
+      type="password"
+      v-model="old_pwd"
+      auto-complete="off"
+      placeholder="请输入旧密码"
+    >{{old_pwd}}</el-input>
     <div class="space"></div>
     <div class="input-title">新密码</div>
     <div class="space"></div>
-    <el-input type="password" v-model="password" auto-complete="off" placeholder="请输入密码">{{password}}</el-input>
+    <el-input
+      type="password"
+      v-model="password"
+      auto-complete="off"
+      placeholder="请输入密码"
+    >{{password}}</el-input>
     <div class="space"></div>
     <div class="input-title">确认登陆密码</div>
     <div class="space"></div>
-    <el-input type="password" v-model="confirm_pwd" auto-complete="off" placeholder="请输入密码">{{confirm_pwd}}</el-input>
+    <el-input
+      type="password"
+      v-model="confirm_pwd"
+      auto-complete="off"
+      placeholder="请输入密码"
+    >{{confirm_pwd}}</el-input>
     <div class="space"></div>
     <el-button type="primary" @click="submit">确认修改</el-button>
     <div class="space"></div>

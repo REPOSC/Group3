@@ -17,7 +17,10 @@
     </div>
     <div class="text">
       <div class="dynamicsContents">
-        <div class="content" v-bind:class="[isOpen ? 'openHeight' : 'foldHeight']">
+        <div
+          class="content"
+          v-bind:class="[isOpen ? 'openHeight' : 'foldHeight']"
+        >
           {{items.commenting}}
         </div>
         <div @click="toggleContent" class="toggleText">
@@ -35,9 +38,6 @@
           <div>
             点赞人数{{items.like_num}}}
           </div>
-          <!--<ul>-->
-          <!--<li><img :src="icons.comment" class="img"></li>-->
-          <!--</ul>-->
           <div class="changecolor">
             评论
           </div>

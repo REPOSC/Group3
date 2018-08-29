@@ -1,13 +1,22 @@
 <template>
   <div>
     <div class="space">
-      <el-input @change="get_text" v-model="text" placeholder="请输入单词"></el-input>
+      <el-input
+        @change="get_text"
+        v-model="text"
+        placeholder="请输入单词"
+      ></el-input>
     </div>
     <div class="align">
       <div class="input-title displayed">
         上传该单词音频
       </div>
-      <input class="file-btn displayed" type="file" accept="audio/*" @change="get_audio">
+      <input
+        class="file-btn displayed"
+        type="file"
+        accept="audio/*"
+        @change="get_audio"
+      >
     </div>
   </div>
 </template>

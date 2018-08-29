@@ -1,6 +1,5 @@
 <template>
   <el-row class="container">
-    <!--头部,用element-ui提供的组件card展示-->
     <el-col :span="24" class="topbar-wrap">
       <div class="topbar-logo topbar-btn">
         <a href="/"><img src="../assets/logo.png"></a>
@@ -28,23 +27,27 @@
                 <span>修改密码</span>
               </div>
             </el-dropdown-item>
-            <el-dropdown-item divided @click.native="logout">退出登录</el-dropdown-item>
+            <el-dropdown-item divided @click.native="logout">
+              退出登录</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
       </div>
     </el-col>
-    <!--中间-->
     <el-col :span="24" class="main">
-      <!--左侧导航-->
       <aside :class="{showSidebar:!collapsed}">
-        <!--展开折叠开关-->
         <div class="menu-toggle" @click.prevent="collapse">
           <i class="iconfont icon-menufold" v-show="!collapsed"></i>
           <i class="iconfont icon-menuunfold" v-show="collapsed"></i>
         </div>
-        <!--导航菜单-->
-        <el-menu :default-active="defaultActiveIndex" router :collapse="collapsed" @select="handleSelect">
-          <template v-for="(item,index) in $router.options.routes" v-if="item.menuShow">
+        <el-menu
+          :default-active="defaultActiveIndex"
+          router :collapse="collapsed"
+          @select="handleSelect"
+        >
+          <template
+            v-for="(item,index) in $router.options.routes"
+            v-if="item.menuShow"
+          >
             <el-submenu v-if="!item.leaf" :index="index+''">
               <template slot="title">
                 <i :class="item.iconCls"></i>
@@ -98,13 +101,12 @@ export default {
     handleSelect(index) {
       this.defaultActiveIndex = index
     },
-    // 折叠导航栏
     collapse: function() {
       this.collapsed = !this.collapsed
     },
     jumpTo(url) {
       this.defaultActiveIndex = url
-      this.$router.push(url) // 用go刷新
+      this.$router.push(url)
     },
     logout() {
       let that = this
@@ -112,19 +114,16 @@ export default {
         confirmButtonClass: 'el-button--warning'
       })
         .then(() => {
-          that.$router.push('/login') // 用go刷新
+          that.$router.push('/login')
         })
         .catch(() => {})
     }
   }
 }
 </script>
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-//作为唯一的属性
 
 .container {
-  //容器包括头部的各种样式
   position: absolute;
   top: 0;
   bottom: 0;
@@ -136,20 +135,20 @@ export default {
     padding: 0;
     .topbar-btn {
       color: #ffffff;
-    } //个人用户按钮
+    }
     .topbar-btn:hover {
       color: #f5ff7f;
-    } //点击后改变样式
+    }
     .topbar-logo {
       float: left;
       width: 59px;
       line-height: 26px;
-    } //logo样式
+    }
     .topbar-logos {
       float: left;
       width: 120px;
       line-height: 26px;
-    } //logo（logo,logotxt）界面的样式
+    }
     .topbar-logo img,
     .topbar-logos img {
       height: 40px;
@@ -224,7 +223,7 @@ export default {
     .el-submenu__title:hover {
       background-color: #7ed2df;
     }
-  } //侧栏样式
+  }
   .menu-toggle {
     background: #4a5064;
     text-align: center;

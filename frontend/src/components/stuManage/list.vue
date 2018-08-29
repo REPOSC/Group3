@@ -1,10 +1,12 @@
-<!--suppress ALL -->
 <template>
   <div>
-    <!--为echarts准备一个具备大小的容器dom-->
     <div class="card demonstration">
       <div>
-        <el-input v-model="TableDataName" :placeholder="search_method?'账号':'昵称'" class="searchbox"></el-input>
+        <el-input
+          v-model="TableDataName"
+          :placeholder="search_method?'账号':'昵称'"
+          class="searchbox"
+        ></el-input>
         <el-button type="primary" @click="doFilter">搜索</el-button>
         <el-button type="primary" @click="doBack">返回</el-button>
         <div class="space">
@@ -14,7 +16,10 @@
           </el-radio-group>
         </div>
       </div>
-      <el-table :data="tableData.slice((currpage - 1) * pagesize, currpage * pagesize)" align="center">
+      <el-table
+        :data="tableData.slice((currpage - 1) * pagesize, currpage * pagesize)"
+        align="center"
+      >
         <el-table-column prop="user_name" label="账号" sortable>
         </el-table-column>
         <el-table-column prop="user_nickname" label="昵称" sortable>
@@ -25,11 +30,19 @@
         </el-table-column>
         <el-table-column fixed="right" label="查看详情">
           <template slot-scope="scope">
-            <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
+            <el-button @click="handleClick(scope.row)" type="text" size="small">
+              查看</el-button>
           </template>
         </el-table-column>
       </el-table>
-      <el-pagination background layout="prev, pager, next, sizes, total, jumper" :page-sizes="[5, 10, 15, 20]" :page-size="pagesize" :total="tableData.length" @current-change="handleCurrentChange" @size-change="handleSizeChange">
+      <el-pagination
+        background layout="prev, pager, next, sizes, total, jumper"
+        :page-sizes="[5, 10, 15, 20]"
+        :page-size="pagesize"
+        :total="tableData.length"
+        @current-change="handleCurrentChange"
+        @size-change="handleSizeChange"
+      >
       </el-pagination>
     </div>
   </div>

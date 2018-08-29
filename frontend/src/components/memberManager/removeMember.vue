@@ -2,7 +2,12 @@
   <div class="card">
     <div class="title space">删除管理员</div>
     <div class="input-title space">管理员账号</div>
-    <el-input type="text" v-model="username" auto-complete="off" placeholder="请输入账号">{{username}}</el-input>
+    <el-input
+      type="text"
+      v-model="username"
+      auto-complete="off"
+      placeholder="请输入账号"
+    >{{username}}</el-input>
     <el-button class="space" type="primary" @click="submit">确认删除</el-button>
   </div>
 </template>
