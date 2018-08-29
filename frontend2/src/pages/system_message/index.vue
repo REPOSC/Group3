@@ -147,9 +147,11 @@ page {
   background-size: 100% 100%;
   background-image: url('https://daisy-donald.cn/image/sky.jpg');
 }
+
 .all-message {
   margin: 10px 20px;
 }
+
 .message-card {
   width: 100px;
   height: 100px;

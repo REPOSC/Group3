@@ -63,9 +63,11 @@ page {
   background-size: 100% 100%;
   background-image: url('https://daisy-donald.cn/image/sky.jpg');
 }
+
 .my-message {
   margin: 10px 10px;
 }
+
 .like {
   display: flex;
   height: 100px;
@@ -73,6 +75,7 @@ page {
   background-color: antiquewhite;
   border: 2px solid #ffb001;
 }
+
 like p {
   width: 100%;
   height: 40px;
@@ -80,20 +83,24 @@ like p {
   font-size: 20px;
   word-wrap: break-word;
 }
+
 .comment {
   height: 100px;
   margin: 4px;
   background-color: antiquewhite;
   border: 2px solid #53cce9;
 }
+
 .user {
   display: flex;
 }
+
 .detail_btn {
   position: absolute;
   color: #ffb001;
   right: 19px;
 }
+
 .content {
   text-overflow: -o-ellipsis-lastline;
   overflow: hidden;
@@ -104,6 +111,7 @@ like p {
   align-content: center;
   margin: auto 6px;
 }
+
 img {
   width: 30px;
   height: 30px;

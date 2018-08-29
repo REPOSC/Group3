@@ -38,6 +38,7 @@ page {
   background-size: 100% 100%;
   background-image: url('https://daisy-donald.cn/image/sky.jpg');
 }
+
 .game button {
   color: #fff;
   width: 75%;
@@ -47,6 +48,7 @@ page {
   font-weight: bold;
   margin: 30px auto;
 }
+
 .title {
   height: 70px;
   line-height: 70px;
@@ -55,28 +57,35 @@ page {
   display: flex;
   justify-content: center;
 }
+
 p {
   color: yellow;
   font-size: 30px;
   font-weight: bold;
   text-shadow: 2px 2px 3px #000;
 }
+
 img {
   width: 70px;
   height: 70px;
 }
+
 .game {
   margin: 60px auto;
 }
+
 #game1 {
   background-color: #019dd6;
 }
+
 #game2 {
   background-color: #f67c30;
 }
+
 #game3 {
   background-color: #00c544;
 }
+
 #game4 {
   background-color: #f53076;
 }

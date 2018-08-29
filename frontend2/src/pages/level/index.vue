@@ -97,6 +97,7 @@ page {
   background-size: 100% 100%;
   background-image: url('https://daisy-donald.cn/image/sky.jpg');
 }
+
 .levelbtn {
   width: 100%;
   display: flex;
@@ -104,6 +105,7 @@ page {
   justify-content: space-between;
   margin: 60px auto;
 }
+
 .levelbtn div {
   width: 80px;
   height: 80px;
@@ -115,12 +117,15 @@ page {
   margin: 20px;
   border-radius: 100%;
 }
+
 .true {
   background-color: #00c544;
 }
+
 .false {
   background-color: #ccc;
 }
+
 .last {
   background-color: #ffb001;
 }

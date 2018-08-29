@@ -37,13 +37,16 @@ export default {
   font-size: 14px;
   text-align: center;
 }
+
 img {
   width: 50px;
   height: 60px;
 }
+
 p {
   font-size: 12px;
 }
+
 progress {
   margin: 5px auto;
 }

@@ -42,7 +42,11 @@ export default {
       video_function: {
         play_info: '功能讲解',
         is_play_video: false,
-        src: 'http://wxsnsdy.tc.qq.com/105/20210/snsdyvideodownload?filekey=30280201010421301f0201690402534804102ca905ce620b1241b726bc41dcff44e00204012882540400&bizid=1023&hy=SH&fileparam=302c020101042530230204136ffd93020457e3c4ff02024ef202031e8d7f02030f42400204045a320a0201000400',
+        src: 'http://wxsnsdy.tc.qq.com/105/20210/snsdyvideodownload?' +
+          'filekey=30280201010421301f0201690402534804102ca905ce620b1' +
+          '241b726bc41dcff44e00204012882540400&bizid=1023&hy=SH&file' +
+          'param=302c020101042530230204136ffd93020457e3c4ff02024ef20' +
+          '2031e8d7f02030f42400204045a320a0201000400',
         booktitle: 'BOOK1'
       },
       booknumber: 0,
@@ -119,77 +123,57 @@ page {
   background-size: 100% 100%;
   background-image: url('https://daisy-donald.cn/image/sky.jpg');
 }
+
 .guide {
   margin: 10px 10px;
 }
+
 title {
   height: 70px;
 }
-/* .title {
-  height: 70px;
-  line-height: 70px;
-  text-align: center;
-  display: flex;
-  justify-content: center;
-}
-.title p {
-  color: yellow;
-  font-size: 25px;
-  font-weight: bold;
-  text-shadow: 2px 2px 3px #000;
-}
-.title img {
-  width: 70px;
-  height: 70px;
-}
-.title button {
-  position: absolute;
-  color: white;
-  font-size: 10px;
-  font-weight: bolder;
-  line-height: 20px;
-  height: 20px;
-  right: 10px;
-  background-color: #ffb100;
-}
-.video {
-  text-align: center;
-} */
+
 .firstpart {
   color: #019dd6;
   align-content: center;
   margin: 30px;
   margin-top: 0px;
 }
+
 .secpart {
   color: #02c45d;
   align-content: center;
   margin: 30px;
 }
+
 .thirdpart {
   color: #de6648;
   align-content: center;
   margin: 30px;
 }
+
 .subtitle {
   display: block;
 }
+
 h1 {
   display: inline;
   font-size: 22px;
   font-weight: bolder;
   font-family: fantasy;
 }
+
 p {
   display: block;
   margin-right: 15px;
   font-size: 16px;
   font-weight: bold;
 }
+
 img {
   width: 30px;
   height: 30px;
 }
+
 .thirdpart p {
   display: inline-block;
   font-size: 20px;
@@ -197,6 +181,7 @@ img {
   margin-right: 50px;
   margin-bottom: 10px;
 }
+
 .word {
   display: inline;
 }

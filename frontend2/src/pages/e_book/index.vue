@@ -32,7 +32,11 @@ export default {
       video_function: {
         play_info: '功能讲解',
         is_play_video: false,
-        src: 'http://wxsnsdy.tc.qq.com/105/20210/snsdyvideodownload?filekey=30280201010421301f0201690402534804102ca905ce620b1241b726bc41dcff44e00204012882540400&bizid=1023&hy=SH&fileparam=302c020101042530230204136ffd93020457e3c4ff02024ef202031e8d7f02030f42400204045a320a0201000400',
+        src: 'http://wxsnsdy.tc.qq.com/105/20210/snsdyvideodownload?' +
+          'filekey=30280201010421301f0201690402534804102ca905ce620b1' +
+          '241b726bc41dcff44e00204012882540400&bizid=1023&hy=SH&file' +
+          'param=302c020101042530230204136ffd93020457e3c4ff02024ef20' +
+          '2031e8d7f02030f42400204045a320a0201000400',
         booktitle: 'BOOK1'
       },
       username: null,
@@ -221,27 +225,33 @@ page {
   background-size: 100% 100%;
   background-image: url('https://daisy-donald.cn/image/sky.jpg');
 }
+
 .e-book {
   margin: 10px 10px;
 }
+
 title {
   height: 70px;
 }
+
 .body {
   margin: auto 20px;
   border: 4px solid #ffb001;
   background-color: white;
 }
+
 .book {
   text-align: center;
   width: 100%;
   height: 200px;
 }
+
 .function {
   margin: 10px auto;
   text-align: center;
   background-color: #ffb001;
 }
+
 .function button {
   display: inline-block;
   width: 50px;
@@ -250,39 +260,49 @@ title {
   border: 1px solid #ffb001;
   vertical-align: middle;
 }
+
 .previous {
   background-image: url('http://daisy-donald.cn/image/left.png');
 }
+
 .listen {
   background-image: url('http://daisy-donald.cn/image/listen.png');
 }
+
 .add {
   background-image: url('http://daisy-donald.cn/image/add.png');
 }
+
 .play {
   background-image: url('http://daisy-donald.cn/image/play.png');
 }
+
 .next {
   background-image: url('http://daisy-donald.cn/image/right.png');
 }
+
 .hidden {
   visibility: hidden;
 }
+
 .visible {
   margin: 20px;
   visibility: visible;
   font-size: 20px;
 }
+
 .english-text {
   margin: 20px;
   font-family: 'Courier New', Courier, monospace;
   font-size: 30px;
   display: inline-block;
 }
+
 .image {
   height: 100%;
   width: 100%;
 }
+
 .button {
   float: right;
   margin: 20px;

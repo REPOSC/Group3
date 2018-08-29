@@ -143,7 +143,6 @@ export default {
               duration: 1500,
               mask: true
             })
-            console.log(save.nickname)
           }
         })
     },
@@ -197,6 +196,7 @@ page {
   background-size: 100% 100%;
   background-image: url('https://daisy-donald.cn/image/sky.jpg');
 }
+
 button {
   color: #fff;
   height: 40px;
@@ -205,9 +205,11 @@ button {
   margin: 30px 50px;
   border-radius: 10px;
 }
+
 p {
   width: 40%;
 }
+
 input {
   height: 30px;
   width: 60%;
@@ -216,23 +218,27 @@ input {
   border: 2px solid #53cce9;
   margin: 5px 50px;
 }
+
 img {
   width: 90px;
   height: 90px;
   border: 2px solid #ffb001;
   border-radius: 10px;
 }
+
 .info {
   font-size: 20px;
   color: #fff;
   margin: 10px 20px;
 }
+
 .div {
   width: 99%;
   margin: 5px auto;
   border: 2px solid black;
   border-radius: 10px;
 }
+
 .title {
   width: 40%;
   height: 30px;
@@ -243,6 +249,7 @@ img {
   background-color: #ffb001;
   border-radius: 8px;
 }
+
 .avatar {
   width: 98%;
   height: 100px;
@@ -251,6 +258,7 @@ img {
   display: flex;
   padding-left: 20px;
 }
+
 .nickname {
   width: 98%;
   height: 50px;
@@ -259,6 +267,7 @@ img {
   display: flex;
   padding-left: 20px;
 }
+
 .password {
   width: 98%;
   height: 60px;
@@ -266,6 +275,7 @@ img {
   display: flex;
   padding-left: 20px;
 }
+
 .item {
   height: 40px;
   line-height: 40px;
@@ -274,6 +284,7 @@ img {
   border-radius: 10px;
   margin-top: 5px;
 }
+
 .save {
   background-color: #ffb001;
 }

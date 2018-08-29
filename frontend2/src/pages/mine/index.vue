@@ -102,14 +102,17 @@ page {
   background-size: 100% 100%;
   background-image: url('https://daisy-donald.cn/image/sky.jpg');
 }
+
 .me {
   padding-top: 30px;
   margin: 20px 50px;
 }
+
 .my-info {
   display: flex;
   text-align: center;
 }
+
 img {
   width: 70px;
   height: 70px;
@@ -117,34 +120,40 @@ img {
   border: 3px solid #ffb001;
   border-radius: 10px;
 }
+
 p {
   margin: 25px 40px;
   font-weight: bold;
 }
+
 #modify-info {
   color: #fff;
   font-weight: bold;
   background-color: #019dd6;
   margin-top: 40px;
 }
+
 #system-message {
   color: #fff;
   font-weight: bold;
   background-color: #00c544;
   margin-top: 20px;
 }
+
 #introduction {
   color: #fff;
   font-weight: bold;
   background-color: #f67c30;
   margin-top: 20px;
 }
+
 #about-vron {
   color: #fff;
   font-weight: bold;
   background-color: #00fe90;
   margin-top: 20px;
 }
+
 #logout {
   color: #fff;
   font-weight: bold;
