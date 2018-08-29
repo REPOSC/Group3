@@ -17,8 +17,7 @@
     "pages/mine/main",
     "pages/show/main",
     "pages/guide/main",
-    "pages/message/main",
-    "pages/message_detail/main"
+    "pages/message/main"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -6,9 +6,9 @@
     </div>
     <div class="game" @click="turnTo">
       <button id="game1">连线游戏</button>
-      <button id="game2">单词识别</button>
+      <button id="game2">看词识图</button>
       <button id="game3">趣味拼图</button>
-      <button id="game4">选词填空</button>
+      <button id="game4">听音选图</button>
     </div>
   </div>
 </template>

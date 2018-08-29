@@ -2,7 +2,7 @@
   <div>
     <div class="title">
       <img src="https://daisy-donald.cn/image/rainbow.png">
-      <p>功能选择</p>
+      <p>{{ bookname }}</p>
     </div>
     <div class="items">
       <button id="guide" @click="to_guide">亲子阅读指导</button>
@@ -141,7 +141,11 @@ export default {
           '../expanding/main?username=' +
           save.username +
           '&book=' +
-          save.booknumber
+          save.booknumber +
+          '&booktitle=' +
+          save.bookname +
+          '&level=' +
+          save.level
       })
     }
   }
