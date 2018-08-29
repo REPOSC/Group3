@@ -1,7 +1,7 @@
 <template>
-  <div class="bookinterface">
+  <div class="book-interface">
     <div class="title">
-      <img src="/static/img/rainbow.png">
+      <img src="https://daisy-donald.cn/image/rainbow.png">
       <p>K{{ level + 1 }}</p>
     </div>
     <i-row class="body">
@@ -24,25 +24,17 @@
       </i-col>
     </i-row>
     <div class="bottom">
-      <i-row>
-        <i-col span="17" offset="1">
-          <div>
-            <input type="text"
-              class="inline"
-              v-model="search_text"
-              placeholder='搜索' clearable />
-            <img src="https://daisy-donald.cn/image/search.png"
-              @click="search"
-              class="inline search-icon">
-          </div>
-        </i-col>
-        <i-col span="5">
-          <div class="to-mine" @click="to_mine">
-            <img src="https://daisy-donald.cn/image/man.png">
-            <p class="text">我的</p>
-          </div>
-        </i-col>
-      </i-row>
+      <div class="search">
+        <input type="text"
+          v-model="search_text"
+          placeholder='搜索' clearable />
+        <img src="https://daisy-donald.cn/image/yellow-search.png"
+          @click="search"/>
+      </div>
+      <div class="to-mine" @click="to_mine">
+        <img src="https://daisy-donald.cn/image/man.png">
+        <p>我的</p>
+      </div>
     </div>
   </div>
 </template>
@@ -216,22 +208,28 @@ page {
   background-image: url('https://daisy-donald.cn/image/sky.jpg');
 }
 
+.book-interface {
+  margin: 10px 10px;
+}
+
 .title {
-  height: 70px;
-  line-height: 70px;
-  text-align: center;
-  display: flex;
-  justify-content: center;
+  position: relative;
+  height: 95px;
+  line-height: 95px;
+  margin: 0 20px;
 }
 
 .title p {
-  font-size: 30px;
+  font-size: 40px;
   font-weight: bold;
 }
 
 .title img {
-  width: 70px;
-  height: 70px;
+  position: absolute;
+  left: 0;
+  bottom: -20px;
+  width: 100px;
+  height: 100px;
 }
 
 .bookshelf {
@@ -255,43 +253,47 @@ page {
 .body {
   margin: 20px 0px;
 }
-
+.bottom {
+  height: 90px;
+  display: flex;
+  margin: 20px auto;
+}
 .to-mine {
   width: 70px;
   height: 90px;
   font-weight: bolder;
   font-size: 18px;
   text-align: center;
-  margin: 20px 15px;
+  color: #ff9000;
 }
 
 .to-mine img {
-  width: 60px;
-  height: 60px;
+  width: 65px;
+  height: 65px;
 }
 
-.text {
-  color: black;
-}
-
-input {
-  height: 30px;
-  color: white;
-  border: white solid 4px;
-  padding: 5px;
-  font-weight: bolder;
-  background-color: #ffb001;
-  border-radius: 10px;
-  margin-top: 10%;
-  width: 75%;
-}
-
-.inline {
-  display: inline-block;
-}
-
-.search-icon {
-  width: 40px;
+.search {
+  display: flex;
+  width: 70%;
   height: 40px;
+  line-height: 40px;
+  margin: 20px auto;
+  border: #ffb001 solid 5px;
+  border-radius: 10px;
+  background-color: white;
+}
+
+.search input {
+  height: 40px;
+  color: #ffb001;
+  font-weight: bold;
+  width: 85%;
+  margin-left: 5px;
+}
+
+.search img {
+  width: 30px;
+  height: 30px;
+  margin: auto 10px;
 }
 </style>

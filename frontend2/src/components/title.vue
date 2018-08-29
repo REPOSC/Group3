@@ -20,6 +20,7 @@ export default {
   ]
 }
 </script>
+
 <style>
 .title {
   height: 70px;

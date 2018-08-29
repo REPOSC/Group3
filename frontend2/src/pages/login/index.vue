@@ -82,7 +82,7 @@ input {
   height: 50px;
   line-height: 50px;
   padding: 0 10px;
-  border: 1px solid #ffb001;
+  border: 4px solid #ffb001;
   border-radius: 10px;
 }
 
