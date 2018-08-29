@@ -5,7 +5,6 @@ sys.path.append("..")
 
 class SendviewsTestCase(TestCase):
     def setUp(self):
-        #self.device = Device(hostname="CN-BJ-0000-00",mac="ff:ff:ff:ff:ff:ff").save()
         self.client = Client()
         self.tmp_pwd = None
 

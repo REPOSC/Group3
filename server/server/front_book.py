@@ -14,7 +14,8 @@ def get_books(request):
             process = models.User_process.objects.get(
                 user_number=number, book_number=book.number)
             one_info = {'number': book.number, 'name': book.name,
-                        'process': process.process, 'is_persual': book.is_persual}
+                        'process': process.process,
+                        'is_persual': book.is_persual}
         except:
             process = 0
             one_info = {'number': book.number, 'name': book.name,
@@ -33,12 +34,18 @@ def get_first_function(request):
     book_words_dict = {}
     book_guide_dict = {}
     for book_knowledge in book_knowledge_set:
-        book_knowledge_dict[book_knowledge.knowledge_number] = book_knowledge.knowledge_text
+        tempa = book_knowledge_dict[book_knowledge.knowledge_number]
+        tempb = book_knowledge.knowledge_text
+        tempa = tempb
     for book_guide in book_guide_set:
         book_guide_dict[book_guide.guide_number] = book_guide.guide_text
     for book_word in book_words_set:
         book_words_dict[book_word.word_number] = book_word.word_content
-    return JsonResponse({"knowledge": book_knowledge_dict, "guide": book_guide_dict, "words": book_words_dict})
+    return JsonResponse({
+        "knowledge": book_knowledge_dict,
+        "guide": book_guide_dict,
+        "words": book_words_dict
+    })
 
 
 def get_word_audio(request):
@@ -60,7 +67,10 @@ def get_page_texts(request):
     book_page = request.POST.get('book_page', '')
     page = models.Page_content.objects.get(
         number=int(book_id), page=int(book_page))
-    return JsonResponse({'english': page.english_text, 'chinese': page.chinese_text})
+    return JsonResponse({
+        'english': page.english_text,
+        'chinese': page.chinese_text
+    })
 
 
 def get_page_audio(request):
