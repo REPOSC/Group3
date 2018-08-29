@@ -28,6 +28,7 @@ export default {
   text-align: center;
   display: flex;
   justify-content: center;
+  margin: 30px;
 }
 .title p {
   color: yellow;
