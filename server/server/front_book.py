@@ -34,9 +34,8 @@ def get_first_function(request):
     book_words_dict = {}
     book_guide_dict = {}
     for book_knowledge in book_knowledge_set:
-        tempa = book_knowledge_dict[book_knowledge.knowledge_number]
-        tempb = book_knowledge.knowledge_text
-        tempa = tempb
+        book_knowledge_dict[book_knowledge.knowledge_number] = \
+        book_knowledge.knowledge_text
     for book_guide in book_guide_set:
         book_guide_dict[book_guide.guide_number] = book_guide.guide_text
     for book_word in book_words_set:

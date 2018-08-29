@@ -1,5 +1,8 @@
 <template>
   <div class="guide">
+    <loading :hidden="hidden">
+      加载中...
+    </loading>
     <title v-bind="video_function" @play_video="play_video"></title>
     <div class="firstpart">
       <img src="https://daisy-donald.cn/image/yellow-tap.png">
@@ -22,10 +25,8 @@
       </div>
       <div :key="index" v-for="(three,index) in threes">
         <div class="word">{{ index-0+1 }}、{{ three }}</div>
-        <i-icon type="customerservice_fill"
-          size="28"
-          class="word"
-          @click="hear(index)" />
+        <i-icon type="customerservice_fill" size="28" class="word" @click="hear
+        (index)" />
       </div>
     </div>
   </div>
@@ -42,13 +43,10 @@ export default {
       video_function: {
         play_info: '功能讲解',
         is_play_video: false,
-        src: 'http://wxsnsdy.tc.qq.com/105/20210/snsdyvideodownload?' +
-          'filekey=30280201010421301f0201690402534804102ca905ce620b1' +
-          '241b726bc41dcff44e00204012882540400&bizid=1023&hy=SH&file' +
-          'param=302c020101042530230204136ffd93020457e3c4ff02024ef20' +
-          '2031e8d7f02030f42400204045a320a0201000400',
+        src: null,
         booktitle: 'BOOK1'
       },
+      hidden: true,
       booknumber: 0,
       ones: [],
       twos: [],
@@ -71,14 +69,6 @@ export default {
     init: function() {
       let fly = Tools.get_fly()
       let save = this
-      wx.downloadFile({
-        url: Tools.get_url() + 'get_video?item=guide',
-        success: function(video_response) {
-          if (video_response.statusCode === 200) {
-            save.video_function.src = video_response.tempFilePath
-          }
-        }
-      })
       fly
         .post(
           Tools.get_url() + 'get_first_function',
@@ -117,6 +107,18 @@ export default {
       if (!this.video_function.is_play_video) {
         this.video_function.is_play_video = true
         this.video_function.play_info = '关闭'
+        this.hidden = false
+        let save = this
+        wx.downloadFile({
+          url: Tools.get_url() + 'get_video?item=guide',
+          success: function(video_response) {
+            if (video_response.statusCode === 200) {
+              save.video_function.src = video_response.tempFilePath
+              console.log(save.video_function.src)
+            }
+            save.hidden = true
+          }
+        })
       } else {
         this.video_function.is_play_video = false
         this.video_function.play_info = '功能讲解'

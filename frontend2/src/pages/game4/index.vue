@@ -1,5 +1,8 @@
 <template>
   <div class="game">
+    <loading :hidden="hidden">
+      加载中...
+    </loading>
     <div class="introduce">
       <button @click="play_video()">{{ video_function.play_info }}</button>
     </div>
@@ -10,12 +13,8 @@
       <i-icon type="systemprompt_fill" @click="play_sound" size="40" />
     </div>
     <div class="picGroup">
-      <img :key="pic.index"
-        v-for="pic in pics"
-        :isanswer="pic.isanswer"
-        :src="pic.src"
-        mode="aspectFit"
-        @click="choose(pic)" />
+      <img :key="pic.index" v-for="pic in pics" :isanswer="pic.isanswer"
+      :src="pic.src" mode="aspectFit" @click="choose(pic)" />
     </div>
     <div v-bind:class="word_class">
       {{word}}
@@ -32,17 +31,14 @@ export default {
       video_function: {
         play_info: '功能讲解',
         is_play_video: false,
-        src: 'http://wxsnsdy.tc.qq.com/105/20210/snsdyvideodownload?' +
-          'filekey=30280201010421301f0201690402534804102ca905ce620b1' +
-          '241b726bc41dcff44e00204012882540400&bizid=1023&hy=SH&file' +
-          'param=302c020101042530230204136ffd93020457e3c4ff02024ef20' +
-          '2031e8d7f02030f42400204045a320a0201000400'
+        src: null
       },
       innerAudioContext: null,
       word_class: null,
       booknumber: null,
       word: null,
-      pics: []
+      pics: [],
+      hidden: true
     }
   },
   onLoad: function(status) {
@@ -65,14 +61,6 @@ export default {
       }
       let fly = Tools.get_fly()
       let save = this
-      wx.downloadFile({
-        url: Tools.get_url() + 'get_video?item=fourth_game',
-        success: function(video_response) {
-          if (video_response.statusCode === 200) {
-            save.video_function.src = video_response.tempFilePath
-          }
-        }
-      })
       fly
         .post(
           Tools.get_url() + 'get_fourth_game_text',
@@ -160,6 +148,18 @@ export default {
       if (!this.video_function.is_play_video) {
         this.video_function.is_play_video = true
         this.video_function.play_info = '关闭'
+        this.hidden = false
+        let save = this
+        wx.downloadFile({
+          url: Tools.get_url() + 'get_video?item=fourth_game',
+          success: function(video_response) {
+            if (video_response.statusCode === 200) {
+              save.video_function.src = video_response.tempFilePath
+              console.log(save.video_function.src)
+            }
+            save.hidden = true
+          }
+        })
       } else {
         this.video_function.is_play_video = false
         this.video_function.play_info = '功能讲解'

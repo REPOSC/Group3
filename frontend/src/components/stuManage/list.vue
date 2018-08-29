@@ -1,12 +1,9 @@
 <template>
   <div>
     <div class="card demonstration">
+      <div class="title space">学生数据统计</div>
       <div>
-        <el-input
-          v-model="TableDataName"
-          :placeholder="search_method?'账号':'昵称'"
-          class="searchbox"
-        ></el-input>
+        <el-input v-model="TableDataName" :placeholder="search_method?'账号':'昵称'" class="searchbox"></el-input>
         <el-button type="primary" @click="doFilter">搜索</el-button>
         <el-button type="primary" @click="doBack">返回</el-button>
         <div class="space">
@@ -16,10 +13,8 @@
           </el-radio-group>
         </div>
       </div>
-      <el-table
-        :data="tableData.slice((currpage - 1) * pagesize, currpage * pagesize)"
-        align="center"
-      >
+      <el-table :data="tableData.slice((currpage - 1) * pagesize, currpage *
+      pagesize)" align="center">
         <el-table-column prop="user_name" label="账号" sortable>
         </el-table-column>
         <el-table-column prop="user_nickname" label="昵称" sortable>
@@ -35,14 +30,10 @@
           </template>
         </el-table-column>
       </el-table>
-      <el-pagination
-        background layout="prev, pager, next, sizes, total, jumper"
-        :page-sizes="[5, 10, 15, 20]"
-        :page-size="pagesize"
-        :total="tableData.length"
-        @current-change="handleCurrentChange"
-        @size-change="handleSizeChange"
-      >
+      <el-pagination background layout="prev, pager, next, sizes, total,
+      jumper" :page-sizes="[5, 10, 15, 20]" :page-size="pagesize"
+      :total="tableData.length" @current-change="handleCurrentChange"
+      @size-change="handleSizeChange">
       </el-pagination>
     </div>
   </div>

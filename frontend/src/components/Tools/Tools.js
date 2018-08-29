@@ -71,20 +71,6 @@ function check_error(object, error_message, saved) {
   return true
 }
 
-function del_element(array, arr_element) {
-  let index = -1
-  for (let i = 0; i < array.length; ++i) {
-    if (array[i] === arr_element) {
-      index = 1
-      break
-    }
-  }
-  if (index === -1) {
-  } else {
-    array.splice(index, 1)
-  }
-}
-
 function initpage() {
   window.sessionStorage.removeItem('is_load', 'username', 'is_superuser')
   window.sessionStorage.setItem('is_load', 'username', 'is_superuser')
@@ -97,7 +83,6 @@ export {
   get_url,
   checknum,
   checkcount,
-  del_element,
   check_warning,
   check_error,
   MAX_VALUE,

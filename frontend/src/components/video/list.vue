@@ -13,7 +13,6 @@ export default {
   data: function() {
     return {
       names: [
-        '基本操作',
         '亲子阅读指导',
         'e-book',
         '连线游戏',
