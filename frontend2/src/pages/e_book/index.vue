@@ -19,7 +19,7 @@
       <i-icon
         v-bind:type="chinese_button_state"
         @click="change_chinese_state"
-        class="button"/>
+        class="button" />
       <div v-bind:class="chinese_state">{{ chinese_text }}</div>
     </div>
   </div>
@@ -46,6 +46,7 @@ export default {
       imagesrc: null,
       isrecord: false,
       isplayrecord: false,
+      isplayingaudio: false,
       isplay: false,
       recorderManager: null,
       recordsrc: '',
@@ -93,6 +94,24 @@ export default {
       this.recorderManager = wx.getRecorderManager()
       this.innerAudioContext = wx.createInnerAudioContext()
       this.innerRecordContext = wx.createInnerAudioContext()
+      this.recorderManager.onStop(() => {
+        this.isrecord = false
+      })
+      this.innerRecordContext.onEnded(response => {
+        this.isplayrecord = false
+      })
+      this.innerAudioContext.onPlay(() => {
+        this.isplayingaudio = true
+      })
+      this.innerAudioContext.onStop(() => {
+        this.isplayingaudio = false
+      })
+      this.innerAudioContext.onWaiting(() => {
+        wx.showToast({
+          title: '加载中，请稍后',
+          icon: 'none'
+        })
+      })
     },
     change_process(number) {
       if (number > this.bookprocess) {
@@ -150,20 +169,22 @@ export default {
     },
     play_audio() {
       let save = this
-      wx.downloadFile({
-        url:
-          Tools.get_url() +
-          'get_page_audio?book_id=' +
-          save.booknumber +
-          '&page_index=' +
-          save.booknowpage,
-        success: function(response) {
-          if (response.statusCode === 200) {
-            save.innerAudioContext.src = response.tempFilePath
-            save.innerAudioContext.play()
+      if (!save.isplayrecord) {
+        wx.downloadFile({
+          url:
+            Tools.get_url() +
+            'get_page_audio?book_id=' +
+            save.booknumber +
+            '&page_index=' +
+            save.booknowpage,
+          success: function(response) {
+            if (response.statusCode === 200) {
+              save.innerAudioContext.src = response.tempFilePath
+              save.innerAudioContext.play()
+            }
           }
-        }
-      })
+        })
+      }
     },
     to_previouspage() {
       if (this.booknowpage <= 0) {
@@ -239,7 +260,6 @@ export default {
           success: function(video_response) {
             if (video_response.statusCode === 200) {
               save.video_function.src = video_response.tempFilePath
-              console.log(save.video_function.src)
             }
             save.hidden = true
           }
