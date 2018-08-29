@@ -1,3 +1,4 @@
+# coding=utf-8
 from django.http import JsonResponse
 from backend import models
 from . import tools
@@ -100,3 +101,13 @@ def get_student(request):
     for i in levels:
         student_levels.append(str(i))
     return JsonResponse({"level": student_levels})
+
+
+def get_student_info(request):
+    username = request.POST.get('username')
+    student = models.User_info.objects.get(username=username)
+    return JsonResponse({
+        "nickname": student.nickname,
+        "time": str(student.date_joined.year)+'年'+str(student.date_joined.month)+'月'+str(student.date_joined.day)+'日',
+        "lasttime_level": student.lasttime_level
+    })

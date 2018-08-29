@@ -79,7 +79,8 @@ function del_element(array, arr_element) {
       break
     }
   }
-  if (index === -1) {} else {
+  if (index === -1) {
+  } else {
     array.splice(index, 1)
   }
 }

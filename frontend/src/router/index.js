@@ -9,13 +9,13 @@ import memberadd from '@/components/memberManager/addMember'
 import memberchangePwd from '@/components/memberManager/changePwd'
 import memberremove from '@/components/memberManager/removeMember'
 import BookList from '@/components/book/list'
-import Bookchange from '@/components/book/change'
 import Bookcategory from '@/components/bookcategory/list'
 import video from '@/components/video/list'
 import UserChangePwd from '@/components/user/changepwd'
 import UserProfile from '@/components/user/profile'
 import SendMessage from '@/components/group/sendmessage'
 import groupdzone from '@/components/group/dzone'
+import StudentWatch from '@/components/stuManage/watch'
 Vue.use(Router)
 const Login = resolve => require(['@/components/Login'], resolve)
 let router = new Router({
@@ -66,6 +66,12 @@ let router = new Router({
       component: stuManagerecoverPwd,
       name: '找回密码',
       menuShow: true
+    },
+    {
+      path: '/student/watch',
+      component: StudentWatch,
+      name: '查看学生详情',
+      menuShow: false
     }
     ]
   },
@@ -100,14 +106,7 @@ let router = new Router({
       component: BookList,
       name: '添加书籍',
       menuShow: true
-    },
-    {
-      path: '/book/change',
-      component: Bookchange,
-      name: '管理书籍',
-      menuShow: true
-    }
-    ]
+    }]
   },
   {
     path: '/',

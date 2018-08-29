@@ -2,7 +2,7 @@
 <template>
   <div>
     <!--为echarts准备一个具备大小的容器dom-->
-    <div class="card  demonstration">
+    <div class="card demonstration">
       <div>
         <el-input v-model="TableDataName" :placeholder="search_method?'账号':'昵称'" class="searchbox"></el-input>
         <el-button type="primary" @click="doFilter">搜索</el-button>
@@ -15,15 +15,15 @@
         </div>
       </div>
       <el-table :data="tableData.slice((currpage - 1) * pagesize, currpage * pagesize)" align="center">
-        <el-table-column prop="user_name" label="账号" sortable width="200">
+        <el-table-column prop="user_name" label="账号" sortable>
         </el-table-column>
-        <el-table-column prop="user_nickname" label="姓名" sortable width="200">
+        <el-table-column prop="user_nickname" label="昵称" sortable>
         </el-table-column>
-        <el-table-column prop="level" label="等级" sortable width="200">
+        <el-table-column prop="level" label="等级" sortable>
         </el-table-column>
-        <el-table-column prop="book" label="阅读数量" sortable width="200">
+        <el-table-column prop="book" label="阅读数量" sortable>
         </el-table-column>
-        <el-table-column fixed="right" label="操作" width="200">
+        <el-table-column fixed="right" label="查看详情">
           <template slot-scope="scope">
             <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
           </template>
@@ -36,7 +36,6 @@
 
 </template>
 <script>
-import echarts from 'echarts'
 import axios from 'axios'
 import * as Tools from '../Tools/Tools'
 
@@ -47,17 +46,8 @@ export default {
       msg: 8888,
       pagesize: 10,
       currpage: 1,
-      chart: null,
       search_method: 1,
       charts: '',
-      opinion: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎'],
-      opinionData: [
-        { value: 335, name: '直接访问' },
-        { value: 310, name: '邮件营销' },
-        { value: 234, name: '联盟广告' },
-        { value: 135, name: '视频广告' },
-        { value: 1548, name: '搜索引擎' }
-      ],
       tableData: [],
       TableDataName: '',
       all_tabledata: null
@@ -71,94 +61,17 @@ export default {
     }
   },
   methods: {
+    handleClick(row) {
+      this.$router.push({
+        name: '查看学生详情',
+        params: { name: row.user_name }
+      })
+    },
     handleCurrentChange(cpage) {
       this.currpage = cpage
     },
     handleSizeChange(psize) {
       this.pagesize = psize
-    },
-    drawPie(id) {
-      this.charts = echarts.init(document.getElementById(id))
-      this.charts.setOption({
-        tooltip: {
-          trigger: 'item',
-          formatter: '{a}<br/>{b}:{c} ({d}%)'
-        },
-        legend: {
-          orient: 'vertical',
-          x: 'left',
-          data: this.opinion
-        },
-        series: [
-          {
-            name: '访问来源',
-            type: 'pie',
-            radius: ['50%', '70%'],
-            avoidLabelOverlap: false,
-            label: {
-              normal: {
-                show: false,
-                position: 'center'
-              },
-              emphasis: {
-                show: true,
-                textStyle: {
-                  fontSize: '30',
-                  fontWeight: 'blod'
-                }
-              }
-            },
-            labelLine: {
-              normal: {
-                show: false
-              }
-            },
-            data: this.opinionData
-          }
-        ]
-      })
-    },
-    initChart() {
-      this.chart = echarts.init(this.$refs.myEchart)
-      // 把配置和数据放这里
-      this.chart.setOption({
-        color: ['#3398DB'],
-        tooltip: {
-          trigger: 'axis',
-          axisPointer: {
-            // 坐标轴指示器，坐标轴触发有效
-            type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
-          }
-        },
-        grid: {
-          left: '3%',
-          right: '4%',
-          bottom: '3%',
-          containLabel: true
-        },
-        xAxis: [
-          {
-            type: 'category',
-            data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-            axisTick: {
-              alignWithLabel: true
-            }
-          }
-        ],
-        yAxis: [
-          {
-            type: 'value'
-          }
-        ],
-        series: [
-          {
-            name: '直接访问',
-            type: 'bar',
-            barWidth: '60%',
-            data: [10, 52, 200, 334, 390, 330, 220]
-          }
-        ]
-      })
     },
     stulist() {
       let saved = this
@@ -201,12 +114,12 @@ export default {
       let saved = this
       this.all_tabledata.forEach((value, index) => {
         if (saved.search_method === 1) {
-          if (value.user_name.indexOf(this.TableDataName) >= 0) {
-            this.tableData.push(value)
+          if (value.user_name.indexOf(saved.TableDataName) >= 0) {
+            saved.tableData.push(value)
           }
         } else if (saved.search_method === 0) {
-          if (value.user_nickname.indexOf(this.TableDataName) >= 0) {
-            this.tableData.push(value)
+          if (value.user_nickname.indexOf(saved.TableDataName) >= 0) {
+            saved.tableData.push(value)
           }
         }
       })
@@ -222,11 +135,6 @@ export default {
   },
   mounted() {
     this.stulist()
-    this.$nextTick(function() {
-      this.drawPie('main')
-    })
-    this.initChart()
-    this.chushi()
   }
 }
 </script>
