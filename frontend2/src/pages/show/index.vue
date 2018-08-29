@@ -11,11 +11,11 @@
       <button id="expanding" @click="to_expanding">阅读拓展</button>
     </div>
     <div class="function">
-      <div @click="toCommunity">
+      <div @click="to_community">
         <img class="icon" src="https://daisy-donald.cn/image/yellow-com.png" />
         <span>社群</span>
       </div>
-      <div @click="tomine">
+      <div @click="to_mine">
         <img class="icon" src="https://daisy-donald.cn/image/yellow-me.png" />
         <span>我的</span>
       </div>
@@ -118,7 +118,7 @@ export default {
         })
       }
     },
-    toCommunity: function() {
+    to_community: function() {
       let save = this
       wx.navigateTo({
         url:
@@ -128,7 +128,7 @@ export default {
           save.level
       })
     },
-    tomine: function() {
+    to_mine: function() {
       let save = this
       wx.navigateTo({
         url: '../mine/main?username=' + save.username

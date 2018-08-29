@@ -15,7 +15,7 @@
         :isanswer="pic.isanswer"
         :src="pic.src"
         mode="aspectFit"
-        @click="choice(pic)" />
+        @click="choose(pic)" />
     </div>
   </div>
 </template>
@@ -102,7 +102,7 @@ export default {
         })
       }
     },
-    choice(pic) {
+    choose(pic) {
       if (pic.isanswer === true) {
         wx.showModal({
           title: '选对啦!宝宝真棒！',

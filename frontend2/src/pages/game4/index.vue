@@ -15,7 +15,7 @@
         :isanswer="pic.isanswer"
         :src="pic.src"
         mode="aspectFit"
-        @click="choice(pic)" />
+        @click="choose(pic)" />
     </div>
     <div v-bind:class="word_class">
       {{word}}
@@ -122,7 +122,7 @@ export default {
         }
       })
     },
-    choice(pic) {
+    choose(pic) {
       if (pic.isanswer === true) {
         this.word_class = 'center'
         wx.showModal({

@@ -14,7 +14,7 @@
           @click="click_word(word)">{{ word.text }}
         </div>
       </div>
-      <canvas canvas-id="drawline"></canvas>
+      <canvas canvas-id="draw_line"></canvas>
       <div class="pics">
         <div class="pic" :key="pic.index" v-for="pic in pics">
           <img :class="pic.status"
@@ -121,8 +121,8 @@ export default {
     line_end(pic_index) {
       return pic_index * 120 + 75
     },
-    drawline() {
-      let context = wx.createCanvasContext('drawline')
+    draw_line() {
+      let context = wx.createCanvasContext('draw_line')
       context.setStrokeStyle('#53cce9')
       context.setLineWidth(5)
       for (let i = 0; i < this.words.length; i++) {
@@ -187,7 +187,7 @@ export default {
         this.show_right_message()
         pic.status = 'pic_matched'
         this.words[this.now_word].status = 'word_matched'
-        this.drawline()
+        this.draw_line()
         this.now_word = ''
       } else if (this.now_word !== '') {
         wx.showToast({

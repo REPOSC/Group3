@@ -4,7 +4,7 @@
       <img src="https://daisy-donald.cn/image/rainbow.png">
       <p>课后练习</p>
     </div>
-    <div class="game" @click="turnTo">
+    <div class="game" @click="turn_to">
       <button id="game1">连线游戏</button>
       <button id="game2">看词识图</button>
       <button id="game3">趣味拼图</button>
@@ -24,7 +24,7 @@ export default {
     this.booknumber = status.book
   },
   methods: {
-    turnTo(e) {
+    turn_to(e) {
       wx.navigateTo({
         url: '/pages/' + e.target.id + '/main?booknumber=' + this.booknumber
       })

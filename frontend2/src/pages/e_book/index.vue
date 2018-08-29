@@ -6,11 +6,11 @@ e-book<template>
         <img :src="imagesrc" mode="scaleToFill" class="image">
       </div>
       <div class="function">
-        <button class="previous" @click="previouspage"></button>
-        <button class="listen" @click="playaudio"></button>
+        <button class="previous" @click="to_previouspage"></button>
+        <button class="listen" @click="play_audio"></button>
         <button class="add" :isrecord="isrecord" @click="record"></button>
-        <button class="play" :isplay="isplay" @click="playrecord"></button>
-        <button class="next" @click="nextpage"></button>
+        <button class="play" :isplay="isplay" @click="play_record"></button>
+        <button class="next" @click="to_nextpage"></button>
       </div>
       <div class="english-text">{{ english_text }}</div>
       <i-icon
@@ -94,7 +94,7 @@ export default {
           if (parseInt(save.bookprocess) === 1) {
             save.booknowpage--
           }
-          save.getbook()
+          save.get_book()
         })
       this.chinese_state = 'hidden'
       this.recorderManager = wx.getRecorderManager()
@@ -116,7 +116,7 @@ export default {
         )
       }
     },
-    getbook() {
+    get_book() {
       this.change_process(this.booknowpage / this.bookpagenumber)
       let fly = Tools.get_fly()
       let save = this
@@ -155,7 +155,7 @@ export default {
         this.chinese_button_state = 'add'
       }
     },
-    playaudio() {
+    play_audio() {
       let save = this
       wx.downloadFile({
         url:
@@ -172,7 +172,7 @@ export default {
         }
       })
     },
-    previouspage() {
+    to_previouspage() {
       if (this.booknowpage <= 0) {
         wx.showToast({
           title: '已经是第一页',
@@ -183,9 +183,9 @@ export default {
       } else {
         this.booknowpage--
       }
-      this.getbook()
+      this.get_book()
     },
-    nextpage() {
+    to_nextpage() {
       if (this.booknowpage >= this.bookpagenumber - 1) {
         this.change_process(1)
         wx.showToast({
@@ -197,7 +197,7 @@ export default {
       } else {
         this.booknowpage++
       }
-      this.getbook()
+      this.get_book()
     },
     record() {
       let save = this
@@ -213,7 +213,7 @@ export default {
         save.isrecord = true
       }
     },
-    playrecord() {
+    play_record() {
       this.innerRecordContext.play()
     },
     play_video() {

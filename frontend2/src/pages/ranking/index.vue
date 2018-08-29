@@ -100,7 +100,7 @@ page {
 }
 
 .title p {
-  color: #ffb001;
+  color: yellow;
   font-size: 25px;
   font-weight: bold;
 }

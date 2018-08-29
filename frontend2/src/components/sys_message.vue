@@ -2,7 +2,7 @@
   <div :class="isread">
     <div class="title">
       <span class="time">{{ send_time }}</span>
-      <span class="expand" @click="$emit('more')">{{ expand_info }}</span>
+      <span class="expand" @click="$emit('get_more')">{{ expand_info }}</span>
     </div>
     <div class="body">
       <p :class="content_status">{{ content }}</p>

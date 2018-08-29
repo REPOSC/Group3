@@ -6,7 +6,7 @@
     </div>
     <button id="modify-info" @click="change_info">修改资料</button>
     <button id="system-message" @click="system_message">系统消息</button>
-    <button id="introduction" @click="turnTo">功能介绍</button>
+    <button id="introduction" @click="introduce">功能介绍</button>
     <button id="about-vron" @click="about">关于弗恩英语</button>
     <button id="logout" @click="logout">退出登录</button>
   </div>
