@@ -5,11 +5,11 @@
       <div class="dynamicsHead">
         <div class="userText">
           <span class="userName">{{items.user_name}}</span>
-          <span class="time">{{items.riqi}}</span>
+          <!-- <span class="time">{{items.riqi}}</span> -->
+          <span class="time">{{items.book_num}}</span>
         </div>
         <div class="headButton">
           <div class="oneButton">
-            <el-button>置顶</el-button>
             <el-button @click="deldaka">删除</el-button>
           </div>
         </div>
@@ -32,14 +32,8 @@
       <div class="likeList">{{ratings}}</div>
       <div class="otherInfo">
         <div class="iconBox ">
-          <!--<ul>-->
-          <!--<li><img :src="icons.forword" class="img"></li>-->
-          <!--</ul>-->
           <div>
-            点赞人数{{items.like_num}}}
-          </div>
-          <div class="changecolor">
-            评论
+            点赞人数{{items.like_num}}
           </div>
         </div>
       </div>
@@ -47,13 +41,12 @@
         <div class="pinglunInfo" v-for='i in shuoData'>
           <div class="ren"> {{i.shuo_user_id}}</div><br>
           <div class="say">{{i.article}}</div>
-          <el-button @click="delcomment(i)">删除</el-button>
+          <el-button @click="delcomment(i.commentid)">删除</el-button>
         </div>
         <div @click="showAll = !showAll" class="show-more">{{word}}</div>
       </div>
       <div class="userList"></div>
     </div>
-    <div @touchend="Input"></div>
   </div>
 </template>
 
@@ -67,12 +60,7 @@ export default {
     return {
       isOpen: false,
       toggleText: '展开全文',
-      icons: {
-        rating: [require('./rating1.png'), require('./rating.png')],
-        comment: require('./comment.png'),
-        forword: require('./forword.png')
-      },
-      ratings: '',
+      ratings: [],
       showAll: false,
       shuoData: []
     }
@@ -83,16 +71,16 @@ export default {
       if (this.showAll === false) {
         // 当数据不需要完全显示的时候
         var showList = []
-        if (this.toLearnList.length > 3) {
+        if (this.shuoData.length > 3) {
           for (var i = 0; i < 3; i++) {
-            showList.push(this.toLearnList[i])
+            showList.push(this.shuoData[i])
           }
         } else {
-          showList = this.toLearnList
+          showList = this.shuoData
         }
         return showList
       } else {
-        return this.toLearnList
+        return this.shuoData
       }
     },
     word: function() {
@@ -118,27 +106,36 @@ export default {
       axios
         .post(
           Tools.get_url() + 'daka_like',
-          qs.stringify({ item: saved.items })
+          qs.stringify({
+            book_num: saved.items.book_num,
+            user_name: saved.items.user_name
+          })
         )
         .then(function(response) {
           let nicknames = eval(response.data.like_nicknames)
-          this.ratings = nicknames
+          saved.ratings = nicknames
         })
     },
     commentlist() {
       let saved = this
+      this.shuoData = []
       axios
         .post(
           Tools.get_url() + 'daka_comment',
-          qs.stringify({ item: saved.items })
+          qs.stringify({
+            book_num: saved.items.book_num,
+            user_name: saved.items.user_name
+          })
         )
         .then(function(response) {
-          let commentusers = eval(response.data.comment_user_numbers)
-          let comments = eval(response.data.comments)
+          let commentusers = response.data.comment_user_numbers
+          let comments = response.data.comments
+          let commentids = response.data.commentids
           for (let i = 0; i < commentusers.length; ++i) {
             saved.shuoData.push({
               shuo_user_id: commentusers[i],
-              article: comments[i]
+              article: comments[i],
+              commentid: commentids[i]
             })
           }
         })
@@ -151,10 +148,13 @@ export default {
       axios
         .post(
           Tools.get_url() + 'del_comment',
-          qs.stringify({ item: saved.items, conent: e })
+          qs.stringify({
+            commentid: e
+          })
         )
         .then(function(response) {
           if (response.data.success) {
+            saved.commentlist()
             alert('删除评论成功！')
           } else {
             alert('删除失败！')
@@ -167,9 +167,16 @@ export default {
       }
       let saved = this
       axios
-        .post(Tools.get_url() + 'del_daka', qs.stringify({ item: saved.items }))
+        .post(
+          Tools.get_url() + 'del_punch',
+          qs.stringify({
+            book_num: saved.items.book_num,
+            user_name: saved.items.user_name
+          })
+        )
         .then(function(response) {
           if (response.data.success) {
+            saved.$emit('dakalist')
             alert('删除成功！')
           } else {
             alert('删除失败！')
