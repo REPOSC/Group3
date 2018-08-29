@@ -51,7 +51,7 @@ def daka_like(request):
     book_num = request.POST.get('book_num')
     user_name = request.POST.get('user_name')
     dakalikes = models.User_like.objects.filter(book_number=book_num,
-                                                   user_number=user_name)
+                                                user_number=user_name)
     str1 = []
     str2 = ''
     like_user_numbers = []
