@@ -114,7 +114,6 @@ export default {
           success: function(video_response) {
             if (video_response.statusCode === 200) {
               save.video_function.src = video_response.tempFilePath
-              console.log(save.video_function.src)
             }
             save.hidden = true
           }

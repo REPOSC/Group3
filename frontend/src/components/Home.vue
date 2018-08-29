@@ -128,33 +128,41 @@ export default {
   top: 0;
   bottom: 0;
   width: 100%;
+
   .topbar-wrap {
     height: 50px;
     line-height: 50px;
     background: #373d41;
     padding: 0;
+
     .topbar-btn {
       color: #ffffff;
     }
+
     .topbar-btn:hover {
       color: #f5ff7f;
     }
+
     .topbar-logo {
       float: left;
       width: 59px;
       line-height: 26px;
     }
+
     .topbar-logos {
       float: left;
       width: 120px;
       line-height: 26px;
     }
+
     .topbar-logo img,
+
     .topbar-logos img {
       height: 40px;
       margin-top: 5px;
       margin-left: 2px;
     }
+
     .topbar-title {
       float: left;
       text-align: left;
@@ -162,16 +170,19 @@ export default {
       padding-left: 10px;
       border-left: 1px solid #060606;
     }
+
     .topbar-account {
       float: right;
       padding-right: 12px;
     }
+
     .userinfo-inner {
       cursor: pointer;
       color: #fff;
       padding-left: 10px;
     }
   }
+
   .main {
     display: -webkit-box;
     display: -webkit-flex;
@@ -182,16 +193,20 @@ export default {
     bottom: 0;
     overflow: hidden;
   }
+
   aside {
     min-width: 50px;
     background: #333744;
+
     &::-webkit-scrollbar {
       display: none;
     }
+
     &.showSidebar {
       overflow-x: hidden;
       overflow-y: auto;
     }
+
     .el-menu {
       height: 100%;
       height: -moz-calc(100% - 80px);
@@ -201,29 +216,38 @@ export default {
       background-color: #333744;
       border-right: 0;
     }
+
     .el-submenu .el-menu-item {
       min-width: 60px;
     }
+
     .el-menu {
       width: 180px;
       text-align: left;
     }
+
     .el-menu--collapse {
       width: 60px;
     }
+
     .el-menu .el-menu-item,
+
     .el-submenu .el-submenu__title {
       height: 46px;
       line-height: 46px;
       color: white;
       text-align: left;
     }
+
     .el-menu-item:hover,
+
     .el-submenu .el-menu-item:hover,
+
     .el-submenu__title:hover {
       background-color: #7ed2df;
     }
   }
+
   .menu-toggle {
     background: #4a5064;
     text-align: center;
@@ -231,6 +255,7 @@ export default {
     height: 26px;
     line-height: 30px;
   }
+
   .content-container {
     background: #fff;
     flex: 1;

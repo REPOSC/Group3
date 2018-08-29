@@ -3,8 +3,10 @@
     <div class="card demonstration">
       <div class="title space">书本数据统计</div>
       <div>
-        <el-input v-model="TableDataName" placeholder="请输入账号"
-        style="width:240px"></el-input>
+        <el-input
+          v-model="TableDataName"
+          placeholder="请输入账号"
+          class="fixed"></el-input>
         <el-button type="primary" @click="doFilter">搜索</el-button>
         <el-button type="primary" @click="doBack">返回</el-button>
         <div class="space">
@@ -180,6 +182,11 @@ export default {
   margin: auto auto 40px;
   height: 600px;
 }
+
+.fixed {
+   width: 240px
+}
+
 .login-container {
   -webkit-border-radius: 5px;
   border-radius: 5px;
@@ -192,10 +199,12 @@ export default {
   border: 1px solid #eaeaea;
   box-shadow: 0 0 25px #cac6c6;
 }
+
 .column {
   width: 80%;
   height: 80%;
 }
+
 .searchbox {
   width: 240px;
 }

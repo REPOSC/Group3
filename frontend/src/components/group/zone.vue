@@ -195,6 +195,7 @@ export default {
   width: 100%;
   height: auto;
 }
+
 .loginContainer {
   -webkit-border-radius: 5px;
   border-radius: 5px;
@@ -207,6 +208,7 @@ export default {
   border: 1px solid #eaeaea;
   box-shadow: 0 0 25px #cac6c6;
 }
+
 .text {
   background-clip: padding-box;
   margin: 10px auto;
@@ -216,55 +218,70 @@ export default {
   box-shadow: 0 0 5px #cac6c6;
   text-align: left;
 }
+
 .dynamicsHead {
   width: 100%;
   height: 50px;
   line-height: 50px;
 }
+
 .userText {
   height: 50px;
   float: left;
 }
+
 .userName,
+
 .time {
   display: block;
   width: 100%;
   line-height: 25px;
 }
+
 .userName {
   color: #333;
 }
+
 .time {
   color: #999;
 }
+
 .likeList {
   text-align: left;
   margin-left: 50px;
 }
+
 .headButton {
   line-height: 50px;
   float: right;
 }
+
 .oneButton:first-child {
   margin-right: 32px;
 }
+
 .content {
   line-height: 22px;
   overflow: hidden;
 }
+
 .toggleText {
   color: #a70008;
   cursor: pointer;
 }
+
 .foldHeight {
   height: 110px;
 }
+
 .openHeight {
   height: auto;
 }
+
 .dynamicsInfo {
   width: 100%;
 }
+
 .otherInfo {
   height: 40px;
   padding-bottom: 15px;
@@ -272,6 +289,7 @@ export default {
   line-height: 40px;
   border-bottom: 1px solid #e7e7e7;
 }
+
 .pinglunInfo {
   height: auto;
   padding-bottom: 15px;
@@ -281,27 +299,33 @@ export default {
   text-align: left;
   margin-left: 50px;
 }
+
 .ren {
   height: 10px;
 }
+
 .say {
   border: double;
   margin-left: 100px;
   width: 700px;
   display: inline-block;
 }
+
 .iconBox {
   float: right;
   cursor: pointer;
   margin-right: 50px;
 }
+
 .changecolor {
   display: inline;
   margin-right: 50px;
 }
+
 .changecolor:hover {
   color: #ba0101;
 }
+
 .dynamicsBox {
   width: 90%;
   height: auto;
