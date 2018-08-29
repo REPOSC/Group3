@@ -2,11 +2,26 @@
   <div class="card">
     <div class="title space">修改账户密码</div>
     <div class="input-title space">会员账号</div>
-    <el-input type="text" v-model="username" auto-complete="off" placeholder="请输入您的账号">{{username}}</el-input>
+    <el-input
+      type="text"
+      v-model="username"
+      auto-complete="off"
+      placeholder="请输入您的账号"
+    >{{username}}</el-input>
     <div class="input-title space">新密码</div>
-    <el-input type="password" v-model="password" auto-complete="off" placeholder="请输入密码">{{password}}</el-input>
+    <el-input
+      type="password"
+      v-model="password"
+      auto-complete="off"
+      placeholder="请输入密码"
+    >{{password}}</el-input>
     <div class="input-title space">确认密码</div>
-    <el-input type="password" v-model="confirm_pwd" auto-complete="off" placeholder="请输入密码">{{password}}</el-input>
+    <el-input
+      type="password"
+      v-model="confirm_pwd"
+      auto-complete="off"
+      placeholder="请输入密码"
+    >{{password}}</el-input>
     <el-button class="space" type="primary" @click="submit">确认修改</el-button>
   </div>
 </template>
