@@ -1,13 +1,13 @@
 <template>
   <div :class="isread">
-    <div class="title">
-      <span class="time">{{ send_time }}</span>
-      <span class="expand" @click="$emit('get_more')">{{ expand_info }}</span>
+    <div class="top">
+      <p class="time">{{ send_time }}</p>
+      <p class="expand" @click="$emit('get_more')">{{ expand_info }}</p>
     </div>
     <div class="body">
       <p :class="content_status">{{ content }}</p>
     </div>
-    <div class="function" v_if="content_status === 'true'">
+    <div class="function" v-if="content_status === 'true'">
       <button class="mark" @click="$emit('mark_message')">
         {{ isread_info }}
       </button>
@@ -29,7 +29,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .notread {
   color: #ffb100;
   border: 3px solid #ffb100;
@@ -38,6 +38,7 @@ export default {
   padding: 5px 19px;
   background-color: antiquewhite;
 }
+
 .read {
   color: #53cce9;
   border: 2px solid #53cce9;
@@ -46,18 +47,31 @@ export default {
   padding: 5px 19px;
   background-color: antiquewhite;
 }
-.title {
+
+.top {
   height: 30px;
+  font-size: 16px;
+  display: flex;
+  justify-content: space-between;
 }
+
 .time {
-  font-size: 18px;
+  height: 30px;
+  line-height: 30px;
 }
+
+.expand {
+  height: 30px;
+  line-height: 30px;
+}
+
 .function {
   font-size: 16px;
   color: white;
   display: flex;
   margin: 10px auto;
 }
+
 .close {
   font-size: 16px;
   width: 40%;
@@ -65,6 +79,7 @@ export default {
   line-height: 30px;
   background-color: #f53076;
 }
+
 .mark {
   font-size: 16px;
   width: 40%;
@@ -72,6 +87,7 @@ export default {
   line-height: 30px;
   background-color: #53cce9;
 }
+
 .false {
   text-align: justify;
   font-size: 18px;
@@ -84,14 +100,10 @@ export default {
   align-content: center;
   color: #222;
 }
+
 .true {
   text-align: justify;
   font-size: 18px;
   color: #222;
-}
-.expand {
-  position: absolute;
-  right: 41px;
-  font-size: 18px;
 }
 </style>
