@@ -1,3 +1,4 @@
 {
-  "navigationBarTitleText": "等级选择"
+  "navigationBarTitleText": "等级选择",
+  "disableScroll": true
 }

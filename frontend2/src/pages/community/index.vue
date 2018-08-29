@@ -118,12 +118,12 @@ export default {
         this.now_comment_record = ''
       } else {
         if (this.now_comment_record !== '') {
-          this.recordsss[this.now_comment_record].comment_info = '评论'
-          this.recordsss[this.now_comment_record].commented = false
+          this.now_comment_record.comment_info = '评论'
+          this.now_comment_record.commented = false
         }
         record.comment_info = '取消'
         record.commented = true
-        this.now_comment_record = record.id
+        this.now_comment_record = record
       }
     },
     is_empty(record) {

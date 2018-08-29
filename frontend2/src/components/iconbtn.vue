@@ -26,7 +26,7 @@ export default {}
 
 <style>
 .text {
-  color: black;
+  color: #ff9000;
 }
 
 .detail,
