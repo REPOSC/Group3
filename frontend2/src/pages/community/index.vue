@@ -162,7 +162,7 @@ export default {
               save.now_comment_record = ''
             } else {
               wx.showToast({
-                title: '评论失败，请检查网路~',
+                title: '评论失败，请检查网络~',
                 icon: 'none'
               })
             }
@@ -171,7 +171,11 @@ export default {
     },
     to_ranking() {
       wx.navigateTo({
-        url: '/pages/ranking/main?booknumber=' + this.booknumber
+        url:
+          '/pages/ranking/main?username=' +
+          this.username +
+          '&level=' +
+          this.level
       })
     }
   }

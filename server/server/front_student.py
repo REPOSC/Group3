@@ -119,7 +119,7 @@ def change_last_level(request):
 
 
 def get_key(obj):
-    return obj['mark']
+    return -obj['mark']
 
 
 def get_all_ranks(request):

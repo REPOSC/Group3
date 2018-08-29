@@ -7,8 +7,8 @@
     <div :class="my-ranklist">
       <my_rank_card v-bind="my_rankinfo"></my_rank_card>
     </div>
-    <div class="their-ranklist" v-for="n in length">
-      <rank_card v-bind="rankinfo[n-1]"></rank_card>
+    <div class="their-ranklist" v-for="n in showed_rankinfo.length">
+      <rank_card v-bind="showed_rankinfo[n-1]"></rank_card>
     </div>
   </div>
 </template>
@@ -28,7 +28,10 @@ export default {
         nickname: '正在获取...',
         mark: '正在获取...'
       },
-      rankinfo: []
+      rankinfo: [],
+      showed_rankinfo: [],
+      now_begin: 0,
+      now_item_number: 10
     }
   },
   onLoad(status) {
@@ -38,10 +41,15 @@ export default {
   onShow() {
     this.init()
   },
+  onReachBottom: function() {
+    this.get_image()
+  },
   methods: {
     init() {
       let fly = Tools.get_fly()
       let save = this
+      save.showed_rankinfo = []
+      save.rankinfo = []
       fly
         .post(
           Tools.get_url() + 'get_all_ranks',
@@ -50,33 +58,54 @@ export default {
           })
         )
         .then(function(response) {
-          for (let i = 0; i < response.data.people.length; ++i) {
-            wx.downloadFile({
-              url:
-                Tools.get_url() +
-                'get_user_image?username=' +
-                response.data.people[i].username,
-              success: function(picture_response) {
-                if (picture_response.statusCode === 200) {
-                  let tmp_user_image = picture_response.tempFilePath
-                  save.rankinfo.push({
-                    username: response.data.people[i].username,
-                    rank_number: i + 1,
-                    head_pic: tmp_user_image,
-                    nickname: response.data.people[i].nickname,
-                    mark: response.data.people[i].mark
-                  })
-                  if (response.data.people[i].username === save.username) {
-                    save.my_rankinfo.rank_number = i + 1
-                    save.my_rankinfo.head_pic = tmp_user_image
-                    save.my_rankinfo.nickname = response.data.people[i].nickname
-                    save.my_rankinfo.mark = response.data.people[i].mark
-                  }
-                }
+          if (response.status === 200) {
+            for (let i = 0; i < response.data.people.length; ++i) {
+              save.rankinfo.push({
+                username: response.data.people[i].username,
+                rank_number: i + 1,
+                head_pic: null,
+                nickname: response.data.people[i].nickname,
+                mark: response.data.people[i].mark
+              })
+              if (response.data.people[i].username === save.username) {
+                save.my_rankinfo.rank_number = i + 1
+                save.my_rankinfo.head_pic = null
+                save.my_rankinfo.nickname = response.data.people[i].nickname
+                save.my_rankinfo.mark = response.data.people[i].mark
               }
-            })
+            }
+            save.get_image(
+              save.now_begin,
+              save.now_begin + save.now_item_number
+            )
           }
         })
+    },
+    get_image() {
+      let save = this
+      wx.showToast({
+        title: '加载中，请稍候',
+        icon: 'loading',
+        duration: 1000
+      })
+      for (
+        let i = save.now_begin;
+        i < save.now_begin + save.now_item_number;
+        ++i
+      ) {
+        wx.downloadFile({
+          url:
+            Tools.get_url() +
+            'get_user_image?username=' +
+            save.rankinfo[i].username,
+          success: function(picture_response) {
+            let pic_tmp_obj = save.rankinfo[i]
+            pic_tmp_obj.head_pic = picture_response.tempFilePath
+            save.showed_rankinfo.push(pic_tmp_obj)
+          }
+        })
+      }
+      this.now_begin += this.now_item_number
     }
   },
   components: {
