@@ -16,8 +16,10 @@
         <button class="next" @click="to_nextpage"></button>
       </div>
       <div class="english-text">{{ english_text }}</div>
-      <i-icon v-bind:type="chinese_button_state" @click="change_chinese_state"
-      class="button" />
+      <i-icon
+        v-bind:type="chinese_button_state"
+        @click="change_chinese_state"
+        class="button"/>
       <div v-bind:class="chinese_state">{{ chinese_text }}</div>
     </div>
   </div>
@@ -43,6 +45,7 @@ export default {
       bookpagenumber: 0,
       imagesrc: null,
       isrecord: false,
+      isplayrecord: false,
       isplay: false,
       recorderManager: null,
       recordsrc: '',
@@ -191,20 +194,39 @@ export default {
     },
     record() {
       let save = this
-      if (save.isrecord === true) {
-        save.recorderManager.stop()
-        save.recorderManager.onStop(response => {
-          this.recordsrc = response.tempFilePath
-          this.innerRecordContext.src = this.recordsrc
+      if (save.isplayrecord) {
+        wx.showToast({
+          title: '正在播放录音中，无法录音',
+          icon: 'none'
         })
-        save.isrecord = false
       } else {
-        save.recorderManager.start()
-        save.isrecord = true
+        if (save.isrecord) {
+          save.recorderManager.stop()
+          save.recorderManager.onStop(response => {
+            this.recordsrc = response.tempFilePath
+            this.innerRecordContext.src = this.recordsrc
+          })
+        } else {
+          save.recorderManager.start()
+        }
+        save.isrecord = !save.isrecord
       }
     },
     play_record() {
-      this.innerRecordContext.play()
+      let save = this
+      if (save.isrecord) {
+        wx.showToast({
+          title: '正在录音中，无法播放',
+          icon: 'none'
+        })
+      } else {
+        if (save.isplayrecord === true) {
+          save.innerRecordContext.stop()
+        } else {
+          save.innerRecordContext.play()
+        }
+        save.isplayrecord = !save.isplayrecord
+      }
     },
     play_video() {
       if (!this.video_function.is_play_video) {
@@ -227,9 +249,14 @@ export default {
         this.video_function.play_info = '功能讲解'
       }
     }
+  },
+  onUnload: function() {
+    this.recorderManager.stop()
+    this.innerRecordContext.stop()
   }
 }
 </script>
+
 <style>
 page {
   background-size: 100% 100%;
@@ -257,9 +284,8 @@ title {
 }
 
 .function {
-  margin: 10px auto;
+  margin: 20px auto;
   text-align: center;
-  background-color: #ffb001;
 }
 
 .function button {
