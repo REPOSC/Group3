@@ -36,7 +36,11 @@ export default {
       video_function: {
         play_info: '功能讲解',
         is_play_video: false,
-        src: 'http://wxsnsdy.tc.qq.com/105/20210/snsdyvideodownload?filekey=30280201010421301f0201690402534804102ca905ce620b1241b726bc41dcff44e00204012882540400&bizid=1023&hy=SH&fileparam=302c020101042530230204136ffd93020457e3c4ff02024ef202031e8d7f02030f42400204045a320a0201000400'
+        src: 'http://wxsnsdy.tc.qq.com/105/20210/snsdyvideodownload?' +
+          'filekey=30280201010421301f0201690402534804102ca905ce620b1' +
+          '241b726bc41dcff44e00204012882540400&bizid=1023&hy=SH&file' +
+          'param=302c020101042530230204136ffd93020457e3c4ff02024ef20' +
+          '2031e8d7f02030f42400204045a320a0201000400'
       },
       booknumber: null,
       now_word: '',
@@ -211,13 +215,16 @@ page {
   background-size: 100% 100%;
   background-image: url('https://daisy-donald.cn/image/sky.jpg');
 }
+
 .game {
   position: relative;
   margin-top: 20px;
 }
+
 .introduce {
   margin: 0 10% 0 70%;
 }
+
 button {
   color: white;
   font-size: 10px;
@@ -225,23 +232,28 @@ button {
   line-height: 20px;
   background-color: #ffb100;
 }
+
 .video {
   margin: 10px auto;
   text-align: center;
 }
+
 canvas {
   width: 40%;
   height: auto;
 }
+
 .content {
   display: flex;
   justify-content: space-between;
   margin: 10px 10px;
 }
+
 .words,
 .pics {
   width: 30%;
 }
+
 .words div {
   color: #fff;
   font-size: 25px;
@@ -252,6 +264,7 @@ canvas {
   margin: 30px auto;
   border-radius: 10px;
 }
+
 .pic {
   height: 90px;
   width: 100%;
@@ -260,28 +273,35 @@ canvas {
   margin: 30px auto;
   border-radius: 10px;
 }
+
 .pics img {
   width: 80px;
   height: 80px;
   border-radius: 10px;
 }
+
 .word_unmatch {
   background-color: #ffb001;
 }
+
 .word_matching {
   background-color: #53cce9;
 }
+
 .word_matched {
   background-color: #cccccc;
 }
+
 .pic_unmatch {
   display: inline-block;
   border: 5px solid #ffb001;
 }
+
 .pic_matching {
   display: inline-block;
   border: 5px solid #53cce9;
 }
+
 .pic_matched {
   border: 5px solid #cccccc;
 }

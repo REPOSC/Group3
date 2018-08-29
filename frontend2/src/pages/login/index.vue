@@ -63,10 +63,12 @@ page {
   background-size: 100% 100%;
   background-image: url('https://daisy-donald.cn/image/sky.jpg');
 }
+
 .login {
   font-size: 25px;
   margin: 30px auto;
 }
+
 .card {
   width: 80%;
   height: 30px;
@@ -75,6 +77,7 @@ page {
   display: flex;
   justify-content: space-around;
 }
+
 input {
   height: 50px;
   line-height: 50px;
@@ -82,6 +85,7 @@ input {
   border: 1px solid #ffb001;
   border-radius: 10px;
 }
+
 button {
   width: 80%;
   height: 50px;
@@ -90,6 +94,7 @@ button {
   background-color: #ffb001;
   margin: 100px auto;
 }
+
 img {
   width: 100%;
   height: 200px;

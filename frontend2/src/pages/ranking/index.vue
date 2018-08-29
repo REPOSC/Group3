@@ -90,6 +90,7 @@ page {
   background-size: 100% 100%;
   background-image: url('https://daisy-donald.cn/image/sky.jpg');
 }
+
 .title {
   height: 70px;
   line-height: 70px;
@@ -97,25 +98,31 @@ page {
   display: flex;
   justify-content: center;
 }
+
 .title p {
   color: #ffb001;
   font-size: 25px;
   font-weight: bold;
 }
+
 .title img {
   width: 70px;
   height: 70px;
 }
+
 .all-ranklist {
   margin: 20px 20px;
 }
+
 .my-ranklist {
   padding: 5px;
   margin: 20px auto;
 }
+
 .their-ranklist {
   margin: 10px auto;
 }
+
 rank_card {
   height: 100px;
   margin: 5px;

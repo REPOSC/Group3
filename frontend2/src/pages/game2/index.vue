@@ -29,7 +29,11 @@ export default {
       video_function: {
         play_info: '功能讲解',
         is_play_video: false,
-        src: 'http://wxsnsdy.tc.qq.com/105/20210/snsdyvideodownload?filekey=30280201010421301f0201690402534804102ca905ce620b1241b726bc41dcff44e00204012882540400&bizid=1023&hy=SH&fileparam=302c020101042530230204136ffd93020457e3c4ff02024ef202031e8d7f02030f42400204045a320a0201000400'
+        src: 'http://wxsnsdy.tc.qq.com/105/20210/snsdyvideodownload?' +
+          'filekey=30280201010421301f0201690402534804102ca905ce620b1' +
+          '241b726bc41dcff44e00204012882540400&bizid=1023&hy=SH&file' +
+          'param=302c020101042530230204136ffd93020457e3c4ff02024ef20' +
+          '2031e8d7f02030f42400204045a320a0201000400'
       },
       booknumber: null,
       word: '',
@@ -141,13 +145,16 @@ page {
   background-size: 100% 100%;
   background-image: url('https://daisy-donald.cn/image/sky.jpg');
 }
+
 .game {
   position: relative;
   margin-top: 30px;
 }
+
 .introduce {
   margin: 0 10% 0 70%;
 }
+
 button {
   color: white;
   font-size: 10px;
@@ -155,14 +162,17 @@ button {
   line-height: 20px;
   background-color: #ffb100;
 }
+
 .video {
   margin: 10px auto;
   text-align: center;
 }
+
 .word {
   width: 100%;
   text-align: center;
 }
+
 .word span {
   display: inline-block;
   font-size: 35px;
@@ -170,12 +180,14 @@ button {
   color: #ffb001;
   vertical-align: middle;
 }
+
 .pic-group {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   margin: 20px;
 }
+
 .pic-group img {
   width: 40%;
   height: 100px;

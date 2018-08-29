@@ -34,7 +34,11 @@ export default {
       video_function: {
         play_info: '功能讲解',
         is_play_video: false,
-        src: 'http://wxsnsdy.tc.qq.com/105/20210/snsdyvideodownload?filekey=30280201010421301f0201690402534804102ca905ce620b1241b726bc41dcff44e00204012882540400&bizid=1023&hy=SH&fileparam=302c020101042530230204136ffd93020457e3c4ff02024ef202031e8d7f02030f42400204045a320a0201000400'
+        src: 'http://wxsnsdy.tc.qq.com/105/20210/snsdyvideodownload?' +
+          'filekey=30280201010421301f0201690402534804102ca905ce620b1' +
+          '241b726bc41dcff44e00204012882540400&bizid=1023&hy=SH&file' +
+          'param=302c020101042530230204136ffd93020457e3c4ff02024ef20' +
+          '2031e8d7f02030f42400204045a320a0201000400'
       },
       booknumber: null,
       now_pic: '',
@@ -245,13 +249,16 @@ page {
   background-size: 100% 100%;
   background-image: url('https://daisy-donald.cn/image/sky.jpg');
 }
+
 .game {
   position: relative;
   margin-top: 20px;
 }
+
 .introduce {
   margin: 0 10% 0 70%;
 }
+
 button {
   color: white;
   font-size: 10px;
@@ -259,10 +266,12 @@ button {
   line-height: 20px;
   background-color: #ffb100;
 }
+
 .video {
   margin: 10px auto;
   text-align: center;
 }
+
 .pic {
   width: 280px;
   margin: 10px auto;
@@ -270,6 +279,7 @@ button {
   flex-wrap: wrap;
   border-radius: 10px;
 }
+
 .area {
   width: 220px;
   height: 206px;
@@ -277,27 +287,33 @@ button {
   display: flex;
   flex-wrap: wrap;
 }
+
 .show_answer {
   width: 220px;
   height: 206px;
   margin: 20px auto;
 }
+
 .not_show_answer {
   display: none;
 }
+
 .not_fill4 {
   width: 96px;
   height: 96px;
   margin: 2px;
   border: 2px dashed #ffb001;
 }
+
 .not_fill9 {
   width: 60px;
   height: 60px;
   margin: 2px;
   border: 2px dashed #ffb001;
 }
+
 .all_fill4,
+
 .all_fill9 {
   display: none;
 }
@@ -308,29 +324,35 @@ button {
   height: 96px;
   margin: 20px 20px;
 }
+
 .choosing4 {
   border: #ffb001 solid 2px;
   width: 96px;
   height: 96px;
   margin: 20px 20px;
 }
+
 .not_choosed9 {
   border: #53cce9 solid 2px;
   width: 60px;
   height: 60px;
   margin: 12px 12px;
 }
+
 .choosing9 {
   border: #ffb001 solid 2px;
   width: 60px;
   height: 60px;
   margin: 12px 12px;
 }
+
 .texts {
   text-align: center;
   margin: 20px auto;
 }
+
 .choosed4,
+
 .choosed9 {
   display: none;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,

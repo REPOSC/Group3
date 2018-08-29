@@ -28,6 +28,7 @@ export default {}
 .text {
   color: black;
 }
+
 .detail,
 .extensive {
   width: 50px;
@@ -39,6 +40,7 @@ export default {}
   font-size: 18px;
   text-align: center;
 }
+
 .previous,
 .next {
   width: 50px;
@@ -50,6 +52,7 @@ export default {}
   margin-top: 20px;
   margin-bottom: 20px;
 }
+
 .left img {
   width: 50px;
   height: 50px;

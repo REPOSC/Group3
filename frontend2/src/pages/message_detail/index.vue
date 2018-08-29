@@ -51,6 +51,7 @@ page {
   background-size: 100% 100%;
   background-image: url('https://daisy-donald.cn/image/sky.jpg');
 }
+
 .record {
   width: 90%;
   margin: 4%;
@@ -58,6 +59,7 @@ page {
   border: 5px solid #53cce9;
   border-radius: 10px;
 }
+
 .content {
   height: 100px;
   text-overflow: -o-ellipsis-lastline;
@@ -69,22 +71,27 @@ page {
   align-content: center;
   margin: auto 6px;
 }
+
 .user {
   display: flex;
 }
+
 .username {
   color: #53cce9;
   height: 40px;
   line-height: 40px;
 }
+
 .mes-info {
   float: right;
   color: #ffb100;
 }
+
 .comment {
   margin: 5px;
   border-top: 1px solid #fcf;
 }
+
 img {
   width: 30px;
   height: 30px;
