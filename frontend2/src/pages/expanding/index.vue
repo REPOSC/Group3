@@ -12,6 +12,7 @@
       <p class="item">打卡感想</p>
       <textarea class="content" v-model="content"></textarea>
     </div>
+    <div class="show_file_number">现在已上传 {{ has_upload }} 个文件</div>
     <div class="function">
       <button @click="upload_homework">上传作业</button>
       <button @click="share">打卡分享</button>
@@ -42,7 +43,8 @@ export default {
       has_upload: 0,
       requirement: '',
       content: '',
-      hidden: true
+      hidden: true,
+      is_video: []
     }
   },
   components: {
@@ -100,12 +102,18 @@ export default {
     get_content: function(type) {
       if (type === 'picture') {
         wx.chooseImage({
-          success: this.choosesuccess,
+          success: function() {
+            this.is_video.push(false)
+            this.choosesuccess()
+          },
           fail: this.choosefail
         })
       } else {
         wx.chooseVideo({
-          success: this.choosesuccess,
+          success: function() {
+            this.is_video.push(true)
+            this.choosesuccess()
+          },
           fail: this.choosefail
         })
       }
@@ -165,7 +173,8 @@ export default {
           formData: {
             username: save.username,
             booknumber: save.booknumber,
-            content: save.content
+            content: save.content,
+            is_video: save.is_video[index]
           },
           success: function(response) {
             let answer = response.data
@@ -335,5 +344,11 @@ button {
   font-size: 14px;
   text-shadow: 2px 2px 3px #000;
   background-color: #ffb001;
+}
+
+.show_file_number {
+  text-align: center;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 12px;
 }
 </style>
