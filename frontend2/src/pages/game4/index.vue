@@ -65,6 +65,14 @@ export default {
       }
       let fly = Tools.get_fly()
       let save = this
+      wx.downloadFile({
+        url: Tools.get_url() + 'get_video?item=fourth_game',
+        success: function(video_response) {
+          if (video_response.statusCode === 200) {
+            save.video_function.src = video_response.tempFilePath
+          }
+        }
+      })
       fly
         .post(
           Tools.get_url() + 'get_fourth_game_text',

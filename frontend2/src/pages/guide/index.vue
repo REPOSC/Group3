@@ -71,6 +71,14 @@ export default {
     init: function() {
       let fly = Tools.get_fly()
       let save = this
+      wx.downloadFile({
+        url: Tools.get_url() + 'get_video?item=guide',
+        success: function(video_response) {
+          if (video_response.statusCode === 200) {
+            save.video_function.src = video_response.tempFilePath
+          }
+        }
+      })
       fly
         .post(
           Tools.get_url() + 'get_first_function',
@@ -136,7 +144,7 @@ title {
   color: #019dd6;
   align-content: center;
   margin: 30px;
-  margin-top: 0px;
+  margin-top: 0;
 }
 
 .secpart {
