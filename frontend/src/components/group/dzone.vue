@@ -5,10 +5,10 @@
         <el-input
           v-model="tableDataName"
           placeholder="请输入账号"
-          style="width:240px"
+          class="wide"
         ></el-input>
         <el-button type="primary" @click="doFilter">搜索</el-button>
-        <el-button type="primary" @click="doFilter1">返回</el-button>
+        <el-button type="primary" @click="doback">返回</el-button>
       </div>&nbsp;&nbsp;
       <div class="block head file-btn">
         <span class="demonstration">带快捷选项</span>
@@ -19,20 +19,21 @@
           align="right"
           unlink-panels range-separator="至"
           start-placeholder="开始日期" end-placeholder="结束日期"
-          :picker-options="pickerOptions2" @change="getTime"
+          :picker-options="pickerOptions2"
         >
         </el-date-picker>
         <el-button type="primary" @click="doFilter2">搜索</el-button>
-        <el-button type="primary" @click="doFilter3">返回</el-button>
+        <el-button type="primary" @click="doback">返回</el-button>
       </div>
     </div>
     <qkj-body>
       <zone
         v-bind:items="item"
-        class="all"
-        align="center"
+        class="all" align="center"
+        @dakalist="dakalist"
         v-for="item in my_texts"
-      ></zone>
+        ></zone>
+      <!--将item双向绑定item为打卡分享中的每一项-->
       <div>
         <el-pagination
           background layout="prev, pager, next, sizes, total, jumper"
@@ -58,10 +59,11 @@ export default {
     return {
       visitDate: ['', ''], // 日期
       tableData: [],
+      all_tabledata: null,
       tableData1: [],
       tableDataName: '',
       filterTableData: [],
-      my_texts: '',
+      my_texts: [],
       pagesize: 10,
       currpage: 1,
       showAll: false,
@@ -101,34 +103,36 @@ export default {
   },
   methods: {
     change() {
-      this.my_texts = this.tabledate.slice(
+      this.my_texts = this.tableData.slice(
         (this.currpage - 1) * this.pagesize,
         this.currpage * this.pagesize
       )
     },
     doFilter() {
-      this.tableData1 = this.tableData
       if (this.tableDataName === '') {
-        this.$message.warning('查询条件不能为空！')
+        this.$notify.error({
+          title: '错误',
+          message: '查询条件不能为空！'
+        })
         return
       }
-      this.filterTableData = []
-      this.tableData.forEach((value, index) => {
-        if (value.user_name) {
-          if (value.user_name.indexOf(this.TableDataName) >= 0) {
-            this.filterTableData.push(value)
-          }
+      this.tableData = []
+      let saved = this
+      saved.all_tabledata.forEach((value, index) => {
+        if (String(value.user_name).indexOf(saved.tableDataName) >= 0) {
+          saved.tableData.push(value)
         }
       })
-      this.pagesize = 5
-      this.currpage = 1
-      this.tableData = this.filterTableData
-    },
-    doFilter1() {
-      this.tableData = this.tableData1
       this.pagesize = 10
       this.currpage = 1
-      this.TableDataName = ''
+      this.change()
+    },
+    doback() {
+      this.tableData = this.all_tabledata
+      this.pagesize = 10
+      this.currpage = 1
+      this.tableDataName = ''
+      this.change()
     },
     doFilter2() {
       this.tableData1 = this.tableData
@@ -147,27 +151,21 @@ export default {
           this.visitDate[1].slice(5, 7) +
           this.visitDate[1].slice(8, 10)
       )
-      alert(data1)
-      alert(data2)
-      this.filterTableData = []
-      this.tableData.forEach((value, index) => {
+      this.tableData = []
+      let saved = this
+      saved.all_tabledata.forEach((value, index) => {
         let newdate = parseInt(
-          this.value.riqi.slice(0, 4) +
-            this.value.riqi.slice(5, 7) +
-            this.value.riqi.slice(8, 10)
+          value.riqi.slice(0, 4) +
+            value.riqi.slice(5, 7) +
+            value.riqi.slice(8, 10)
         )
-        if (newdate < data2 && newdate > data1) {
-          this.filterTableData.push(value)
+        if (newdate <= data2 && newdate >= data1) {
+          this.tableData.push(value)
         }
       })
       this.pagesize = 10
       this.currpage = 1
-      this.tableData = this.filterTableData
-    },
-    doFilter3() {
-      this.tableData = this.tableData1
-      this.pagesize = 10
-      this.currpage = 1
+      this.change()
     },
     handleCurrentChange(cpage) {
       this.currpage = cpage
@@ -182,7 +180,7 @@ export default {
       axios.post(Tools.get_url() + 'all_daka', null).then(function(response) {
         let booknums = eval(response.data.booknums)
         let names = eval(response.data.usernums)
-        let conents = eval(response.data.conents)
+        let comments = eval(response.data.comments)
         let riqis = eval(response.data.riqis)
         let likenums = eval(response.data.likenums)
         for (let i = 0; i < names.length; ++i) {
@@ -190,36 +188,25 @@ export default {
             like_num: likenums[i],
             book_num: booknums[i],
             user_name: names[i],
-            commenting: conents[i],
+            commenting: comments[i],
             riqi: riqis[i]
           })
         }
+        saved.all_tabledata = saved.tableData
+        saved.change()
       })
     }
   },
   mounted: function() {
     this.dakalist()
-    this.change()
-    let nowDate = new Date()
-    let year = nowDate.getFullYear()
-    let month = nowDate.getMonth() + 1
-    let day = nowDate.getDate()
-    let endTime = `${year}-${month}-${day}`
-    this.nowTime = endTime
-    let befDate = new Date(nowDate.getTime() - 7 * 24 * 3600 * 1000)
-    let byear = befDate.getFullYear()
-    let bmonth = befDate.getMonth() + 1
-    let bday = befDate.getDate()
-    let startTime = `${byear}-${bmonth}-${bday}`
-    this.weekBeforeTime = startTime
-    this.visitDate = [
-      new Date(byear + ', ' + bmonth + ', ' + bday),
-      new Date(year + ', ' + month + ', ' + day)
-    ]
   }
 }
 </script>
 <style>
+.wide {
+  width: 240px;
+}
+
 .all {
   width: 100%;
   background: #fff;
