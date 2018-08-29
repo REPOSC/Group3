@@ -534,6 +534,7 @@ export default {
 .persual {
   display: inline;
 }
+
 .not_persual {
   display: none;
 }

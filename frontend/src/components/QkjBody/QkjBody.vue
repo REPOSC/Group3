@@ -35,6 +35,7 @@ export default {
   width: 100%;
   height: auto;
 }
+
 .no-bg {
   background: none;
 }

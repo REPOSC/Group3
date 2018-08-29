@@ -211,10 +211,12 @@ export default {
   width: 100%;
   background: #fff;
 }
+
 #APP {
   width: 90%;
   height: auto;
 }
+
 .head {
   position: relative;
   display: inline;

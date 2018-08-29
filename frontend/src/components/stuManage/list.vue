@@ -147,10 +147,12 @@ export default {
   margin: auto auto 40px;
   height: 600px;
 }
+
 .column {
   width: 80%;
   height: 80%;
 }
+
 .searchbox {
   width: 240px;
 }

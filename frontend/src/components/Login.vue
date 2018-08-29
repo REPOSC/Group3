@@ -124,6 +124,7 @@ export default {
     #00c1de
   );
   background: -o-linear-gradient(top, #ace, #00c1de);
+
   .title {
     margin: 10px 35px 55px 35px;
     text-align: center;
