@@ -34,7 +34,7 @@
       </div>
     </div>
     <div class="function">
-      <div @click="toranking">
+      <div @click="to_ranking">
         <img src="/static/img/tabbar_icon/yellow-rank.png" />
         <span>排行榜</span>
       </div>
@@ -169,12 +169,7 @@ export default {
           })
       }
     },
-    toMessage() {
-      wx.navigateTo({
-        url: '/pages/message/main?booknumber=' + this.booknumber
-      })
-    },
-    toranking() {
+    to_ranking() {
       wx.navigateTo({
         url: '/pages/ranking/main?booknumber=' + this.booknumber
       })

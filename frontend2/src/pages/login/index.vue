@@ -8,7 +8,7 @@
       <div class="card">
         <input type="password" placeholder="密码" v-model="password" />
       </div>
-      <button @click="handlelogin">登录</button>
+      <button @click="handle_login">登录</button>
     </div>
   </div>
 </template>
@@ -25,7 +25,7 @@ export default {
     }
   },
   methods: {
-    handlelogin: function() {
+    handle_login: function() {
       let fly = Tools.get_fly()
       let save = this
       fly

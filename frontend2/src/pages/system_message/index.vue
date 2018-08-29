@@ -3,7 +3,7 @@
     <div class="messsage-card" v-for="n in messages.length">
       <sys_message
         v-bind="messages[n-1]"
-        @more="more(messages[n-1])"
+        @get_more="get_more(messages[n-1])"
         @delete_message="delete_message(n-1)"
         @mark_message="mark(messages[n-1])">
       </sys_message>
@@ -104,7 +104,7 @@ export default {
           save.messages.splice(index, 1)
         })
     },
-    more(message) {
+    get_more(message) {
       if (message.content_status === 'false') {
         message.content_status = 'true'
         message.expand_info = '收起'

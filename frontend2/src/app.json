@@ -16,8 +16,7 @@
     "pages/practice/main",
     "pages/mine/main",
     "pages/show/main",
-    "pages/guide/main",
-    "pages/message/main"
+    "pages/guide/main"
   ],
   "window": {
     "backgroundTextStyle": "light",

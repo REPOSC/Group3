@@ -122,7 +122,6 @@ export default {
         }
       })
     },
-
     change_nickname() {
       let fly = Tools.get_fly()
       let save = this

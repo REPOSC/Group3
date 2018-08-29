@@ -10,7 +10,7 @@
       <textarea class="content" v-model="content"></textarea>
     </div>
     <div class="function">
-      <button @click="uploadhomework">上传作业</button>
+      <button @click="upload_homework">上传作业</button>
       <button @click="share">打卡分享</button>
       <button @click="reset">清除打卡</button>
     </div>
@@ -83,7 +83,7 @@ export default {
           save.content = response.data.content
         })
     },
-    uploadhomework: function() {
+    upload_homework: function() {
       if (this.is_punched === true) {
         this.failtoast('您已完成打卡，不要再重复上传文件哦~')
       } else if (this.is_punched === 'cannot') {
