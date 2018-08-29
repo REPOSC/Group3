@@ -113,6 +113,11 @@ page {
   text-align: center;
 }
 
+.username {
+  color: #ffb001;
+  font-size: 25px;
+}
+
 img {
   width: 70px;
   height: 70px;

@@ -1,36 +1,39 @@
 <template>
   <div class="info">
-    <p class="title">修改头像</p>
+    <p class="change">修改头像</p>
     <div class="div">
       <div class="avatar">
         <img v-bind:src="image_file_addr">
-        <i-button @click="choose_image">上传新头像</i-button>
-        <i-button @click="change_image">保存头像</i-button>
+        <div class="image">
+          <button @click="choose_image">上传头像</button>
+          <button @click="change_image">保存头像</button>
+        </div>
       </div>
     </div>
-    <p class="title">修改昵称</p>
+    <p class="change">修改昵称</p>
     <div class="div">
-      <div class="nickname">
-        <p class="item">昵称</p>
+      <div class="item">
         <input v-model="nickname" />
-        <i-button type="primary" @click="change_nickname">保存昵称</i-button>
       </div>
+      <button @click="change_nickname">保存昵称</button>
     </div>
-    <p class="title">修改密码</p>
+    <p class="change">修改密码</p>
     <div class="div">
-      <div class="password">
-        <p class="item">原密码</p>
-        <input type="password" v-model="old_password" maxlength="15" />
+      <div class="item">
+        <input type="password"
+          placeholder="原密码"
+          v-model="old_password"
+          maxlength="15" />
+        <input type="password"
+          placeholder="新密码"
+          v-model="new_password"
+          maxlength="15" />
+        <input type="password"
+          placeholder="确认密码"
+          v-model="new_password_again"
+          maxlength="15" />
       </div>
-      <div class="password">
-        <p class="item">新密码</p>
-        <input type="password" v-model="new_password" maxlength="15" />
-      </div>
-      <div class="password">
-        <p class="item">确认密码</p>
-        <input type="password" v-model="new_password_again" maxlength="15" />
-      </div>
-      <i-button type="primary" @click="change_pwd">保存密码</i-button>
+      <button @click="change_pwd">保存密码</button>
     </div>
   </div>
 </template>
@@ -198,30 +201,35 @@ page {
 
 button {
   color: #fff;
+  width: 50%;
   height: 40px;
   line-height: 40px;
-  font-size: 20px;
-  margin: 30px 50px;
+  margin: 15px auto;
   border-radius: 10px;
+  background-color: #ffb001;
 }
 
-p {
+.change {
   width: 40%;
+  color: #00c544;
+  font-weight: bold;
+  margin-bottom: 0;
 }
 
 input {
-  height: 30px;
-  width: 60%;
   color: #000;
+  height: 30px;
   line-height: 30px;
-  border: 2px solid #53cce9;
-  margin: 5px 50px;
+  padding-left: 5px;
+  border: 4px solid #53cce9;
+  margin: 5px auto;
 }
 
 img {
   width: 90px;
   height: 90px;
-  border: 2px solid #ffb001;
+  margin-left: 25px;
+  border: 4px solid #ffb001;
   border-radius: 10px;
 }
 
@@ -231,11 +239,33 @@ img {
   margin: 10px 20px;
 }
 
+.image {
+  width: 50%;
+  display: flex;
+  flex-wrap: wrap;
+  height: 94px;
+  line-height: 94px;
+}
+
+.image button {
+  height: 30px;
+  line-height: 30px;
+  width: 75%;
+  margin: 10px auto;
+}
+
 .div {
   width: 99%;
   margin: 5px auto;
-  border: 2px solid black;
+  border: 4px solid #ffb001;
   border-radius: 10px;
+}
+
+.item {
+  border-radius: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 10px auto;
 }
 
 .title {
@@ -256,35 +286,5 @@ img {
   margin: 10px auto;
   display: flex;
   padding-left: 20px;
-}
-
-.nickname {
-  width: 98%;
-  height: 50px;
-  line-height: 50px;
-  margin: 10px auto;
-  display: flex;
-  padding-left: 20px;
-}
-
-.password {
-  width: 98%;
-  height: 60px;
-  line-height: 60px;
-  display: flex;
-  padding-left: 20px;
-}
-
-.item {
-  height: 40px;
-  line-height: 40px;
-  text-align: center;
-  background-color: #53cce9;
-  border-radius: 10px;
-  margin-top: 5px;
-}
-
-.save {
-  background-color: #ffb001;
 }
 </style>
