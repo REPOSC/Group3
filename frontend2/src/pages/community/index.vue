@@ -3,15 +3,17 @@
     <div class="record" v-for="(record, id) in records">
       <div class="user">
         <img :src="imagesource" />
-        <p class="username">
+        <p class="username wrap_drop">
           <span v-if="id === -1">id</span>
           {{ record.username }} 《{{record.bookname}}》
         </p>
       </div>
       <p class="punchtext">{{ record.punchtext }}</p>
-      <div v-for="file in record.contentnumber" class="file">
-        <span v-if="file === -1">file</span>
-        <img class="fileicon" :src="imagefile" />
+      <div v-for="imgfile in record.imgfiles" class="file">
+        <img :src="imgfile.src" />
+      </div>
+      <div v-for="videofile in record.videofiles" class="file">
+        <video :src="videofile.src" mode='aspectFit'></video>
       </div>
       <div class="action">
         <button id="like" @click="like(record)">赞
@@ -23,7 +25,7 @@
         </button>
       </div>
       <div class="comment">
-        <p v-for="comment in record.commentslist">
+        <p v-for="comment in record.commentslist" class="wrap_drop">
           <span class="username">{{ comment.commentusername }}</span>
           : {{ comment.commenttext }}
         </p>
@@ -54,7 +56,9 @@ export default {
       now_comment_record: '',
       userimage: [],
       imagesource: '/static/img/game2/cat1.jpg',
-      imagefile: '/static/img/file.png'
+      imagefile: '/static/img/file.png',
+      now_begin: 0,
+      now_item_number: 1
     }
   },
   onLoad: function(option) {
@@ -62,7 +66,14 @@ export default {
     this.level = option.level
   },
   onShow: function() {
+    this.now_begin = 0
+    this.now_item_number = 10
     this.get_community()
+  },
+  onReachBottom: function() {
+    this.get_image()
+    this.get_video()
+    this.now_begin += this.now_item_number
   },
   methods: {
     get_community() {
@@ -80,6 +91,9 @@ export default {
         .then(function(response) {
           if (response.data.status) {
             save.records = response.data.info
+            save.get_image()
+            save.get_video()
+            save.now_begin += save.now_item_number
           } else {
             wx.showModal({
               title: '获取社群信息时发生错误，请检查网络或联系管理员！',
@@ -89,6 +103,78 @@ export default {
             })
           }
         })
+    },
+    get_image() {
+      let save = this
+      wx.showToast({
+        title: '加载图片中，请稍候',
+        icon: 'loading',
+        duration: 1000
+      })
+      for (
+        let i = save.now_begin;
+        i <
+        (save.now_begin + save.now_item_number < save.records.length
+          ? save.now_begin + save.now_item_number
+          : save.records.length);
+        ++i
+      ) {
+        for (let j = 0; j < save.records[i].imgfiles.length; ++j) {
+          wx.downloadFile({
+            url:
+              Tools.get_url() +
+              'get_punch_image?username=' +
+              save.records[i].username +
+              '&booknumber=' +
+              save.records[i].booknumber +
+              '&imgfile=' +
+              save.records[i].imgfiles[j].number,
+            success: function(picture_response) {
+              save.$set(
+                save.records[i].imgfiles[j],
+                'src',
+                picture_response.tempFilePath
+              )
+            }
+          })
+        }
+      }
+    },
+    get_video() {
+      let save = this
+      wx.showToast({
+        title: '加载视频中，请稍候',
+        icon: 'loading',
+        duration: 2000
+      })
+      for (
+        let i = save.now_begin;
+        i <
+        (save.now_begin + save.now_item_number < save.records.length
+          ? save.now_begin + save.now_item_number
+          : save.records.length);
+        ++i
+      ) {
+        for (let j = 0; j < save.records[i].videofiles.length; ++j) {
+          wx.downloadFile({
+            url:
+              Tools.get_url() +
+              'get_punch_video?username=' +
+              save.records[i].username +
+              '&booknumber=' +
+              save.records[i].booknumber +
+              '&videofile=' +
+              save.records[i].videofiles[j].number,
+            success: function(video_response) {
+              save.$set(
+                save.records[i].videofiles[j],
+                'src',
+                video_response.tempFilePath
+              )
+            }
+          })
+        }
+      }
     },
     like(record) {
       if (record.has_liked === false) {
@@ -212,13 +298,19 @@ page {
 }
 
 .file {
-  display: inline-block;
-  margin: 20px 0 20px 20px;
+  margin: 10px;
+  text-align: center;
 }
 
 .file img {
-  height: 60px;
-  width: 60px;
+  height: 300rpx;
+  width: 500rpx;
+}
+
+.file video {
+  margin: 10px auto;
+  width: 500rpx;
+  height: 300rpx;
 }
 
 .username {
@@ -309,5 +401,9 @@ textarea {
   height: 25px;
   width: 70%;
   border: 2px solid #ffb001;
+}
+
+.wrap_drop {
+  word-wrap: break-word;
 }
 </style>
