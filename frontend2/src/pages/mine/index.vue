@@ -69,11 +69,14 @@ export default {
       })
     },
     about() {
-      wx.showToast({
-        title: 'By Windows Vista',
-        icon: 'none',
-        duration: 1500,
-        mask: true
+      wx.showModal({
+        title: '关于弗恩英语',
+        content: '弗恩英语成立于2013年，一直专注于3-18岁青少年语言学习的素质教育。' +
+          '截至2018年6月，弗恩英语以全国直营连锁的形式在合肥、南京、杭州等省会城市' +
+          '开设了近40所分校。',
+        showCancel: false,
+        confirmText: '确定',
+        confirmColor: '#ffb001'
       })
     },
     logout() {

@@ -114,7 +114,7 @@ export default {
     get_image() {
       let save = this
       wx.showToast({
-        title: '加载图片中，请稍候',
+        title: '图片加载中...',
         icon: 'loading',
         duration: 1000
       })
@@ -150,7 +150,7 @@ export default {
     get_video() {
       let save = this
       wx.showToast({
-        title: '加载视频中，请稍候',
+        title: '视频加载中...',
         icon: 'loading',
         duration: 2000
       })

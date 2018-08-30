@@ -24,6 +24,10 @@ export default {
       last_level: ''
     }
   },
+  onLoad(status) {
+    this.username = ''
+    this.password = ''
+  },
   methods: {
     handle_login: function() {
       let fly = Tools.get_fly()
