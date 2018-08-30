@@ -256,6 +256,7 @@ page {
   margin: 20px 0;
   justify-content: space-between;
 }
+
 .to-mine {
   width: 70px;
   height: 90px;

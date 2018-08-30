@@ -2,7 +2,7 @@
   <div class="me">
     <div class="my-info">
       <img v-bind:src="image_file_addr">
-      <p class="username">{{ nickname }}</p>
+      <p class="nickname">{{ nickname }}</p>
     </div>
     <button id="modify-info" @click="change_info">修改资料</button>
     <button id="system-message" @click="system_message">系统消息</button>
@@ -104,65 +104,59 @@ page {
 }
 
 .me {
-  padding-top: 30px;
-  margin: 20px 50px;
+  width: 75%;
+  margin: 60px auto;
 }
 
 .my-info {
+  margin: 50px auto;
   display: flex;
   text-align: center;
 }
 
-.username {
+.nickname {
   color: #ffb001;
-  font-size: 25px;
+  font-size: 22px;
+  font-weight: bold;
+  height: 76px;
+  width: 70%;
+  line-height: 76px;
+}
+
+.me button {
+  color: #fff;
+  font-weight: bold;
 }
 
 img {
   width: 70px;
   height: 70px;
-  margin-left: 20px;
   border: 3px solid #ffb001;
   border-radius: 10px;
 }
 
-p {
-  margin: 25px 40px;
-  font-weight: bold;
-}
-
 #modify-info {
-  color: #fff;
-  font-weight: bold;
   background-color: #019dd6;
-  margin-top: 40px;
+  margin: 20px auto;
 }
 
 #system-message {
-  color: #fff;
-  font-weight: bold;
   background-color: #00c544;
-  margin-top: 20px;
+  margin: 20px auto;
 }
 
 #introduction {
-  color: #fff;
-  font-weight: bold;
   background-color: #f67c30;
-  margin-top: 20px;
+  margin: 20px auto;
 }
 
 #about-vron {
-  color: #fff;
-  font-weight: bold;
   background-color: #00fe90;
-  margin-top: 20px;
+  margin: 20px auto;
 }
 
 #logout {
-  color: #fff;
-  font-weight: bold;
   background-color: #f53076;
-  margin-top: 40px;
+  margin: 40px auto;
 }
 </style>

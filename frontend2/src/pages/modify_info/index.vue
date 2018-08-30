@@ -13,7 +13,7 @@
     <p class="change">修改昵称</p>
     <div class="div">
       <div class="item">
-        <input v-model="nickname" />
+        <input v-model="nickname" maxlength="8" placeholder="输入不超过8个字符" />
       </div>
       <button @click="change_nickname">保存昵称</button>
     </div>
@@ -217,6 +217,7 @@ button {
 }
 
 input {
+  width: 70%;
   color: #000;
   height: 30px;
   line-height: 30px;

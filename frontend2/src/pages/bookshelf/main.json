@@ -1,8 +1,4 @@
 {
   "navigationBarTitleText": "我的书架",
-  "disableScroll": true,
-  "usingComponents": {
-    "i-row": "../../iview/row/index",
-    "i-col": "../../iview/col/index"
-  }
+  "disableScroll": true
 }

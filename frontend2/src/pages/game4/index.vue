@@ -10,14 +10,17 @@
       <video :src="video_function.src" />
     </div>
     <div class="center">
-      <i-icon type="systemprompt_fill" @click="play_sound" size="40" />
+      <i-icon type="systemprompt_fill"
+        color="#ffb001"
+        @click="play_sound"
+        size="40" />
     </div>
     <div class="picGroup">
       <img :key="pic.index" v-for="pic in pics" :isanswer="pic.isanswer"
       :src="pic.src" mode="aspectFit" @click="choose(pic)" />
     </div>
     <div v-bind:class="word_class">
-      {{word}}
+      {{ word }}
     </div>
   </div>
 </template>
@@ -216,6 +219,7 @@ button {
 .center {
   margin: 30px auto;
   text-align: center;
+  color: #ffb001;
   font-size: 40px;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
     Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
