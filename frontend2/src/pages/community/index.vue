@@ -48,12 +48,6 @@
         </div>
       </div>
     </div>
-    <div class="function">
-      <div @click="to_ranking">
-        <img src="/static/img/tabbar_icon/yellow-rank.png" />
-        <span>排行榜</span>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -268,15 +262,6 @@ export default {
           })
       }
     },
-    to_ranking() {
-      wx.navigateTo({
-        url:
-          '/pages/ranking/main?username=' +
-          this.username +
-          '&level=' +
-          this.level
-      })
-    },
     preview(record, current_src) {
       for (let i = 0; i < record.imgfiles.length; i++) {
         this.preview_urls[i] = record.imgfiles[i].src
@@ -365,38 +350,6 @@ page {
 .new-comment {
   display: flex;
   margin: 5px 0;
-}
-
-.function {
-  height: 50px;
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
-  position: fixed;
-  bottom: 0;
-  background-color: #53cce9;
-  z-index: 1;
-}
-
-.function div {
-  display: flex;
-  flex-wrap: wrap;
-  height: 50px;
-  width: 50px;
-}
-
-.function span {
-  height: 20px;
-  width: 50px;
-  color: #666;
-  font-size: 12px;
-  text-align: center;
-}
-
-.function img {
-  width: 30px;
-  height: 30px;
-  margin: 0 auto;
 }
 
 button {

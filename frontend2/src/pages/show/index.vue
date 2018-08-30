@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="show">
     <div class="title">
       <img src="https://daisy-donald.cn/image/rainbow.png">
       <p>{{ bookname }}</p>
@@ -11,13 +11,17 @@
       <button id="expanding" @click="to_expanding">阅读拓展</button>
     </div>
     <div class="function">
-      <div @click="to_community">
-        <img class="icon" src="https://daisy-donald.cn/image/yellow-com.png" />
-        <span>社群</span>
+      <div class="to-community" @click="to_community">
+        <img src="https://daisy-donald.cn/image/community.png">
+        <p>社群</p>
       </div>
-      <div @click="to_mine">
-        <img class="icon" src="https://daisy-donald.cn/image/yellow-me.png" />
-        <span>我的</span>
+      <div class="to-ranking" @click="to_ranking">
+        <img src="https://daisy-donald.cn/image/ranking.png">
+        <p>排行榜</p>
+      </div>
+      <div class="to-mine" @click="to_mine">
+        <img src="https://daisy-donald.cn/image/man.png">
+        <p>我的</p>
       </div>
     </div>
   </div>
@@ -118,22 +122,6 @@ export default {
         })
       }
     },
-    to_community: function() {
-      let save = this
-      wx.navigateTo({
-        url:
-          '../community/main?username=' +
-          save.username +
-          '&level=' +
-          save.level
-      })
-    },
-    to_mine: function() {
-      let save = this
-      wx.navigateTo({
-        url: '../mine/main?username=' + save.username
-      })
-    },
     to_expanding: function() {
       let save = this
       wx.navigateTo({
@@ -147,6 +135,32 @@ export default {
           '&level=' +
           save.level
       })
+    },
+    to_community: function() {
+      let save = this
+      wx.navigateTo({
+        url:
+          '../community/main?username=' +
+          save.username +
+          '&level=' +
+          save.level
+      })
+    },
+    to_ranking() {
+      let save = this
+      wx.navigateTo({
+        url:
+          '../ranking/main?username=' +
+          save.username +
+          '&level=' +
+          save.level
+      })
+    },
+    to_mine: function() {
+      let save = this
+      wx.navigateTo({
+        url: '../mine/main?username=' + save.username
+      })
     }
   }
 }
@@ -158,44 +172,40 @@ page {
   background-image: url('https://daisy-donald.cn/image/sky.jpg');
 }
 
+.show {
+  width: 75%;
+  margin: 30px auto;
+}
+
 .items {
   margin: 60px auto;
 }
 
 .function {
-  height: 50px;
-  width: 100%;
   display: flex;
-  justify-content: space-around;
-  position: fixed;
-  bottom: 0;
-  background-color: #53cce9;
+  justify-content: space-between;
 }
 
 .function div {
-  display: flex;
-  flex-wrap: wrap;
-  height: 50px;
-  width: 50px;
-}
-
-.function span {
-  height: 20px;
-  width: 50px;
-  color: #666;
-  font-size: 12px;
+  width: 70px;
+  height: 90px;
   text-align: center;
 }
 
+.function p {
+  color: #ff9000;
+  font-weight: bolder;
+  font-size: 18px;
+  margin: -5px auto;
+}
+
 .function img {
-  width: 30px;
-  height: 30px;
-  margin: 0 auto;
+  width: 60px;
+  height: 60px;
 }
 
 .items button {
   color: #fff;
-  width: 75%;
   height: 50px;
   line-height: 50px;
   font-size: 20px;
@@ -212,7 +222,7 @@ page {
   justify-content: center;
 }
 
-p {
+.title p {
   color: yellow;
   font-size: 30px;
   font-weight: bold;
@@ -220,12 +230,6 @@ p {
 }
 
 .title img {
-  width: 70px;
-  height: 70px;
-}
-
-.icon img {
-  margin-top: 50px;
   width: 70px;
   height: 70px;
 }
@@ -243,6 +247,6 @@ p {
 }
 
 #expanding {
-  background-color: #00fe90;
+  background-color: #00c544;
 }
 </style>
