@@ -13,7 +13,7 @@
       <span>{{ word }}</span>
     </div>
     <div class="pic-group">
-      <img :key="pic.index" v-for="pic in pics" :isanswer="pic.isanswer"
+      <img :class="pic.img_border_color" :key="pic.index" v-for="pic in pics" :isanswer="pic.isanswer"
       :src="pic.src" mode="aspectFit" @click="choose(pic)" />
     </div>
   </div>
@@ -49,7 +49,8 @@ export default {
         this.pics.push({
           isanswer: null,
           src: null,
-          index: i
+          index: i,
+          img_border_color: 'orange'
         })
       }
       let fly = Tools.get_fly()
@@ -92,6 +93,7 @@ export default {
     },
     choose(pic) {
       if (pic.isanswer === true) {
+        pic.img_border_color = 'blue'
         wx.showModal({
           title: '选对啦!宝宝真棒！',
           content: '已完成该练习，是否退出~',
@@ -200,9 +202,16 @@ button {
   height: 100px;
   margin: 10px auto;
   overflow: hidden;
-  border: 5px solid #ffb001;
   padding: 5px;
   background-color: white;
   border-radius: 10%;
+}
+
+.orange {
+  border: 5px solid #ffb001;
+}
+
+.blue {
+  border: 5px solid #53cce5;
 }
 </style>

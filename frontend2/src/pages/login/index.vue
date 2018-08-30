@@ -19,8 +19,8 @@ import * as Tools from '../../components/Tools.js'
 export default {
   data() {
     return {
-      username: '10000001',
-      password: '111111',
+      username: '',
+      password: '',
       last_level: ''
     }
   },
