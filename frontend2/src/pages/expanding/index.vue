@@ -308,6 +308,10 @@ img {
   border: 2px solid #27532c;
   border-radius: 10px;
   margin: 10px auto;
+  color: white;
+  padding: 5px;
+  font-weight: bold;
+  font-size: 16px;
 }
 
 .content {
@@ -317,6 +321,10 @@ img {
   border: 2px solid #10534b;
   border-radius: 10px;
   margin: 10px auto;
+  color: white;
+  padding: 5px;
+  font-weight: bold;
+  font-size: 16px;
 }
 
 p {
@@ -336,19 +344,20 @@ p {
   margin: 20px auto;
 }
 
-button {
-  margin-top: 15%;
+.function button {
+  margin-top: 15px;
   width: 30%;
-  color: #53cce9;
-  font-weight: bold;
+  color: white;
+  font-weight: bolder;
   font-size: 14px;
-  text-shadow: 2px 2px 3px #000;
   background-color: #ffb001;
 }
 
 .show_file_number {
   text-align: center;
   font-family: 'Courier New', Courier, monospace;
-  font-size: 12px;
+  font-size: 14px;
+  color: #01c758;
+  font-weight: bolder;
 }
 </style>

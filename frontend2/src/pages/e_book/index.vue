@@ -6,20 +6,28 @@
     <title v-bind="video_function" @play_video="play_video"></title>
     <div class="body">
       <div class="book">
-        <img :src="imagesrc" mode="scaleToFill" class="image">
+        <img class="image" :src="imagesrc" mode="scaleToFill">
       </div>
-      <div class="function">
-        <button class="previous" @click="to_previouspage"></button>
-        <button class="listen" @click="play_audio"></button>
-        <button class="add" :isrecord="isrecord" @click="record"></button>
-        <button class="play" :isplay="isplay" @click="play_record"></button>
-        <button class="next" @click="to_nextpage"></button>
+      <div class="function" @click="watch_audio_stop">
+        <div id="previous" @click="to_previouspage"></div>
+        <div v-if="isplayingaudio" id="listen-now" @click="play_audio"></div>
+        <div v-if="isplayingaudio === false"
+          id="not-listen-now" @click="play_audio"></div>
+        <div v-if="isrecord" id="add-now"
+          :isrecord="isrecord" @click="record"></div>
+        <div v-if="isrecord === false" id="not-add-now"
+          :isrecord="isrecord" @click="record"></div>
+        <div v-if="isplayrecord" id="play-now"
+          :isplay="isplayrecord" @click="play_record"></div>
+        <div v-if="isplayrecord === false" id="not-play-now"
+          :isplay="isplayrecord" @click="play_record"></div>
+        <div id="next" @click="to_nextpage"></div>
       </div>
       <div class="english-text">{{ english_text }}</div>
       <i-icon
         v-bind:type="chinese_button_state"
         @click="change_chinese_state"
-        class="button" />
+        class="extend-icon"/>
       <div v-bind:class="chinese_state">{{ chinese_text }}</div>
     </div>
   </div>
@@ -47,7 +55,6 @@ export default {
       isrecord: false,
       isplayrecord: false,
       isplayingaudio: false,
-      isplay: false,
       recorderManager: null,
       recordsrc: '',
       innerRecordContext: null,
@@ -67,6 +74,9 @@ export default {
     this.booknumber = status.booknumber
     this.video_function.booktitle = status.bookname
     this.bookprocess = status.process
+    this.isplayingaudio = false
+    this.isrecord = false
+    this.isplayrecord = false
   },
   onShow: function() {
     this.init()
@@ -186,6 +196,15 @@ export default {
         })
       }
     },
+    watch_audio_stop(e) {
+      if (e.target.id === 'next' || e.target.id === 'previous') {
+        this.isplayrecord = false
+        this.isrecord = false
+        this.isplayingaudio = false
+      } else if (this.isplayingaudio === true) {
+        this.isplayingaudio = false
+      }
+    },
     to_previouspage() {
       if (this.booknowpage <= 0) {
         wx.showToast({
@@ -243,10 +262,16 @@ export default {
       } else {
         if (save.isplayrecord === true) {
           save.innerRecordContext.stop()
+          save.isplayrecord = !save.isplayrecord
+        } else if (save.innerRecordContext.src === '') {
+          wx.showToast({
+            title: '您还没有录音',
+            icon: 'none'
+          })
         } else {
           save.innerRecordContext.play()
+          save.isplayrecord = !save.isplayrecord
         }
-        save.isplayrecord = !save.isplayrecord
       }
     },
     play_video() {
@@ -271,8 +296,12 @@ export default {
     }
   },
   onUnload: function() {
+    this.isplayingaudio = false
+    this.isrecord = false
+    this.isplayrecord = false
     this.recorderManager.stop()
     this.innerRecordContext.stop()
+    this.innerAudioContext.stop()
   }
 }
 </script>
@@ -308,33 +337,55 @@ title {
   text-align: center;
 }
 
-.function button {
+.function div {
   display: inline-block;
   width: 50px;
   height: 50px;
   background-size: 100% 100%;
-  border: 1px solid #ffb001;
   vertical-align: middle;
 }
 
-.previous {
+#previous {
   background-image: url('http://daisy-donald.cn/image/left.png');
+  border: 1px solid #ffb001;
 }
 
-.listen {
+#listen-now {
   background-image: url('http://daisy-donald.cn/image/listen.png');
+  border: 5px solid #ffb001;
+  border-radius: 10px;
 }
 
-.add {
+#not-listen-now {
+  background-image: url('http://daisy-donald.cn/image/listen.png');
+  border: 1px solid #ffb001;
+}
+
+#add-now {
   background-image: url('http://daisy-donald.cn/image/add.png');
+  border: 5px solid #ffb001;
+  border-radius: 10px;
 }
 
-.play {
+#not-add-now {
+  background-image: url('http://daisy-donald.cn/image/add.png');
+  border: 1px solid #ffb001;
+}
+
+#play-now {
   background-image: url('http://daisy-donald.cn/image/play.png');
+  border: 5px solid #ffb001;
+  border-radius: 10px;
 }
 
-.next {
+#not-play-now {
+  background-image: url('http://daisy-donald.cn/image/play.png');
+  border: 1px solid #ffb001;
+}
+
+#next {
   background-image: url('http://daisy-donald.cn/image/right.png');
+  border: 1px solid #ffb001;
 }
 
 .hidden {
@@ -359,7 +410,7 @@ title {
   width: 100%;
 }
 
-.button {
+.extend-icon {
   float: right;
   margin: 20px;
 }
