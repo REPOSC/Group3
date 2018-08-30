@@ -66,7 +66,7 @@ export default {
       imagesource: '/static/img/game2/cat1.jpg',
       imagefile: '/static/img/file.png',
       now_begin: 0,
-      now_item_number: 1
+      now_item_number: 2
     }
   },
   onLoad: function(option) {
