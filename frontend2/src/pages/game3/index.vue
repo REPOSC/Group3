@@ -351,6 +351,7 @@ button {
 }
 
 .texts {
+  color: #ffb001;
   text-align: center;
   margin: 20px auto;
 }

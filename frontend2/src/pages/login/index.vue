@@ -8,7 +8,7 @@
       <div class="card">
         <input type="password" placeholder="密码" v-model="password" />
       </div>
-      <button @click="handle_login">登录</button>
+      <button @click="handle_login">登 录</button>
     </div>
   </div>
 </template>
@@ -91,6 +91,7 @@ button {
   height: 50px;
   line-height: 50px;
   color: #fff;
+  font-weight: bold;
   background-color: #ffb001;
   margin: 100px auto;
 }
