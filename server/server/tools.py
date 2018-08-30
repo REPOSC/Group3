@@ -89,5 +89,5 @@ def punch_content(instance, filename):
 def profile_photo(instance, filename):
     return os.path.join(settings.MEDIA_ROOT,
                         'Profile_photo',
-                        str(instance.user_number.number) + '-' +
+                        str(instance.number) + '-' +
                         random_string(8) + filename)
