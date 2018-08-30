@@ -7,8 +7,8 @@
     <div :class="my-ranklist">
       <my_rank_card v-bind="my_rankinfo"></my_rank_card>
     </div>
-    <div class="their-ranklist" v-for="n in showed_rankinfo.length">
-      <rank_card v-bind="showed_rankinfo[n-1]"></rank_card>
+    <div class="their-ranklist" v-for="n in rankinfo.length">
+      <rank_card v-bind="rankinfo[n-1]"></rank_card>
     </div>
   </div>
 </template>
@@ -29,7 +29,6 @@ export default {
         mark: '正在获取...'
       },
       rankinfo: [],
-      showed_rankinfo: [],
       now_begin: 0,
       now_item_number: 10
     }
@@ -49,7 +48,6 @@ export default {
       let fly = Tools.get_fly()
       let save = this
       save.now_begin = 0
-      save.showed_rankinfo = []
       save.rankinfo = []
       fly
         .post(
@@ -75,6 +73,19 @@ export default {
                 save.my_rankinfo.mark = response.data.people[i].mark
               }
             }
+            save.rankinfo.sort((obj1, obj2) => {
+              return obj1.rank_number - obj2.rank_number
+            })
+            wx.downloadFile({
+              url: Tools.get_url() + 'get_user_image?username=' + save.username,
+              success: function(picture_response) {
+                save.$set(
+                  save.my_rankinfo,
+                  'head_pic',
+                  picture_response.tempFilePath
+                )
+              }
+            })
             save.get_image(
               save.now_begin,
               save.now_begin + save.now_item_number
@@ -100,9 +111,11 @@ export default {
             'get_user_image?username=' +
             save.rankinfo[i].username,
           success: function(picture_response) {
-            let pic_tmp_obj = save.rankinfo[i]
-            pic_tmp_obj.head_pic = picture_response.tempFilePath
-            save.showed_rankinfo.push(pic_tmp_obj)
+            save.$set(
+              save.rankinfo[i],
+              'head_pic',
+              picture_response.tempFilePath
+            )
           }
         })
       }
