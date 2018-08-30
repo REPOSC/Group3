@@ -202,8 +202,8 @@ page {
 button {
   color: #fff;
   width: 50%;
-  height: 40px;
-  line-height: 40px;
+  height: 30px;
+  line-height: 30px;
   margin: 15px auto;
   border-radius: 10px;
   background-color: #ffb001;
@@ -218,12 +218,14 @@ button {
 
 input {
   width: 70%;
-  color: #000;
+  color: #ffb001;
+  font-weight: bolder;
   height: 30px;
   line-height: 30px;
   padding-left: 5px;
   border: 4px solid #53cce9;
   margin: 5px auto;
+  border-radius: 10px;
 }
 
 img {
