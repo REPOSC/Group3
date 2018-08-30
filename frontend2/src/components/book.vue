@@ -4,7 +4,7 @@
       <img :src="'/static/img/english1.jpg'" mode="aspectFit" />
     </div>
     <div>
-      <p :title="book.name">{{ book.name }}</p>
+      <p class="book-name">{{ book.name }}</p>
     </div>
     <div>
       <progress
@@ -43,11 +43,19 @@ img {
   height: 60px;
 }
 
-p {
+.book-name {
   font-size: 12px;
+  text-overflow: -o-ellipsis-lastline;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
 }
 
 progress {
   margin: 5px auto;
+  border-radius: 10px;
+  border: 1px solid #00c544;
 }
 </style>

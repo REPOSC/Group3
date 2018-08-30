@@ -43,7 +43,8 @@ def get_first_function(request):
     return JsonResponse({
         "knowledge": book_knowledge_dict,
         "guide": book_guide_dict,
-        "words": book_words_dict
+        "words": book_words_dict,
+        "wordslen": len(book_words_dict)
     })
 
 

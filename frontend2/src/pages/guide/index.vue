@@ -5,27 +5,31 @@
     </loading>
     <title v-bind="video_function" @play_video="play_video"></title>
     <div class="firstpart">
-      <img src="https://daisy-donald.cn/image/yellow-tap.png">
-      <h1>本书导读</h1>
+      <div class="explain">
+        <img src="https://daisy-donald.cn/image/yellow-tap.png">
+        <p class="subtitle">本书导读</p>
+      </div>
       <p :key="index" v-for="(one,index) in ones">
         {{ index-0+1 }}、{{ one }}
       </p>
     </div>
     <div class="secpart">
-      <img src="https://daisy-donald.cn/image/green-tap.png">
-      <h1>本课重点知识</h1>
+      <div class="explain">
+        <img src="https://daisy-donald.cn/image/green-tap.png">
+        <p class="subtitle">本课重点知识</p>
+      </div>
       <p :key="index" v-for="(two,index) in twos">
         {{ index-0+1 }}、{{ two }}
       </p>
     </div>
     <div class="thirdpart">
-      <div class="subtitle">
+      <div class="explain">
         <img src="https://daisy-donald.cn/image/red-tap.png">
-        <h1>词汇表与配音讲解</h1>
+        <p class="subtitle">词汇表与配音讲解</p>
       </div>
-      <div :key="index" v-for="(three,index) in threes">
-        <div class="word">{{ index-0+1 }}、{{ three }}</div>
-        <i-icon type="customerservice_fill" size="28" class="word" @click="hear
+      <div id="word" :class="is_play_audio[index]" :key="index" v-for="(three,index) in threes">
+        <div>{{ index-0+1 }}、{{ three }}</div>
+        <i-icon  type="customerservice_fill" size="30" @click="hear
         (index)" />
       </div>
     </div>
@@ -52,7 +56,10 @@ export default {
       twos: [],
       threes: [],
       current_audio: null,
-      innerAudioContext: null
+      innerAudioContext: null,
+      is_play_audio: [],
+      now_audio_index: '',
+      length: 0
     }
   },
   components: {
@@ -80,11 +87,22 @@ export default {
           let knowledges = response.data.knowledge
           let guides = response.data.guide
           let word_contents = response.data.words
+          save.length = response.data.wordslen
           save.ones = guides
           save.twos = knowledges
           save.threes = word_contents
+          for (let i = 0; i < save.length; i++) {
+            save.is_play_audio[i] = 'notplay'
+          }
         })
       this.innerAudioContext = wx.createInnerAudioContext()
+    },
+    set_play_status(save, index) {
+      if (save.now_audio_index !== '') {
+        save.is_play_audio[save.now_audio_index] = 'notplay'
+      }
+      save.now_audio_index = index
+      save.is_play_audio[index] = 'isplay'
     },
     hear: function(index) {
       let save = this
@@ -98,6 +116,7 @@ export default {
         success: function(res) {
           if (res.statusCode === 200) {
             save.innerAudioContext.src = res.tempFilePath
+            save.set_play_status(save, index)
             save.innerAudioContext.play()
           }
         }
@@ -160,22 +179,23 @@ title {
   margin: 30px;
 }
 
-.subtitle {
+.explain {
   display: block;
+  margin: 15px auto;
 }
 
-h1 {
+.explain p {
   display: inline;
-  font-size: 22px;
+  font-size: 24px;
   font-weight: bolder;
   font-family: fantasy;
 }
 
 p {
-  display: block;
-  margin-right: 15px;
-  font-size: 16px;
+  display: inline-block;
+  font-size: 20px;
   font-weight: bold;
+  margin-bottom: 10px;
 }
 
 img {
@@ -183,15 +203,19 @@ img {
   height: 30px;
 }
 
-.thirdpart p {
-  display: inline-block;
+#word {
+  margin: 15px auto;
+  display: flex;
   font-size: 20px;
-  font-weight: bold;
-  margin-right: 50px;
-  margin-bottom: 10px;
+  justify-content: space-between;
+  font-weight: bolder;
 }
 
-.word {
-  display: inline;
+.notplay {
+  color: #de6648;
+}
+
+.isplay {
+  color: #ffb001;
 }
 </style>

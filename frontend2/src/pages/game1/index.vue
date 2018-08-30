@@ -146,14 +146,14 @@ export default {
     },
     show_right_message() {
       this.length = this.length - 1
-      if (this.length !== 0) {
-        wx.showToast({
-          title: '做对啦！真棒！',
-          image: 'https://daisy-donald.cn/image/green-yes.png',
-          duration: 800,
-          mask: true
-        })
-      } else {
+      if (this.length === 0) {
+        // wx.showToast({
+        //   title: '做对啦！真棒！',
+        //   image: 'https://daisy-donald.cn/image/green-yes.png',
+        //   duration: 800,
+        //   mask: true
+        // })
+      // } else {
         wx.showModal({
           title: '宝宝真棒！',
           content: '已完成该练习，是否退出~',
@@ -180,7 +180,7 @@ export default {
       } else if (this.now_word !== '') {
         wx.showToast({
           title: '做错啦~再试试~',
-          image: 'https://daisy-donald.cn/image/red-false.png',
+          image: 'https://daisy-donald.cn/image/red_false.png',
           duration: 800,
           mask: true
         })

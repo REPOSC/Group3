@@ -4,25 +4,23 @@
       <img src="https://daisy-donald.cn/image/rainbow.png">
       <p>K{{ level + 1 }}</p>
     </div>
-    <i-row class="body">
-      <i-col span="18" offset="1">
-        <div class="bookshelf">
-          <book v-for="book in nowbooks"
-            :book="book"
-            @on_click="get"
-            class="book">
-          </book>
-        </div>
-      </i-col>
-      <i-col span="3" offset="1">
+    <div class="body">
+      <div class="bookshelf">
+        <book v-for="book in nowbooks"
+          :book="book"
+          @on_click="get"
+          class="book">
+        </book>
+      </div>
+      <div class="iconbtn">
         <iconbtn
           @persual="change_to_persual"
           @not_persual="change_to_not_persual"
           @toprevious="change_to_previous"
           @tonext="change_to_next">
         </iconbtn>
-      </i-col>
-    </i-row>
+      </div>
+    </div>
     <div class="bottom">
       <div class="search">
         <input type="text"
@@ -232,31 +230,31 @@ page {
   height: 100px;
 }
 
+.body {
+  margin: 20px 0;
+  display: flex;
+  justify-content: space-between;
+}
+
 .bookshelf {
   display: flex;
   flex-wrap: wrap;
   align-content: flex-start;
   background-image: url('https://daisy-donald.cn/image/shelf.png');
   background-size: 100% 100%;
-  padding-left: 5px;
-  padding-right: 5px;
-  padding-top: 4px;
-  padding-bottom: 11px;
   height: 360px;
-  z-index: 5;
+  width: 300px;
 }
 
 .book {
   height: 33%;
 }
 
-.body {
-  margin: 20px 0px;
-}
 .bottom {
   height: 90px;
   display: flex;
-  margin: 20px auto;
+  margin: 20px 0;
+  justify-content: space-between;
 }
 .to-mine {
   width: 70px;
@@ -268,16 +266,16 @@ page {
 }
 
 .to-mine img {
-  width: 65px;
-  height: 65px;
+  width: 50px;
+  height: 50px;
 }
 
 .search {
   display: flex;
-  width: 70%;
+  width: 80%;
   height: 40px;
   line-height: 40px;
-  margin: 20px auto;
+  margin: 20px 10px 20px 0;
   border: #ffb001 solid 5px;
   border-radius: 10px;
   background-color: white;
@@ -288,7 +286,7 @@ page {
   color: #ffb001;
   font-weight: bold;
   width: 85%;
-  margin-left: 5px;
+  margin: auto 5px;
 }
 
 .search img {
