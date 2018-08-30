@@ -308,8 +308,6 @@ img {
   border: 2px solid #27532c;
   border-radius: 10px;
   margin: 10px auto;
-  color: white;
-  padding: 5px;
 }
 
 .content {
@@ -319,8 +317,6 @@ img {
   border: 2px solid #10534b;
   border-radius: 10px;
   margin: 10px auto;
-  color: white;
-  padding: 5px;
 }
 
 p {
@@ -334,7 +330,6 @@ p {
   font-size: 20px;
   margin-left: 10%;
 }
-
 .function {
   width: 80%;
   display: flex;

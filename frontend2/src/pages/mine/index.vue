@@ -6,7 +6,6 @@
     </div>
     <button id="modify-info" @click="change_info">修改资料</button>
     <button id="system-message" @click="system_message">系统消息</button>
-    <button id="introduction" @click="introduce">功能介绍</button>
     <button id="about-vron" @click="about">关于弗恩英语</button>
     <button id="logout" @click="logout">退出登录</button>
   </div>
@@ -88,7 +87,7 @@ export default {
           })
         )
         .then(function(response) {
-          wx.redirectTo({
+          wx.reLaunch({
             url: '../login/main'
           })
         })
@@ -109,18 +108,18 @@ page {
 }
 
 .my-info {
-  margin: 50px auto;
+  margin: 50px auto 30px;
   display: flex;
-  text-align: center;
+  flex-wrap: wrap;
 }
 
 .nickname {
   color: #ffb001;
+  width: 100%;
+  text-align: center;
+  margin: 20px auto;
   font-size: 22px;
   font-weight: bold;
-  height: 76px;
-  width: 70%;
-  line-height: 76px;
 }
 
 .me button {
@@ -129,8 +128,9 @@ page {
 }
 
 img {
-  width: 70px;
-  height: 70px;
+  width: 80px;
+  height: 80px;
+  margin: 0 auto;
   border: 3px solid #ffb001;
   border-radius: 10px;
 }
@@ -141,17 +141,12 @@ img {
 }
 
 #system-message {
-  background-color: #00c544;
-  margin: 20px auto;
-}
-
-#introduction {
   background-color: #f67c30;
   margin: 20px auto;
 }
 
 #about-vron {
-  background-color: #00fe90;
+  background-color: #00c544;
   margin: 20px auto;
 }
 
