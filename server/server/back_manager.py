@@ -30,13 +30,14 @@ def auth_manager(request):
     user = authenticate(username=number, password=user_pwd)
     if not user:
         return JsonResponse({'status': 'error'})
-    else:
+    nowuser = models.User_info.objects.filter(username=number)
+    if nowuser[0].is_manager:
         login(request, user)
-        nowuser = models.User_info.objects.filter(username=number)
-        if nowuser[0].is_superuser is True:
-            return JsonResponse({'status': 'right', 'is_superuser': 'true'})
-        else:
-            return JsonResponse({'status': 'right', 'is_superuser': 'false'})
+        return JsonResponse({'status': 'right', 'is_superuser': 'false'})
+    elif nowuser[0].is_superuser is True:
+        return JsonResponse({'status': 'right', 'is_superuser': 'true'})
+    else:
+        return JsonResponse({'status': 'student'})
 
 
 def change_manager(request):

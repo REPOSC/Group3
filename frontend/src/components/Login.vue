@@ -56,8 +56,8 @@ export default {
       fixStyle: '',
       loading: false,
       account: {
-        username: '100001',
-        pwd: '222222'
+        username: '',
+        pwd: ''
       },
       rules: {
         username: [{ required: true, message: '请输入账号', trigger: 'blur' }],
@@ -82,6 +82,12 @@ export default {
             saved.$notify({
               title: '登录失败',
               message: '用户名或密码错误！',
+              type: 'warning'
+            })
+          } else if (response.data.status === 'student') {
+            saved.$notify({
+              title: '登录失败',
+              message: '学生账号不可以登录后台，请输入管理员账号！',
               type: 'warning'
             })
           } else {
