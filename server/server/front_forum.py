@@ -107,18 +107,40 @@ def get_community(request):
     booksid = []
     allpunch = []
     bookscount = books.count()
-    # try:
-    for i in books:
-        onebookpunchs = models.User_punch.objects.filter(
-            book_number=i)
-        for j in onebookpunchs:
-            onepieceinfo = get_one_punch(nowusername, j)
-            allpunch.append(onepieceinfo)
-    allpunch.sort(key=mysort('punchtime'))
-    allpunch.reverse()
-    return JsonResponse({'status': True, 'info': allpunch})
-    # except:
-    #     return JsonResponse({'status': False})
+    try:
+        for i in books:
+            onebookpunchs = models.User_punch.objects.filter(
+                book_number=i)
+            for j in onebookpunchs:
+                onepieceinfo = get_one_punch(nowusername, j)
+                allpunch.append(onepieceinfo)
+        allpunch.sort(key=mysort('punchtime'))
+        allpunch.reverse()
+        return JsonResponse({'status': True, 'info': allpunch})
+    except:
+        return JsonResponse({'status': False})
+
+
+def get_file_numbers(request):
+    usernumber = request.POST.get('usernumber')
+    booknumber = request.POST.get('booknumber')
+    imgs = models.Punch_content.objects.filter(
+        user_number=usernumber,
+        book_number=booknumber,
+        is_video=False
+    )
+    videos = models.Punch_content.objects.filter(
+        user_number=usernumber,
+        book_number=booknumber,
+        is_video=True
+    )
+    imgfiles = []
+    videofiles = []
+    for i in imgs:
+        imgfiles.append({'number': i.content_number, 'src': None})
+    for i in videos:
+        videofiles.append({'number': i.content_number, 'src': None})
+    return JsonResponse({'imgfiles': imgfiles, 'videofiles': videofiles})
 
 
 def get_one_punch(nowusername, punch):

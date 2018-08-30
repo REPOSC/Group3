@@ -62,6 +62,7 @@ urlpatterns = [
     path('like', front_forum.like),
     path('get_punch_image', front_forum.get_punch_image),
     path('get_punch_video', front_forum.get_punch_video),
+    path('get_file_numbers', front_forum.get_file_numbers),
     path('', views.main),
     path('all_student', back_student.all_student),
     path('get_student', back_student.get_student),

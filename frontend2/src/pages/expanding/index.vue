@@ -137,57 +137,58 @@ export default {
       } else if (save.has_upload === 0) {
         save.failtoast('您还未上传文件，请先上传文件再打卡哦~')
       } else {
-        let status = save.shareupload(save, allfilenumber, 0)
-        if (status) {
-          save.is_punched = true
-          save.has_upload = 0
-          save.gotocommunity()
-        } else {
-          save.failtoast('打卡失败，请检查网络链接~')
-          let fly = Tools.get_fly()
-          fly
-            .post(
-              Tools.get_url() + 'punch_reset',
-              qs.stringify({
-                username: save.username,
-                booknumber: save.booknumber
-              })
-            )
-            .then(function(response) {
-              save.is_punched = false
-              save.has_upload = 0
-              save.allfilepaths = []
-              save.content = ''
+        save.shareupload(save, allfilenumber, 0)
+      }
+    },
+    share_callback(save, status) {
+      if (status) {
+        save.is_punched = true
+        save.has_upload = 0
+        save.gotocommunity()
+      } else {
+        save.failtoast('打卡失败，请检查网络链接~')
+        let fly = Tools.get_fly()
+        fly
+          .post(
+            Tools.get_url() + 'punch_reset',
+            qs.stringify({
+              username: save.username,
+              booknumber: save.booknumber
             })
-        }
+          )
+          .then(function(response) {
+            save.is_punched = false
+            save.has_upload = 0
+            save.allfilepaths = []
+            save.content = ''
+          })
       }
     },
     shareupload(save, total, index) {
-      if (index < total) {
-        let status = true
-        wx.uploadFile({
-          url: Tools.get_url() + 'upload_homework',
-          filePath: save.allfilepaths[index],
-          name: 'file',
-          formData: {
-            username: save.username,
-            booknumber: save.booknumber,
-            content: save.content,
-            is_video: save.is_video[index] ? 'true' : 'false'
-          },
-          success: function(response) {
-            let answer = response.data
-            let jsonanswer = JSON.parse(answer)
-            if (jsonanswer.status !== 'true') {
-              status = false
-              return status
+      wx.uploadFile({
+        url: Tools.get_url() + 'upload_homework',
+        filePath: save.allfilepaths[index],
+        name: 'file',
+        formData: {
+          username: save.username,
+          booknumber: save.booknumber,
+          content: save.content,
+          is_video: save.is_video[index] ? 'true' : 'false'
+        },
+        success: function(response) {
+          let answer = response.data
+          let jsonanswer = JSON.parse(answer)
+          if (jsonanswer.status !== 'true') {
+            save.share_callback(save, false)
+          } else {
+            if (index + 1 >= total) {
+              save.share_callback(save, true)
             } else {
               return save.shareupload(save, total, index + 1)
             }
           }
-        })
-      }
-      return true
+        }
+      })
     },
     gotocommunity: function() {
       let save = this

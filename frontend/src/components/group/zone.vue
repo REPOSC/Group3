@@ -1,51 +1,44 @@
 <!--suppress ALL -->
 <template>
-  <div class="loginContainer">
-    <div class="dynamicsBox">
-      <div class="dynamicsHead">
-        <div class="userText">
-          <span class="userName">{{items.user_name}}</span>
-          <!-- <span class="time">{{items.riqi}}</span> -->
-          <span class="time">{{items.book_num}}</span>
-        </div>
-        <div class="headButton">
-          <div class="oneButton">
-            <el-button @click="deldaka">删除</el-button>
-          </div>
-        </div>
+  <div>
+    <div class="shrink">
+      <div class="userText">
+        <span class="userName">{{items.user_name}}：『{{items.book_num}}』： 《{{items.book_name}}》
+        </span>
+      </div>
+      <div class="align right">
+        <el-button type="danger" icon="el-icon-delete" circle @click="deldaka"></el-button>
       </div>
     </div>
     <div class="text">
-      <div class="dynamicsContents">
-        <div
-          class="content"
-          v-bind:class="[isOpen ? 'openHeight' : 'foldHeight']"
-        >
-          {{items.commenting}}
-        </div>
-        <div @click="toggleContent" class="toggleText">
-          {{ toggleText }}
-        </div>
+      <div class="content wrap_drop">
+        {{items.article}}
+        <img :src=img.src class="screen" v-for="img in images">
+        <video class="screen" v-for="video in videos" autoplay playsinline>
+          <source :src=video.src>
+        </video>
       </div>
     </div>
-    <div class="dynamicsInfo">
+    <div>
       <div class="likeList">{{ratings}}</div>
       <div class="otherInfo">
         <div class="iconBox ">
           <div>
-            点赞人数{{items.like_num}}
+            点赞人数 {{items.like_num}}
           </div>
         </div>
       </div>
-      <div class="hello">
-        <div class="pinglunInfo" v-for='i in shuoData'>
-          <div class="ren"> {{i.shuo_user_id}}</div><br>
-          <div class="say">{{i.article}}</div>
-          <el-button @click="delcomment(i.commentid)">删除</el-button>
+      <div class="pinglunInfo shrink" v-for='i in shuoData'>
+        <div>
+          <div class="userText">
+            <span class="userName">{{i.shuo_user_id}}</span>
+          </div>
+          <div class="align right">
+            <el-button type="danger" icon="el-icon-delete" circle @click="delcomment(i.commentid)"></el-button>
+          </div>
         </div>
-        <div @click="showAll = !showAll" class="show-more">{{word}}</div>
+        <div class="wrap_drop space">{{i.commenting}}</div>
       </div>
-      <div class="userList"></div>
     </div>
   </div>
 </template>
@@ -62,14 +55,16 @@ export default {
       toggleText: '展开全文',
       ratings: [],
       showAll: false,
-      shuoData: []
+      shuoData: [],
+      like_usernames: '',
+      images: [],
+      videos: []
     }
   },
   props: ['items'],
   computed: {
     showList: function() {
       if (this.showAll === false) {
-        // 当数据不需要完全显示的时候
         var showList = []
         if (this.shuoData.length > 3) {
           for (var i = 0; i < 3; i++) {
@@ -101,6 +96,44 @@ export default {
         this.toggleText = '展开全文'
       }
     },
+    filelist() {
+      let saved = this
+
+      axios
+        .post(
+          Tools.get_url() + 'get_file_numbers',
+          qs.stringify({
+            booknumber: saved.items.book_num,
+            usernumber: saved.items.user_name
+          })
+        )
+        .then(function(response) {
+          let tmp_images = response.data.imgfiles
+          let tmp_videos = response.data.videofiles
+          for (let i = 0; i < tmp_images.length; ++i) {
+            tmp_images[i].src =
+              Tools.get_url() +
+              'get_punch_image?username=' +
+              saved.items.user_name +
+              '&booknumber=' +
+              saved.items.book_num +
+              '&imgfile=' +
+              tmp_images[i].number
+            saved.images.push(tmp_images[i])
+          }
+          for (let i = 0; i < tmp_videos.length; ++i) {
+            tmp_videos[i].src =
+              Tools.get_url() +
+              'get_punch_video?username=' +
+              saved.items.user_name +
+              '&booknumber=' +
+              saved.items.book_num +
+              '&videofile=' +
+              tmp_videos[i].number
+            saved.videos.push(tmp_videos[i])
+          }
+        })
+    },
     likelist() {
       let saved = this
       axios
@@ -112,8 +145,7 @@ export default {
           })
         )
         .then(function(response) {
-          let nicknames = eval(response.data.like_nicknames)
-          saved.ratings = nicknames
+          saved.ratings = response.data.like_nicknames
         })
     },
     commentlist() {
@@ -134,7 +166,7 @@ export default {
           for (let i = 0; i < commentusers.length; ++i) {
             saved.shuoData.push({
               shuo_user_id: commentusers[i],
-              article: comments[i],
+              commenting: comments[i],
               commentid: commentids[i]
             })
           }
@@ -155,9 +187,16 @@ export default {
         .then(function(response) {
           if (response.data.success) {
             saved.commentlist()
-            alert('删除评论成功！')
+            saved.$notify({
+              title: '删除评论成功！',
+              position: 'bottom-right',
+              type: 'success'
+            })
           } else {
-            alert('删除失败！')
+            saved.$notify({
+              title: '删除评论失败',
+              type: 'warning'
+            })
           }
         })
     },
@@ -177,14 +216,22 @@ export default {
         .then(function(response) {
           if (response.data.success) {
             saved.$emit('dakalist')
-            alert('删除成功！')
+            saved.$notify({
+              title: '删除打卡成功！',
+              position: 'bottom-right',
+              type: 'success'
+            })
           } else {
-            alert('删除失败！')
+            saved.$notify({
+              title: '删除打卡失败',
+              type: 'warning'
+            })
           }
         })
     }
   },
   mounted() {
+    this.filelist()
     this.likelist()
     this.commentlist()
   }
@@ -194,19 +241,6 @@ export default {
 .dynamicsContents {
   width: 100%;
   height: auto;
-}
-
-.loginContainer {
-  -webkit-border-radius: 5px;
-  border-radius: 5px;
-  -moz-border-radius: 5px;
-  background-clip: padding-box;
-  margin: 180px auto;
-  width: 74%;
-  padding: 35px 35px 15px 35px;
-  background: #fff;
-  border: 1px solid #eaeaea;
-  box-shadow: 0 0 25px #cac6c6;
 }
 
 .text {
@@ -231,7 +265,6 @@ export default {
 }
 
 .userName,
-
 .time {
   display: block;
   width: 100%;
@@ -278,16 +311,11 @@ export default {
   height: auto;
 }
 
-.dynamicsInfo {
-  width: 100%;
-}
-
 .otherInfo {
   height: 40px;
   padding-bottom: 15px;
   color: #999;
   line-height: 40px;
-  border-bottom: 1px solid #e7e7e7;
 }
 
 .pinglunInfo {
@@ -298,17 +326,6 @@ export default {
   border-bottom: 1px solid #e7e7e7;
   text-align: left;
   margin-left: 50px;
-}
-
-.ren {
-  height: 10px;
-}
-
-.say {
-  border: double;
-  margin-left: 100px;
-  width: 700px;
-  display: inline-block;
 }
 
 .iconBox {
@@ -334,5 +351,21 @@ export default {
   flex-flow: column nowrap;
   justify-content: flex-start;
   border: 5px;
+}
+
+.wrap_drop {
+  word-wrap: break-word;
+}
+
+.right {
+  text-align: right;
+}
+
+.shrink {
+  width: 80%;
+}
+.screen {
+  width: 33%;
+  height: 300px;
 }
 </style>

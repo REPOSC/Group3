@@ -1,51 +1,22 @@
 <template >
-  <div id="APP">
-    <div>
-      <div class="head">
-        <el-input
-          v-model="tableDataName"
-          placeholder="请输入账号"
-          class="wide"
-        ></el-input>
-        <el-button type="primary" @click="doFilter">搜索</el-button>
-        <el-button type="primary" @click="doback">返回</el-button>
-      </div>&nbsp;&nbsp;
-      <div class="block head file-btn">
+  <div>
+    <div class="card">
+      <div>
+        <el-input v-model="tableDataName" placeholder="请输入账号" class="wide"></el-input>
         <span class="demonstration">带快捷选项</span>
-        <el-date-picker
-          v-model="visitDate"
-          value-format="yyyy-MM-dd"
-          type="daterange"
-          align="right"
-          unlink-panels range-separator="至"
-          start-placeholder="开始日期" end-placeholder="结束日期"
-          :picker-options="pickerOptions2"
-        >
+        <el-date-picker v-model="visitDate" value-format="yyyy-MM-dd" type="daterange" align="right" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" :picker-options="pickerOptions2">
         </el-date-picker>
-        <el-button type="primary" @click="doFilter2">搜索</el-button>
+        <el-button type="primary" @click="doFilter">搜索</el-button>
         <el-button type="primary" @click="doback">返回</el-button>
       </div>
     </div>
-    <qkj-body>
-      <zone
-        v-bind:items="item"
-        class="all" align="center"
-        @dakalist="dakalist"
-        v-for="item in my_texts"
-        ></zone>
-      <!--将item双向绑定item为打卡分享中的每一项-->
+    <div>
+      <zone v-bind:items="item" class="card" align="center" @dakalist="dakalist" v-for="item in my_texts"></zone>
       <div>
-        <el-pagination
-          background layout="prev, pager, next, sizes, total, jumper"
-          :page-sizes="[5, 10, 15, 20]"
-          :page-size="pagesize"
-          :total="this.tableData.length"
-          @current-change="handleCurrentChange"
-          @size-change="handleSizeChange"
-        >
+        <el-pagination background layout="prev, pager, next, sizes, total, jumper" :page-sizes="[5, 10, 15, 20]" :page-size="pagesize" :total="this.tableData.length" @current-change="handleCurrentChange" @size-change="handleSizeChange">
         </el-pagination>
       </div>
-    </qkj-body>
+    </div>
   </div>
 </template>
 <script>
@@ -64,7 +35,7 @@ export default {
       tableDataName: '',
       filterTableData: [],
       my_texts: [],
-      pagesize: 10,
+      pagesize: 5,
       currpage: 1,
       showAll: false,
       pickerOptions2: {
@@ -97,8 +68,7 @@ export default {
             }
           }
         ]
-      },
-      value7: ''
+      }
     }
   },
   methods: {
@@ -108,63 +78,64 @@ export default {
         this.currpage * this.pagesize
       )
     },
-    doFilter() {
+    search_for_name(searching_table_data) {
+      let saved = this
       if (this.tableDataName === '') {
+        return searching_table_data
+      }
+      let temp_table_data = []
+      searching_table_data.forEach((value, index) => {
+        if (String(value.user_name).indexOf(saved.tableDataName) >= 0) {
+          temp_table_data.push(value)
+        }
+      })
+      return temp_table_data
+    },
+    search_for_date(searching_table_data) {
+      let saved = this
+      if (this.not_visitDate()) {
+        return searching_table_data
+      }
+      let temp_table_data = []
+      let begin_time_strs = saved.visitDate[0].split('-')
+      let time_begin = parseInt(
+        begin_time_strs[0] + begin_time_strs[1] + begin_time_strs[2]
+      )
+      let end_time_strs = saved.visitDate[1].split('-')
+      let time_end = parseInt(
+        end_time_strs[0] + end_time_strs[1] + end_time_strs[2]
+      )
+      searching_table_data.forEach((value, index) => {
+        if (value.time >= time_begin && value.time <= time_end) {
+          temp_table_data.push(value)
+        }
+      })
+      return temp_table_data
+    },
+    not_visitDate() {
+      return (
+        this.visitDate === null ||
+        (this.visitDate[0] === '' && this.visitDate[1] === '')
+      )
+    },
+    doFilter() {
+      if (this.tableDataName === '' && this.not_visitDate()) {
         this.$notify.error({
           title: '错误',
           message: '查询条件不能为空！'
         })
         return
       }
-      this.tableData = []
-      let saved = this
-      saved.all_tabledata.forEach((value, index) => {
-        if (String(value.user_name).indexOf(saved.tableDataName) >= 0) {
-          saved.tableData.push(value)
-        }
-      })
-      this.pagesize = 10
+      this.tableData = this.search_for_name(
+        this.search_for_date(this.all_tabledata)
+      )
       this.currpage = 1
       this.change()
     },
     doback() {
       this.tableData = this.all_tabledata
-      this.pagesize = 10
       this.currpage = 1
       this.tableDataName = ''
-      this.change()
-    },
-    doFilter2() {
-      this.tableData1 = this.tableData
-      if (this.visitDate[0] === '' || this.visitDate[1] === '') {
-        this.$message.warning('查询条件不能为空！')
-        return
-      }
-
-      let data1 = parseInt(
-        this.visitDate[0].slice(0, 4) +
-          this.visitDate[0].slice(5, 7) +
-          this.visitDate[0].slice(8, 10)
-      )
-      let data2 = parseInt(
-        this.visitDate[1].slice(0, 4) +
-          this.visitDate[1].slice(5, 7) +
-          this.visitDate[1].slice(8, 10)
-      )
-      this.tableData = []
-      let saved = this
-      saved.all_tabledata.forEach((value, index) => {
-        let newdate = parseInt(
-          value.riqi.slice(0, 4) +
-            value.riqi.slice(5, 7) +
-            value.riqi.slice(8, 10)
-        )
-        if (newdate <= data2 && newdate >= data1) {
-          this.tableData.push(value)
-        }
-      })
-      this.pagesize = 10
-      this.currpage = 1
       this.change()
     },
     handleCurrentChange(cpage) {
@@ -178,18 +149,20 @@ export default {
     dakalist() {
       let saved = this
       axios.post(Tools.get_url() + 'all_daka', null).then(function(response) {
-        let booknums = eval(response.data.booknums)
-        let names = eval(response.data.usernums)
-        let comments = eval(response.data.comments)
-        let riqis = eval(response.data.riqis)
-        let likenums = eval(response.data.likenums)
+        let booknums = response.data.booknums
+        let booknames = response.data.booknames
+        let names = response.data.usernums
+        let comments = response.data.comments
+        let times = response.data.times
+        let likenums = response.data.likenums
         for (let i = 0; i < names.length; ++i) {
           saved.tableData.push({
             like_num: likenums[i],
             book_num: booknums[i],
+            book_name: booknames[i],
             user_name: names[i],
-            commenting: comments[i],
-            riqi: riqis[i]
+            article: comments[i],
+            time: parseInt(times[i])
           })
         }
         saved.all_tabledata = saved.tableData
@@ -205,16 +178,6 @@ export default {
 <style>
 .wide {
   width: 240px;
-}
-
-.all {
-  width: 100%;
-  background: #fff;
-}
-
-#APP {
-  width: 90%;
-  height: auto;
 }
 
 .head {
