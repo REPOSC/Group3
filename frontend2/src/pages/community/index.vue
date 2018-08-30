@@ -1,37 +1,50 @@
 <template>
-  <div class="container">
-    <div class="record" v-for="(record, id) in records">
-      <div class="user">
-        <img :src="imagesource" />
-        <p class="username wrap_drop">
-          <span v-if="id === -1">id</span>
-          {{ record.username }} 《{{record.bookname}}》
-        </p>
-      </div>
-      <p class="punchtext">{{ record.punchtext }}</p>
-      <div v-for="imgfile in record.imgfiles" class="file">
-        <img :src="imgfile.src" />
-      </div>
-      <div v-for="videofile in record.videofiles" class="file">
-        <video :src="videofile.src" mode='aspectFit'></video>
-      </div>
-      <div class="action">
-        <button id="like" @click="like(record)">赞
-          <span v-if="record.has_liked === false"></span>
-          <span v-if="record.likenumber !== 0">{{ record.likenumber }}</span>
-        </button>
-        <button id="comment" @click="comment(record)">
-          {{ record.comment_info }}
-        </button>
-      </div>
-      <div class="comment">
-        <p v-for="comment in record.commentslist" class="wrap_drop">
-          <span class="username">{{ comment.commentusername }}</span>
-          : {{ comment.commenttext }}
-        </p>
-        <div class="new-comment" v-if="record.commented">
-          <textarea v-model="record.newcomment" />
-          <button id="submit" @click="submit(record)">发送</button>
+  <div class="div">
+    <div class="container">
+      <div class="record" v-for="(record, id) in records">
+        <div class="user">
+          <img :src="imagesource" />
+          <p class="username wrap_drop">
+            <span v-if="id === -1">id</span>
+            {{ record.username }} 《{{record.bookname}}》
+          </p>
+        </div>
+        <p class="punchtext">{{ record.punchtext }}</p>
+        <div class="file">
+          <div class="imgfile"
+            v-for="imgfile in record.imgfiles"
+            @click="preview(record, imgfile.src)">
+            <img v-if="record.imgfiles.length === 1"
+              class="one-picture"
+              :src="imgfile.src"
+              mode="scaleToFill"/>
+            <img v-if="record.imgfiles.length !== 1"
+              class="pictures"
+              :src="imgfile.src"
+              mode="scaleToFill"/>
+          </div>
+          <div class="videofile" v-for="videofile in record.videofiles">
+            <video :src="videofile.src" mode='aspectFit'></video>
+          </div>
+        </div>
+        <div class="action">
+          <button id="like" @click="like(record)">赞
+            <span v-if="record.has_liked === false"></span>
+            <span v-if="record.likenumber !== 0">{{ record.likenumber }}</span>
+          </button>
+          <button id="comment" @click="comment(record)">
+            {{ record.comment_info }}
+          </button>
+        </div>
+        <div class="comment">
+          <div class="new-comment" v-if="record.commented">
+            <textarea v-model="record.newcomment" />
+            <button id="submit" @click="submit(record)">发送</button>
+          </div>
+          <p v-for="comment in record.commentslist" class="wrap_drop">
+            <span class="username">{{ comment.commentusername }}</span>
+            : {{ comment.commenttext }}
+          </p>
         </div>
       </div>
     </div>
@@ -53,6 +66,7 @@ export default {
       username: '',
       level: 0,
       records: [],
+      preview_urls: [],
       now_comment_record: '',
       userimage: [],
       imagesource: '/static/img/game2/cat1.jpg',
@@ -93,7 +107,6 @@ export default {
             save.records = response.data.info
             save.get_image()
             save.get_video()
-            save.now_begin += save.now_item_number
           } else {
             wx.showModal({
               title: '获取社群信息时发生错误，请检查网络或联系管理员！',
@@ -263,6 +276,15 @@ export default {
           '&level=' +
           this.level
       })
+    },
+    preview(record, current_src) {
+      for (let i = 0; i < record.imgfiles.length; i++) {
+        this.preview_urls[i] = record.imgfiles[i].src
+      }
+      wx.previewImage({
+        current: current_src,
+        urls: this.preview_urls
+      })
     }
   }
 }
@@ -276,7 +298,6 @@ page {
 
 .container {
   display: flex;
-  height: 100%;
   padding-top: 10px;
 }
 
@@ -294,23 +315,33 @@ page {
 }
 
 .user {
+  position: relative;
   display: flex;
 }
 
 .file {
   margin: 10px;
   text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
-.file img {
-  height: 300rpx;
-  width: 500rpx;
+.one-picture {
+  width: 300px;
+  height: 300px;
+  margin: 5px;
+}
+
+.pictures {
+  width: 145px;
+  height: 145px;
+  margin: 5px;
 }
 
 .file video {
-  margin: 10px auto;
-  width: 500rpx;
-  height: 300rpx;
+  width: 300px;
+  height: 200px;
 }
 
 .username {
@@ -344,6 +375,7 @@ page {
   position: fixed;
   bottom: 0;
   background-color: #53cce9;
+  z-index: 1;
 }
 
 .function div {
@@ -389,7 +421,7 @@ button {
   background-color: #53cce9;
 }
 
-img {
+.user img {
   width: 30px;
   height: 30px;
   margin: 5px;
