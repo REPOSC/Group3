@@ -3,6 +3,7 @@ from django.http import JsonResponse
 from django.http import HttpResponse
 from django.utils import timezone
 from backend import models
+from . import debug
 
 
 def get_punch_info(request):
@@ -38,10 +39,11 @@ def get_punch_info(request):
 
 
 def upload_homework(request):
-    myfile = request.FILES.getlist('file', '')
+    myfile = request.FILES.get('file', '')
     username = request.POST.get('username', '')
     booknumber = request.POST.get('booknumber', '')
     textcontent = request.POST.get('content', '')
+    is_video = request.POST.get('is_video')
     user = models.User_info.objects.get(username=username)
     book = models.Book_info.objects.get(number=booknumber)
     punch_info = models.User_punch.objects.filter(
@@ -51,28 +53,26 @@ def upload_homework(request):
         user_number=username,
         book_number=booknumber
     ).count()
-    try:
-        content = models.Punch_content.objects.create(
-            user_number=user,
-            book_number=book,
-            content_number=contentnumber,
-            content=myfile[0]
-        )
-        content.save()
-        models.User_punch.objects.filter(
-            user_number=username,
-            book_number=booknumber
-        ).delete()
-        punch_info = models.User_punch.objects.create(
-            user_number=user,
-            book_number=book,
-            is_punched=True,
-            punch_text=textcontent
-        )
-        punch_info.save()
-        return JsonResponse({'status': 'true'})
-    except:
-        return JsonResponse({'status': 'error'})
+    content = models.Punch_content.objects.create(
+        user_number=user,
+        book_number=book,
+        content_number=contentnumber,
+        content=myfile,
+        is_video=True if is_video == 'true' else False
+    )
+    content.save()
+    models.User_punch.objects.filter(
+        user_number=username,
+        book_number=booknumber
+    ).delete()
+    punch_info = models.User_punch.objects.create(
+        user_number=user,
+        book_number=book,
+        is_punched=True,
+        punch_text=textcontent
+    )
+    punch_info.save()
+    return JsonResponse({'status': 'true'})
 
 
 def punch_reset(request):
@@ -91,6 +91,10 @@ def punch_reset(request):
             user_number=username,
             book_number=booknumber
         ).delete()
+        models.User_like.objects.filter(
+            user_number=username,
+            book_number=booknumber
+        ).delete()
         return JsonResponse({'status': True})
     except:
         return JsonResponse({'status': False})
@@ -103,52 +107,63 @@ def get_community(request):
     booksid = []
     allpunch = []
     bookscount = books.count()
-    try:
-        for i in range(bookscount):
-            booksid.append(books[i].number)
-        for i in range(len(booksid)):
-            onebookpunchs = models.User_punch.objects.filter(
-                book_number=booksid[i])
-            onebookpunchscount = onebookpunchs.count()
-            for j in range(onebookpunchscount):
-                onepieceinfo = get_one_comment(
-                    nowusername, onebookpunchs, j, booksid, i)
-                allpunch.append(onepieceinfo)
-        allpunch.sort(key=mysort('punchtime'))
-        allpunch.reverse()
-        return JsonResponse({'status': True, 'info': allpunch})
-    except:
-        return JsonResponse({'status': False})
+    # try:
+    for i in books:
+        onebookpunchs = models.User_punch.objects.filter(
+            book_number=i)
+        for j in onebookpunchs:
+            onepieceinfo = get_one_punch(nowusername, j)
+            allpunch.append(onepieceinfo)
+    allpunch.sort(key=mysort('punchtime'))
+    allpunch.reverse()
+    return JsonResponse({'status': True, 'info': allpunch})
+    # except:
+    #     return JsonResponse({'status': False})
 
 
-def get_one_comment(nowusername, onebookpunchs, j, booksid, i):
-    usernumber = onebookpunchs[j].user_number
-    user = models.User_info.objects.filter(username=usernumber)
-    username = user[0].number
-    punchtime = onebookpunchs[j].time
-    punchtext = onebookpunchs[j].punch_text
+def get_one_punch(nowusername, punch):
+    usernumber = punch.user_number
+    booknumber = punch.book_number
+    punch_content = models.Punch_content.objects.filter(
+        user_number=usernumber.number,
+        book_number=booknumber.number
+    )
     likenumber = models.User_like.objects.filter(
-        user_number=username,
-        book_number=booksid[i]
+        user_number=usernumber.number,
+        book_number=booknumber.number
     ).count()
     contentnumber = models.Punch_content.objects.filter(
-        user_number=username,
-        book_number=booksid[i]
+        user_number=usernumber.number,
+        book_number=booknumber.number
     ).count()
-    has_liked = judge_like(username, booksid[i], nowusername)
-    thisbook = models.Book_info.objects.filter(number=booksid[i])
-    bookname = thisbook[0].name
-    commentslist = get_comment(username, booksid[i])
-    if punchtext is None:
-        punchtext = ''
+    imgs = models.Punch_content.objects.filter(
+        user_number=usernumber.number,
+        book_number=booknumber.number,
+        is_video=False
+    )
+    videos = models.Punch_content.objects.filter(
+        user_number=usernumber.number,
+        book_number=booknumber.number,
+        is_video=True
+    )
+    imgfiles = []
+    videofiles = []
+    for i in imgs:
+        imgfiles.append({'number': i.content_number, 'src': None})
+    for i in videos:
+        videofiles.append({'number': i.content_number, 'src': None})
+
+    has_liked = judge_like(usernumber.number, booknumber.number, nowusername)
+    commentslist = get_comment(usernumber.number, booknumber.number)
     onepieceinfo = {
-        'username': username,
-        'booknumber': booksid[i],
-        'bookname': bookname,
-        'punchtime': punchtime,
+        'username': usernumber.username,
+        'booknumber': booknumber.number,
+        'bookname': booknumber.name,
+        'punchtime': punch.time,
         'likenumber': likenumber,
-        'punchtext': punchtext,
-        'contentnumber': contentnumber,
+        'punchtext': punch.punch_text,
+        'imgfiles': imgfiles,
+        'videofiles': videofiles,
         'has_liked': has_liked,
         'commentslist': commentslist,
         'newcomment': '',
@@ -158,19 +173,17 @@ def get_one_comment(nowusername, onebookpunchs, j, booksid, i):
     return onepieceinfo
 
 
-def get_comment(username, booknumber):
+def get_comment(usernumber, booknumber):
     commentslist = []
     comments = models.User_comment.objects.filter(
-        user_number=username, book_number=booknumber)
-    commentscount = comments.count()
-    for i in range(commentscount):
-        commentuser = models.User_info.objects.filter(
-            username=comments[i].comment_user_number)
-        commentusername = commentuser[0].number
+        user_number=usernumber, book_number=booknumber)
+    for i in comments:
+        commentusername = models.User_info.objects.get(
+            number=i.comment_user_number.number).number
         onepiececomment = {
-            'commentid': comments[i].id,
+            'commentid': i.id,
             'commentusername': commentusername,
-            'commenttext': comments[i].comment
+            'commenttext': i.comment
         }
         commentslist.append(onepiececomment)
     commentslist.sort(key=mysort('commentid'))
@@ -183,21 +196,18 @@ def add_comment(request):
     booknumber = request.POST.get('booknumber', '')
     commentuername = request.POST.get('commentusername', '')
     comment = request.POST.get('comment', '')
-    try:
-        user = models.User_info.objects.get(username=username)
-        book = models.Book_info.objects.get(number=booknumber)
-        commenter = models.User_info.objects.get(username=commentuername)
-        newcomment = models.User_comment.objects.create(
-            user_number=user,
-            book_number=book,
-            comment_user_number=commenter,
-            comment=comment
-        )
-        newcomment.save()
-        commentslist = get_comment(username, booknumber)
-        return JsonResponse({'status': 'true', 'commentslist': commentslist})
-    except:
-        return JsonResponse({'status': 'false'})
+    user = models.User_info.objects.get(username=username)
+    book = models.Book_info.objects.get(number=booknumber)
+    commenter = models.User_info.objects.get(username=commentuername)
+    newcomment = models.User_comment.objects.create(
+        user_number=user,
+        book_number=book,
+        comment_user_number=commenter,
+        comment=comment
+    )
+    newcomment.save()
+    commentslist = get_comment(username, booknumber)
+    return JsonResponse({'status': 'true', 'commentslist': commentslist})
 
 
 def mysort(myproperty):
@@ -230,8 +240,8 @@ def like(request):
     return JsonResponse({'status': 'true'})
 
 
-def judge_like(username, booknumber, likeusername):
-    user = models.User_info.objects.get(username=username)
+def judge_like(usernumber, booknumber, likeusername):
+    user = models.User_info.objects.get(number=usernumber)
     book = models.Book_info.objects.get(number=booknumber)
     likeuser = models.User_info.objects.get(username=likeusername)
     has_liked = models.User_like.objects.filter(
@@ -243,3 +253,27 @@ def judge_like(username, booknumber, likeusername):
         return False
     else:
         return True
+
+
+def get_punch_image(request):
+    usernumber = int(request.GET.get('username'))
+    booknumber = request.GET.get('booknumber')
+    imgfilenumber = request.GET.get('imgfile')
+    imgfile = models.Punch_content.objects.get(
+        user_number=usernumber,
+        book_number=booknumber,
+        content_number=imgfilenumber,
+        is_video=False)
+    return HttpResponse(imgfile.content)
+
+
+def get_punch_video(request):
+    usernumber = int(request.GET.get('username'))
+    booknumber = request.GET.get('booknumber')
+    videofilenumber = request.GET.get('videofile')
+    videofile = models.Punch_content.objects.get(
+        user_number=usernumber,
+        book_number=booknumber,
+        content_number=videofilenumber,
+        is_video=True)
+    return HttpResponse(videofile.content)

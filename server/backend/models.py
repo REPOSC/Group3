@@ -83,7 +83,6 @@ class User_punch(models.Model):
     punch_text = models.TextField()
     is_punched = models.BooleanField(default=False)
     time = models.DateTimeField(default=timezone.now)
-    like_number = models.IntegerField(default=0)
 
 
 class Book_punch_requirement(models.Model):
@@ -218,3 +217,4 @@ class Punch_content(models. Model):
         'Book_info', to_field='number', on_delete=models.CASCADE)
     content_number = models.IntegerField(default=0)
     content = models.FileField(upload_to=tools.punch_content)
+    is_video = models.BooleanField()

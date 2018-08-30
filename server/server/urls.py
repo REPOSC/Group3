@@ -56,7 +56,12 @@ urlpatterns = [
     path('read_message', front_message.read_message),
     path('unread_message', front_message.unread_message),
     path('delete_message', front_message.delete_message),
-    path('get_video', front_introduction.get_video),
+    path('punch_reset', front_forum.punch_reset),
+    path('get_community', front_forum.get_community),
+    path('add_comment', front_forum.add_comment),
+    path('like', front_forum.like),
+    path('get_punch_image', front_forum.get_punch_image),
+    path('get_punch_video', front_forum.get_punch_video),
     path('', views.main),
     path('all_student', back_student.all_student),
     path('get_student', back_student.get_student),
@@ -81,9 +86,5 @@ urlpatterns = [
     path('daka_like', back_forum.daka_like),
     path('del_comment', back_forum.del_comment),
     path('del_punch', back_forum.del_punch),
-    path('add_introduction_video', back_introduction.add_introduction_video),
-    path('punch_reset', front_forum.punch_reset),
-    path('get_community', front_forum.get_community),
-    path('add_comment', front_forum.add_comment),
-    path('like', front_forum.like)
+    path('add_introduction_video', back_introduction.add_introduction_video)
 ]

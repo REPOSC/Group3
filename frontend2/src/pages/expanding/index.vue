@@ -33,7 +33,7 @@ export default {
         play_info: '功能讲解',
         is_play_video: false,
         src: null,
-        booktitle: 'BOOK1'
+        booktitle: null
       },
       username: '',
       level: 0,
@@ -100,29 +100,28 @@ export default {
       }
     },
     get_content: function(type) {
+      let save = this
       if (type === 'picture') {
         wx.chooseImage({
-          success: function() {
-            this.is_video.push(false)
-            this.choosesuccess()
+          success: function(file) {
+            save.choosesuccess(file.tempFilePaths, false)
           },
-          fail: this.choosefail
+          fail: save.choosefail
         })
       } else {
         wx.chooseVideo({
-          success: function() {
-            this.is_video.push(true)
-            this.choosesuccess()
+          success: function(file) {
+            save.choosesuccess([file.tempFilePath], true)
           },
-          fail: this.choosefail
+          fail: save.choosefail
         })
       }
     },
-    choosesuccess: function(file) {
-      let tempFilePaths = file.tempFilePaths
+    choosesuccess: function(tempFilePaths, is_video) {
       let save = this
       for (let i in tempFilePaths) {
         save.allfilepaths.push(tempFilePaths[i])
+        save.is_video.push(is_video)
       }
       save.successtoast('上传成功！')
       save.has_upload += tempFilePaths.length
@@ -142,7 +141,7 @@ export default {
         if (status) {
           save.is_punched = true
           save.has_upload = 0
-          save.gotocommunity(save)
+          save.gotocommunity()
         } else {
           save.failtoast('打卡失败，请检查网络链接~')
           let fly = Tools.get_fly()
@@ -174,7 +173,7 @@ export default {
             username: save.username,
             booknumber: save.booknumber,
             content: save.content,
-            is_video: save.is_video[index]
+            is_video: save.is_video[index] ? 'true' : 'false'
           },
           success: function(response) {
             let answer = response.data
@@ -190,7 +189,8 @@ export default {
       }
       return true
     },
-    gotocommunity: function(save) {
+    gotocommunity: function() {
+      let save = this
       wx.showModal({
         title: '打卡成功! 是否进入社群页面？',
         success: function(userresponse) {

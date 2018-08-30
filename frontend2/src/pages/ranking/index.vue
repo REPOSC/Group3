@@ -48,6 +48,7 @@ export default {
     init() {
       let fly = Tools.get_fly()
       let save = this
+      save.now_begin = 0
       save.showed_rankinfo = []
       save.rankinfo = []
       fly
