@@ -179,8 +179,8 @@ def get_book(request):
             put_game4(request, book)
         put_expands(request, book)
     except:
-        return JsonResponse({"success": False})
-    return JsonResponse({"success": True})
+        return JsonResponse({"booknumber": None})
+    return JsonResponse({"booknumber": book.number})
 
 
 def all_book(request):
