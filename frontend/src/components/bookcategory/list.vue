@@ -3,10 +3,7 @@
     <div class="card demonstration">
       <div class="title space">书本数据统计</div>
       <div>
-        <el-input
-          v-model="TableDataName"
-          placeholder="请输入账号"
-          class="fixed"></el-input>
+        <el-input v-model="TableDataName" placeholder="请输入账号" class="fixed"></el-input>
         <el-button type="primary" @click="doFilter">搜索</el-button>
         <el-button type="primary" @click="doBack">返回</el-button>
         <div class="space">
@@ -18,7 +15,7 @@
       </div>
       <el-table :data="tableData.slice((currpage - 1) * pagesize, currpage *
       pagesize)" align="center">
-        <el-table-column prop="user_name" label="书目编号" sortable width="180">
+        <el-table-column prop="book_number" label="书目编号" sortable width="180">
         </el-table-column>
         <el-table-column prop="book_name" label="书名" sortable>
         </el-table-column>
@@ -38,9 +35,7 @@
         </el-table-column>
       </el-table>
       <el-pagination background layout="prev, pager, next, sizes, total,
-      jumper" :page-sizes="[5, 10, 15, 20]" :page-size="pagesize"
-      :total="tableData.length" @current-change="handleCurrentChange"
-      @size-change="handleSizeChange">
+      jumper" :page-sizes="[5, 10, 15, 20]" :page-size="pagesize" :total="tableData.length" @current-change="handleCurrentChange" @size-change="handleSizeChange">
       </el-pagination>
     </div>
   </div>
@@ -184,7 +179,7 @@ export default {
 }
 
 .fixed {
-   width: 240px
+  width: 240px;
 }
 
 .login-container {
