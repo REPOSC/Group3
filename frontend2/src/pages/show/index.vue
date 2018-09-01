@@ -12,11 +12,11 @@
     </div>
     <div class="function">
       <div class="to-community" @click="to_community">
-        <img src="https://daisy-donald.cn/image/community.png">
+        <img src="/static/img/community.png">
         <p>社群</p>
       </div>
       <div class="to-ranking" @click="to_ranking">
-        <img src="https://daisy-donald.cn/image/ranking.png">
+        <img src="https://daisy-donald.cn/image/extend.png">
         <p>排行榜</p>
       </div>
       <div class="to-mine" @click="to_mine">
@@ -140,20 +140,14 @@ export default {
       let save = this
       wx.navigateTo({
         url:
-          '../community/main?username=' +
-          save.username +
-          '&level=' +
-          save.level
+          '../community/main?username=' + save.username + '&level=' + save.level
       })
     },
     to_ranking() {
       let save = this
       wx.navigateTo({
         url:
-          '../ranking/main?username=' +
-          save.username +
-          '&level=' +
-          save.level
+          '../ranking/main?username=' + save.username + '&level=' + save.level
       })
     },
     to_mine: function() {

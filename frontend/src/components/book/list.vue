@@ -32,13 +32,16 @@
     <div class="card">
       <div class="title space"> 词汇表 </div>
       <div class="space" v-for="(word,index) in words">
-        <Word v-bind:index="index" @get_text="get_text" @get_audio="get_guide_audio"></Word>
+        <Word v-bind:index="index" @get_text="get_text"
+        @get_audio="get_guide_audio"></Word>
       </div>
       <el-button @click="add_word"> 添加新单词 </el-button>
     </div>
     <div class="space">
       <div class="space" v-for="(page,index) in pages">
-        <Page v-bind:index="index" @get_english="get_book_english_text" @get_chinese="get_book_chinese_text" @get_audio="get_book_audio" @get_picture="get_book_picture"></Page>
+        <Page v-bind:index="index" @get_english="get_book_english_text"
+        @get_chinese="get_book_chinese_text" @get_audio="get_book_audio"
+        @get_picture="get_book_picture"></Page>
       </div>
       <el-button @click="add_page"> 添加新的书页 </el-button>
     </div>
@@ -46,7 +49,8 @@
       <div class="card">
         <div class="title space">添加第一个游戏</div>
         <div class="space" v-for="(page,index) in first_selections">
-          <First_item v-bind:index="index" @get_text="get_firstgame_text" @get_picture="get_firstgame_picture"></First_item>
+          <First_item v-bind:index="index" @get_text="get_firstgame_text"
+          @get_picture="get_firstgame_picture"></First_item>
         </div>
         <el-button @click="add_first_selection"> 添加新的连线组合 </el-button>
       </div>
@@ -59,7 +63,8 @@
         </div>
         <el-radio-group class="space" v-model="second_selections.answer">
           <el-radio v-for="(item, index) in 4" :label=index>
-            <Picture_item v-bind:index=index @get_picture="get_secondgame_picture"></Picture_item>
+            <Picture_item v-bind:index=index
+            @get_picture="get_secondgame_picture"></Picture_item>
           </el-radio>
         </el-radio-group>
       </div>
@@ -69,10 +74,12 @@
         <el-input v-model="third_selections.text"></el-input>
         <div class="space align">
           <div class="input-title displayed">在这里添加图片</div>
-          <input type="file" class="file-btn displayed" accept="image/*" @change="get_thirdgame_picture">
+          <input type="file" class="file-btn displayed" accept="image/*"
+          @change="get_thirdgame_picture">
         </div>
         <div class="space">
-          <img v-bind:src="third_selections.picture_addr" :class="third_selections.picture?'picture':'hidden'">
+          <img v-bind:src="third_selections.picture_addr"
+          :class="third_selections.picture?'picture':'hidden'">
         </div>
         <el-radio-group class="space" v-model="third_selections.splits">
           <el-radio :label=2> 分成 4 张图片（2x2） </el-radio>
@@ -86,14 +93,17 @@
         <div class="input-title space">
           在这里放入四张图片文件，并选择正确的选项
         </div>
-        <el-radio-group class="space" v-model="fourth_selections.answer" @change="get_fourthgame_answer">
+        <el-radio-group class="space" v-model="fourth_selections.answer"
+        @change="get_fourthgame_answer">
           <el-radio v-for="(item, index) in 4" :label=index>
-            <Picture_item v-bind:index=index @get_picture="get_fourthgame_picture"></Picture_item>
+            <Picture_item v-bind:index=index
+            @get_picture="get_fourthgame_picture"></Picture_item>
           </el-radio>
         </el-radio-group>
         <div class="space align">
           <div class="input-title displayed">在这里放入单词的音频</div>
-          <input class="file-btn displayed" type="file" accept="audio/*" @change="get_fourthgame_audio">
+          <input class="file-btn displayed" type="file" accept="audio/*"
+          @change="get_fourthgame_audio">
         </div>
       </div>
     </div>
@@ -105,7 +115,8 @@
     <el-button type="primary" @click="submit"> 上传书籍 </el-button>
     <div class="card" v-if="tableData[0]['booknumber']">
       <el-table :data="tableData" height="100">
-        <el-table-column prop="booknumber" width="100px" align="center" label="书籍编号"></el-table-column>
+        <el-table-column prop="booknumber" width="100px" align="center" label="
+        书籍编号"></el-table-column>
         <el-table-column prop="bookname" align="center" label="书籍名">
         </el-table-column>
       </el-table>

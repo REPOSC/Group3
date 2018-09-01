@@ -16,7 +16,8 @@
         size="40" />
     </div>
     <div class="picGroup">
-      <img :class="pic.pic_border_color" :key="pic.index" v-for="pic in pics" :isanswer="pic.isanswer"
+      <img :class="pic.pic_border_color" :key="pic.index" v-for="pic in pics"
+      :isanswer="pic.isanswer"
       :src="pic.src" mode="aspectFit" @click="choose(pic)" />
     </div>
     <div v-bind:class="word_class">
