@@ -3,11 +3,13 @@
   <div>
     <div class="shrink">
       <div class="userText">
-        <span class="userName">{{items.user_name}}：『{{items.book_num}}』： 《{{items.book_name}}》
+        <span class="userName">{{items.user_name}}：『{{items.book_num}}』：
+          《{ {items.book_name}}》
         </span>
       </div>
       <div class="align right">
-        <el-button type="danger" icon="el-icon-delete" circle @click="deldaka"></el-button>
+        <el-button type="danger" icon="el-icon-delete" circle
+        @click="deldaka"></el-button>
       </div>
     </div>
     <div class="text">
@@ -34,7 +36,8 @@
             <span class="userName">{{i.shuo_user_id}}</span>
           </div>
           <div class="align right">
-            <el-button type="danger" icon="el-icon-delete" circle @click="delcomment(i.commentid)"></el-button>
+            <el-button type="danger" icon="el-icon-delete" circle
+            @click="delcomment(i.commentid)"></el-button>
           </div>
         </div>
         <div class="wrap_drop space">{{i.commenting}}</div>
@@ -364,6 +367,7 @@ export default {
 .shrink {
   width: 80%;
 }
+
 .screen {
   width: 33%;
   height: 300px;

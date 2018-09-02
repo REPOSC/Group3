@@ -3,7 +3,8 @@
     <div class="card demonstration">
       <div class="title space">学生数据统计</div>
       <div>
-        <el-input v-model="TableDataName" :placeholder="search_method?'账号':'昵称'" class="searchbox"></el-input>
+        <el-input v-model="TableDataName" :placeholder="search_method?'账号':
+        '昵称'" class="searchbox"></el-input>
         <el-button type="primary" @click="doFilter">搜索</el-button>
         <el-button type="primary" @click="doBack">返回</el-button>
         <div class="space">

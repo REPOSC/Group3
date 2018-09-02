@@ -2,18 +2,26 @@
   <div>
     <div class="card">
       <div>
-        <el-input v-model="tableDataName" placeholder="请输入账号" class="wide"></el-input>
+        <el-input v-model="tableDataName" placeholder="请输入账号"
+        class="wide"></el-input>
         <span class="demonstration">带快捷选项</span>
-        <el-date-picker v-model="visitDate" value-format="yyyy-MM-dd" type="daterange" align="right" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" :picker-options="pickerOptions2">
+        <el-date-picker v-model="visitDate" value-format="yyyy-MM-dd"
+        type="daterange" align="right" unlink-panels range-separator="至"
+        start-placeholder="开始日期" end-placeholder="结束日期"
+        :picker-options="pickerOptions2">
         </el-date-picker>
         <el-button type="primary" @click="doFilter">搜索</el-button>
         <el-button type="primary" @click="doback">返回</el-button>
       </div>
     </div>
     <div>
-      <zone v-bind:items="item" class="card" align="center" @dakalist="dakalist" v-for="item in my_texts"></zone>
+      <zone v-bind:items="item" class="card" align="center"
+      @dakalist="dakalist" v-for="item in my_texts"></zone>
       <div>
-        <el-pagination background layout="prev, pager, next, sizes, total, jumper" :page-sizes="[5, 10, 15, 20]" :page-size="pagesize" :total="this.tableData.length" @current-change="handleCurrentChange" @size-change="handleSizeChange">
+        <el-pagination background layout="prev, pager, next, sizes, total,
+        jumper" :page-sizes="[5, 10, 15, 20]" :page-size="pagesize"
+        :total="this.tableData.length" @current-change="handleCurrentChange"
+        @size-change="handleSizeChange">
         </el-pagination>
       </div>
     </div>

@@ -13,7 +13,8 @@
       <span>{{ word }}</span>
     </div>
     <div class="pic-group">
-      <img :class="pic.img_border_color" :key="pic.index" v-for="pic in pics" :isanswer="pic.isanswer"
+      <img :class="pic.img_border_color" :key="pic.index" v-for="pic in pics"
+      :isanswer="pic.isanswer"
       :src="pic.src" mode="aspectFit" @click="choose(pic)" />
     </div>
   </div>

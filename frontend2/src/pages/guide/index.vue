@@ -9,7 +9,7 @@
         <img src="https://daisy-donald.cn/image/yellow-tap.png">
         <p class="subtitle">本书导读</p>
       </div>
-      <p :key="index" v-for="(one,index) in ones">
+      <p class="content" :key="index" v-for="(one,index) in ones">
         {{ index-0+1 }}、{{ one }}
       </p>
     </div>
@@ -18,7 +18,7 @@
         <img src="https://daisy-donald.cn/image/green-tap.png">
         <p class="subtitle">本课重点知识</p>
       </div>
-      <p :key="index" v-for="(two,index) in twos">
+      <p class="content" :key="index" v-for="(two,index) in twos">
         {{ index-0+1 }}、{{ two }}
       </p>
     </div>
@@ -27,9 +27,10 @@
         <img src="https://daisy-donald.cn/image/red-tap.png">
         <p class="subtitle">词汇表与配音讲解</p>
       </div>
-      <div id="word" :class="is_play_audio[index]" :key="index" v-for="(three,index) in threes">
+      <div id="word" :class="is_play_audio[index]" :key="index" v-for="(three,
+      index) in threes">
         <div>{{ index-0+1 }}、{{ three }}</div>
-        <i-icon  type="customerservice_fill" size="30" @click="hear
+        <i-icon type="customerservice_fill" size="30" @click="hear
         (index)" />
       </div>
     </div>
@@ -217,5 +218,9 @@ img {
 
 .isplay {
   color: #ffb001;
+}
+
+.content {
+  display: block;
 }
 </style>
