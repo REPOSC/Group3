@@ -1,4 +1,4 @@
-call cd frontend
-call npm install
-call cd ../frontend2
-call npm install
+call vagrant plugin install vagrant-vbguest
+call vagrant up
+call vagrant ssh
+pause

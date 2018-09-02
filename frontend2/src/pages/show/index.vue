@@ -140,14 +140,20 @@ export default {
       let save = this
       wx.navigateTo({
         url:
-          '../community/main?username=' + save.username + '&level=' + save.level
+          '../community/main?username=' +
+          save.username +
+          '&level=' +
+          save.level
       })
     },
     to_ranking() {
       let save = this
       wx.navigateTo({
         url:
-          '../ranking/main?username=' + save.username + '&level=' + save.level
+          '../ranking/main?username=' +
+          save.username +
+          '&level=' +
+          save.level
       })
     },
     to_mine: function() {
