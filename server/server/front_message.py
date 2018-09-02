@@ -1,14 +1,24 @@
-# coding=utf-8
+"""This module include some functions about system message."""
 from django.http import JsonResponse
 from backend import models
-from . import debug
 
 
 def get_key(message):
+    ##
+    # Get the key of 'isread' and 'number'.
     return (message['isread'], -message['number'])
 
 
 def get_message(request):
+    ##
+    # Get all the messages.
+    # @param user_number id of the user
+    # @param user user information in database
+    # @param messages the list of all the message
+    # @param all_messages quary set of all the messages in database
+    # @param message_index index of message in the list
+    # @param message_status the status of one message
+    # @retval messages
     user_number = int(request.POST.get('username'))
     user = models.User_info.objects.get(number=user_number)
     messages = []
@@ -32,6 +42,13 @@ def get_message(request):
 
 
 def read_message(request):
+    ##
+    # Mark one message as read.
+    # @param user_number id of the user
+    # @param user user information in database
+    # @param message_number index of the message
+    # @param message quary set of messages in database
+    # @retval success whether successfully change the status or not
     user_number = int(request.POST.get('username'))
     user = models.User_info.objects.get(number=user_number)
     message_number = int(request.POST.get('message'))
@@ -53,6 +70,11 @@ def read_message(request):
 
 
 def unread_message(request):
+    ##
+    # Mark a message as unread.
+    # @param user_number id of the user
+    # @param message_number id of the message
+    # @retval success whether successfully change the status or not
     user_number = int(request.POST.get('username'))
     message_number = int(request.POST.get('message'))
     try:
@@ -66,6 +88,13 @@ def unread_message(request):
 
 
 def delete_message(request):
+    ##
+    # Delete one message.
+    # @param user_number id of the user
+    # @param message_number id of the message
+    # @param user user information in database
+    # @param message message information in database
+    # @retval success whether successfully delete the information or not
     user_number = int(request.POST.get('username'))
     user = models.User_info.objects.get(number=user_number)
     message_number = int(request.POST.get('message'))

@@ -1,0 +1,25 @@
+var settings_8py =
+[
+    [ "ALLOWED_HOSTS", "settings_8py.html#a31914f873e3ffccc9331af46e5639c32", null ],
+    [ "AUTH_PASSWORD_VALIDATORS", "settings_8py.html#afa4f91dcbd15efb6ef1c9c85cd399add", null ],
+    [ "AUTH_USER_MODEL", "settings_8py.html#a9271cde55acbc64341f6b92bd96398ef", null ],
+    [ "AUTHENTICATION_BACKENDS", "settings_8py.html#a1a82344175dcc2a8a064e7115709e38b", null ],
+    [ "BASE_DIR", "settings_8py.html#a9554f6abf1fc6f8876bbbe133f931443", null ],
+    [ "CORS_ORIGIN_ALLOW_ALL", "settings_8py.html#aafcfcd4d2902e618bd305c8be20c8be4", null ],
+    [ "DATABASES", "settings_8py.html#a87c061412bb836573eb80ca64c41eb7a", null ],
+    [ "DEBUG", "settings_8py.html#aebad6d5d301854541481af75cd156bf5", null ],
+    [ "INSTALLED_APPS", "settings_8py.html#a876f67b14ab89732e96802230716bfa5", null ],
+    [ "LANGUAGE_CODE", "settings_8py.html#ac3ee883fd05c4d958f90529e3223adb2", null ],
+    [ "MEDIA_ROOT", "settings_8py.html#a94e6c18997711efe6b20d57cdc926cf0", null ],
+    [ "MIDDLEWARE", "settings_8py.html#ad54bbc7d19daa980331dcb501ada823d", null ],
+    [ "ROOT_URLCONF", "settings_8py.html#aa7af087fc93f7d151b929b93c4ab361d", null ],
+    [ "SECRET_KEY", "settings_8py.html#ab8d2110094b934a5ddc0a81c4ea571b1", null ],
+    [ "STATIC_URL", "settings_8py.html#a5bafcf56b5fb4bce59a9708f2fe22737", null ],
+    [ "STATICFILES_DIRS", "settings_8py.html#a7d65229e7ab125337bceb0f620e4a951", null ],
+    [ "TEMPLATES", "settings_8py.html#adbaebd38cdf138a385bd622c9f0e09d9", null ],
+    [ "TIME_ZONE", "settings_8py.html#a62f15104ac727d78e485217c8dace107", null ],
+    [ "USE_I18N", "settings_8py.html#a501496bb9eebf876f856ce00cb31ec4b", null ],
+    [ "USE_L10N", "settings_8py.html#a6947077183732a85276c27919bb76de7", null ],
+    [ "USE_TZ", "settings_8py.html#a435704ad5cf4be3dde37458448a5ea02", null ],
+    [ "WSGI_APPLICATION", "settings_8py.html#abb97c48ba71a9d13b8e2857aa7768902", null ]
+];

@@ -1,10 +1,16 @@
+"""This module include some functions about the students of miniprogram."""
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth import authenticate, login, logout
 from backend import models
-from . import debug
 
 
 def auth_student(request):
+    ##
+    # Varify the login of the student.
+    # @param number id of the student
+    # @param user_pwd password of the student
+    # @retval status whether successfully login or not
+    # @retval last_level the last level the user reading
     number = request.POST.get('id', '')
     user_pwd = request.POST.get('password', '')
     user = authenticate(username=number, password=user_pwd, is_manager=False)
@@ -18,6 +24,14 @@ def auth_student(request):
 
 
 def change_process(request):
+    ##
+    # Change the process of one book.
+    # @param username id of the user
+    # @param booknumber id of the book
+    # @param process new process of the book
+    # @param user user information in database
+    # @param book book information in database
+    # @retval success whether successfully change the process or not
     username = request.POST.get('username')
     booknumber = request.POST.get('booknumber')
     process = request.POST.get('process')
@@ -36,6 +50,12 @@ def change_process(request):
 
 
 def change_user_image(request):
+    ##
+    # Change the profile image of the user.
+    # @param username id of the user
+    # @param picture new profile of the user
+    # @param user user information in database
+    # @retval success whether successfully change the profile or not
     username = request.POST.get('username')
     picture = request.FILES.get('image')
     user = models.User_info.objects.get(username=username)
@@ -45,6 +65,14 @@ def change_user_image(request):
 
 
 def get_process(request):
+    ##
+    # Get the process of one book.
+    # @param username id of the user
+    # @param booknumber id of the book
+    # @param bookprocess the process of the book
+    # @param user user information in database
+    # @param book book information in database
+    # @retval bookprocess
     username = request.POST.get('username')
     booknumber = request.POST.get('booknumber')
     user = models.User_info.objects.get(username=username)
@@ -61,6 +89,11 @@ def get_process(request):
 
 
 def get_user_image(request):
+    ##
+    # Get the profile of the user.
+    # @param username id of the user
+    # @param user user information in database
+    # @retval user.image
     username = request.GET.get('username')
     user = models.User_info.objects.get(username=username)
     try:
@@ -70,12 +103,23 @@ def get_user_image(request):
 
 
 def get_user_nickname(request):
+    ##
+    # Get the nickname of the user.
+    # @param username id of the user
+    # @param user user information in database
+    # @retval nickname the nickname of the user
     username = request.POST.get('username')
     user = models.User_info.objects.get(username=username)
     return JsonResponse({'nickname': user.nickname})
 
 
 def change_user_nickname(request):
+    ##
+    # Change the nickname of the user.
+    # @param username id of the user
+    # @param nickname new nickname of the user
+    # @param user user information in database
+    # @retval success whether successfully change the nickname or not
     username = request.POST.get('username')
     nickname = request.POST.get('nickname')
     user = models.User_info.objects.get(username=username)
@@ -85,6 +129,13 @@ def change_user_nickname(request):
 
 
 def change_user_password(request):
+    ##
+    # Change the password of the user.
+    # @param username id of the user
+    # @param old_password old password of the user
+    # @param new_password new password of the user
+    # @param user user information in database
+    # @retval success whether successfully change the password or not
     username = request.POST.get('username')
     old_password = request.POST.get('old_password')
     new_password = request.POST.get('new_password')
@@ -98,6 +149,12 @@ def change_user_password(request):
 
 
 def show_level(request):
+    ##
+    # Get all the levels that the current user has.
+    # @param number id of the user
+    # @param levels quary set of the levels of the user
+    # @param level_list level list that the user has
+    # @retval level_list
     number = request.POST.get('id', '')
     levels = models.User_level.objects.filter(number=number)
     level_list = []
@@ -107,6 +164,11 @@ def show_level(request):
 
 
 def change_last_level(request):
+    ##
+    # Change the last level that the user read last time.
+    # @param number id of the user
+    # @param new_last_level the changed last level of the user
+    # @retval success whether successfully change the level or not
     number = request.POST.get('id', '')
     new_last_level = request.POST.get('newlevel', '')
     try:
@@ -119,10 +181,19 @@ def change_last_level(request):
 
 
 def get_key(obj):
+    ##
+    # Get the level.
     return -obj['mark']
 
 
 def get_all_ranks(request):
+    ##
+    # Get all users' ranks in a level.
+    # @param level the book level
+    # @param all_people the users information who have this level
+    # @param all_book all books in this level
+    # @param result the list of rank result
+    # @retval result
     level = request.POST.get('level')
     all_people_level = models.User_level.objects.filter(level=level)
     all_book = models.Book_info.objects.filter(level=level)
@@ -158,5 +229,8 @@ def get_all_ranks(request):
 
 
 def log_out(request):
+    ##
+    # Logout the user.
+    # @retval success whether successfully logout or not
     logout(request)
     return JsonResponse({'success': 'true'})

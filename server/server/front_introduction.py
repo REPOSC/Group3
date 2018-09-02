@@ -1,9 +1,17 @@
+"""This module is to get the function introduction videos."""
 # coding=utf-8
 from django.http import HttpResponse
 from backend import models
 
 
 def get_video(request):
+    ##
+    # Get the introduction videos of functions.
+    # @param name_dict dict of the function name and the chinese
+    # @param item_name the key of one function
+    # @param name the video name of one function
+    # @param video_item the video of the choose name
+    # @retval video_item.video
     name_dict = {
         'guide':'亲子阅读指导',
         'ebook':'e-book',

@@ -1,10 +1,25 @@
+"""This module is to manage the forum by manager."""
 # coding=utf-8
 from django.http import JsonResponse
 from backend import models
-from . import debug
 
 
 def all_daka(request):
+    ##
+    # Get all punchs of every book.
+    # @param dakas objects including all information of every punch
+    # @param booknames all names of every book
+    # @param booknumbers the number of every book
+    # @param usernumbers the number of every punch person
+    # @param comments the texts of every punch
+    # @param times the time when all person punched
+    # @param likenums the number of persons who liked every punched
+    # @retval booknames
+    # @retval booknums booknumbers
+    # @retval usernums usernumbers
+    # @retval likenums
+    # @retval times
+    # @retval comments
     dakas = models.User_punch.objects.all()
     booknumbers = []
     booknames = []
@@ -36,6 +51,17 @@ def all_daka(request):
 
 
 def daka_comment(request):
+    ##
+    # Get all comments of one book punch.
+    # @param book_num the number of one book
+    # @param user_name the name of the punch person
+    # @param bookdakas objects including all information of punchs which we need
+    # @param comments the texts of every punch
+    # @param comment_user_number_ids the id of the person who comment the punch
+    # @param commentids the id of punch comment
+    # @retval comments
+    # @retval comment_user_number_ids
+    # @retval commentids
     book_num = request.POST.get('book_num')
     user_name = request.POST.get('user_name')
     bookdakas = models.User_comment.objects.filter(book_number=book_num,
@@ -55,6 +81,12 @@ def daka_comment(request):
 
 
 def daka_like(request):
+    ##
+    # Get the people who like one book punch.
+    # @param book_num the number of one book
+    # @param user_name the number of book punch person
+    # @param daka_people the people who like one book punch
+    # @retval like_nicknames the people who like one book punch
     book_num = request.POST.get('book_num')
     user_name = request.POST.get('user_name')
     dakalikes = models.User_like.objects.filter(book_number=book_num,
@@ -80,6 +112,10 @@ def daka_like(request):
 
 
 def del_comment(request):
+    ##
+    # Delete comment of one book punch.
+    # @param comment_id the id of one book punch comment
+    # @retval success whether delete the comment successfully
     comment_id = request.POST.get('commentid')
     try:
         models.User_comment.objects.filter(id=comment_id).delete()
@@ -89,6 +125,11 @@ def del_comment(request):
 
 
 def del_punch(request):
+    ##
+    # Delete one book punch.
+    # @param book_num the number of one book
+    # @param user_name the number of book punch person
+    # @retval success whether delete the book punch successfully
     book_num = request.POST.get('book_num')
     user_name = request.POST.get('user_name')
     try:

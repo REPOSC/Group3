@@ -27,10 +27,9 @@
         <img src="https://daisy-donald.cn/image/red-tap.png">
         <p class="subtitle">词汇表与配音讲解</p>
       </div>
-      <div id="word" :class="is_play_audio[index]" :key="index" v-for="(three,
-      index) in threes">
+      <div id="word" :class="is_play_audio[index]" :key="index" v-for="(three,index) in threes">
         <div>{{ index-0+1 }}、{{ three }}</div>
-        <i-icon type="customerservice_fill" size="30" @click="hear
+        <i-icon  type="customerservice_fill" size="30" @click="hear
         (index)" />
       </div>
     </div>
@@ -180,6 +179,10 @@ title {
   margin: 30px;
 }
 
+.content {
+  display: block;
+}
+
 .explain {
   display: block;
   margin: 15px auto;
@@ -218,9 +221,5 @@ img {
 
 .isplay {
   color: #ffb001;
-}
-
-.content {
-  display: block;
 }
 </style>

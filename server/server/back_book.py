@@ -1,14 +1,22 @@
+"""This module includes some functions of books."""
 # coding=utf-8
 from io import BytesIO
 from PIL import Image
 from django.http import JsonResponse
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from backend import models
-from . import debug
 from . import tools
 
 
 def get_book_info(request):
+    ##
+    # Get a book information.
+    # @param book_name tne name of one book
+    # @param book_level the level of one book
+    # @param book_introduction the introduction of one book
+    # @param book_persual the persual of one book is intensive or extensive
+    # @param book_num the number of all book which is filtered
+    # @retval book one object has book information
     book_name = request.POST.get('bookname')
     book_level = request.POST.get('level')
     book_level = int(book_level) - 1
@@ -29,6 +37,17 @@ def get_book_info(request):
 
 
 def put_guides(request, book):
+    ##
+    # Add the guide of one book.
+    # @param book_guides tne guide text of one book
+    # @param book_knowledges the knowledge of one book
+    # @param word_texts the texts of one book words
+    # @param word_audios the audios of one book words
+    # @param book_guide the guide of one book
+    # @param book_number the number of one book
+    # @param word_content the content of a word
+    # @param word_sound the sound of a word
+    # @param word_number the number of a word in book words
     book_guides = request.POST.getlist('guides')
     book_knowledges = request.POST.getlist('knowledges')
     word_texts = request.POST.getlist('word_text')
@@ -58,6 +77,13 @@ def put_guides(request, book):
 
 
 def put_pages(request, book):
+    ##
+    # Add the pages of one book.
+    # @param page_english_texts the text of every page English
+    # @param page_chinese_texts the text of every page Chinese
+    # @param page_audios the audios of every book
+    # @param page_pictures the pictures of every book
+    # @param book.pages the length of one book
     page_english_texts = request.POST.getlist('book_english_text')
     page_chinese_texts = request.POST.getlist('book_chinese_text')
     page_audios = request.FILES.getlist('book_audio')
@@ -77,6 +103,11 @@ def put_pages(request, book):
 
 
 def put_game1(request, book):
+    ##
+    # Add the first game of one book.
+    # @param first_game_texts the text of the first game
+    # @param first_game_pictures the picture of the first game
+    # @param number the number of the book
     first_game_texts = request.POST.getlist('first_game_text')
     first_game_pictures = request.FILES.getlist('first_game_picture')
     for i in range(len(first_game_texts)):
@@ -89,6 +120,13 @@ def put_game1(request, book):
 
 
 def put_game2(request, book):
+    ##
+    # Add the second game of one book.
+    # @param second_game_text the text of the second game
+    # @param true_value the true answer of the second game
+    # @param false_value_one the first wrong answer of the second game
+    # @param false_value_two the second wrong answer of the second game
+    # @param false_value_three the third wrong answer of the second game
     second_game_text = request.POST.get('second_game_text')
     second_game_answer = int(request.POST.get('second_game_answer'))
     second_game_pictures = request.FILES.getlist('second_game_picture')
@@ -104,6 +142,17 @@ def put_game2(request, book):
 
 
 def put_game3(request, book):
+    ##
+    # Add the third game of one book.
+    # @param third_game_text the text of the third game
+    # @param third_game_splits the way to split the game
+    # @param third_game_picture the picture of the third game
+    # @param third_game_spliting_picture the picture of the third game
+    # @param every_part_x the length of every splited pictures
+    # @param every_part_y the height of every splited pictures
+    # @param tmp_image the splited pictures of the third game
+    # @param tmp_image_bytes the bytes file of the pictures
+    # @param tmp_upload_file the file to upload the picture
     third_game_text = request.POST.get('third_game_text')
     third_game_splits = int(request.POST.get('third_game_splits'))
     third_game_picture = request.FILES.get('third_game_picture')
@@ -141,6 +190,17 @@ def put_game3(request, book):
 
 
 def put_game4(request, book):
+    ##
+    # Add the fourth game of one book.
+    # @param fourth_game_text the text of the fourth game
+    # @param fourth_game_audio the audio of the fourth game
+    # @param fourth_game_answer the answer of the fourth game
+    # @param fourth_game_selection the selection of the fourth game
+    # @param number the number of the book
+    # @param true_value the true answer of the fourth game
+    # @param false_value_one the first wrong answer of the fourth game
+    # @param false_value_two the second wrong answer of the fourth game
+    # @param false_value_three the third wrong answer of the fourth game
     fourth_game_text = request.POST.get('fourth_game_text')
     fourth_game_audio = request.FILES.get('fourth_game_audio')
     fourth_game_answer = int(request.POST.get('fourth_game_answer'))
@@ -158,6 +218,10 @@ def put_game4(request, book):
 
 
 def put_expands(request, book):
+    ##
+    # Add the punch requirements of one book.
+    # @param expand_text the text of the one book punch requirements
+    # @number the number of one book
     expand_text = request.POST.get('expand')
     if expand_text != '':
         expand = models.Book_punch_requirement.objects.create(
@@ -168,6 +232,10 @@ def put_expands(request, book):
 
 
 def get_book(request):
+    ##
+    # Get the book we wanted.
+    # @param book an object including all information of one book
+    # @retval booknumber the number of one book
     try:
         book = get_book_info(request)
         put_guides(request, book)
@@ -184,6 +252,21 @@ def get_book(request):
 
 
 def all_book(request):
+    ##
+    # Get all books we owned.
+    # @param books objects including all information of one book
+    # @param book_names all names of every book
+    # @param book_numbers the number of every book
+    # @param levels the level of every book
+    # @param persuals the persual of every book is intensive or extensive
+    # @param readings the number of persons who have read every book
+    # @param readeds the number of persons who have finished  every book
+    # @retval book_name book_names
+    # @retval book_number book_numbers
+    # @retval levels
+    # @retval persuals
+    # @retval readings
+    # @retval readeds
     books = models.Book_info.objects.all()
     book_names = []
     book_numbers = []
@@ -216,6 +299,10 @@ def all_book(request):
 
 
 def del_book(request):
+    ##
+    # Delete one book.
+    # @param booknumber the number of one book
+    # @revatl success whether successfully delete the book
     booknumber = request.POST.get('book_number')
     book = models.Book_info.objects.get(number=booknumber)
     models.Punch_content.objects.filter(book_number=book).delete()

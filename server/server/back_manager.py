@@ -1,3 +1,4 @@
+"""This module includes some functions of manager."""
 # coding=utf-8
 from django.http import JsonResponse
 from django.contrib.auth import authenticate, login
@@ -5,6 +6,13 @@ from backend import models
 
 
 def add_manager(request):
+    ##
+    # Create a new manager account.
+    # @param manager_name nickname of the new manager
+    # @param password password of the new manager
+    # @param manager_num id of the new manager
+    # @retval manager_num
+    # @retval password
     manager_name = request.POST.get('username')
     password = request.POST.get('password')
     manager_num = 100001
@@ -25,6 +33,12 @@ def add_manager(request):
 
 
 def auth_manager(request):
+    ##
+    # Varify the login of the manager and superuser.
+    # @param number id of the user
+    # @param user_pwd password of the user
+    # @param user the user information in the database
+    # @retval status the status of the user
     number = request.POST.get('id', '')
     user_pwd = request.POST.get('password', '')
     user = authenticate(username=number, password=user_pwd)
@@ -41,6 +55,12 @@ def auth_manager(request):
 
 
 def change_manager(request):
+    ##
+    # Change the password of the manager
+    # @param manager_name id of the manager to change
+    # @param password old password of this manager
+    # @param manager the manager information in the database
+    # @retval success whether successfully change the password or not
     manager_name = request.POST.get('username')
     password = request.POST.get('password')
     try:
@@ -54,6 +74,10 @@ def change_manager(request):
 
 
 def del_manager(request):
+    ##
+    # Delete the manager account.
+    # @param manager_name id of the manager to delete
+    # @retval success whether successfully delete the manager or not
     manager_name = request.POST.get('username')
     try:
         models.User_info.objects.get(
@@ -64,6 +88,13 @@ def del_manager(request):
 
 
 def get_managers(request):
+    ##
+    # Get the informations of the manager.
+    # @param managers quaryset of the managers information in database
+    # @param manager_names list of the manager names
+    # @param manager_numbers list of the manager ids
+    # @retval manager_names
+    # @retval manager_numbers
     managers = models.User_info.objects.filter(is_manager=1)
     manager_names = []
     manager_numbers = []
@@ -77,6 +108,12 @@ def get_managers(request):
 
 
 def change_selfpassword(request):
+    ##
+    # Change the password of the current user.
+    # @param manager_name id of current user
+    # @param password new password of the user
+    # @param oldpassword old password of the user
+    # @retval success whether successfully change the password or not
     manager_name = request.POST.get('username')
     password = request.POST.get('password')
     oldpassword = request.POST.get('oldpassword')
@@ -91,6 +128,13 @@ def change_selfpassword(request):
 
 
 def get_manager_info(request):
+    ##
+    # Get the informations of a manager.
+    # @param username id of the manager
+    # @param manager informations of the manager in database
+    # @retval nickname the nickname of the manager
+    # @retval time the created time of the manager account
+    # @retval power is superuser or not
     username = request.POST.get('username')
     manager = models.User_info.objects.get(username=username)
     return JsonResponse({
