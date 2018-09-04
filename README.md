@@ -40,7 +40,7 @@
 >
 > 在虚拟机环境中输入`cd /vagrant`，然后执行共享目录中的boot.sh，即输入 `./boot.sh`。
 >
-> 执行完后在虚拟机环境中执行`python manage.py createsuperuser`，创建超级管理员一名，创建成功后执行`python manage.py runserver 0.0.0.0:8000`，启动后端服务器。
+> 执行完后在虚拟机环境中依次执行`cd /vagrant/server` `python manage.py createsuperuser`，创建超级管理员一名，创建成功后执行`python manage.py runserver 0.0.0.0:8000`，启动后端服务器。
 
 #### 5. 启动本地服务器
 
